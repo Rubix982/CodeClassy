@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MemberModule } from 'src/member/member.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import ormConfig from 'ormconfig';
+import { ClassroomModule } from 'src/classroom/classroom.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import ormConfig from 'ormconfig';
     }),
     TypeOrmModule.forRoot(ormConfig),
     MemberModule,
+    ClassroomModule,
   ],
   controllers: [AppController],
   providers: [AppService],
