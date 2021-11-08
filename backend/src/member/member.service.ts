@@ -10,9 +10,7 @@ export class MemberService {
     private readonly memberRepository: Repository<Member>,
   ) {}
   async findAll() {
-    const members = await this.memberRepository.find({
-      relations: ['classrooms'],
-    });
+    const members = await this.memberRepository.find();
     return members;
   }
 }
