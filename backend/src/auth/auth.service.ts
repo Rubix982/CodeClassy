@@ -57,7 +57,6 @@ export class AuthService {
     );
 
     const jwtPayload = entityTransformer.fromEntity(member);
-    console.log(jwtPayload);
     return this.jwtService.sign({ ...jwtPayload });
   }
 }
