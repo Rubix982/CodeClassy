@@ -6,6 +6,9 @@ import { MemberModule } from 'src/member/member.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import ormConfig from 'ormconfig';
 import { ClassroomModule } from 'src/classroom/classroom.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { CryptoModule } from 'src/crypto/crypto.module';
+import { MemberVerificationModule } from 'src/member-verification/member-verification.module';
 
 @Module({
   imports: [
@@ -15,6 +18,9 @@ import { ClassroomModule } from 'src/classroom/classroom.module';
     TypeOrmModule.forRoot(ormConfig),
     MemberModule,
     ClassroomModule,
+    AuthModule,
+    MemberVerificationModule,
+    CryptoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
