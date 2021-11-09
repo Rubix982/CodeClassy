@@ -1,4 +1,5 @@
 import React , { useState } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
 import TextField from '@mui/material/TextField'
 import Select from '@mui/material/Select';
@@ -27,6 +28,8 @@ const RegisterForm= () =>
                         <h2> Codeclassy</h2>
                         <h1> Create your Codeclassy Account</h1>
                     </div>
+
+
 
                     <div className={RegisterFormStyling.leftforminputs}>
                         <div className={RegisterFormStyling.textinput}>
@@ -62,6 +65,16 @@ const RegisterForm= () =>
 
                         </div>
                         
+                    </div>
+
+
+                    <div className={RegisterFormStyling.leftformfooter}>
+
+                        <Link href="/login">
+                            <a className={RegisterFormStyling.signin}> Sign in instead </a>
+                        </Link>
+
+                        <button className={RegisterFormStyling.register}> Sign up </button>
                     </div>
 
                 </div>

@@ -28,7 +28,7 @@
     flex-direction: column;
     width: 100%;
     height: 25%;
-    background-color: chocolate;
+    /* background-color: chocolate; */
 }
 
 .leftformheader h2 {
@@ -56,7 +56,7 @@
     flex-direction: column;
     height: 55%;
     width: 100%;
-    background-color: brown;
+    /* background-color: brown; */
 }
 
 .textinput {
@@ -70,7 +70,41 @@
 }
 
 .leftformfooter {
-    background-color: darkgray;
+    /* background-color: darkgray; */
+    display: inline-flex;
+    height: 20%;
+    width: 100%;
+}
+
+.signin{
+    color: #4285f4;
+    height: 15%;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 8%;
+    font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
+}
+
+.signin:hover {
+    color: #1b66c9;
+    cursor: pointer;
+}
+
+.register {
+    background-color: #4285f4;
+    margin-top: 5%;
+    margin-left: 30%;
+    height: 35%;
+    width: 30%;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 5%;
+    font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
+}
+
+.register:hover{
+    background-color: #1b66c9;
+    cursor: pointer;
 }
 
 .rightform {
@@ -78,7 +112,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: crimson;
+    /* background-color: crimson; */
 }
 
 .rightform h2 {

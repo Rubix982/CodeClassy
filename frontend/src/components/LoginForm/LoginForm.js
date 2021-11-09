@@ -46,7 +46,7 @@ const LoginForm= () =>
                         <a className={LoginFormStyling.createaccount}> Create account </a>
                     </Link>
 
-                    <button className={LoginFormStyling.signin}> Sign In</button>
+                    <button className={LoginFormStyling.signin}> Sign in</button>
                     
                 </div>
 
