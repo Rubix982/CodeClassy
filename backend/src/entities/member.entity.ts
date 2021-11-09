@@ -1,5 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { Classroom } from './classroom.entity';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { MemberVerification } from './member-verification.entity';
 
 @Entity()
 export class Member {
@@ -14,4 +14,20 @@ export class Member {
 
   @Column()
   role: string;
+
+  @OneToOne(() => MemberVerification)
+  @JoinColumn()
+  verification: MemberVerification;
+
+  constructor(
+    __email: string,
+    __fullName: string,
+    __password: string,
+    __role: string,
+  ) {
+    this.email = __email;
+    this.fullName = __fullName;
+    this.password = __password;
+    this.role = __role;
+  }
 }
