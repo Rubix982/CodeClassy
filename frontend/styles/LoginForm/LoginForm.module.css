@@ -55,7 +55,6 @@
     width: 82%;
     height: 40%;
     padding: 0 9%;
-    /* background-color: black; */
 }
 
 .textinput {
@@ -90,4 +89,20 @@
 
 .createaccount:hover {
     color: #1b66c9;
+}
+
+.signin{
+    background-color: #4285f4;
+    margin-top: 12%;
+    margin-left: 49%;
+    height: 25%;
+    width: 25%;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 8%;
+}
+
+.signin:hover {
+    background-color: #1b66c9;
+    cursor: pointer;
 }

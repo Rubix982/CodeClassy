@@ -1,9 +1,7 @@
 import React from 'react'
 import LoginFormStyling from '../../../styles/LoginForm/LoginForm.module.css'
 import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button';
 import Link from 'next/link'
-import Box from '@mui/material/Box';
 
 
 const LoginForm= () =>
@@ -48,9 +46,7 @@ const LoginForm= () =>
                         <a className={LoginFormStyling.createaccount}> Create account </a>
                     </Link>
 
-                    <Box mt={7} ml={27}>
-                        <Button style={{textTransform: 'capitalize'}} size="medium" variant="contained">Sign in</Button>
-                    </Box>
+                    <button className={LoginFormStyling.signin}> Sign In</button>
                     
                 </div>
 
