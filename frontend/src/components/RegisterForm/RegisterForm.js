@@ -33,7 +33,7 @@ const RegisterForm= () =>
 
                     <div className={RegisterFormStyling.leftforminputs}>
                         <div className={RegisterFormStyling.textinput}>
-                            <TextField required label="Fullname" id="outlined-size-small" size="small" />
+                            <TextField required label="Full name" id="outlined-size-small" size="small" />
                         </div>
 
                         <div className={RegisterFormStyling.textinput}>

@@ -42,7 +42,7 @@ const LoginForm= () =>
 
                 <div className={LoginFormStyling.formfooter}>
                     
-                    <Link href="/forgotpassword">
+                    <Link href="/register">
                         <a className={LoginFormStyling.createaccount}> Create account </a>
                     </Link>
 
