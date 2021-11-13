@@ -1,0 +1,89 @@
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 385px;
+    background: linear-gradient(0deg, rgba(103, 80, 164, 0.14), rgba(103, 80, 164, 0.14)), #FFFBFE;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0px 10px 60px;
+}
+
+.classroomName {
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 80px;
+    line-height: 109px;
+    color: #000000;
+    margin: 24px 0px;
+}
+
+.teacherName {
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+    /* identical to box height, or 133% */
+    text-align: center;
+    /* M3/sys/light/primary */
+    color: #6750A4;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.classroomDescription {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
+    text-align: center;
+    color: #000000;
+}
+
+.gridContainerStyling {
+    padding: 10px 50px;
+}
+
+.sectionStyling {
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 60px;
+    line-height: 82px;
+    color: #000000;
+}
+
+.addSectionButtonStyling {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.addSectionStyling {
+    /* Auto Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 136px;
+    height: 64px;
+    font-size: 20px;
+    /* M3/sys/dark/on-secondary-container */
+    background: #E8DEF8;
+    border-radius: 100px;
+    /* M3/label/large */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+}
