@@ -4,6 +4,9 @@ import Image from 'next/image'
 import ProfileImage from '../../../public/assets/images/profile.svg'
 
 
+// To dos
+// From jwt payload, check role and generate teacher, collaborators view --> 3 dots for removing, granting a role/access to a member
+
 var Members =
 [
     {
