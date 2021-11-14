@@ -17,13 +17,13 @@
     text-align: center;
     letter-spacing: 0.1px;
     /* M3/sys/light/surface */
-    color: #FFFBFE;
+    color: #000000;
 }
 
 .profileLogoStyling {
     width: 64px;
     height: 64px;
-    background-color: #6750A4;
+    background-color: #e0e0e0;
     border-radius: 100px;
     display: flex;
     justify-content: center;

@@ -22,14 +22,14 @@ export default function Navbar() {
       <Grid item xs={4}>
         <ul className={styles.ulStyling}>
           <li className={styles.liStyling}>
-            <div className={styles.itemStyling}>
+            <div className={`${styles.itemStyling} ${styles.selectedItemStyling}`}>
               <a className={styles.linkStyling} href="#">Dashboard</a>
 
             </div>
           </li>
           <li className={styles.liStyling}>
             <div className={styles.itemStyling}>
-              <a className={styles.linkStyling} style={{ color: "#000000" }} href="#">People</a>
+              <a className={styles.linkStyling} style={{ color: "#5f6368" }} href="#">People</a>
             </div>
           </li>
         </ul>

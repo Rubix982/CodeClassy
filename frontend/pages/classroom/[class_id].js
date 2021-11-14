@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 import styles from '../../styles/Classroom/[class_id].module.css';
 
@@ -6,10 +7,34 @@ import Navbar from '../../src/components/Navbar/Navbar';
 import CardMedia from '../../src/components/Classroom/CardMedia';
 
 import {
-    Grid
+    Grid,
+    Box,
+    Button,
+    Typography,
+    Modal
 } from '@mui/material';
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
 export default function Classroom() {
+
+    const router = useRouter();
+    const { class_id } = router.query;
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);    
+
     return (
         <div>
             <Navbar />

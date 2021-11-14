@@ -20,7 +20,7 @@ export default function CardMedia() {
             </CardContent>
             <div className={styles.designationStyling}>
                 <p>
-                    Assigned to "<a href="mailto:saifulislam84210@gmail.com"> saifulislam84210@gmail.com</a>"
+                    Assigned to <a href="mailto:saifulislam84210@gmail.com" style={{textDecoration: "none"}}>saifulislam84210@gmail.com</a>
                 </p>
             </div>
         </Card>
