@@ -70,11 +70,16 @@ const RegisterForm= () =>
 
                     <div className={RegisterFormStyling.leftformfooter}>
 
-                        <Link href="/login">
-                            <a className={RegisterFormStyling.signin}> Sign in instead </a>
-                        </Link>
+                        <div className={RegisterFormStyling.leftformfooterleft}>
+                            <Link href="/login">
+                                <a className={RegisterFormStyling.signin}> Sign in instead </a>
+                            </Link>
+                        </div>
 
-                        <button className={RegisterFormStyling.register}> Sign up </button>
+                        <div className={RegisterFormStyling.leftformfooterright}>
+                            <button className={RegisterFormStyling.register}> Sign up </button>
+                        </div>
+
                     </div>
 
                 </div>
