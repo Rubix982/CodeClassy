@@ -8,7 +8,7 @@
     display: grid;
     grid-template-columns: 60% 40%;
     border: 1px solid #dadce0;
-    width: 56vw;
+    width: 880px;
     height: 90vh;
     margin: auto;
     margin-top: 3.5vh;
@@ -70,18 +70,27 @@
 }
 
 .leftformfooter {
-    /* background-color: darkgray; */
-    display: inline-flex;
+    display: grid;
+    grid-template-columns: 50% 50%;
     height: 20%;
     width: 100%;
 }
 
+.leftformfooterleft {
+    display: flex;
+    align-items: center;
+}
+
+.leftformfooterright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .signin{
     color: #4285f4;
-    height: 15%;
     text-decoration: none;
     font-weight: bold;
-    margin-top: 8%;
     font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
 }
 
@@ -92,10 +101,8 @@
 
 .register {
     background-color: #4285f4;
-    margin-top: 5%;
-    margin-left: 30%;
-    height: 35%;
-    width: 30%;
+    height: 48px;
+    width: 120px;
     color: #ffffff;
     font-weight: 700;
     border-radius: 5%;
@@ -113,7 +120,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background-color: crimson; */
 }
 
 .rightform h2 {
@@ -124,4 +130,46 @@
     color: #202124;
     font-family: roboto,'Noto Sans Myanmar UI',arial,sans-serif;
     margin-bottom: 20%;
+}
+
+
+@media (max-width: 768px) { 
+
+    .form {
+        display: flex;
+        border: none;
+    }
+
+    .rightform {
+        display: none;
+    }
+
+    .container {
+        justify-content: flex-start;
+    }
+}
+
+
+@media (max-width: 480px) { 
+
+    .form {
+        display: flex;
+        border: none;
+    }
+
+    .leftformheader h2 {
+        font-size: 18px;
+    }
+
+    .leftformheader h1 {
+        font-size: 18px;
+    }
+
+    .rightform {
+        display: none;
+    }
+
+    .container {
+        justify-content: center;
+    }
 }
