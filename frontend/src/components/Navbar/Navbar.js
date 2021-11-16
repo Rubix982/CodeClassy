@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from '../../../styles/Navbar/navbar.module.css';
 
-import { Grid } from "@mui/material";
+import InvitationModal from './InvitationModal';
 
-import AddIcon from '@mui/icons-material/Add';
+import { Grid } from "@mui/material";
 
 export default function Navbar() {
   return (
@@ -24,7 +24,6 @@ export default function Navbar() {
           <li className={styles.liStyling}>
             <div className={`${styles.itemStyling} ${styles.selectedItemStyling}`}>
               <a className={styles.linkStyling} href="#">Dashboard</a>
-
             </div>
           </li>
           <li className={styles.liStyling}>
@@ -48,11 +47,7 @@ export default function Navbar() {
         >
           <Grid item>
             <ul className={styles.ulStyling}>
-              <li className={styles.iconStyling}>
-                <div className={styles.itemStyling}>
-                  <AddIcon />
-                </div>
-              </li>
+              <InvitationModal />
             </ul>
           </Grid>
           <Grid item>
