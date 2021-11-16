@@ -8,7 +8,7 @@ import {
     Button
 } from "@mui/material";
 
-export default function InvitationEmail() {
+export default function InvitationEmail({ emailFor }) {
 
     return (
         <div className={styles.emailSegment}>
@@ -22,7 +22,7 @@ export default function InvitationEmail() {
                     <TextField
                         hiddenLabel
                         id="filled-hidden-label-normal"
-                        defaultValue="Normal"
+                        defaultValue={`Send invites to ${emailFor}`}
                         variant="filled"
                         className={styles.emailTextField}
                     />

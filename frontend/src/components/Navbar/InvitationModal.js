@@ -3,7 +3,6 @@ import React from 'react';
 import styles from "../../../styles/Navbar/invitationModal.module.css";
 
 import InvitationNavbar from './InvitationNavbar';
-import InvitationEmail from './InvitationEmail';
 
 import { Grid, Box, Typography, Modal } from "@mui/material";
 
@@ -47,24 +46,10 @@ export default function InvitationModal() {
                     <Grid
                         container
                         direction="row"
-                        justifyContent="center"
+                        justifyContent="space-between"
                         alignItems="stretch"
                     >
-                        <Grid item xs={12}>
-                            <Grid
-                                container
-                                direction="row"
-                                justifyContent="space-between"
-                                alignItems="stretch"
-                            >
-                                <InvitationNavbar />
-                            </Grid>
-                        </Grid>
-                        <Grid
-                            item
-                            className={styles.invitationSection}>
-                            <InvitationEmail />
-                        </Grid>
+                        <InvitationNavbar />
                     </Grid>
                 </Box>
             </Modal>

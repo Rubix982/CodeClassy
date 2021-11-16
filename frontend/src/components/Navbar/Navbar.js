@@ -47,7 +47,7 @@ export default function Navbar() {
         >
           <Grid item>
             <ul className={styles.ulStyling}>
-              <InvitationModal />
+            <InvitationModal />
             </ul>
           </Grid>
           <Grid item>

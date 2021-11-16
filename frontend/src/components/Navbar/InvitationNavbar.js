@@ -1,35 +1,84 @@
 import React from 'react';
 
-import { Grid } from "@mui/material";
+import { Grid, Tabs, Tab, Typography, Box } from "@mui/material";
 
 import styles from '../../../styles/Navbar/invitationNavbar.module.css';
 
-export default function InvitationNavbar() {
+import InvitationEmail from './InvitationEmail';
+
+import PropTypes from 'prop-types';
+
+function TabPanel(props) {
+
+    const { children, value, index, ...other } = props;
+
     return (
-        <ul className={styles.ulStyling}>
-            <Grid item xs={4}>
-                <li className={styles.liStyling}>
-                    <div className={`${styles.itemStyling} ${styles.selectedItemStyling}`}>
-                        <div className={styles.selectedOptionForEmail}>
-                            <a className={`${styles.linkStyling}`} href="#">Students</a>
-                        </div>
-                    </div>
-                </li>
-            </Grid>
-            <Grid item xs={4}>
-                <li className={styles.liStyling}>
-                    <div className={styles.itemStyling}>
-                        <a className={styles.linkStyling} style={{ color: "#5f6368" }} href="#">Coordinators</a>
-                    </div>
-                </li>
-            </Grid>
-            <Grid item xs={5}>
-                <li className={styles.liStyling}>
-                    <div className={styles.itemStyling}>
-                        <a className={styles.linkStyling} style={{ color: "#5f6368" }} href="#">Teacher Assistants</a>
-                    </div>
-                </li>
-            </Grid>
-        </ul>
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography className={styles.tabTextStyling}>
+                        {children}
+                    </Typography>
+                </Box>
+            )}
+        </div>
     )
+};
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
+
+export default function InvitationNavbar() {
+
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    return (
+        <Box sx={{ width: '100%' }}>
+            <Box sx=
+                {
+                    {
+                        borderBottom: 1,
+                        borderColor: 'divider',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }
+                }
+            >
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                    <Tab label="Students" {...a11yProps(0)} />
+                    <Tab label="Coordinators" {...a11yProps(1)} />
+                    <Tab label="Teacher Assistants" {...a11yProps(2)} />
+                </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+                <InvitationEmail emailFor={'Students'} />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <InvitationEmail emailFor={'Coordinators'} />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <InvitationEmail emailFor={'Teacher Assistants'} />
+            </TabPanel>
+        </Box>
+    );
 }
