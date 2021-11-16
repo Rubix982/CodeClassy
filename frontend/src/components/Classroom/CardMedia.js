@@ -9,7 +9,7 @@ import {
 
 export default function CardMedia() {
     return (
-        <Card sx={{ minWidth: 275 }}>
+        <Card sx={{ minWidth: 200 }}>
             <CardContent className={styles.cardContentStyling}>
                 <div className={`${styles.profileLogoStyling}`}>
                     <span className={styles.profileTextStyling}>SUI</span>

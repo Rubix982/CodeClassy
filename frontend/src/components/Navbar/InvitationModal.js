@@ -16,7 +16,7 @@ const modalStyle = {
     transform: 'translate(-50%, -50%)',
     width: 900,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '1px solid #000',
     boxShadow: '0px 4px 8px 4px rgba(0, 0, 0, 0.25)',
     borderRadius: '28px',
 };
@@ -30,7 +30,9 @@ export default function InvitationModal() {
     return (
         <li className={styles.iconStyling}>
             <div className={styles.itemStyling} onClick={handleOpen}>
-                <AddIcon />
+                <span className={styles.addIconButtonStyling}>
+                    <AddIcon />
+                </span>
             </div>
             <Modal
                 open={open}
