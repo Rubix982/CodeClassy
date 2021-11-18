@@ -8,9 +8,11 @@ const LoginForm= () =>
 {
     return(
         <div className={LoginFormStyling.container}>
+
             <div className={LoginFormStyling.form}>
 
                 <div className={LoginFormStyling.formheader}>
+
                     <h1 className={LoginFormStyling.logo}>
                         Codeclassy
                     </h1>
@@ -22,6 +24,7 @@ const LoginForm= () =>
                     <h3>
                         Use your Codeclassy Account
                     </h3>
+
                 </div>
 
                 <div className={LoginFormStyling.inputs}>
@@ -42,15 +45,20 @@ const LoginForm= () =>
 
                 <div className={LoginFormStyling.formfooter}>
                     
-                    <Link href="/register">
-                        <a className={LoginFormStyling.createaccount}> Create account </a>
-                    </Link>
+                    <div className={LoginFormStyling.formfooterleft}>
+                        <Link href="/register">
+                            <a className={LoginFormStyling.createaccount}> Create account </a>
+                        </Link>
+                    </div>
 
-                    <button className={LoginFormStyling.signin}> Sign in</button>
+                    <div className={LoginFormStyling.formfooterright}>
+                        <button className={LoginFormStyling.signin}> Sign in</button>
+                    </div>
                     
                 </div>
 
             </div>
+
         </div>
     )
 }
