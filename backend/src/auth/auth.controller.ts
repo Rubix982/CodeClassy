@@ -9,7 +9,7 @@ import {
 import { AuthService } from './auth.service';
 import { SignInDto } from './signin.dto';
 import { SignUpDto } from './signup.dto';
-import { Response } from 'express';
+import { response, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -31,5 +31,13 @@ export class AuthController {
     response
       .status(HttpStatus.OK)
       .json({ message: 'User successfully signed in!' });
+  }
+
+  @Post('logout')
+  logout(@Res() response: Response) {
+    response.clearCookie('accessToken');
+    response
+      .status(HttpStatus.OK)
+      .json({ message: 'User successfully logged out' });
   }
 }

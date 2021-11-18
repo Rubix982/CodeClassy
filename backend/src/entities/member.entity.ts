@@ -15,8 +15,7 @@ export class Member {
   @Column()
   role: string;
 
-  @OneToOne(() => MemberVerification)
-  @JoinColumn()
+  @OneToOne(() => MemberVerification, (verification) => verification.member)
   verification: MemberVerification;
 
   constructor(
