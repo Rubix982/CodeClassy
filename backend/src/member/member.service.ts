@@ -20,11 +20,17 @@ export class MemberService {
 
   async createMember(__member: Member) {
     const memberWithEmail = await this.memberRepository.findOne(__member.email);
+
     if (!memberWithEmail) {
-      const verificationEntity: MemberVerification =
-        await this.memberVerificationService.createVerificationEntity();
-      __member.verification = verificationEntity;
       await this.memberRepository.save(__member);
+
+      const verificationEntity: MemberVerification =
+        await this.memberVerificationService.createVerificationEntity(__member);
+
+      __member.verification = verificationEntity;
+      await this.memberRepository.update(__member.email, {
+        verification: verificationEntity,
+      });
     } else {
       throw new BadRequestException(['Account present for specified email']);
     }
@@ -34,6 +40,7 @@ export class MemberService {
     const member = this.memberRepository.findOne(__email, {
       relations: ['verification'],
     });
+
     return member;
   }
 }

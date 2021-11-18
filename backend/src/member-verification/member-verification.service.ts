@@ -13,12 +13,16 @@ export class MemberVerificationService {
     private readonly cryptoService: CryptoService,
   ) {}
 
-  async createVerificationEntity() {
+  async createVerificationEntity(__member: Member) {
     const hashString = this.cryptoService.generateHashString(30);
+
     const verificationEntity = this.memberVerificationRepository.create({
       hashString,
+      member: __member,
     });
+
     await this.memberVerificationRepository.save(verificationEntity);
+
     return verificationEntity;
   }
 }
