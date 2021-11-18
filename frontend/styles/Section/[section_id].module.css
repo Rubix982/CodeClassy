@@ -1,0 +1,9 @@
+.sectionContentContainerStyling {
+    display: block;
+}
+
+.backgroundStyling {
+    background-image: url('../../public/assets/wallpaper/1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
