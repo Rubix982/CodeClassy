@@ -66,18 +66,14 @@ export default function InvitationNavbar() {
             >
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Students" {...a11yProps(0)} />
-                    <Tab label="Coordinators" {...a11yProps(1)} />
-                    <Tab label="Teacher Assistants" {...a11yProps(2)} />
+                    <Tab label="Teacher Assistants" {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <InvitationEmail emailFor={'Students'} />
+                <InvitationEmail emailFor={'Student(s)'} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <InvitationEmail emailFor={'Coordinators'} />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <InvitationEmail emailFor={'Teacher Assistants'} />
+                <InvitationEmail emailFor={'Teacher Assistant(s)'} />
             </TabPanel>
         </Box>
     );

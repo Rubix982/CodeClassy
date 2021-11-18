@@ -41,8 +41,11 @@ export default function InvitationModal() {
             >
                 <Box sx={modalStyle}>
                     <Typography variant="h6" component="h2" className={styles.typographyTextBox}>
-                        <span className={styles.invitationText}>Send Invitations</span>
+                        <span className={styles.invitationText}>
+                            Send Invitations
+                        </span>
                     </Typography>
+
                     <Grid
                         container
                         direction="row"

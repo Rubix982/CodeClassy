@@ -6,7 +6,7 @@ import InvitationModal from './InvitationModal';
 
 import { Grid } from "@mui/material";
 
-export default function Navbar() {
+export default function Navbar({ isFeedPage = false }) {
   return (
     <Grid
       container
@@ -46,9 +46,13 @@ export default function Navbar() {
           alignItems="flex-start"
         >
           <Grid item>
-            <ul className={styles.ulStyling}>
-            <InvitationModal />
-            </ul>
+            {
+              isFeedPage
+              &&
+              <ul className={styles.ulStyling}>
+                <InvitationModal />
+              </ul>
+            }
           </Grid>
           <Grid item>
             <ul className={styles.ulStyling}>

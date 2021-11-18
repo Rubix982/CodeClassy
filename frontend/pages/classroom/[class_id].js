@@ -18,7 +18,7 @@ export default function Classroom() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar isFeedPage={false} />
             <Grid
                 container
                 direction="column"
@@ -28,9 +28,17 @@ export default function Classroom() {
                 <Grid item xs={6}>
                     <div className={styles.headerContainer}>
                         <div className={styles.titleContainer}>
-                            <span className={styles.classroomName}>Design, Defects & Restructuring</span>
-                            <span className={styles.teacherName}>Sayed Yousuf</span>
-                            <span className={styles.classroomDescription}>The presence of design defects in object oriented software can have a severe impact on the quality of software.The detection and correction of design ...</span>
+                            <span className={styles.classroomName}>
+                                Design, Defects &amp; Restructuring
+                            </span>
+                            
+                            <span className={styles.teacherName}>
+                                Sayed Yousuf
+                            </span>
+                            
+                            <span className={styles.classroomDescription}>
+                                The presence of design defects in object oriented software can have a severe impact on the quality of software.The detection and correction of design ...
+                            </span>
                         </div>
                     </div>
                 </Grid>

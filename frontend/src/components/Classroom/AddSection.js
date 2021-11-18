@@ -53,19 +53,59 @@ export default function AddSection() {
                         className={styles.formControlContainerStyling}
                     >
                         <FormControl className={styles.formControlStyling}>
-                            <Grid item>
-                                <Typography id="modal-modal-name" sx={{ mt: 2 }}>
-                                    <TextField className={styles.textFieldStyling} id="section-name" label="Name" variant="standard" />
+                            <Grid
+                                item
+                            >
+                                <Typography
+                                    id="modal-modal-name"
+                                    sx={{ mt: 2 }}
+                                >
+                                    <TextField
+                                        className={styles.textFieldStyling}
+                                        id="section-name"
+                                        label="Name"
+                                        variant="standard"
+                                    />
                                 </Typography>
                             </Grid>
-                            <Grid item
+                            <Grid
+                                item
                                 style={
                                     {
                                         paddingTop: "10px"
                                     }
-                                }>
-                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                    <TextField className={styles.textFieldStyling} id="section-description" label="Description" variant="standard" />
+                                }
+                            >
+                                <Typography
+                                    id="modal-modal-description"
+                                    sx={{ mt: 2 }}
+                                >
+                                    <TextField
+                                        className={styles.textFieldStyling}
+                                        id="section-description"
+                                        label="Description"
+                                        variant="standard"
+                                    />
+                                </Typography>
+                            </Grid>
+                            <Grid
+                                item
+                                style={
+                                    {
+                                        paddingTop: "10px"
+                                    }
+                                }
+                            >
+                                <Typography
+                                    id="modal-modal-description"
+                                    sx={{ mt: 2 }}
+                                >
+                                    <TextField
+                                        className={styles.textFieldStyling}
+                                        id="coordinator-email-invite"
+                                        label="Coordinator To Assign To"
+                                        variant="standard"
+                                    />
                                 </Typography>
                             </Grid>
                             <Grid
@@ -79,7 +119,9 @@ export default function AddSection() {
                                     }
                                 }
                             >
-                                <Grid item>
+                                <Grid
+                                    item
+                                >
                                     <Button
                                         variant="contained"
                                         className={styles.createButtonStyling}
@@ -91,7 +133,10 @@ export default function AddSection() {
                                         </span>
                                     </Button>
                                 </Grid>
-                                <Grid item>
+
+                                <Grid
+                                    item
+                                >
                                     <Button
                                         variant="contained"
                                         className={styles.cancelButtonStyling}

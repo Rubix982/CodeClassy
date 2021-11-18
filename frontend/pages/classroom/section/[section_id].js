@@ -17,7 +17,7 @@ export default function Section() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar isFeedPage={true} />
             <Grid
                 container
                 direction="column"
@@ -30,7 +30,7 @@ export default function Section() {
                     xs={6}
                     className={styles.backgroundStyling}
                 >
-                    &nbsp;
+                    <span className={styles.sectionNameStyling}>7A</span>
                 </Grid>
 
                 <Grid
@@ -44,7 +44,7 @@ export default function Section() {
                         alignItems="center"
                     >
                         <Announcement />
-                        
+
                         <Announcement />
                     </Grid>
                 </Grid>

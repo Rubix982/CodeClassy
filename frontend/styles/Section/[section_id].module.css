@@ -6,4 +6,19 @@
     background-image: url('../../public/assets/wallpaper/1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    height: 400px;
+    padding: 30px;
+}
+
+.sectionNameStyling {
+    font-family: 'Nokora';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 64px;
+    line-height: 89px;
+    display: flex;
+    letter-spacing: 0.1px;
+    color: #FFFFFF;
+    height: 100%;
+    align-items: end;
 }
