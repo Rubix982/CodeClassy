@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MemberVerification } from 'src/entities/member-verification.entity';
 import { Member } from 'src/entities/member.entity';
 import { MemberVerificationService } from 'src/member-verification/member-verification.service';
+import { StudentService } from 'src/Student/Student.service';
+import { TeacherService } from 'src/Teacher/Teacher.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -11,6 +13,8 @@ export class MemberService {
     @InjectRepository(Member)
     private readonly memberRepository: Repository<Member>,
     private readonly memberVerificationService: MemberVerificationService,
+    private readonly teacherService: TeacherService,
+    private readonly studentService: StudentService,
   ) {}
 
   async findAll() {
@@ -18,13 +22,37 @@ export class MemberService {
     return members;
   }
 
+  private async isMemberPresentWithEmail(__email: string) {
+    let isMemberPresent = false;
+    const memberWithEmail = await this.memberRepository.findOne(__email);
+
+    if (memberWithEmail) {
+      isMemberPresent = true;
+    }
+
+    return isMemberPresent;
+  }
+
+  private async createMemberRoleEntity(__member: Member) {
+    if (__member.role === 'Teacher') {
+      await this.teacherService.createTeacher(__member);
+    } else {
+      await this.studentService.createStudent(__member);
+    }
+  }
+
   async createMember(__member: Member) {
-    const memberWithEmail = await this.memberRepository.findOne(__member.email);
-    if (!memberWithEmail) {
+    const isMemberPresent = await this.isMemberPresentWithEmail(__member.email);
+
+    if (!isMemberPresent) {
+      await this.memberRepository.save(__member);
+
       const verificationEntity: MemberVerification =
-        await this.memberVerificationService.createVerificationEntity();
+        await this.memberVerificationService.createVerificationEntity(__member);
+
       __member.verification = verificationEntity;
       await this.memberRepository.save(__member);
+      await this.createMemberRoleEntity(__member);
     } else {
       throw new BadRequestException(['Account present for specified email']);
     }
@@ -34,6 +62,7 @@ export class MemberService {
     const member = this.memberRepository.findOne(__email, {
       relations: ['verification'],
     });
+
     return member;
   }
 }

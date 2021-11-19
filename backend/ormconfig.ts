@@ -10,6 +10,7 @@ const config: MysqlConnectionOptions = {
   database: process.env.MYSQL_DATABASE,
   entities: ['dist/**/*.entity.js'],
   synchronize: true,
+  logging: 'all',
 };
 
 export default config;
