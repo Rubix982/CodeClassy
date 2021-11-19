@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 
 import styles from '../../styles/Classroom/[class_id].module.css';
 
-import Navbar from '../../src/components/Navbar/Navbar';
-import CardMedia from '../../src/components/Classroom/CardMedia';
-import AddSection from '../../src/components/Classroom/AddSection';
+import Navbar from '@components/Navbar/Navbar';
+import CardMedia from '@components/Classroom/CardMedia';
+import AddSection from '@components/Classroom/AddSection';
 
 import {
     Grid

@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 
 import styles from '../../../styles/Section/[section_id].module.css';
 
-import Navbar from '../../../src/components/Navbar/Navbar';
-import Announcement from '../../../src/components/Section/Announcement';
+import Navbar from '@components/Navbar/Navbar';
+import Announcement from '@components/Section/Announcement';
 
 import {
     Grid
