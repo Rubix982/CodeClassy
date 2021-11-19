@@ -18,7 +18,7 @@ export default function Classroom() {
 
     return (
         <div>
-            <Navbar isFeedPage={false} />
+            <Navbar linkToPeoplePage={`/classroom/${class_id}/people`} isFeedPage={false} />
             <Grid
                 container
                 direction="column"
