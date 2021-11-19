@@ -6,7 +6,7 @@ import InvitationModal from './InvitationModal';
 
 import { Grid } from "@mui/material";
 
-export default function Navbar({ isFeedPage = false }) {
+export default function Navbar({ linkToPeoplePage, isFeedPage = false }) {
   return (
     <Grid
       container
@@ -28,7 +28,13 @@ export default function Navbar({ isFeedPage = false }) {
           </li>
           <li className={styles.liStyling}>
             <div className={styles.itemStyling}>
-              <a className={styles.linkStyling} style={{ color: "#5f6368" }} href="#">People</a>
+              <a
+                className={styles.linkStyling}
+                style={{ color: "#5f6368" }}
+                href={linkToPeoplePage}
+              >
+                People
+              </a>
             </div>
           </li>
         </ul>
