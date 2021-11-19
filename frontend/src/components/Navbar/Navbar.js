@@ -6,7 +6,23 @@ import InvitationModal from './InvitationModal';
 
 import { Grid } from "@mui/material";
 
-export default function Navbar({ linkToPeoplePage, isFeedPage = false }) {
+export default function Navbar({
+  linkToDashboardPage,
+  linkToPeoplePage,
+  isFeedPage = false,
+  isPeoplePage = false
+}) {
+
+  var dashboardTabStyling = `${styles.itemStyling}`;
+  var peopleTabStyling = `${styles.itemStyling}`;
+
+  if (isPeoplePage) {
+    peopleTabStyling += ` ${styles.selectedItemStyling}`;
+  }
+  else {
+    dashboardTabStyling += ` ${styles.selectedItemStyling}`;
+  }
+
   return (
     <Grid
       container
@@ -22,12 +38,17 @@ export default function Navbar({ linkToPeoplePage, isFeedPage = false }) {
       <Grid item xs={4}>
         <ul className={styles.ulStyling}>
           <li className={styles.liStyling}>
-            <div className={`${styles.itemStyling} ${styles.selectedItemStyling}`}>
-              <a className={styles.linkStyling} href="#">Dashboard</a>
+            <div className={dashboardTabStyling}>
+              <a
+                className={styles.linkStyling}
+                href={linkToDashboardPage}
+              >
+                Dashboard
+              </a>
             </div>
           </li>
           <li className={styles.liStyling}>
-            <div className={styles.itemStyling}>
+            <div className={peopleTabStyling}>
               <a
                 className={styles.linkStyling}
                 style={{ color: "#5f6368" }}

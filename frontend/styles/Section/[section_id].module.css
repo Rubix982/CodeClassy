@@ -20,5 +20,5 @@
     letter-spacing: 0.1px;
     color: #FFFFFF;
     height: 100%;
-    align-items: end;
+    align-items: flex-end;
 }

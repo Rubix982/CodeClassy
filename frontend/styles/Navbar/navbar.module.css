@@ -46,6 +46,7 @@
 }
 
 .itemStyling {
+    color: #5f6368;
     display: flex;
     text-align: center;
     justify-content: center;
