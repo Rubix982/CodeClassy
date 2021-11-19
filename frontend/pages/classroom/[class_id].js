@@ -18,7 +18,12 @@ export default function Classroom() {
 
     return (
         <div>
-            <Navbar linkToPeoplePage={`/classroom/${class_id}/people`} isFeedPage={false} />
+            <Navbar
+                linkToDashboardPage={router.asPath}
+                linkToPeoplePage={`${router.asPath}/people`}
+                isFeedPage={false}
+                isPeoplePage={false}
+            />
             <Grid
                 container
                 direction="column"
@@ -31,11 +36,11 @@ export default function Classroom() {
                             <span className={styles.classroomName}>
                                 Design, Defects &amp; Restructuring
                             </span>
-                            
+
                             <span className={styles.teacherName}>
                                 Sayed Yousuf
                             </span>
-                            
+
                             <span className={styles.classroomDescription}>
                                 The presence of design defects in object oriented software can have a severe impact on the quality of software.The detection and correction of design ...
                             </span>

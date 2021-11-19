@@ -9,18 +9,29 @@ import { Grid } from "@mui/material";
 export default function Navbar({
   linkToDashboardPage,
   linkToPeoplePage,
-  isFeedPage = false,
-  isPeoplePage = false
+  isFeedPage, // Is this the feed (section) page?
+  isPeoplePage // is the tab selected for the 'people' view?
 }) {
 
+  // Get basic styles first for the dashboard and the people tab
   var dashboardTabStyling = `${styles.itemStyling}`;
-  var peopleTabStyling = `${styles.itemStyling}`;
+  var dashboardTabTextStyling = `${styles.linkStyling}`
 
+  var peopleTabStyling = `${styles.itemStyling}`;
+  var peopleTabTextStyling = `${styles.linkStyling}`
+
+  // If this is the people's tab ...
   if (isPeoplePage) {
+    // ... Append the selected styles to the people tab
     peopleTabStyling += ` ${styles.selectedItemStyling}`;
+    peopleTabTextStyling += ` ${styles.selectedItemTextStyling}`;
+    dashboardTabTextStyling += ` ${styles.unSelectedItemTextStyling}`;
   }
   else {
+    // ... Append the selected styles to the dashboard tab
     dashboardTabStyling += ` ${styles.selectedItemStyling}`;
+    dashboardTabTextStyling += ` ${styles.selectedItemTextStyling}`;
+    peopleTabTextStyling += ` ${styles.unSelectedItemTextStyling}`;
   }
 
   return (
@@ -40,7 +51,7 @@ export default function Navbar({
           <li className={styles.liStyling}>
             <div className={dashboardTabStyling}>
               <a
-                className={styles.linkStyling}
+                className={dashboardTabTextStyling}
                 href={linkToDashboardPage}
               >
                 Dashboard
@@ -50,8 +61,7 @@ export default function Navbar({
           <li className={styles.liStyling}>
             <div className={peopleTabStyling}>
               <a
-                className={styles.linkStyling}
-                style={{ color: "#5f6368" }}
+                className={peopleTabTextStyling}
                 href={linkToPeoplePage}
               >
                 People

@@ -17,7 +17,12 @@ export default function Section() {
 
     return (
         <div>
-            <Navbar linkToPeoplePage={`/classroom/section/${section_id}/people`} isFeedPage={true} />
+            <Navbar
+                linkToPeoplePage={router.asPath}
+                linkToPeoplePage={`${router.asPath}/people`}
+                isFeedPage={true}
+                isPeoplePage={false}
+            />
             <Grid
                 container
                 direction="column"
