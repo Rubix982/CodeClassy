@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:5000/auth/signup",
+			"name": "SignUp request",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -35,7 +35,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/auth/signin",
+			"name": "SignIn request",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -64,7 +64,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/auth/logout",
+			"name": "Logout request",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -78,6 +78,34 @@
 					"path": [
 						"auth",
 						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Classroom creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"name\": \"Design Defect and Restructuring\",\n \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/classroom",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"classroom"
 					]
 				}
 			},

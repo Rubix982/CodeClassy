@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Teacher } from 'src/entities/Teacher.entity';
-import { TeacherService } from './Teacher.service';
+import { Teacher } from 'src/entities/teacher.entity';
+import { TeacherService } from './teacher.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Teacher])],
