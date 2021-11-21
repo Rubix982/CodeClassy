@@ -11,7 +11,7 @@ export class ClassroomController {
   constructor(private readonly classroomService: ClassroomService) {}
 
   @Post()
-  async create(
+  async createClassroom(
     @Body() __requestBody: CreateClassroomDTO,
     @RequestDecodedMember() __teacher: JWTPayload,
   ) {
