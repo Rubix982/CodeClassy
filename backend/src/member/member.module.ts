@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Member } from 'src/entities/member.entity';
 import { MemberVerificationModule } from 'src/member-verification/member-verification.module';
-import { StudentModule } from 'src/Student/Student.module';
-import { TeacherModule } from 'src/Teacher/Teacher.module';
+import { StudentModule } from 'src/student/Student.module';
+import { TeacherModule } from 'src/teacher/teacher.module';
 import { MemberController } from './member.controller';
 import { MemberService } from './member.service';
 @Module({

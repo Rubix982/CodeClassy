@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MemberVerification } from 'src/entities/member-verification.entity';
 import { Member } from 'src/entities/member.entity';
 import { MemberVerificationService } from 'src/member-verification/member-verification.service';
-import { StudentService } from 'src/Student/Student.service';
-import { TeacherService } from 'src/Teacher/Teacher.service';
+import { StudentService } from 'src/student/student.service';
+import { TeacherService } from 'src/teacher/teacher.service';
 import { Repository } from 'typeorm';
 
 @Injectable()

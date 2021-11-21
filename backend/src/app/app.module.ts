@@ -9,8 +9,8 @@ import { ClassroomModule } from 'src/classroom/classroom.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { CryptoModule } from 'src/crypto/crypto.module';
 import { MemberVerificationModule } from 'src/member-verification/member-verification.module';
-import { TeacherModule } from 'src/Teacher/Teacher.module';
-import { StudentModule } from 'src/Student/Student.module';
+import { TeacherModule } from 'src/teacher/teacher.module';
+import { StudentModule } from 'src/student/Student.module';
 
 @Module({
   imports: [
