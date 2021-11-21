@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { ClassroomGuard } from './classroom.guard';
