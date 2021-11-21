@@ -17,4 +17,10 @@ export class MemberVerification {
 
   @Column()
   hashString: string;
+
+  @OneToOne(() => Member, (member) => member.verification, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'memberEmail' })
+  member: Member;
 }
