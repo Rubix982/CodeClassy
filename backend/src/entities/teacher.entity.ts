@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { Classroom } from './classroom.entity';
 import { Member } from './member.entity';
+import { Section } from './section.entity';
 
 @Entity()
 export class Teacher {
@@ -19,4 +20,7 @@ export class Teacher {
 
   @OneToMany(() => Classroom, (classroom) => classroom.createdBy)
   classrooms: Classroom[];
+
+  @OneToMany(() => Section, (section) => section.teacher)
+  sections: Section[];
 }

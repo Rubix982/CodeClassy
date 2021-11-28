@@ -3,8 +3,10 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Section } from './section.entity';
 import { Teacher } from './teacher.entity';
 
 @Entity()
@@ -18,9 +20,15 @@ export class Classroom {
   @Column()
   description: string;
 
+  @Column()
+  createdBy: string;
+
   @ManyToOne(() => Teacher, (teacher) => teacher.classrooms, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn()
-  createdBy: Teacher;
+  @JoinColumn({ name: 'createdBy' })
+  owner: Teacher;
+
+  @OneToMany(() => Section, (section) => section.classroom)
+  sections: Section[];
 }
