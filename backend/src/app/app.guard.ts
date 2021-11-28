@@ -3,20 +3,24 @@ import { AuthService } from 'src/auth/auth.service';
 import { JWTPayload } from 'src/auth/signin.dto';
 
 @Injectable()
-export class TeacherGuard implements CanActivate {
+export class AppGuard implements CanActivate {
+  private shouldForwardRequest = false;
+
   constructor(private readonly authService: AuthService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    let shouldForwardRequest = false;
+    const { accessToken } = request.cookies;
 
-    const decodedMember: JWTPayload = request.member;
-
-    if (decodedMember.role === 'Teacher') {
+    try {
+      const decodedMember: JWTPayload =
+        await this.authService.validateAccessToken(accessToken);
       request.member = decodedMember;
-      shouldForwardRequest = true;
-
-      return shouldForwardRequest;
+      this.shouldForwardRequest = true;
+    } catch (error) {
+      this.shouldForwardRequest = false;
     }
+
+    return this.shouldForwardRequest;
   }
 }
