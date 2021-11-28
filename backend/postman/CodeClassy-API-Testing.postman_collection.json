@@ -111,6 +111,32 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Classroom GET request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/classroom/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"classroom",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "d439b02b-bfed-4fc0-96fb-62cd9f0dcab3"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

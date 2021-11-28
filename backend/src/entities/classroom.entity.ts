@@ -20,11 +20,14 @@ export class Classroom {
   @Column()
   description: string;
 
+  @Column()
+  createdBy: string;
+
   @ManyToOne(() => Teacher, (teacher) => teacher.classrooms, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn()
-  createdBy: Teacher;
+  @JoinColumn({ name: 'createdBy' })
+  owner: Teacher;
 
   @OneToMany(() => Section, (section) => section.classroom)
   sections: Section[];

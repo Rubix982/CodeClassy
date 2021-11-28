@@ -15,9 +15,21 @@ export class ClassroomService {
     const classroom = this.classroomRepository.create({
       name: __requestBody.name,
       description: __requestBody.description,
-      createdBy: __teacher,
+      owner: __teacher,
     });
 
     await this.classroomRepository.save(classroom);
+  }
+
+  async getClassroom(__classroomID: string): Promise<Classroom> {
+    const classroom = await this.classroomRepository.findOne(__classroomID);
+    return classroom;
+  }
+
+  async getClassroomWithSections(__classroomID: string): Promise<Classroom> {
+    const classroom = await this.classroomRepository.findOne(__classroomID, {
+      relations: ['sections'],
+    });
+    return classroom;
   }
 }
