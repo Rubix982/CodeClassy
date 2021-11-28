@@ -137,6 +137,42 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Section creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"4E\",\n    \"assignedTo\": \"mrfoobar1@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/classroom/:id/section",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"classroom",
+						":id",
+						"section"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "d439b02b-bfed-4fc0-96fb-62cd9f0dcab3"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

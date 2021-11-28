@@ -4,13 +4,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import e from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { ClassroomOwnerRouteHandler } from './handlers/get-classroom-handler';
 
 @Injectable()
-export class GetClassroomGuard implements CanActivate {
+export class ClassroomOwnerGuard implements CanActivate {
   private shouldForwardRequest = false;
 
   constructor(

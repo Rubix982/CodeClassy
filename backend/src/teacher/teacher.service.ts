@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Member } from 'src/entities/member.entity';
 import { Teacher } from 'src/entities/teacher.entity';
@@ -17,7 +17,14 @@ export class TeacherService {
   }
 
   async findTeacher(__email: string) {
-    const requestedTeacher = await this.teacherRepository.findOne(__email);
-    return requestedTeacher;
+    try {
+      const requestedTeacher = await this.teacherRepository.findOneOrFail(
+        __email,
+      );
+      return requestedTeacher;
+    } catch (error) {}
+    throw new BadRequestException([
+      'Could not find teacher with provided email',
+    ]);
   }
 }
