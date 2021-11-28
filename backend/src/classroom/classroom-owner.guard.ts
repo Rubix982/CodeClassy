@@ -12,10 +12,7 @@ import { ClassroomOwnerRouteHandler } from './handlers/get-classroom-handler';
 export class ClassroomOwnerGuard implements CanActivate {
   private shouldForwardRequest = false;
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly rootHandler: ClassroomOwnerRouteHandler,
-  ) {}
+  constructor(private readonly rootHandler: ClassroomOwnerRouteHandler) {}
 
   handleError(__error: Error) {
     if (__error instanceof NotFoundException) {
@@ -27,11 +24,8 @@ export class ClassroomOwnerGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const { accessToken } = request.cookies;
-
     try {
-      const decodedMember: JWTPayload =
-        await this.authService.validateAccessToken(accessToken);
+      const decodedMember: JWTPayload = request.member;
       this.shouldForwardRequest = await this.rootHandler.handle(
         request,
         decodedMember,

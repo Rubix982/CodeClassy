@@ -7,7 +7,9 @@ import { SectionService } from 'src/section/section.service';
 import { TeacherService } from 'src/teacher/teacher.service';
 import { ClassroomService } from './classroom.service';
 import { ClassroomOwnerGuard } from './classroom-owner.guard';
+import { AppGuard } from '../app/app.guard';
 
+@UseGuards(AppGuard)
 @Controller('classroom')
 export class ClassroomController {
   constructor(
