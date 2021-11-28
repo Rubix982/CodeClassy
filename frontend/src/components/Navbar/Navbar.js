@@ -2,11 +2,38 @@ import React from 'react';
 
 import styles from '../../../styles/Navbar/navbar.module.css';
 
+import InvitationModal from './InvitationModal';
+
 import { Grid } from "@mui/material";
 
-import AddIcon from '@mui/icons-material/Add';
+export default function Navbar({
+  linkToDashboardPage,
+  linkToPeoplePage,
+  isFeedPage, // Is this the feed (section) page?
+  isPeoplePage // is the tab selected for the 'people' view?
+}) {
 
-export default function Navbar() {
+  // Get basic styles first for the dashboard and the people tab
+  var dashboardTabStyling = `${styles.itemStyling}`;
+  var dashboardTabTextStyling = `${styles.linkStyling}`
+
+  var peopleTabStyling = `${styles.itemStyling}`;
+  var peopleTabTextStyling = `${styles.linkStyling}`
+
+  // If this is the people's tab ...
+  if (isPeoplePage) {
+    // ... Append the selected styles to the people tab
+    peopleTabStyling += ` ${styles.selectedItemStyling}`;
+    peopleTabTextStyling += ` ${styles.selectedItemTextStyling}`;
+    dashboardTabTextStyling += ` ${styles.unSelectedItemTextStyling}`;
+  }
+  else {
+    // ... Append the selected styles to the dashboard tab
+    dashboardTabStyling += ` ${styles.selectedItemStyling}`;
+    dashboardTabTextStyling += ` ${styles.selectedItemTextStyling}`;
+    peopleTabTextStyling += ` ${styles.unSelectedItemTextStyling}`;
+  }
+
   return (
     <Grid
       container
@@ -22,14 +49,23 @@ export default function Navbar() {
       <Grid item xs={4}>
         <ul className={styles.ulStyling}>
           <li className={styles.liStyling}>
-            <div className={`${styles.itemStyling} ${styles.selectedItemStyling}`}>
-              <a className={styles.linkStyling} href="#">Dashboard</a>
-
+            <div className={dashboardTabStyling}>
+              <a
+                className={dashboardTabTextStyling}
+                href={linkToDashboardPage}
+              >
+                Dashboard
+              </a>
             </div>
           </li>
           <li className={styles.liStyling}>
-            <div className={styles.itemStyling}>
-              <a className={styles.linkStyling} style={{ color: "#5f6368" }} href="#">People</a>
+            <div className={peopleTabStyling}>
+              <a
+                className={peopleTabTextStyling}
+                href={linkToPeoplePage}
+              >
+                People
+              </a>
             </div>
           </li>
         </ul>
@@ -47,13 +83,13 @@ export default function Navbar() {
           alignItems="flex-start"
         >
           <Grid item>
-            <ul className={styles.ulStyling}>
-              <li className={styles.iconStyling}>
-                <div className={styles.itemStyling}>
-                  <AddIcon />
-                </div>
-              </li>
-            </ul>
+            {
+              isFeedPage
+              &&
+              <ul className={styles.ulStyling}>
+                <InvitationModal />
+              </ul>
+            }
           </Grid>
           <Grid item>
             <ul className={styles.ulStyling}>

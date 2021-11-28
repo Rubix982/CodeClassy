@@ -1,4 +1,4 @@
-import LoginForm from '../src/components/LoginForm/LoginForm'
+import LoginForm from '@components/LoginForm/LoginForm'
 import Head from 'next/head'
 
 export default function Login() {

@@ -52,6 +52,9 @@
 
 .gridContainerStyling {
     padding: 10px 50px;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
 }
 
 .sectionStyling {
@@ -63,30 +66,6 @@
     color: #000000;
 }
 
-.addSectionButtonStyling {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.addSectionStyling {
-    /* Auto Layout */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 136px;
-    height: 64px;
-    font-size: 20px;
-    /* M3/sys/dark/on-secondary-container */
-    background: #4087F2;
-    color: #ffffff;
-    border-radius: 20px;
-    /* M3/label/large */
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: 0.1px;
+.gridItemSpacing {
+    padding: 20px 60px;
 }

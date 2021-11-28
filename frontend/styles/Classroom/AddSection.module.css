@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400&family=Inter:wght@100&display=swap');
+
+.addSectionButtonStyling {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.addSectionButtonStyling:hover {
+    cursor: pointer;
+}
+
+.addSectionStyling {
+    /* Auto Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 136px;
+    height: 64px;
+    font-size: 20px;
+    /* M3/sys/dark/on-secondary-container */
+    background: #4087F2;
+    color: #ffffff;
+    border-radius: 20px;
+    /* M3/label/large */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+}
+
+.invitationText {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 41px;
+    color: #000000;
+}
+
+.typographyTextBox {
+    padding: 30px 30px 0px 30px;
+}
+
+.createButtonStyling {
+    background: #22A2A7;
+    /* 1 dp */
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    height: 40px;
+}
+
+.cancelButtonStyling {
+    background: #858585;
+    /* 1 dp */
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    height: 40px;    
+}
+
+.createButtonStyling:hover {
+    background: #0F494C;
+    /* 1 dp */
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+}
+
+.cancelButtonStyling:hover {
+    background: #3D3D3D;
+    /* 1 dp */
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+}
+
+.createButtonTextStyling {
+    /* 1. Heading / H4 20 pt */
+    font-family: 'Cairo', sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    /* identical to box height, or 130% */
+    text-align: center;
+    letter-spacing: -0.2px;
+    /* On Color */
+    color: #FFFFFF;
+}
+
+.cancelButtonTextStyling {
+    /* 1. Heading / H4 20 pt */
+    font-family: 'Cairo', sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    /* identical to box height, or 130% */
+    text-align: center;
+    letter-spacing: -0.2px;
+    /* On Color */
+    color: #FFFFFF;
+    width: 120px;
+}
+
+.formControlContainerStyling {
+    padding: 40px;
+    padding-top: 0px;
+}
+
+.formControlStyling {
+    width: 100%;
+}
+
+.textFieldStyling {
+    width: 100%
+}

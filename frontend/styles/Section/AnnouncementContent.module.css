@@ -1,0 +1,24 @@
+.titleStyling {
+    /* M3/body/large */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+    letter-spacing: 0.5px;
+    /* M3/sys/light/on-surface */
+    color: #1C1B1F;
+}
+
+.subTitleStyling {
+
+}
+
+.supportingTextStyling {
+
+}
+
+.gridContentAlignStyling {
+    padding: 0px 32px;
+}

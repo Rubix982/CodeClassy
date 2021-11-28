@@ -16,6 +16,8 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    text-align: center;
+    justify-content: center;
 }
 
 .liStyling {
@@ -40,10 +42,10 @@
     text-align: center;
     justify-content: center;
     letter-spacing: 0.1px;
-    color: #1967d2;
 }
 
 .itemStyling {
+    color: #5f6368;
     display: flex;
     text-align: center;
     justify-content: center;
@@ -93,4 +95,28 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    text-decoration: none;
+}
+
+.tabTextStyling {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 24px;
+    /* identical to box height, or 100% */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+}
+
+.selectedItemTextStyling {
+    color: #1967d2;
+    text-decoration: none;
+}
+
+.unSelectedItemTextStyling {
+    color: #5f6368;
+    text-decoration: none;
 }
