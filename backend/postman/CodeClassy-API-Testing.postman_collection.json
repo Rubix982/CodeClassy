@@ -98,13 +98,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/classroom",
+					"raw": "http://localhost:5000/teacher/classroom",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
+						"teacher",
 						"classroom"
 					]
 				}
