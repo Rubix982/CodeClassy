@@ -3,7 +3,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { JWTPayload } from 'src/auth/signin.dto';
 
 @Injectable()
-export class ClassroomGuard implements CanActivate {
+export class TeacherGuard implements CanActivate {
   constructor(private readonly authService: AuthService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
