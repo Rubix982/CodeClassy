@@ -42,7 +42,12 @@ export class SectionService {
 
   async getSection(__sectionID: string) {
     const section = await this.sectionRepository.findOne(__sectionID);
-    return section;
+
+    if (section) {
+      return section;
+    } else {
+      throw new NotFoundException([`Could not find section: ${__sectionID}`]);
+    }
   }
 
   async getSectionWithStudents(__sectionID: string) {

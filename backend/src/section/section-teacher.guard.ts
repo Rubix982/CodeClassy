@@ -1,17 +1,16 @@
 import {
-  CanActivate,
   ExecutionContext,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { JWTPayload } from 'src/auth/signin.dto';
-import { ClassroomOwnerRouteHandler } from 'src/handlers/classroom-owner-handler';
+import { SectionTeacherRouteHandler } from 'src/handlers/section-teacher-handler';
 
 @Injectable()
-export class ClassroomOwnerGuard implements CanActivate {
+export class SectionTeacherGuard {
   private shouldForwardRequest = false;
 
-  constructor(private readonly rootHandler: ClassroomOwnerRouteHandler) {}
+  constructor(private readonly rootHandler: SectionTeacherRouteHandler) {}
 
   handleError(__error: Error) {
     if (__error instanceof NotFoundException) {
@@ -23,6 +22,7 @@ export class ClassroomOwnerGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
+
     try {
       const decodedMember: JWTPayload = request.member;
       this.shouldForwardRequest = await this.rootHandler.handle(

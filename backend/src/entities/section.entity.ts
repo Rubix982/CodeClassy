@@ -21,14 +21,20 @@ export class Section {
   @Column()
   name: string;
 
+  @Column()
+  classroomID: string;
+
+  @Column()
+  teacherEmail: string;
+
   @ManyToOne(() => Classroom, (classroom) => classroom.sections, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn()
+  @JoinColumn({ name: 'classroomID' })
   classroom: Classroom;
 
   @ManyToOne(() => Teacher, (teacher) => teacher.sections)
-  @JoinColumn()
+  @JoinColumn({ name: 'teacherEmail' })
   teacher: Teacher;
 
   @ManyToMany(() => Student, (student) => student.sections, {

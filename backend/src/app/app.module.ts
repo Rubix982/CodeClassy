@@ -11,6 +11,7 @@ import { CryptoModule } from 'src/crypto/crypto.module';
 import { MemberVerificationModule } from 'src/member-verification/member-verification.module';
 import { TeacherModule } from 'src/teacher/teacher.module';
 import { StudentModule } from 'src/student/Student.module';
+import { SectionModule } from 'src/section/section.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { StudentModule } from 'src/student/Student.module';
     MemberVerificationModule,
     TeacherModule,
     StudentModule,
+    SectionModule,
     CryptoModule,
   ],
   controllers: [AppController],

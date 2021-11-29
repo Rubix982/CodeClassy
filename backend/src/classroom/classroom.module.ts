@@ -6,7 +6,7 @@ import { SectionModule } from 'src/section/section.module';
 import { TeacherModule } from 'src/teacher/teacher.module';
 import { ClassroomController } from './classroom.controller';
 import { ClassroomService } from './classroom.service';
-import { ClassroomOwnerRouteHandler } from './handlers/get-classroom-handler';
+import { ClassroomOwnerRouteHandler } from 'src/handlers/classroom-owner-handler';
 
 @Module({
   imports: [
