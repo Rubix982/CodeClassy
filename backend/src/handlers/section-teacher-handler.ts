@@ -19,12 +19,10 @@ export class SectionTeacherRouteHandler extends RouteHandler {
     const section = await this.sectionService.getSection(__request.params.id);
 
     if (section.teacherEmail === __decodedMember.email) {
-      console.log('gege');
       shouldForwardRequest = true;
     } else {
       shouldForwardRequest = await super.handle(__request, __decodedMember);
     }
-    console.log('aaaaaa');
     return shouldForwardRequest;
   }
 }
