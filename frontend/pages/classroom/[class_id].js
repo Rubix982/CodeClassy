@@ -3,93 +3,68 @@ import { useRouter } from 'next/router';
 
 import styles from '../../styles/Classroom/[class_id].module.css';
 
-import Navbar from '@components/Navbar/Navbar';
-import CardMedia from '@components/Classroom/CardMedia';
-import AddSection from '@components/Classroom/AddSection';
+import {
+    Box,
+    Tab,
+    Grid
+} from "@mui/material";
 
 import {
-    Grid
-} from '@mui/material';
+    TabContext,
+    TabList,
+    TabPanel
+} from "@mui/lab";
+
+import ClassroomInformation from "@components/Classroom/ClassroomInformation";
+import MembersView from '@components/MembersView/MembersView';
 
 export default function Classroom() {
 
     const router = useRouter();
     const { class_id } = router.query;
 
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     return (
         <div>
-            <Navbar
-                linkToDashboardPage={router.asPath}
-                linkToPeoplePage={`${router.asPath}/people`}
-                isFeedPage={false}
-                isPeoplePage={false}
-            />
-            <Grid
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="stretch"
-            >
-                <Grid item xs={6}>
-                    <div className={styles.headerContainer}>
-                        <div className={styles.titleContainer}>
-                            <span className={styles.classroomName}>
-                                Design, Defects &amp; Restructuring
-                            </span>
-
-                            <span className={styles.teacherName}>
-                                Sayed Yousuf
-                            </span>
-
-                            <span className={styles.classroomDescription}>
-                                The presence of design defects in object oriented software can have a severe impact on the quality of software.The detection and correction of design ...
-                            </span>
-                        </div>
-                    </div>
-                </Grid>
-
-                <Grid item xs={2} className={styles.gridItemSpacing}>
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="stretch"
-                        className={styles.gridContainerStyling}
-                    >
-                        <Grid item>
-                            <span className={styles.sectionStyling}>Sections</span>
-                        </Grid>
-
-                        <Grid item>
-                            <AddSection />
-                        </Grid>
-                    </Grid>
-                </Grid>
-
-                <Grid item xs={4} className={styles.gridItemSpacing}>
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="stretch"
-                        className={styles.gridContainerStyling}
-                        spacing={4}
-                    >
-
-                        <Grid item xs={4}>
-                            <CardMedia />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <CardMedia />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <CardMedia />
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
+            <TabContext value={value}>
+                <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    <TabList onChange={handleChange} aria-label="lab API tabs example" centered>
+                        <Tab label="Dashboard" value="1" />
+                        <Tab label="People" value="2" />
+                        <Tab>
+                            <Grid
+                                container
+                                direction="row"
+                                justifyContent="flex-end"
+                                alignItems="flex-start"
+                            >
+                                <ul className={styles.ulStyling}>
+                                    <li className={`${styles.iconStyling} ${styles.itemStyling}`}>
+                                        <div className={`${styles.profileLogoStyling}`}>
+                                            <span className={styles.profileTextStyling}>SUI</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </Grid>
+                        </Tab>
+                    </TabList>
+                </Box>
+                <TabPanel value="1" className={styles.tabPanelStyling}>
+                    <ClassroomInformation
+                        title="Design, Defects And Restructuring"
+                        teacher="Sayed Yousuf"
+                        description="The presence of design defects in object oriented software can have a severe impact on the quality of software.The detection and correction of design ..."
+                    />
+                </TabPanel>
+                <TabPanel value="2" className={styles.tabPanelStyling}>
+                    <MembersView />
+                </TabPanel>
+            </TabContext>
         </div >
     )
 }
