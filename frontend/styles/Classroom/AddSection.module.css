@@ -25,7 +25,7 @@
     color: #ffffff;
     border-radius: 20px;
     /* M3/label/large */
-    font-family: Roboto;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
@@ -33,7 +33,7 @@
 }
 
 .invitationText {
-    font-family: 'Noto Sans';
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 30px;
@@ -77,8 +77,8 @@
 
 .createButtonTextStyling {
     /* 1. Heading / H4 20 pt */
-    font-family: 'Cairo', sans-serif;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -92,8 +92,8 @@
 
 .cancelButtonTextStyling {
     /* 1. Heading / H4 20 pt */
-    font-family: 'Cairo', sans-serif;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

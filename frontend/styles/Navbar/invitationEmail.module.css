@@ -26,7 +26,7 @@
 
 .emailButtonText {
     /* 1. Heading / H4 20 pt */
-    font-family: Inter;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;

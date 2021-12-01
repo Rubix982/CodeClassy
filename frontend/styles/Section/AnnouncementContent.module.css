@@ -1,6 +1,6 @@
 .titleStyling {
     /* M3/body/large */
-    font-family: Roboto;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -9,14 +9,6 @@
     letter-spacing: 0.5px;
     /* M3/sys/light/on-surface */
     color: #1C1B1F;
-}
-
-.subTitleStyling {
-
-}
-
-.supportingTextStyling {
-
 }
 
 .gridContentAlignStyling {

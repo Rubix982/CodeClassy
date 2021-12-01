@@ -12,7 +12,7 @@
 
 .nameStyling {
     /* M3/title/medium */
-    font-family: Roboto;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -25,7 +25,7 @@
 
 .dateStyling {
     /* M3/body/medium */
-    font-family: Roboto;
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;

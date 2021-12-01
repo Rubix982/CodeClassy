@@ -1,71 +1,58 @@
-.headerContainer {
-    /* margin-top: 0.75px; */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 385px;
-    /* background: linear-gradient(0deg, rgba(103, 80, 164, 0.14), rgba(103, 80, 164, 0.14)), #FFFBFE; */
-    background-color: #e0e0e0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400&family=Inter:wght@100&display=swap');
 
-.titleContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0px 10px 60px;
-}
-
-.classroomName {
-    font-family: Noto Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 70px;
-    line-height: 109px;
-    color: #000000;
-    margin: 24px 0px;
-}
-
-.teacherName {
-    font-family: Noto Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 32px;
-    /* identical to box height, or 133% */
-    text-align: center;
-    /* M3/sys/light/primary */
-    color: #6750A4;
-    padding-top: 10px;
-    padding-bottom: 30px;
-}
-
-.classroomDescription {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 24px;
-    /* identical to box height, or 133% */
-    text-align: center;
-    color: #000000;
-}
-
-.gridContainerStyling {
-    padding: 10px 50px;
-    margin: 0px;
+.tabPanelStyling {
     padding: 0px;
-    width: 100%;
 }
 
-.sectionStyling {
-    font-family: Noto Sans;
+.profileTextStyling {
+    /* M3/title/medium */
+    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
-    font-weight: normal;
-    font-size: 60px;
-    line-height: 82px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+    /* M3/sys/light/surface */
     color: #000000;
 }
 
-.gridItemSpacing {
-    padding: 20px 60px;
+.profileLogoStyling {
+    width: 48px;
+    height: 48px;
+    background-color: #e0e0e0;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.itemStyling {
+    color: #5f6368;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.iconStyling {
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.ulStyling {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
 }
