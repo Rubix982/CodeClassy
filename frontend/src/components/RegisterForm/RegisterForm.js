@@ -12,17 +12,23 @@ import RegisterFormStyling from '../../../styles/RegisterForm/RegisterForm.modul
 
 const RegisterForm= () =>
 {
-    const [role, setRole] = useState('Role');
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [role, setRole] = useState('');
 
     const handleChange = (event) => {
         setRole(event.target.value);
-      };
+    };
+
+    const registerUser = () => {}
 
     return(
         <div className={RegisterFormStyling.container}>
             <div className={RegisterFormStyling.form}>
 
-                <div className={RegisterFormStyling.leftform}>
+                <form action='/register' method='POST' className={RegisterFormStyling.leftform}>
 
                     <div className={RegisterFormStyling.leftformheader}>
                         <h2> Codeclassy</h2>
@@ -77,12 +83,21 @@ const RegisterForm= () =>
                         </div>
 
                         <div className={RegisterFormStyling.leftformfooterright}>
-                            <button className={RegisterFormStyling.register}> Sign up </button>
+                            <button 
+                            onClick={registerUser}
+                            className={RegisterFormStyling.register}
+                            > 
+                            Sign up 
+                            </button>
                         </div>
 
                     </div>
 
-                </div>
+                </form>
+
+
+
+
 
                 
                 <div className={RegisterFormStyling.rightform}>
