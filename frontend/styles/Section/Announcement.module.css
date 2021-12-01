@@ -1,9 +1,9 @@
 .announcementContainerStyling {
-    width: 1500px;
     background: #FFFFFF;
     border: 1px solid #dadbe0;
     box-sizing: border-box;
     border-radius: 12px;
     margin: 30px auto;
     padding: 0;
+    width: 80%;
 }
