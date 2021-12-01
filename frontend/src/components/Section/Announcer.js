@@ -4,10 +4,12 @@ import styles from '../../../styles/Section/Announcer.module.css';
 
 import { Avatar } from '@mui/material';
 
+import { deepPurple } from '@mui/material/colors';
+
 export default function Announcer() {
     return (
         <div className={`${styles.announcerModuleStyling} ${styles.gridContentAlignStyling}`}>
-            <Avatar>SUI</Avatar>
+            <Avatar sx={{ bgcolor: deepPurple[500], width: 48, height: 48}}>US</Avatar>
             <div className={styles.textContainerStyling}>
                 <p className={styles.textStyling}>
                     <span className={styles.nameStyling}>

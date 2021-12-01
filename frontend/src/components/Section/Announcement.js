@@ -17,13 +17,12 @@ export default function Announcement() {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                spacing={2}
             >
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{ width: "100%", paddingBottom: "16px" }}>
                     <Announcer />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{ width: "100%", paddingBottom: "16px" }}>
                     <AnnouncementContent />
                 </Grid>
 
