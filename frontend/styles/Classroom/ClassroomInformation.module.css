@@ -1,10 +1,25 @@
+.classroomContentContainerStyling {
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    /* width: -moz-calc(100% - 2*1.5rem); */
+    /* width: calc(100% - 5*2.5rem); */
+    max-width: 85rem;
+    /* width: 100%; */
+    padding-bottom: 150px;
+    overflow: hidden;
+}
+
 .headerContainer {
-    /* margin-top: 0.75px; */
+    margin-top: 0.75px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: 385px;
-    /* background: linear-gradient(0deg, rgba(103, 80, 164, 0.14), rgba(103, 80, 164, 0.14)), #FFFBFE; */
+    padding-bottom: 60px;
     background-color: #e0e0e0;
 }
 
@@ -12,15 +27,15 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 0px 10px 60px;
+    padding: 10px 0px 10px 20px;
 }
 
 .classroomName {
     font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 70px;
-    line-height: 109px;
+    font-size: 56px;
+    line-height: 100px;
     color: #000000;
     margin: 24px 0px;
 }
@@ -46,7 +61,7 @@
     font-size: 18px;
     line-height: 24px;
     /* identical to box height, or 133% */
-    text-align: center;
+    text-align: left;
     color: #000000;
 }
 
@@ -68,4 +83,16 @@
 
 .gridItemSpacing {
     padding: 20px 60px;
+}
+
+.backgroundContentContainer {
+    border-radius: 0.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.backgroundStyling {
+    height: 100%;
 }

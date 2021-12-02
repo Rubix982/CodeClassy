@@ -7,22 +7,23 @@ import {
     CardContent
 } from '@mui/material';
 
-export default function CardMedia() {
+export default function CardMedia({ section, assignee }) {
     return (
-        <Card sx={{ minWidth: 200 }}>
-            <CardContent className={styles.cardContentStyling}>
-                <div className={`${styles.profileLogoStyling}`}>
-                    <span className={styles.profileTextStyling}>SUI</span>
+        <a href={`/section/${section}`}>
+            <Card sx={{ maxWidth: "380px", minWidth: "320px", margin: "10px" }}>
+                <CardContent className={styles.cardContentStyling}>
+                    <p className={styles.sectionNameStyling}>
+                        {section}
+                    </p>
+                </CardContent>
+                <div className={styles.designationStyling}>
+                    <p>
+                        Assigned to <a href={`mailto:${assignee}`} style={{ textDecoration: "none" }}>
+                            {assignee}
+                        </a>
+                    </p>
                 </div>
-                <p className={styles.sectionNameStyling}>
-                    7A
-                </p>
-            </CardContent>
-            <div className={styles.designationStyling}>
-                <p>
-                    Assigned to <a href="mailto:saifulislam84210@gmail.com" style={{textDecoration: "none"}}>saifulislam84210@gmail.com</a>
-                </p>
-            </div>
-        </Card>
+            </Card >
+        </a>
     );
 }

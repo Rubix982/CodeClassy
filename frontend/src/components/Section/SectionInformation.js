@@ -9,7 +9,7 @@ import {
     Grid
 } from "@mui/material";
 
-export default function SectionInformation() {
+export default function SectionInformation({ section }) {
     return (
         <Grid
             container
@@ -22,7 +22,9 @@ export default function SectionInformation() {
                 <div
                     className={styles.backgroundStyling}
                 >
-                    <span className={styles.sectionNameStyling}>7A</span>
+                    <span className={styles.sectionNameStyling}>
+                        {section}
+                    </span>
                 </div>
             </div>
 

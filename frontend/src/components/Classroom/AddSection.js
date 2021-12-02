@@ -19,7 +19,6 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 500,
     bgcolor: 'background.paper',
-    border: '1px solid #000',
     boxShadow: '0px 4px 8px 4px rgba(0, 0, 0, 0.25)',
     borderRadius: '28px',
 };
@@ -33,7 +32,7 @@ export default function AddSection() {
     return (
         <div style={{ display: 'flex' }}>
             <div className={styles.addSectionButtonStyling} onClick={handleOpen}>
-                <span className={styles.addSectionStyling}>+ Add</span>
+                <Button className={styles.addSectionStyling} variant="contained">+ Add</Button>
             </div>
             <Modal
                 open={open}
@@ -126,11 +125,11 @@ export default function AddSection() {
                                         variant="contained"
                                         className={styles.createButtonStyling}
                                     >
-                                        <span
+                                        <Button
                                             className={styles.createButtonTextStyling}
                                         >
                                             Create
-                                        </span>
+                                        </Button>
                                     </Button>
                                 </Grid>
 

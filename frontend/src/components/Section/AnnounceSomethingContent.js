@@ -19,7 +19,7 @@ export default function AnnounceSomethingContent({ postStateController }) {
                 <Grid item>
                     <TextField
                         id="filled-search"
-                        label="Search field"
+                        label="Share something with your section"
                         type="search"
                         variant="filled"
                         rows={4}

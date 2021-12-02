@@ -21,7 +21,7 @@
     height: 64px;
     font-size: 20px;
     /* M3/sys/dark/on-secondary-container */
-    background: #4087F2;
+    /* background: #4087F2; */
     color: #ffffff;
     border-radius: 20px;
     /* M3/label/large */
@@ -30,6 +30,7 @@
     font-weight: 500;
     line-height: 20px;
     letter-spacing: 0.1px;
+    text-transform: capitalize;
 }
 
 .invitationText {
@@ -46,7 +47,6 @@
 }
 
 .createButtonStyling {
-    background: #22A2A7;
     /* 1 dp */
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
     border-radius: 6px;
@@ -59,13 +59,6 @@
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
     border-radius: 6px;
     height: 40px;    
-}
-
-.createButtonStyling:hover {
-    background: #0F494C;
-    /* 1 dp */
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
-    border-radius: 6px;
 }
 
 .cancelButtonStyling:hover {

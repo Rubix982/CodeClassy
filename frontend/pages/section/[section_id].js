@@ -61,7 +61,7 @@ export default function Section() {
                 </AppBar>
             </Box>
             <TabPanel value="1" className={styles.tabPanelStyling}>
-                <SectionInformation />
+                <SectionInformation section={section_id} />
             </TabPanel>
             <TabPanel value="2" className={styles.tabPanelStyling}>
                 <MembersView />

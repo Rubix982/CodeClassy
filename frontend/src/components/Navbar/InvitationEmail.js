@@ -15,7 +15,7 @@ export default function InvitationEmail({ emailFor }) {
             <Grid
                 container
                 direction="row"
-                justifyContent="space-between"
+                justifyContent="center"
                 alignItems="center"
             >
                 <Grid item xs={10}>
@@ -27,9 +27,12 @@ export default function InvitationEmail({ emailFor }) {
                         className={styles.emailTextField}
                     />
                 </Grid>
+
+                {/* <Grid item xs={1} /> */}
+
                 <Grid item xs={2}>
-                    <Button variant="contained" className={styles.emailButton}>
-                        <span className={styles.emailButtonText}>Send Invites</span>
+                    <Button variant="contained">
+                        Send Invites
                     </Button>
                 </Grid>
             </Grid>
