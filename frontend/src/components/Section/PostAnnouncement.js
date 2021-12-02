@@ -10,11 +10,7 @@ import AnnounceSomething from './AnnounceSomething';
 import AnnounceSomethingContent from './AnnounceSomethingContent';
 
 const isThereAnyAnnouncement = (post, setPost) => {
-    if (post) {
-        return <AnnounceSomethingContent postStateController={setPost} />
-    } else {
-        return <AnnounceSomething postStateController={setPost} />;
-    }
+    return (post ? <AnnounceSomethingContent postStateController={setPost} /> : <AnnounceSomething postStateController={setPost} />);
 }
 
 export default function PostAnnouncement() {

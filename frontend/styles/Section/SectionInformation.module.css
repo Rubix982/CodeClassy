@@ -11,7 +11,7 @@
     width: -moz-calc(100% - 2*1.5rem);
     width: calc(100% - 5*2.5rem);
     max-width: 85rem;
-    padding-bottom: 150px;
+    padding-bottom: 85px;
 }
 
 .imageContainer {

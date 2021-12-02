@@ -12,9 +12,13 @@ import {
     IconButton
 } from '@mui/material';
 
+import {
+    purple
+} from "@mui/material/colors";
+
 import SendIcon from '@mui/icons-material/Send';
 
-export default function PostComment() {
+export default function PostComment({ name }) {
     const [values, setValues] = React.useState({
         comment: ''
     });
@@ -46,8 +50,8 @@ export default function PostComment() {
                 xs={1}
                 className={styles.avatarCenterStyling}
             >
-                <Avatar>
-                    SUI
+                <Avatar sx={{ bgcolor: purple[500] }}>
+                    {name}
                 </Avatar>
             </Grid>
 

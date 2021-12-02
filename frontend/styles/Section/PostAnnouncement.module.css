@@ -3,13 +3,9 @@
     border-radius: 0.5rem;
     overflow: hidden;
     margin: auto;
-    margin-top: 1.5rem;
+    margin: 2.5rem auto;
     width: 80%;
 }
-
-/* .container:hover {
-    cursor: pointer;
-} */
 
 .container:hover span {
     color: #1967d2;

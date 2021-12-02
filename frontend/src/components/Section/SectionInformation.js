@@ -19,9 +19,7 @@ export default function SectionInformation({ section }) {
             className={styles.sectionContentContainerStyling}
         >
             <div className={styles.imageContainer}>
-                <div
-                    className={styles.backgroundStyling}
-                >
+                <div className={styles.backgroundStyling}>
                     <span className={styles.sectionNameStyling}>
                         {section}
                     </span>
