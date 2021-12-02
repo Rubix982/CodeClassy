@@ -43,15 +43,3 @@
     /* M3/sys/light/on-surface */
     color: #1C1B1F;
 }
-
-.designationStyling {
-    padding: 16px;
-    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 20px;
-    /* or 100% */
-    letter-spacing: 0.25px;
-    color: #000000;
-}
