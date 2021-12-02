@@ -37,3 +37,7 @@
 .addIconButtonStyling {
     cursor: pointer;
 }
+
+.addIconStyling {
+    color: black;
+}

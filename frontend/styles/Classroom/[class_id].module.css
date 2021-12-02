@@ -22,14 +22,14 @@
 }
 
 .profileLogoStyling {
-    width: 48px;
-    height: 48px;
-    background-color: #e0e0e0;
+    width: 36px;
+    height: 36px;
     border-radius: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin-left: 28px
 }
 
 .itemStyling {
@@ -55,4 +55,20 @@
     padding: 0;
     text-align: center;
     justify-content: center;
+}
+
+.appBarStyling {
+    /* padding-top: 30px; */
+    margin: 0;
+    min-height: 0;
+    background-color: white;
+}
+
+.addIconStyling {
+    color: black;
+}
+
+.tabStyling {
+    font-size: 1.25rem;
+    text-transform: capitalize;
 }
