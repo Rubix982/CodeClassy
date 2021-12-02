@@ -1,4 +1,3 @@
-import { IsString } from 'class-validator';
 import { JWTPayload } from './signin.dto';
 
 export class AuthorizeResponseDTO {
