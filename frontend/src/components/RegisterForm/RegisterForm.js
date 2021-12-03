@@ -8,16 +8,16 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import RegisterImage from '../../../public/assets/images/register-image.svg'
 import RegisterFormStyling from '../../../styles/RegisterForm/RegisterForm.module.css'
+import Loading from '../Loading/Loading'
 
 // redux imports
-import { connect, useDispatch } from "react-redux";
+import { useSelector, connect } from "react-redux";
 import { registerUserAction } from "../../../redux/actions/register.action";
   
 
 
 const RegisterForm= (props) =>
 {
-    const dispatch = useDispatch();
 
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -37,16 +37,18 @@ const RegisterForm= (props) =>
                 confirmPassword: confirmPassword,
                 role: role
             };
-            console.log(`${formData}`);
-            dispatch(registerUserAction(formData));
+            console.log("loading before api call ---> " + props.loading);
+            props.registerUserAction(formData);
+            console.log("loading after api call ---> " + props.loading);
             alert(`${props.responseMessage}`);
         }
     }
 
     if(props.loading){
         return(
-            <div> ... Loading ...</div>
-            // loading gif component here
+            <>
+                <Loading/>
+            </>
         )
     }
     else{
@@ -66,53 +68,59 @@ const RegisterForm= (props) =>
                         <div className={RegisterFormStyling.leftforminputs}>
                             <div className={RegisterFormStyling.textinput}>
                                 <TextField 
+                                inputProps={{
+                                    autoComplete: 'on'
+                                 }}
                                 value={fullName} 
                                 onChange={ e => setFullName(e.target.value)}
                                 required 
                                 label="Full name" 
-                                id="outlined-size-small" 
                                 size="small" />
                             </div>
     
                             <div className={RegisterFormStyling.textinput}>
                                 <TextField 
+                                inputProps={{
+                                    autoComplete: 'on'
+                                 }}
                                 value={email}
                                 onChange={ e => setEmail(e.target.value)}
                                 fullWidth 
                                 required 
                                 label="Email" 
-                                id="outlined-size-small" 
                                 size="small" />
                             </div>
     
                             <div className={RegisterFormStyling.textinput}>
                                 <TextField 
+                                inputProps={{
+                                    autoComplete: 'on'
+                                }}
                                 value={password}
                                 onChange={ e => setPassword(e.target.value)}
                                 type="password" 
                                 required 
                                 label="Password" 
-                                id="outlined-size-small" 
                                 size="small" />
                             </div>
     
                             <div className={RegisterFormStyling.textinput}>
                                 <TextField 
+                                inputProps={{
+                                    autoComplete: 'on'
+                                 }}
                                 value={confirmPassword}
                                 onChange={ e => setConfirmPassword(e.target.value)}
                                 type="password" 
                                 required 
                                 label="Confirm password" 
-                                id="outlined-size-small" 
                                 size="small" />
                             </div>
     
                             <div className={RegisterFormStyling.roledropdown}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                                    <InputLabel >Role</InputLabel>
                                     <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
                                     value={role}
                                     label="Role"
                                     onChange={ e => setRole(e.target.value)}
@@ -165,7 +173,8 @@ const RegisterForm= (props) =>
 }
 
 const mapStateToProps = (state) => {
-    return { ...state };
+    const {loading, responseMessage} = state;
+    return {loading, responseMessage};
 };
 
-export default connect(mapStateToProps)(RegisterForm);
+export default connect(mapStateToProps, {registerUserAction})(RegisterForm);

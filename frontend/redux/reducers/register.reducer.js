@@ -1,11 +1,11 @@
-import { actionTypes } from "../actionTypes/actionTypes"
+import { actionTypes } from "../actionTypes/actionTypes";
 
 const initialState = {
     loading: false,
     responseMessage: ''
 }
 
-export const registerReducer = (state = initialState, action) => {
+const registerReducer = (state = initialState, action) => {
     switch (action.type) {
 
       case actionTypes.registerUserSuccess:
@@ -18,6 +18,8 @@ export const registerReducer = (state = initialState, action) => {
         return { ...state, loading: action.loadingState};
 
       default:
-        return state;
+        return {...state}
     }
   };
+
+export default registerReducer;
