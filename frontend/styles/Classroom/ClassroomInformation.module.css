@@ -31,7 +31,7 @@
 }
 
 .classroomName {
-    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 56px;
@@ -41,7 +41,7 @@
 }
 
 .teacherName {
-    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
@@ -55,7 +55,7 @@
 }
 
 .classroomDescription {
-    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -73,7 +73,7 @@
 }
 
 .sectionStyling {
-    font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 60px;

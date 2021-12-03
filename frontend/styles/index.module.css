@@ -89,7 +89,7 @@
 }
 
 .mainCodeClassyTitle {
-  font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-style: "normal";
   font-weight: "normal";
   font-size: 48px;
@@ -101,7 +101,7 @@
 }
 
 .mainCodeClassyContent {
-  font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -113,7 +113,7 @@
 }
 
 .actionButtonContent {
-  font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-style: "normal";
   font-weight: "normal";
   font-size: "16px";
