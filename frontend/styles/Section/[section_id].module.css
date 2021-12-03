@@ -1,24 +1,44 @@
-.sectionContentContainerStyling {
-    display: block;
+.tabPanelStyling {
+    padding: 0px;
 }
 
-.backgroundStyling {
-    background-image: url('../../public/assets/wallpaper/1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 400px;
-    padding: 30px;
-}
-
-.sectionNameStyling {
-    font-family: 'Nokora';
+.profileTextStyling {
+    /* M3/title/medium */
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
-    font-weight: normal;
-    font-size: 64px;
-    line-height: 89px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
     display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     letter-spacing: 0.1px;
-    color: #FFFFFF;
-    height: 100%;
-    align-items: flex-end;
+    /* M3/sys/light/surface */
+    color: #000000;
+}
+
+.profileLogoStyling {
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 28px
+}
+
+.appBarStyling {
+    /* padding-top: 30px; */
+    margin: 0;
+    min-height: 0;
+    background-color: white;
+}
+
+.tabStyling {
+    height: 60px;
+    font-size: 1.25rem;
+    text-transform: capitalize;
 }

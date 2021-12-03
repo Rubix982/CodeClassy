@@ -38,13 +38,13 @@
     font-weight: 400;
     text-align: center;
     color: #202124;
-    font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
 .leftformheader h1 {
     margin: 0;
     margin-top: 5%;
-    font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-size: 24px;
     font-weight: 400;
     text-align: center;
@@ -91,7 +91,7 @@
     color: #4285f4;
     text-decoration: none;
     font-weight: bold;
-    font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
 .signin:hover {
@@ -107,7 +107,7 @@
     font-weight: 700;
     border-radius: 5%;
     border: 0px;
-    font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
 .register:hover{

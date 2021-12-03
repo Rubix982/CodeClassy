@@ -1,0 +1,32 @@
+.contentPadding {
+    padding: 32px;
+}
+
+.textFieldStyling {
+    width: 100%;
+    font-size: 42px;
+}
+
+.resize {
+    font-size: 30px;
+}
+
+.postContentSection {
+    padding-top: 32px;
+}
+
+.clickableIcon {
+    color: #1967d2;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 40px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.clickableIcon:hover {
+    background-color: #EDF3FD;
+}

@@ -1,9 +1,12 @@
 .announcementContainerStyling {
-    width: 1500px;
     background: #FFFFFF;
-    border: 1px solid rgba(121, 116, 126, 0.45);
+    border: 2.5px solid #dadbe0;
     box-sizing: border-box;
     border-radius: 12px;
-    margin: 30px auto;
     padding: 0;
+    width: 80%;
+}
+
+.cardStyling {
+    border-radius: 0.565rem 0.565rem 0rem 0rem;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid, Tabs, Tab, Typography, Box } from "@mui/material";
 
-import styles from '../../../styles/Navbar/invitationNavbar.module.css';
+import styles from '@styles/Navbar/invitationNavbar.module.css';
 
 import InvitationEmail from './InvitationEmail';
 

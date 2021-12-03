@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import styles from '../../styles/Classroom/[class_id].module.css';
+import styles from '../../styles/Section/[section_id].module.css';
 
 import { styled } from '@mui/material/styles';
 
@@ -23,17 +23,18 @@ import {
     deepOrange,
 } from "@mui/material/colors";
 
-import ClassroomInformation from "@components/Classroom/ClassroomInformation";
+import SectionInformation from '@components/Section/SectionInformation';
 import MembersView from '@components/MembersView/MembersView';
+import InvitationModal from '@components/Navbar/InvitationModal';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     padding: 0,
 }));
 
-export default function Classroom() {
+export default function Section() {
 
     const router = useRouter();
-    const { class_id } = router.query;
+    const { section_id } = router.query;
 
     const [value, setValue] = React.useState('1');
 
@@ -44,12 +45,15 @@ export default function Classroom() {
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <StyledToolbar className={styles.appBarStyling}>
-                        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                            <TabList onChange={handleChange} aria-label="lab API tabs example" centered>
-                                <Tab label="Dashboard" value="1" className={styles.tabStyling} />
-                                <Tab label="People" value="2" className={styles.tabStyling} />
-                            </TabList>
+                        <Box sx={{ width: '100%', typography: 'body1' }}>
+                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                <TabList onChange={handleChange} aria-label="lab API tabs example" centered>
+                                    <Tab label="Stream" value="1" className={styles.tabStyling} />
+                                    <Tab label="People" value="2" className={styles.tabStyling} />
+                                </TabList>
+                            </Box>
                         </Box>
+                        <InvitationModal />
                         <Avatar sx={{ bgcolor: deepOrange[500] }} className={styles.profileLogoStyling}>
                             S
                         </Avatar>
@@ -57,11 +61,7 @@ export default function Classroom() {
                 </AppBar>
             </Box>
             <TabPanel value="1" className={styles.tabPanelStyling}>
-                <ClassroomInformation
-                    title="Design, Defects And Restructuring"
-                    teacher="Sayed Yousuf"
-                    description="The presence of design defects in object oriented software can have a severe impact on the quality of software.The detection and correction of design ..."
-                />
+                <SectionInformation section={section_id} />
             </TabPanel>
             <TabPanel value="2" className={styles.tabPanelStyling}>
                 <MembersView />

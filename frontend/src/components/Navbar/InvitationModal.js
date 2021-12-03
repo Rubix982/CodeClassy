@@ -1,10 +1,18 @@
 import React from 'react';
 
-import styles from "../../../styles/Navbar/invitationModal.module.css";
+import styles from "@styles/Navbar/invitationModal.module.css";
 
 import InvitationNavbar from './InvitationNavbar';
 
-import { Grid, Box, Typography, Modal } from "@mui/material";
+import {
+    Grid,
+    Box,
+    Typography,
+    Modal,
+    IconButton,
+    Backdrop,
+    Fade
+} from "@mui/material";
 
 import AddIcon from '@mui/icons-material/Add';
 
@@ -15,9 +23,21 @@ const modalStyle = {
     transform: 'translate(-50%, -50%)',
     width: 900,
     bgcolor: 'background.paper',
-    border: '1px solid #000',
+    border: '1px solid #dadbe0',
     boxShadow: '0px 4px 8px 4px rgba(0, 0, 0, 0.25)',
     borderRadius: '28px',
+};
+
+const StyledModal = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
 };
 
 export default function InvitationModal() {
@@ -27,35 +47,47 @@ export default function InvitationModal() {
     const handleClose = () => setOpen(false);
 
     return (
-        <li className={styles.iconStyling}>
-            <div className={styles.itemStyling} onClick={handleOpen}>
-                <span className={styles.addIconButtonStyling}>
-                    <AddIcon />
-                </span>
-            </div>
+        <div>
+            <IconButton
+                size="large"
+                aria-label="display more actions"
+                edge="end"
+                color="inherit"
+                onClick={handleOpen}
+            >
+                <AddIcon className={styles.addIconStyling} />
+            </IconButton>
             <Modal
-                open={open}
-                onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
             >
-                <Box sx={modalStyle}>
-                    <Typography variant="h6" component="h2" className={styles.typographyTextBox}>
-                        <span className={styles.invitationText}>
-                            Send Invitations
-                        </span>
-                    </Typography>
-
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="stretch"
-                    >
-                        <InvitationNavbar />
-                    </Grid>
-                </Box>
+                <Fade in={open}>
+                    <Box sx={StyledModal}>
+                        <Box sx={modalStyle}>
+                            <Typography variant="h6" component="h2" className={styles.typographyTextBox}>
+                                <span className={styles.invitationText}>
+                                    Send Invitations
+                                </span>
+                            </Typography>
+                            <Grid
+                                container
+                                direction="row"
+                                justifyContent="space-between"
+                                alignItems="stretch"
+                            >
+                                <InvitationNavbar />
+                            </Grid>
+                        </Box>
+                    </Box>
+                </Fade>
             </Modal>
-        </li>
+        </div >
     )
 }
