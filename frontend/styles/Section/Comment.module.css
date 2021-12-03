@@ -4,6 +4,7 @@
 }
 
 .avatarCenterStyling {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,4 +14,13 @@
 .textContentStyling {
     color: rgba(0, 0, 0, 0.6);
     font-size: 0.875rem;
+}
+
+@media screen and (max-width: 940px) {
+    .multiGridAdjust {
+        display: inline-block;
+    }
+    .avatarCenterStyling {
+        max-width: 100%;
+    }
 }

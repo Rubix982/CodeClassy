@@ -19,7 +19,7 @@ export default function Comment({ name, comment }) {
             direction="row"
             justifyContent="center"
             alignItems="stretch"
-            className={styles.commentBoxStyling}
+            className={`${styles.multiGridAdjust} ${styles.commentBoxStyling}`}
         >
             <Grid
                 item

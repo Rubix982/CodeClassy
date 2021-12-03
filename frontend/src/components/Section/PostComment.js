@@ -43,7 +43,7 @@ export default function PostComment({ name }) {
             direction="row"
             justifyContent="center"
             alignItems="stretch"
-            className={styles.commentBoxStyling}
+            className={`${styles.multiGridAdjust} ${styles.commentBoxStyling}`}
         >
             <Grid
                 item
