@@ -1,7 +1,6 @@
 import { actionTypes } from "../actionTypes/actionTypes";
 
 const initialState = {
-    loading: false,
     responseMessage: ''
 }
 
@@ -9,13 +8,10 @@ const registerReducer = (state = initialState, action) => {
     switch (action.type) {
 
       case actionTypes.registerUserSuccess:
-        return { ...state, responseMessage: action.successMessage};
+        return { ...state, responseMessage: action.payload.successMessage};
 
       case actionTypes.registerUserFailed:
-        return { ...state, responseMessage: action.errorMessage};
-
-      case actionTypes.loading:
-        return { ...state, loading: action.loadingState};
+        return { ...state, responseMessage: action.payload.errorMessage};
 
       default:
         return {...state}
