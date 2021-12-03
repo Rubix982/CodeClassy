@@ -1,7 +1,8 @@
 import { actionTypes } from "../actionTypes/actionTypes";
 
 const initialState = {
-    responseMessage: ''
+    responseMessage: '',
+    successMessageSnackbar: false
 }
 
 const registerReducer = (state = initialState, action) => {
@@ -12,6 +13,9 @@ const registerReducer = (state = initialState, action) => {
 
       case actionTypes.registerUserFailed:
         return { ...state, responseMessage: action.payload.errorMessage};
+
+      case actionTypes.successMessageSnackbarAction:
+        return { ...state, successMessageSnackbar: action.payload.successMessageSnackbarState}
 
       default:
         return {...state}

@@ -8,13 +8,17 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import RegisterImage from '../../../public/assets/images/register-image.svg'
 import RegisterFormStyling from '../../../styles/RegisterForm/RegisterForm.module.css'
-import { SnackbarProvider} from 'notistack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 // redux imports
 import { connect } from "react-redux";
 import { registerUserAction } from "../../../redux/actions/register.action";
-  
 
+  
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const RegisterForm= (props) =>
 {
@@ -25,7 +29,6 @@ const RegisterForm= (props) =>
     const [confirmPassword, setConfirmPassword] = useState('');
     const [role, setRole] = useState('');
 
-    
 
     const registerUser = (event) => {
         event.preventDefault();
@@ -47,15 +50,12 @@ const RegisterForm= (props) =>
 
     return(
         <>
-            { props.responseMessage == 'User Registered Successfully!' &&
-                <SnackbarProvider 
-                maxSnack={1}         
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center'
-                }}
-                autoHideDuration={5000}
-                message={props.responseMessage}/>
+            { props.successMessageSnackbar && 
+                <Snackbar open={true} autoHideDuration={6000}>
+                    <Alert severity="success" sx={{ width: '100%' }}>
+                        {props.responseMessage}
+                    </Alert>
+                </Snackbar>
             }
             <div className={RegisterFormStyling.container}>
                 <div className={RegisterFormStyling.form}>
@@ -179,7 +179,10 @@ const RegisterForm= (props) =>
 }
 
 const mapStateToProps = (state) => {
-    return {responseMessage: state.registerReducer.responseMessage}
+    return {
+        responseMessage: state.registerReducer.responseMessage,
+        successMessageSnackbar: state.registerReducer.successMessageSnackbar
+    }
 };
 
 export default connect(mapStateToProps, {registerUserAction})(RegisterForm);

@@ -3,5 +3,6 @@ export const actionTypes = {
     registerUserSuccess: "registerUserSuccess",
     registerUserFailed: "registerUserFailed",
     validationError: "validationError",
+    successMessageSnackbarAction: "successMessageSnackbarAction",
     loading: "loading"
 }
