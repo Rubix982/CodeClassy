@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styles from "../../../styles/Classroom/CardMedia.module.css";
+import styles from "@styles/Classroom/CardMedia.module.css";
 
 import {
     Card,

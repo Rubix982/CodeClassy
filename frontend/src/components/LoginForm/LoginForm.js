@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginFormStyling from '../../../styles/LoginForm/LoginForm.module.css'
+import LoginFormStyling from '@styles/LoginForm/LoginForm.module.css'
 import TextField from '@mui/material/TextField'
 import Link from 'next/link'
 

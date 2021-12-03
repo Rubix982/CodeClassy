@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../../../styles/Section/AnnounceSomethingContent.module.css';
+import styles from '@styles/Section/AnnounceSomethingContent.module.css';
 
 import { TextField, Grid, Button } from '@mui/material';
 

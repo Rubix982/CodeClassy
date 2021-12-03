@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import RegisterImage from '../../../public/assets/images/register-image.svg'
-import RegisterFormStyling from '../../../styles/RegisterForm/RegisterForm.module.css'
+import RegisterFormStyling from '@styles/RegisterForm/RegisterForm.module.css'
 
 
 const RegisterForm= () =>

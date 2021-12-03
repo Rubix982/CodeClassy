@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from "../../../styles/Navbar/invitationModal.module.css";
+import styles from "@styles/Navbar/invitationModal.module.css";
 
 import InvitationNavbar from './InvitationNavbar';
 

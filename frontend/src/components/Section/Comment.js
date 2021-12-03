@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../../../styles/Section/Comment.module.css';
+import styles from '@styles/Section/Comment.module.css';
 
 import {
     Avatar,

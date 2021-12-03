@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../../../styles/Navbar/invitationEmail.module.css';
+import styles from '@styles/Navbar/invitationEmail.module.css';
 
 import {
     TextField,

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import MembersViewStyling from '../../../styles/MembersView/MembersView.module.css'
+import MembersViewStyling from '@styles/MembersView/MembersView.module.css'
 import Image from 'next/image'
 import ProfileImage from '../../../public/assets/images/profile.svg'
 
