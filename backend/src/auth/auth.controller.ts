@@ -1,18 +1,29 @@
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
   Post,
+  Req,
   Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './signin.dto';
 import { SignUpDto } from './signup.dto';
-import { response, Response } from 'express';
+import { Request, Response } from 'express';
+import { AuthorizeResponseDTO } from './authorize.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Get()
+  async authorize(@Req() __request: Request) {
+    const { accessToken } = __request.cookies;
+    const decodedUser = await this.authService.validateAccessToken(accessToken);
+    const transformedUser = new AuthorizeResponseDTO(decodedUser);
+    return transformedUser;
+  }
 
   @Post('signup')
   async signUp(@Body() __requestBody: SignUpDto) {
