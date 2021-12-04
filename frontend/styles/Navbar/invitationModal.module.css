@@ -15,7 +15,7 @@
 }
 
 .invitationText {
-    font-family: 'Noto Sans';
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 30px;
@@ -36,4 +36,8 @@
 
 .addIconButtonStyling {
     cursor: pointer;
+}
+
+.addIconStyling {
+    color: black;
 }

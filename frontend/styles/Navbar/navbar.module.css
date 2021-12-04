@@ -31,7 +31,7 @@
 
 .linkStyling {
     text-decoration: none;
-    font-family: 'Cairo', sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 1.65rem;
@@ -63,7 +63,7 @@
 
 .profileTextStyling {
     /* M3/title/medium */
-    font-family: Roboto;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -99,7 +99,7 @@
 }
 
 .tabTextStyling {
-    font-family: Open Sans;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 24px;

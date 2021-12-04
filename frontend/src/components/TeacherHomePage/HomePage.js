@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -13,8 +14,9 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import { Typography } from "@mui/material";
-import { red, purple, yellow } from "@mui/material/colors";
+import { red, purple } from "@mui/material/colors";
 import HomePageStyling from "@styles/HomePage/HomePage.module.scss";
+import CreateClassroomDialog from "./CreateClassroomDialog";
 
 const HomePage = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,6 +27,12 @@ const HomePage = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
   return (
     <>
       <div className={HomePageStyling.navbar}>
@@ -32,7 +40,11 @@ const HomePage = () => {
         <Box>
           <Tooltip title="Add a classroom">
             <IconButton size="small">
-              <Add />
+              <Add onClick={handleDialogOpen} />
+              <CreateClassroomDialog
+                dialogOpen={dialogOpen}
+                setDialogOpen={setDialogOpen}
+              />
             </IconButton>
           </Tooltip>
           <Tooltip title="Account settings">

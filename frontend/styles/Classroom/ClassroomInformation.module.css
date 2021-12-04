@@ -1,0 +1,98 @@
+.classroomContentContainerStyling {
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    /* width: -moz-calc(100% - 2*1.5rem); */
+    /* width: calc(100% - 5*2.5rem); */
+    max-width: 85rem;
+    /* width: 100%; */
+    padding-bottom: 150px;
+    overflow: hidden;
+}
+
+.headerContainer {
+    margin-top: 0.75px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 60px;
+    background-color: #e0e0e0;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0px 10px 20px;
+}
+
+.classroomName {
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 56px;
+    line-height: 100px;
+    color: #000000;
+    margin: 24px 0px;
+}
+
+.teacherName {
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+    /* identical to box height, or 133% */
+    text-align: center;
+    /* M3/sys/light/primary */
+    color: #6750A4;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.classroomDescription {
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
+    text-align: left;
+    color: #000000;
+}
+
+.gridContainerStyling {
+    padding: 10px 50px;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.sectionStyling {
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 60px;
+    line-height: 82px;
+    color: #000000;
+}
+
+.gridItemSpacing {
+    padding: 20px 60px;
+}
+
+.backgroundContentContainer {
+    border-radius: 0.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.backgroundStyling {
+    height: 100%;
+}

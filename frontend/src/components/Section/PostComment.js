@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../../../styles/Section/PostComment.module.css'
+import styles from '@styles/Section/PostComment.module.css'
 
 import {
     Grid,
@@ -12,9 +12,13 @@ import {
     IconButton
 } from '@mui/material';
 
+import {
+    purple
+} from "@mui/material/colors";
+
 import SendIcon from '@mui/icons-material/Send';
 
-export default function PostComment() {
+export default function PostComment({ name }) {
     const [values, setValues] = React.useState({
         comment: ''
     });
@@ -39,15 +43,15 @@ export default function PostComment() {
             direction="row"
             justifyContent="center"
             alignItems="stretch"
-            className={styles.commentBoxStyling}
+            className={`${styles.multiGridAdjust} ${styles.commentBoxStyling}`}
         >
             <Grid
                 item
                 xs={1}
                 className={styles.avatarCenterStyling}
             >
-                <Avatar>
-                    SUI
+                <Avatar sx={{ bgcolor: purple[500] }}>
+                    {name}
                 </Avatar>
             </Grid>
 

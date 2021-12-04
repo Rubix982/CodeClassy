@@ -6,13 +6,42 @@
 	},
 	"item": [
 		{
-			"name": "SignUp request",
+			"name": "Teacher SignUp request",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"email\": \"mrfoobar@gmail.com\",\n    \"fullName\": \"mr foo bar\",\n    \"password\": \"foobarfoobar\",  \n    \"role\": \"Teacher\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student SignUp request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mrfoobar1@gmail.com\",\n    \"fullName\": \"mr foo bar\",\n    \"password\": \"foobarfoobar\",  \n    \"role\": \"Student\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,6 +113,26 @@
 			"response": []
 		},
 		{
+			"name": "User authorization request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/auth/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Classroom creation request",
 			"request": {
 				"method": "POST",
@@ -131,7 +180,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "d439b02b-bfed-4fc0-96fb-62cd9f0dcab3"
+							"value": "baf8d909-f9b5-4e51-8a23-554e32247f14"
 						}
 					]
 				}
@@ -145,7 +194,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"4E\",\n    \"assignedTo\": \"mrfoobar1@gmail.com\"\n}",
+					"raw": "{\n    \"name\": \"4E\",\n    \"assignedTo\": \"mrfoobar@gmail.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -167,7 +216,43 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "d439b02b-bfed-4fc0-96fb-62cd9f0dcab3"
+							"value": "baf8d909-f9b5-4e51-8a23-554e32247f14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add student request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mrfoobar1@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/section/:id/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"section",
+						":id",
+						"student"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "aef07e87-e066-406b-a2a3-e5ba9dc5168c"
 						}
 					]
 				}
