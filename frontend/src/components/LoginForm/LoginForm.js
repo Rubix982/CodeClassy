@@ -1,66 +1,144 @@
-import React from 'react'
-import LoginFormStyling from '@styles/LoginForm/LoginForm.module.css'
+import React , { useState } from 'react'
+import LoginFormStyling from '../../../styles/LoginForm/LoginForm.module.css'
 import TextField from '@mui/material/TextField'
 import Link from 'next/link'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+// redux imports
+import { connect } from "react-redux";
+import { loginUserAction } from "../../../redux/actions/login.action";
 
 
-const LoginForm= () =>
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const LoginForm= (props) =>
 {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loginUser = (event) => {
+        event.preventDefault();
+        if( (email == '') || (password == '') ){
+            alert(`Please fill all the required fields!`);
+        }
+        else{
+            const credentials = {
+                email: email,
+                password: password
+            };
+            props.loginUserAction(credentials);
+        }
+    }
+
+
     return(
-        <div className={LoginFormStyling.container}>
+        <>
+            { props.successMessageSnackbar && 
+                <Snackbar open={true} autoHideDuration={3000}>
+                    <Alert severity="success" sx={{ width: '100%' }}>
+                        {props.responseMessage}
+                    </Alert>
+                </Snackbar>
+            }
 
-            <div className={LoginFormStyling.form}>
+            { props.errorMessageSnackbar && 
+                <Snackbar open={true} autoHideDuration={3000}>
+                    <Alert severity="error" sx={{ width: '100%' }}>
+                        {props.responseMessage}
+                    </Alert>
+                </Snackbar>
+            }
 
-                <div className={LoginFormStyling.formheader}>
+            <div className={LoginFormStyling.container}>
 
-                    <h1 className={LoginFormStyling.logo}>
-                        Codeclassy
-                    </h1>
+                <form action='/login' method='POST' className={LoginFormStyling.form}>
 
-                    <h2>
-                        Sign in
-                    </h2>
+                    <div className={LoginFormStyling.formheader}>
 
-                    <h3>
-                        Use your Codeclassy Account
-                    </h3>
+                        <h1 className={LoginFormStyling.logo}>
+                            Codeclassy
+                        </h1>
 
-                </div>
+                        <h2>
+                            Sign in
+                        </h2>
 
-                <div className={LoginFormStyling.inputs}>
+                        <h3>
+                            Use your Codeclassy Account
+                        </h3>
 
-                    <div className={LoginFormStyling.textinput}>
-                        <TextField required id="outlined-required" label="Email" fullWidth />
                     </div>
 
-                    <div className={LoginFormStyling.textinput}>
-                        <TextField required id="outlined-required" label="Password" type="password" fullWidth />
-                    </div>
+                    <div className={LoginFormStyling.inputs}>
 
-                    <Link href="/forgotpassword">
-                        <a className={LoginFormStyling.forgetpassword}> Forgot password? </a>
-                    </Link>
+                        <div className={LoginFormStyling.textinput}>
+                            <TextField 
+                            inputProps={{
+                                autoComplete: 'on'
+                                }}
+                            value={email}
+                            onChange={ e => setEmail(e.target.value)}
+                            required 
+                            label="Email" 
+                            fullWidth />
+                        </div>
 
-                </div>
+                        <div className={LoginFormStyling.textinput}>
+                            <TextField 
+                            inputProps={{
+                                autoComplete: 'off'
+                            }}
+                            value={password}
+                            onChange={ e => setPassword(e.target.value)}
+                            required
+                            label="Password" 
+                            type="password" 
+                            fullWidth />
+                        </div>
 
-                <div className={LoginFormStyling.formfooter}>
-                    
-                    <div className={LoginFormStyling.formfooterleft}>
-                        <Link href="/register">
-                            <a className={LoginFormStyling.createaccount}> Create account </a>
+                        <Link href="/forgotpassword">
+                            <a className={LoginFormStyling.forgetpassword}> Forgot password? </a>
                         </Link>
+
                     </div>
 
-                    <div className={LoginFormStyling.formfooterright}>
-                        <button className={LoginFormStyling.signin}> Sign in</button>
+                    <div className={LoginFormStyling.formfooter}>
+                        
+                        <div className={LoginFormStyling.formfooterleft}>
+                            <Link href="/register">
+                                <a className={LoginFormStyling.createaccount}> Create account </a>
+                            </Link>
+                        </div>
+
+                        <div className={LoginFormStyling.formfooterright}>
+                            <button 
+                            type='Submit'
+                            onClick={loginUser}
+                            className={LoginFormStyling.signin}> 
+                                Sign in
+                            </button>
+                        </div>
+                        
                     </div>
-                    
-                </div>
+
+                </form>
 
             </div>
-
-        </div>
+        </>
     )
 }
 
-export default LoginForm
+const mapStateToProps = (state) => {
+    return {
+        responseMessage: state.apiReducer.responseMessage,
+        successMessageSnackbar: state.apiReducer.successMessageSnackbar,
+        errorMessageSnackbar: state.apiReducer.errorMessageSnackbar
+    }
+};
+
+export default connect(mapStateToProps, {loginUserAction})(LoginForm);
