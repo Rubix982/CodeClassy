@@ -1,8 +1,5 @@
 export const actionTypes = {
-    loginUser: "loginUser",
-    registerUserSuccess: "registerUserSuccess",
-    registerUserFailed: "registerUserFailed",
-    validationError: "validationError",
-    successMessageSnackbarAction: "successMessageSnackbarAction",
+    apiSuccess: "apiSuccess",
+    apiFailed: "apiFailed",
     loading: "loading"
 }

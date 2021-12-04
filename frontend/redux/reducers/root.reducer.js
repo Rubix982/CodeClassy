@@ -1,8 +1,8 @@
-import registerReducer from '../reducers/register.reducer'
+import apiReducer from './api.reducer'
 import {combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
-    registerReducer: registerReducer
+    apiReducer: apiReducer
 });
 
 export default rootReducer;

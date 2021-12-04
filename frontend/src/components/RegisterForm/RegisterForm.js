@@ -32,7 +32,7 @@ const RegisterForm= (props) =>
 
     const registerUser = (event) => {
         event.preventDefault();
-        if( (fullName == null) || (email == null) || (password == null) || (confirmPassword == null) || (role == null) ){
+        if( (fullName == '') || (email == '') || (password == '') || (confirmPassword == '') || (role == '') ){
             alert(`Please fill all the required fields!`);
         }
         else{
@@ -51,12 +51,21 @@ const RegisterForm= (props) =>
     return(
         <>
             { props.successMessageSnackbar && 
-                <Snackbar open={true} autoHideDuration={6000}>
+                <Snackbar open={true} autoHideDuration={4000}>
                     <Alert severity="success" sx={{ width: '100%' }}>
                         {props.responseMessage}
                     </Alert>
                 </Snackbar>
             }
+
+            { props.errorMessageSnackbar && 
+                <Snackbar open={true} autoHideDuration={4000}>
+                    <Alert severity="error" sx={{ width: '100%' }}>
+                        {props.responseMessage}
+                    </Alert>
+                </Snackbar>
+            }
+            
             <div className={RegisterFormStyling.container}>
                 <div className={RegisterFormStyling.form}>
 
@@ -98,7 +107,7 @@ const RegisterForm= (props) =>
                             <div className={RegisterFormStyling.textinput}>
                                 <TextField 
                                 inputProps={{
-                                    autoComplete: 'on'
+                                    autoComplete: 'off'
                                 }}
                                 value={password}
                                 onChange={ e => setPassword(e.target.value)}
@@ -111,7 +120,7 @@ const RegisterForm= (props) =>
                             <div className={RegisterFormStyling.textinput}>
                                 <TextField 
                                 inputProps={{
-                                    autoComplete: 'on'
+                                    autoComplete: 'off'
                                     }}
                                 value={confirmPassword}
                                 onChange={ e => setConfirmPassword(e.target.value)}
@@ -180,8 +189,9 @@ const RegisterForm= (props) =>
 
 const mapStateToProps = (state) => {
     return {
-        responseMessage: state.registerReducer.responseMessage,
-        successMessageSnackbar: state.registerReducer.successMessageSnackbar
+        responseMessage: state.apiReducer.responseMessage,
+        successMessageSnackbar: state.apiReducer.successMessageSnackbar,
+        errorMessageSnackbar: state.apiReducer.errorMessageSnackbar
     }
 };
 

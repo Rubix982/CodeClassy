@@ -6,20 +6,40 @@ export const registerUserAction = (formData) => {
     return async (dispatch) => { 
         try{
             await axios.post("http://localhost:5000/auth/signup", formData);
-            dispatch( { type: actionTypes.registerUserSuccess, payload: {successMessage: 'User Registered Successfully!' }});
-            dispatch( { type: actionTypes.successMessageSnackbarAction, payload: {successMessageSnackbarState: true}});
-            setTimeout(
-                () => {
-                    dispatch( { type: actionTypes.successMessageSnackbarAction, payload: {successMessageSnackbarState: false}});
-                    Router.push('/login');
-                },4000);
+            setSuccessStates(dispatch);
         }
         catch(error)
         {
-            dispatch({ type: actionTypes.registerUserFailed, payload: { errorMessage: error } })
+            setErrorStates(dispatch, error.response.data.message[0])
         }
     }
 }
 
 
+const setSuccessStates = (dispatch) => {
+    dispatch({ type: actionTypes.apiSuccess, 
+        payload: {successMessage: 'User Registered Successfully!', successMessageSnackbarState: true }});
+        setTimeout(
+            () => {
+                dispatch({ type: actionTypes.apiSuccess, 
+                payload: {successMessage: '', successMessageSnackbarState: false }});
+                Router.push('/login');
+            },3000);
+}
 
+
+const setErrorStates = (dispatch, error) => {
+    dispatch({ 
+        type: actionTypes.apiFailed, 
+        payload: { errorMessage: error, errorMessageSnackbarState: true } 
+        });
+    
+        setTimeout(
+            () => {
+            dispatch({ 
+            type: actionTypes.apiFailed, 
+            payload: { errorMessage: '', errorMessageSnackbarState: false } 
+            });
+            location.reload();
+        },3000);
+}
