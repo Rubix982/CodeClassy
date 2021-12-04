@@ -41,7 +41,7 @@ const setErrorStates = (dispatch, error) => {
         type: actionTypes.apiFailed, 
         payload: { errorMessage: '', errorMessageSnackbarState: false } 
         });
-    },3000);
+    },2000);
 }
 
 

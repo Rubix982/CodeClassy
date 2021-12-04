@@ -24,7 +24,7 @@ const setSuccessStates = (dispatch) => {
                 dispatch({ type: actionTypes.apiSuccess, 
                 payload: {successMessage: '', successMessageSnackbarState: false }});
                 Router.push('/login');
-            },3000);
+            },2000);
 }
 
 
@@ -40,6 +40,5 @@ const setErrorStates = (dispatch, error) => {
             type: actionTypes.apiFailed, 
             payload: { errorMessage: '', errorMessageSnackbarState: false } 
             });
-            location.reload();
-        },3000);
+        },2000);
 }

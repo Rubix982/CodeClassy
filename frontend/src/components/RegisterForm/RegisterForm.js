@@ -51,7 +51,7 @@ const RegisterForm= (props) =>
     return(
         <>
             { props.successMessageSnackbar && 
-                <Snackbar open={true} autoHideDuration={4000}>
+                <Snackbar open={true} autoHideDuration={3000}>
                     <Alert severity="success" sx={{ width: '100%' }}>
                         {props.responseMessage}
                     </Alert>
@@ -59,13 +59,13 @@ const RegisterForm= (props) =>
             }
 
             { props.errorMessageSnackbar && 
-                <Snackbar open={true} autoHideDuration={4000}>
+                <Snackbar open={true} autoHideDuration={3000}>
                     <Alert severity="error" sx={{ width: '100%' }}>
                         {props.responseMessage}
                     </Alert>
                 </Snackbar>
             }
-            
+
             <div className={RegisterFormStyling.container}>
                 <div className={RegisterFormStyling.form}>
 

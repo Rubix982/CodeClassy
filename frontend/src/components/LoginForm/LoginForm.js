@@ -39,7 +39,7 @@ const LoginForm= (props) =>
     return(
         <>
             { props.successMessageSnackbar && 
-                <Snackbar open={true} autoHideDuration={2000}>
+                <Snackbar open={true} autoHideDuration={3000}>
                     <Alert severity="success" sx={{ width: '100%' }}>
                         {props.responseMessage}
                     </Alert>
