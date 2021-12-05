@@ -46,11 +46,11 @@ export default function Announcement() {
                 <Card variant="outlined" className={styles.cardStyling}>
                     <CardHeader
                         avatar={
-                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                US
+                            <Avatar style={{ backgroundColor: '#f44336', fontSize: '1rem'}} sx={{ width: 40, height: 40 }}>
+                                TM
                             </Avatar>
                         }
-                        title="Unais Siddique"
+                        title="Tashik Moin"
                         subheader="1st December, 2021"
                     />
                     <CardContent>

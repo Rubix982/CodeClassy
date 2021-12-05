@@ -1,6 +1,7 @@
 import React from 'react';
-
 import styles from '@styles/Classroom/AddSection.module.css';
+import Image from 'next/image'
+import AddImage from '../../../public/assets/images/add.png'
 
 import {
     Box,
@@ -32,8 +33,11 @@ export default function AddSection() {
     return (
         <div style={{ display: 'flex' }}>
             <div className={styles.addSectionButtonStyling} onClick={handleOpen}>
-                <Button className={styles.addSectionStyling} variant="contained"> 
-                    <b>+ Add</b>
+                <Button 
+                startIcon={<Image width={18} height={17} alt="Add" src={AddImage} />}
+                className={styles.addSectionStyling} 
+                variant="contained"> 
+                    <b>Add</b>
                 </Button>
             </div>
             <Modal
@@ -42,7 +46,7 @@ export default function AddSection() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box sx={style} style={{ borderRadius: '10px', outline: 'none'}}>
                     <Typography variant="h6" component="h2" className={styles.typographyTextBox}>
                         <span className={styles.invitationText}>Create Section</span>
                     </Typography>
@@ -71,7 +75,7 @@ export default function AddSection() {
                                     <TextField
                                         className={styles.textFieldStyling}
                                         id="coordinator-email-invite"
-                                        label="Coordinator To Assign To"
+                                        label="Collaborator's Email"
                                         variant="standard"
                                     />
                                 </Typography>
@@ -89,9 +93,7 @@ export default function AddSection() {
                                     variant="contained"
                                     className={styles.createButtonStyling}
                                     >
-                                        <Button className={styles.createButtonTextStyling}>
-                                            Create
-                                        </Button>
+                                        Create
                                     </Button>
                                 </Grid>
 
@@ -101,9 +103,7 @@ export default function AddSection() {
                                     className={styles.cancelButtonStyling}
                                     onClick={handleClose}
                                     >
-                                        <span className={styles.cancelButtonTextStyling}>
-                                            Cancel
-                                        </span>
+                                        Cancel
                                     </Button>
                                 </Grid>
 

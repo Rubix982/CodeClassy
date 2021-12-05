@@ -3,42 +3,30 @@
 }
 
 .profileTextStyling {
-    /* M3/title/medium */
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    /* or 150% */
+    margin: 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    letter-spacing: 0.1px;
-    /* M3/sys/light/surface */
-    color: #000000;
 }
 
 .profileLogoStyling {
-    width: 36px;
-    height: 36px;
-    border-radius: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-left: 28px
+    font-size: 1rem;
+    background-color: #f44336;
 }
 
 .appBarStyling {
-    /* padding-top: 30px; */
     margin: 0;
     min-height: 0;
     background-color: white;
 }
 
 .tabStyling {
-    height: 60px;
+    height: 65px;
     font-size: 1.25rem;
     text-transform: capitalize;
 }

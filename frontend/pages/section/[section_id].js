@@ -54,8 +54,8 @@ export default function Section() {
                             </Box>
                         </Box>
                         <InvitationModal />
-                        <Avatar sx={{ bgcolor: deepOrange[500] }} className={styles.profileLogoStyling}>
-                            S
+                        <Avatar sx={{ width: 40, height: 40 }}  className={styles.profileLogoStyling}>
+                            TM
                         </Avatar>
                     </StyledToolbar>
                 </AppBar>

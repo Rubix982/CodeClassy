@@ -12,21 +12,18 @@
 }
 
 .addSectionStyling {
-    /* Auto Layout */
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 130px;
-    height: 55px;
+    width: 110px;
+    height: 45px;
     font-size: 20px;
     color: #ffffff;
-    border-radius: 10px;
+    border-radius: 8px;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: 500;
-    line-height: 20px;
-    letter-spacing: 0.1px;
     text-transform: capitalize;
 }
 
@@ -34,9 +31,9 @@
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 30px;
-    line-height: 41px;
+    font-size: 1.5rem;
     color: #000000;
+    margin-left: 8px;
 }
 
 .typographyTextBox {
@@ -45,56 +42,28 @@
 
 .createButtonStyling {
     /* 1 dp */
+    text-transform: capitalize;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
     border-radius: 6px;
     height: 40px;
+    width: 100px;
 }
 
 .cancelButtonStyling {
+    text-transform: capitalize;
     background: #858585;
-    /* 1 dp */
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
     border-radius: 6px;
     height: 40px;    
+    width: 100px;
 }
 
 .cancelButtonStyling:hover {
     background: #3D3D3D;
-    /* 1 dp */
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.04);
     border-radius: 6px;
 }
 
-.createButtonTextStyling {
-    /* 1. Heading / H4 20 pt */
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
-    /* identical to box height, or 130% */
-    text-align: center;
-    letter-spacing: -0.2px;
-    /* On Color */
-    color: #FFFFFF;
-}
-
-.cancelButtonTextStyling {
-    /* 1. Heading / H4 20 pt */
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
-    /* identical to box height, or 130% */
-    text-align: center;
-    letter-spacing: -0.2px;
-    /* On Color */
-    color: #FFFFFF;
-    width: 120px;
-}
 
 .formControlContainerStyling {
     padding: 40px;

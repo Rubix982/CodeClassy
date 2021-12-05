@@ -50,8 +50,8 @@ export default function Classroom() {
                                 <Tab label="People" value="2" className={styles.tabStyling} />
                             </TabList>
                         </Box>
-                        <Avatar sx={{ bgcolor: deepOrange[500] }} className={styles.profileLogoStyling}>
-                            S
+                        <Avatar sx={{ width: 40, height: 40 }} className={styles.profileLogoStyling}>
+                            TM 
                         </Avatar>
                     </StyledToolbar>
                 </AppBar>

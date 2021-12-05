@@ -10,14 +10,13 @@
     flex-direction: column;
     width: -moz-calc(100% - 2*1.5rem);
     width: calc(100% - 5*2.5rem);
-    max-width: 85rem;
-    padding-bottom: 85px;
+    max-width: 70vw;
 }
 
 .imageContainer {
     border-radius: 0.5rem;
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     overflow: hidden;
     width: 100%;
 }
@@ -26,7 +25,7 @@
     background-image: url('../../public/assets/wallpaper/1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    height: 25rem;
+    height: 40vh;
     position: relative;
     width: 100%;
 }
@@ -35,13 +34,9 @@
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 64px;
-    line-height: 89px;
+    font-size: 3rem;
     display: flex;
-    letter-spacing: 0.1px;
     color: #FFFFFF;
-
-    /* Alignment */
     height: 100%;
     align-items: flex-end;
     bottom: 0;
@@ -49,5 +44,4 @@
     left: 0;
     padding: 1rem 1.5rem;
     position: absolute;
-    right: 2rem;
 }
