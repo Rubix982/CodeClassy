@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState} from 'react';
 import styles from '@styles/Classroom/AddSection.module.css';
 import Image from 'next/image'
 import AddImage from '../../../public/assets/images/add.png'
@@ -26,9 +26,20 @@ const style = {
 
 export default function AddSection() {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [sectionName, setSectionName] = useState(false);
+    const [collaboratorsEmail, setCollaboratorsEmail] = useState(false);
+
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const createSection = (event) => {
+        event.preventDefault();
+        const section = {
+
+        }
+    }
 
     return (
         <div style={{ display: 'flex' }}>
@@ -65,6 +76,8 @@ export default function AddSection() {
                                     className={styles.textFieldStyling}
                                     id="section-name"
                                     label="Name"
+                                    value={sectionName}
+                                    onChange={ e => setSectionName(e.target.value)}
                                     variant="standard"
                                     />
                                 </Typography>
@@ -77,6 +90,8 @@ export default function AddSection() {
                                         id="coordinator-email-invite"
                                         label="Collaborator's Email"
                                         variant="standard"
+                                        value={collaboratorsEmail}
+                                        onChange={ e => setCollaboratorsEmail(e.target.value)}
                                     />
                                 </Typography>
                             </Grid>
@@ -91,6 +106,7 @@ export default function AddSection() {
                                 <Grid item>
                                     <Button
                                     variant="contained"
+                                    onClick={createSection}
                                     className={styles.createButtonStyling}
                                     >
                                         Create
