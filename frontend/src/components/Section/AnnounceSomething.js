@@ -18,7 +18,7 @@ export default function AnnounceSomething({ postStateController }) {
             onClick={() => postStateController(true)}
         >
             <Grid item className={styles.itemPadding}>
-                <Avatar sx={{ bgcolor: '#ff5722', width: 48, height: 48 }}>SUI</Avatar>
+                <Avatar style={{ backgroundColor: '#f44336', fontSize: '1rem'}}> TM </Avatar>
             </Grid>
 
             <Grid item className={styles.textAnnouncementStyling}>

@@ -13,22 +13,25 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const LoginForm = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const loginUser = (event) => {
-    event.preventDefault();
-    if (email == "" || password == "") {
-      alert(`Please fill all the required fields!`);
-    } else {
-      const credentials = {
-        email: email,
-        password: password,
-      };
-      props.loginUserAction(credentials);
-    }
-  };
+const LoginForm = (props) =>
+{
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loginUser = (event) => {
+        event.preventDefault();
+        if( (email == '') || (password == '') ){
+            alert(`Please fill all the required fields!`);
+        }
+        else{
+            const credentials = { 
+                email: email,
+                password: password
+            };
+            props.loginUserAction(credentials);
+        }
+    };
 
   return (
     <>

@@ -1,6 +1,7 @@
-import React from 'react';
-
+import {React, useState} from 'react';
 import styles from '@styles/Classroom/AddSection.module.css';
+import Image from 'next/image'
+import AddImage from '../../../public/assets/images/add.png'
 
 import {
     Box,
@@ -25,130 +26,105 @@ const style = {
 
 export default function AddSection() {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [sectionName, setSectionName] = useState(false);
+    const [collaboratorsEmail, setCollaboratorsEmail] = useState(false);
+
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const createSection = (event) => {
+        event.preventDefault();
+        const section = {
+
+        }
+    }
 
     return (
         <div style={{ display: 'flex' }}>
             <div className={styles.addSectionButtonStyling} onClick={handleOpen}>
-                <Button className={styles.addSectionStyling} variant="contained">+ Add</Button>
+                <Button 
+                startIcon={<Image width={18} height={17} alt="Add" src={AddImage} />}
+                className={styles.addSectionStyling} 
+                variant="contained"> 
+                    <b>Add</b>
+                </Button>
             </div>
             <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box sx={style} style={{ borderRadius: '10px', outline: 'none'}}>
                     <Typography variant="h6" component="h2" className={styles.typographyTextBox}>
                         <span className={styles.invitationText}>Create Section</span>
                     </Typography>
                     <Grid
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="stretch"
-                        className={styles.formControlContainerStyling}
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="stretch"
+                    className={styles.formControlContainerStyling}
                     >
                         <FormControl className={styles.formControlStyling}>
-                            <Grid
-                                item
-                            >
-                                <Typography
-                                    id="modal-modal-name"
-                                    sx={{ mt: 2 }}
-                                >
+
+                            <Grid item>
+                                <Typography id="modal-modal-name" sx={{ mt: 2 }}>
                                     <TextField
-                                        className={styles.textFieldStyling}
-                                        id="section-name"
-                                        label="Name"
-                                        variant="standard"
+                                    className={styles.textFieldStyling}
+                                    id="section-name"
+                                    label="Name"
+                                    value={sectionName}
+                                    onChange={ e => setSectionName(e.target.value)}
+                                    variant="standard"
                                     />
                                 </Typography>
                             </Grid>
-                            <Grid
-                                item
-                                style={
-                                    {
-                                        paddingTop: "10px"
-                                    }
-                                }
-                            >
-                                <Typography
-                                    id="modal-modal-description"
-                                    sx={{ mt: 2 }}
-                                >
-                                    <TextField
-                                        className={styles.textFieldStyling}
-                                        id="section-description"
-                                        label="Description"
-                                        variant="standard"
-                                    />
-                                </Typography>
-                            </Grid>
-                            <Grid
-                                item
-                                style={
-                                    {
-                                        paddingTop: "10px"
-                                    }
-                                }
-                            >
-                                <Typography
-                                    id="modal-modal-description"
-                                    sx={{ mt: 2 }}
-                                >
+
+                            <Grid item style={{paddingTop: "10px"}}>
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                     <TextField
                                         className={styles.textFieldStyling}
                                         id="coordinator-email-invite"
-                                        label="Coordinator To Assign To"
+                                        label="Collaborator's Email"
                                         variant="standard"
+                                        value={collaboratorsEmail}
+                                        onChange={ e => setCollaboratorsEmail(e.target.value)}
                                     />
                                 </Typography>
                             </Grid>
+
                             <Grid
-                                container
-                                direction="row"
-                                justifyContent="space-between"
-                                alignItems="stretch"
-                                style={
-                                    {
-                                        paddingTop: "30px"
-                                    }
-                                }
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                            alignItems="stretch"
+                            style={{paddingTop: "30px"}}
                             >
-                                <Grid
-                                    item
-                                >
+                                <Grid item>
                                     <Button
-                                        variant="contained"
-                                        className={styles.createButtonStyling}
+                                    variant="contained"
+                                    onClick={createSection}
+                                    className={styles.createButtonStyling}
                                     >
-                                        <Button
-                                            className={styles.createButtonTextStyling}
-                                        >
-                                            Create
-                                        </Button>
+                                        Create
                                     </Button>
                                 </Grid>
 
-                                <Grid
-                                    item
-                                >
+                                <Grid item>
                                     <Button
-                                        variant="contained"
-                                        className={styles.cancelButtonStyling}
-                                        onClick={handleClose}
+                                    variant="contained"
+                                    className={styles.cancelButtonStyling}
+                                    onClick={handleClose}
                                     >
-                                        <span
-                                            className={styles.cancelButtonTextStyling}
-                                        >
-                                            Cancel
-                                        </span>
+                                        Cancel
                                     </Button>
                                 </Grid>
+
                             </Grid>
+                            
                         </FormControl>
                     </Grid>
                 </Box>

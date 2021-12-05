@@ -3,16 +3,10 @@
     border-radius: 0.5rem;
     overflow: hidden;
     margin: auto;
-    margin: 2.5rem auto;
-    width: 80%;
+    margin: 0;
+    width: 100%;
 }
 
 .container:hover span {
     color: #1967d2;
 }
-
-/* @media (max-width: 767px) {
-    .container {
-        width: 4.5rem;
-    }
-} */

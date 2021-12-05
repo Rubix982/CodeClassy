@@ -26,7 +26,7 @@ export default function Comment({ name, comment }) {
                 xs={1}
                 className={styles.avatarCenterStyling}
             >
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
+                <Avatar style={{ backgroundColor: '#f44336', fontSize: '1rem'}} aria-label="recipe">
                     {name}
                 </Avatar>
             </Grid>
