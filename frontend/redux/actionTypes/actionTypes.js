@@ -1,5 +1,6 @@
 export const actionTypes = {
     apiSuccess: "apiSuccess",
     apiFailed: "apiFailed",
-    loading: "loading"
+    loading: "loading",
+    
 }

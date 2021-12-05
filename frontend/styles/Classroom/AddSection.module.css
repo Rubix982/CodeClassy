@@ -17,14 +17,11 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 136px;
-    height: 64px;
+    width: 130px;
+    height: 55px;
     font-size: 20px;
-    /* M3/sys/dark/on-secondary-container */
-    /* background: #4087F2; */
     color: #ffffff;
-    border-radius: 20px;
-    /* M3/label/large */
+    border-radius: 10px;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-style: normal;
     font-weight: 500;

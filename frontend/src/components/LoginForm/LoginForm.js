@@ -27,7 +27,7 @@ const LoginForm= (props) =>
             alert(`Please fill all the required fields!`);
         }
         else{
-            const credentials = {
+            const credentials = { 
                 email: email,
                 password: password
             };
