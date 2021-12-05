@@ -25,7 +25,7 @@ const setSuccessStates = (dispatch) => {
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiSuccess,
-      payload: { successMessage: "", successMessageSnackbarState: false },
+      payload: { successMessage: "", successMessageSnackbarState: false }
     });
     Router.push("/login");
   }, 2000);
@@ -34,13 +34,13 @@ const setSuccessStates = (dispatch) => {
 const setErrorStates = (dispatch, error) => {
   dispatch({
     type: actionTypes.apiFailed,
-    payload: { errorMessage: error, errorMessageSnackbarState: true },
+    payload: { errorMessage: error, errorMessageSnackbarState: true }
   });
 
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiFailed,
-      payload: { errorMessage: "", errorMessageSnackbarState: false },
+      payload: { errorMessage: "", errorMessageSnackbarState: false }
     });
   }, 2000);
 };
