@@ -3,4 +3,5 @@ export const actionTypes = {
   apiFailed: "apiFailed",
   loading: "loading",
   studentFeedLoaded: "studentFeedLoading",
+  teacherFeedLoaded: "teacherFeedLoaded",
 };

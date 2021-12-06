@@ -7,12 +7,10 @@ export const getStudentFeed = () => {
       const api = API.getInstance();
       const response = await api.get("student/feed");
 
-      setTimeout(() => {
-        dispatch({
-          type: actionTypes.studentFeedLoaded,
-          payload: { studentSections: response.data },
-        });
-      }, 1000);
+      dispatch({
+        type: actionTypes.studentFeedLoaded,
+        payload: { studentSections: response.data },
+      });
     } catch (error) {}
   };
 };
