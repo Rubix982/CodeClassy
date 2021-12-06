@@ -21,7 +21,8 @@ class API {
 
   async get(__requestUrl) {
     const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
-    await axios.get(fullRequestUrl, this.options);
+    const response = await axios.get(fullRequestUrl, this.options);
+    return response;
   }
 
   async post(__requestUrl, __data) {
