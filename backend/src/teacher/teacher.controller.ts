@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { ClassroomService } from 'src/classroom/classroom.service';
@@ -23,5 +23,12 @@ export class TeacherController {
     const teacher = await this.teacherService.findTeacher(__member.email);
     await this.classroomService.createClassroom(teacher, __requestBody);
     return { msg: `Successfully created classroom: ${__requestBody.name}` };
+  }
+
+  @Get('feed')
+  async getTeacherFeed(@RequestDecodedMember() __member: JWTPayload) {
+    const classrooms = await this.teacherService.getClassrooms(__member.email);
+    const sections = await this.teacherService.getSections(__member.email);
+    return { classrooms, sections };
   }
 }

@@ -18,7 +18,7 @@ export class Teacher {
   @JoinColumn({ name: 'email' })
   member: Member;
 
-  @OneToMany(() => Classroom, (classroom) => classroom.createdBy)
+  @OneToMany(() => Classroom, (classroom) => classroom.owner)
   classrooms: Classroom[];
 
   @OneToMany(() => Section, (section) => section.teacher)
