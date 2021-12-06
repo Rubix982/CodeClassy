@@ -13,7 +13,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import HomePageStyling from "@styles/HomePage/HomePage.module.scss";
 import { getStudentFeed } from "redux/actions/student.action";
 import { connect } from "react-redux";
-import SectionCard from "../SectionFeedCard/SectionFeedCard";
+import FeedSectionCard from "../FeedSectionCard/FeedSectionCard";
 
 const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -78,7 +78,7 @@ const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {
           <h2 className={HomePageStyling.subHeading}>Classrooms</h2>
           <div className={HomePageStyling.cardSection}>
             {studentSections.map((section) => (
-              <SectionCard sectionData={section} />
+              <FeedSectionCard sectionData={section} />
             ))}
           </div>
         </div>
