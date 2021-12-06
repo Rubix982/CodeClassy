@@ -19,7 +19,7 @@ const SectionCard = ({ sectionData }) => {
     <Card
       sx={{ cursor: "pointer" }}
       onClick={() => {
-        Router.push(`/section/${sectionID}`);
+        Router.push(`/section/${ID}`);
       }}
       variant="outlined"
     >

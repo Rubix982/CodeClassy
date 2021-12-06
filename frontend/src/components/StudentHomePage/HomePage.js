@@ -13,7 +13,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import HomePageStyling from "@styles/HomePage/HomePage.module.scss";
 import { getStudentFeed } from "redux/actions/student.action";
 import { connect } from "react-redux";
-import SectionCard from "./SectionCard";
+import SectionCard from "../SectionFeedCard/SectionFeedCard";
 
 const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
