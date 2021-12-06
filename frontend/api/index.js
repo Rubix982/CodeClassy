@@ -27,7 +27,8 @@ class API {
 
   async post(__requestUrl, __data) {
     const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
-    await axios.post(fullRequestUrl, __data, this.options);
+    const response = await axios.post(fullRequestUrl, __data, this.options);
+    return response;
   }
 }
 

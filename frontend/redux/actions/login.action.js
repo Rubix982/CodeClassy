@@ -14,7 +14,7 @@ export const loginUserAction = (credentials) => {
   };
 };
 
-const setSuccessStates = (dispatch) => {
+export const setSuccessStates = (dispatch) => {
   dispatch({
     type: actionTypes.apiSuccess,
     payload: { successMessage: "Welcome!", successMessageSnackbarState: true },
@@ -29,7 +29,7 @@ const setSuccessStates = (dispatch) => {
   }, 2000);
 };
 
-const setErrorStates = (dispatch, error) => {
+export const setErrorStates = (dispatch, error) => {
   dispatch({
     type: actionTypes.apiFailed,
     payload: { errorMessage: error, errorMessageSnackbarState: true },
