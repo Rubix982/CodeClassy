@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundError } from 'rxjs';
 import { Member } from 'src/entities/member.entity';
 import { Student } from 'src/entities/student.entity';
 import { Repository } from 'typeorm';
@@ -28,5 +27,24 @@ export class StudentService {
         `Could not find student with email: ${__studentEmail}`,
       ]);
     }
+  }
+
+  async getAllSectionsByStudentEmail(__studentEmail: string) {
+    const studentSectionsData = await this.studentRepository
+      .createQueryBuilder('student')
+      .leftJoin('student.sections', 'section')
+      .leftJoin('section.classroom', 'classroom')
+      .leftJoin('section.teacher', 'teacher')
+      .leftJoin('teacher.member', 'member')
+      .select([
+        'section.id as sectionID',
+        'section.name as sectionName',
+        'classroom.name AS classroomName',
+        'classroom.description AS classroomDescription',
+        'member.fullName AS teacherFullName',
+      ])
+      .where('student.email=:email', { email: __studentEmail })
+      .getRawMany();
+    return studentSectionsData;
   }
 }
