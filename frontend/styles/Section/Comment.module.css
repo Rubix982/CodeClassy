@@ -1,10 +1,13 @@
 .commentBoxStyling {
-    border-top: 1px solid rgba(121, 116, 126, 0.45);
-    padding: 12px;
+    margin: 0;
+    border-bottom: 1px solid #dadbe0;
+    padding: 10px;
+    padding-right: 30px;
 }
 
 .avatarCenterStyling {
     width: 100%;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,8 +15,10 @@
 }
 
 .textContentStyling {
-    color: rgba(0, 0, 0, 0.6);
+    font-family: Roboto,Arial,sans-serif;
     font-size: 0.875rem;
+    font-weight: 400;
+    color: #3c4043;
 }
 
 @media screen and (max-width: 940px) {
