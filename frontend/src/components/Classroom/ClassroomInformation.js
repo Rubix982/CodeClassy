@@ -1,38 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import styles from '@styles/Classroom/ClassroomInformation.module.css';
 
 import CardMedia from './CardMedia';
 import AddSection from './AddSection';
+import { useRouter } from 'next/router';
+
+
+// redux imports
+import {getClassroomAction} from '../../../redux/actions/classroom.action';
+import { connect } from "react-redux";
 
 import {
     Grid
 } from "@mui/material";
 
-var sections = [
-    {
-        section: "7A",
-        assignee: "saifulislam84210@gmail.com"
-    },
-    {
-        section: "7B",
-        assignee: "TashikMoin@gmail.com"
-    },
-    {
-        section: "7C",
-        assignee: "hassanzhd2000@gmail.com"
-    },
-    {
-        section: "7D",
-        assignee: "hassanzhd2000@gmail.com"
-    },
-    {
-        section: "7D",
-        assignee: "hassanzhd2000@gmail.com"
-    },
-]
 
-export default function ClassroomInformation({ title, teacher, description }) {
+const ClassroomInformation = (props) => {
+
+    const router = useRouter();
+    const { id } = router.query;
+
+    useEffect(() => {
+        props.getClassroomAction(id);
+      }, [router]); 
+
     return (
         <Grid
             container
@@ -49,15 +41,15 @@ export default function ClassroomInformation({ title, teacher, description }) {
                         <div className={styles.headerContainer}>
                             <div className={styles.titleContainer}>
                                 <span className={styles.classroomName}>
-                                    {title}
+                                    {props.classroomInformation.name}
                                 </span>
 
                                 <span className={styles.teacherName}>
-                                    {teacher}
+                                    {props.classroomInformation.createdBy}
                                 </span>
 
                                 <span className={styles.classroomDescription}>
-                                    {description}
+                                {props.classroomInformation.description}
                                 </span>
                             </div>
                         </div>
@@ -91,10 +83,10 @@ export default function ClassroomInformation({ title, teacher, description }) {
                     alignItems="stretch"
                     className={styles.gridContainerStyling}
                 >
-                    {sections.map((sectionInformation, index) => {
+                    {props.sections.map((i, index) => {
                         return (
                             <Grid item key={index}>
-                                <CardMedia section={sectionInformation.section} assignee={sectionInformation.assignee} />
+                                <CardMedia section={i.name} assignee={i.teacherEmail} />
                             </Grid>
                         );
                     })}
@@ -103,3 +95,16 @@ export default function ClassroomInformation({ title, teacher, description }) {
         </Grid>
     )
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+    classroomInformation: state.classroomReducer.classroomInformation,
+    sections: state.classroomReducer.totalSections,
+    responseMessage: state.apiReducer.responseMessage,
+    successMessageSnackbar: state.apiReducer.successMessageSnackbar,
+    errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+    };
+  };
+  
+  export default connect(mapStateToProps, { getClassroomAction })(ClassroomInformation);

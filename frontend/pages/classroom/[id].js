@@ -57,11 +57,7 @@ export default function Classroom() {
                 </AppBar>
             </Box>
             <TabPanel value="1" className={styles.tabPanelStyling}>
-                <ClassroomInformation
-                    title="Design, Defects And Restructuring"
-                    teacher="Sayed Yousuf"
-                    description="The presence of design defects in object oriented software can have a severe impact on the quality of software.The detection and correction of design ..."
-                />
+                <ClassroomInformation/>
             </TabPanel>
             <TabPanel value="2" className={styles.tabPanelStyling}>
                 <MembersView />

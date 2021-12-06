@@ -9,7 +9,15 @@ export const registerUserAction = (formData) => {
       await api.post("auth/signup", formData);
       setSuccessStates(dispatch);
     } catch (error) {
-      setErrorStates(dispatch, error.response.data.message[0]);
+      if(error.response){
+        setErrorStates(dispatch, error.response.data.message);
+      }
+      else if(error.request){
+        setErrorStates(dispatch, error.request);
+      }
+      else {
+        setErrorStates(dispatch, error.message);
+      }
     }
   };
 };

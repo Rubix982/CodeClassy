@@ -1,5 +1,30 @@
 import { actionTypes } from "../actionTypes/actionTypes";
+import axios from "axios";
 import API from "api";
+
+
+export const getClassroomAction = (id) => {
+    return async (dispatch) => {
+      try {
+      const response = await axios.get(`http://localhost:5000/classroom/${id}`,{ withCredentials: true });
+      setClassroomStates(dispatch, response.data);
+      setSuccessStates(dispatch);
+      } catch (error) {
+          if(error.response){
+              setErrorStates(dispatch, error.response.data.message);
+          }
+          else if(error.request){
+              setErrorStates(dispatch, error.request);
+          }
+          else {
+              setErrorStates(dispatch, error.message);
+          }
+      }
+    };
+  };
+
+
+
 
 export const createSectionAction = (newSection, id) => {
   return async (dispatch) => {
@@ -12,17 +37,34 @@ export const createSectionAction = (newSection, id) => {
     setSuccessStates(dispatch);
     } catch (error) {
         if(error.response){
-            setErrorStates(dispatch, error.response.data.message[0]);
+            setErrorStates(dispatch, error.response.data.message);
         }
         else if(error.request){
-            console.log(error.request);
+            setErrorStates(dispatch, error.request);
         }
         else {
-            console.log('Error  --->', error.message);
+            setErrorStates(dispatch, error.message);
         }
     }
   };
 };
+
+
+const setClassroomStates = (dispatch, data) => {
+    dispatch({
+        type: actionTypes.setClassroomStates,
+        payload: {
+          classroomInformation: {
+              ID: data.ID,
+              name: data.name,
+              description: data.description,
+              createdBy: data.createdBy
+          },
+          sections: data.sections
+        }
+    });
+}
+
 
 const addNewSection = (dispatch, newSection) => {
     dispatch({

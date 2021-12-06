@@ -4,7 +4,6 @@ import Image from 'next/image'
 import AddImage from '../../../public/assets/images/add.png'
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-// import { useParams } from "react-router-dom";
 
 
 // redux imports
@@ -20,6 +19,7 @@ import {
     Button,
     Grid
 } from '@mui/material';
+import { withRouter } from 'next/router';
 
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -38,14 +38,12 @@ const style = {
     borderRadius: '28px',
 };
 
-const AddSection = (props) => {
+const AddSection = withRouter((props) => {
 
     const [open, setOpen] = useState(false);
     const [sectionName, setSectionName] = useState('');
     const [collaboratorsEmail, setCollaboratorsEmail] = useState('');
-
-    // const visitedClassroomId = 'b74cd099-a82f-4650-92de-70898677b496';
-
+    const id = props.router.query.id;
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -56,7 +54,6 @@ const AddSection = (props) => {
             name: sectionName,
             assignedTo: collaboratorsEmail
         }
-        const id = '166a1189-0f6c-42e0-a6bc-2f6460c367b0';
         props.createSectionAction(newSection, id);
     }
 
@@ -168,7 +165,7 @@ const AddSection = (props) => {
             </div>
         </>
     )
-}
+})
 
 
 const mapStateToProps = (state) => {

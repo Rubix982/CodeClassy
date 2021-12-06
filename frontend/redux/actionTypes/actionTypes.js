@@ -2,5 +2,6 @@ export const actionTypes = {
     apiSuccess: "apiSuccess",
     apiFailed: "apiFailed",
     loading: "loading",
-    addSection: "addSection"
+    addSection: "addSection",
+    setClassroomStates: "setClassroomStates"
 }
