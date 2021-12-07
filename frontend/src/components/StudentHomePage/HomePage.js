@@ -8,14 +8,14 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import { Typography } from "@mui/material";
-import { red, purple } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
+import LinearProgress from "@mui/material/LinearProgress";
 import HomePageStyling from "@styles/HomePage/HomePage.module.scss";
+import { getStudentFeed } from "redux/actions/student.action";
+import { connect } from "react-redux";
+import FeedSectionCard from "../FeedSectionCard/FeedSectionCard";
 
-const HomePage = () => {
+const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -24,6 +24,11 @@ const HomePage = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  React.useEffect(() => {
+    getStudentFeed();
+  }, []);
+
   return (
     <>
       <div className={HomePageStyling.navbar}>
@@ -65,108 +70,26 @@ const HomePage = () => {
           </MenuItem>
         </Menu>
       </div>
-      <div className={HomePageStyling.classrooms}>
-        <h2 className={HomePageStyling.subHeading}>Classrooms</h2>
-        <div className={HomePageStyling.cardSection}>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
+
+      {feedLoading ? (
+        <LinearProgress />
+      ) : (
+        <div className={HomePageStyling.classrooms}>
+          <h2 className={HomePageStyling.subHeading}>Classrooms</h2>
+          <div className={HomePageStyling.cardSection}>
+            {studentSections.map((section) => (
+              <FeedSectionCard sectionData={section} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+  feedLoading: state.studentReducer.feedLoading,
+  studentSections: state.studentReducer.studentSections,
+});
+
+export default connect(mapStateToProps, { getStudentFeed })(HomePage);

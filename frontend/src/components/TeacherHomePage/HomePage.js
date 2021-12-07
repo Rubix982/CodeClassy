@@ -17,8 +17,18 @@ import { Typography } from "@mui/material";
 import { red, purple } from "@mui/material/colors";
 import HomePageStyling from "@styles/HomePage/HomePage.module.scss";
 import CreateClassroomDialog from "./CreateClassroomDialog";
+import LinearProgress from "@mui/material/LinearProgress";
+import { connect } from "react-redux";
+import { getTeacherFeed } from "redux/actions/teacher.action";
+import FeedClassroomCard from "@components/FeedClassroomCard/FeedClassroomCard";
+import FeedSectionCard from "@components/FeedSectionCard/FeedSectionCard";
 
-const HomePage = () => {
+const HomePage = ({
+  getTeacherFeed,
+  feedLoading,
+  teacherClassrooms,
+  teacherSections,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -32,6 +42,10 @@ const HomePage = () => {
   const handleDialogOpen = () => {
     setDialogOpen(true);
   };
+
+  React.useEffect(() => {
+    getTeacherFeed();
+  }, []);
 
   return (
     <>
@@ -83,208 +97,37 @@ const HomePage = () => {
           </MenuItem>
         </Menu>
       </div>
-      <div className={HomePageStyling.classrooms}>
-        <h2 className={HomePageStyling.subHeading}>Classrooms</h2>
-        <div className={HomePageStyling.cardSection}>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  R
-                </Avatar>
-              }
-              title="Design Defect and Restructuring"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-      <div className={HomePageStyling.sections}>
-        <h2 className={HomePageStyling.subHeading}>Sections</h2>
-        <div className={HomePageStyling.cardSection}>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-              }
-              title="Design Defect and Restructuring (H)"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-              }
-              title="Design Defect and Restructuring (H)"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-              }
-              title="Design Defect and Restructuring (H)"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-              }
-              title="Design Defect and Restructuring (H)"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card variant="outlined">
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-              }
-              title="Design Defect and Restructuring (B)"
-              subheader="Sayed Yousuf"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+
+      {feedLoading ? (
+        <LinearProgress />
+      ) : (
+        <>
+          <div className={HomePageStyling.classrooms}>
+            <h2 className={HomePageStyling.subHeading}>Classrooms</h2>
+            <div className={HomePageStyling.cardSection}>
+              {teacherClassrooms.map((classroom) => (
+                <FeedClassroomCard classroomData={classroom} />
+              ))}
+            </div>
+          </div>
+          <div className={HomePageStyling.sections}>
+            <h2 className={HomePageStyling.subHeading}>Sections</h2>
+            <div className={HomePageStyling.cardSection}>
+              {teacherSections.map((section) => (
+                <FeedSectionCard sectionData={section} />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+  feedLoading: state.teacherReducer.feedLoading,
+  teacherClassrooms: state.teacherReducer.teacherClassrooms,
+  teacherSections: state.teacherReducer.teacherSections,
+});
+
+export default connect(mapStateToProps, { getTeacherFeed })(HomePage);

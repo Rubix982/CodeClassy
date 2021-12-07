@@ -64,13 +64,42 @@
 			"response": []
 		},
 		{
-			"name": "SignIn request",
+			"name": "Teacher SignIn request",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"email\": \"mrfoobar@gmail.com\",\n    \"password\": \"foobarfoobar\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student SignIn request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mrfoobar1@gmail.com\",\n    \"password\": \"foobarfoobar\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -254,6 +283,46 @@
 							"key": "id",
 							"value": "aef07e87-e066-406b-a2a3-e5ba9dc5168c"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student feed request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/student/feed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"student",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher feed request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/teacher/feed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"teacher",
+						"feed"
 					]
 				}
 			},

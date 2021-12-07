@@ -19,6 +19,7 @@ export class ClassroomService {
     });
 
     await this.classroomRepository.save(classroom);
+    return classroom.ID;
   }
 
   async getClassroom(__classroomID: string): Promise<Classroom> {

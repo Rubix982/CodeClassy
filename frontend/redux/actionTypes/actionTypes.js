@@ -3,5 +3,7 @@ export const actionTypes = {
     apiFailed: "apiFailed",
     loading: "loading",
     addSection: "addSection",
-    setClassroomStates: "setClassroomStates"
-}
+    setClassroomStates: "setClassroomStates",
+    studentFeedLoaded: "studentFeedLoading",
+    teacherFeedLoaded: "teacherFeedLoaded",
+};
