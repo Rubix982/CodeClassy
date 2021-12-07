@@ -25,9 +25,14 @@ const ClassroomInformation = (props) => {
     const router = useRouter();
     const { id } = router.query;
 
+
     useEffect(() => {
+        if(!id) { return; }
         props.getClassroomAction(id);
-      }, [router]); 
+    }, [id]); 
+
+
+
 
     return (
         <>
@@ -37,15 +42,15 @@ const ClassroomInformation = (props) => {
                         {props.responseMessage}
                     </Alert>
                 </Snackbar>
-                )}
+            )}
 
-                {props.errorMessageSnackbar && (
-                <Snackbar open={true} autoHideDuration={3000}>
-                    <Alert severity="error" sx={{ width: "100%" }}>
-                        {props.responseMessage}
-                    </Alert>
-                </Snackbar>
-                )}
+            {props.errorMessageSnackbar && (
+            <Snackbar open={true} autoHideDuration={3000}>
+                <Alert severity="error" sx={{ width: "100%" }}>
+                    {props.responseMessage}
+                </Alert>
+            </Snackbar>
+            )}
             <Grid
                 container
                 direction="column"
