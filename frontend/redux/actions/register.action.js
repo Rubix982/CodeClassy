@@ -9,7 +9,15 @@ export const registerUserAction = (formData) => {
       await api.post("auth/signup", formData);
       setSuccessStates(dispatch);
     } catch (error) {
-      setErrorStates(dispatch, error.response.data.message[0]);
+      if(error.response){
+        setErrorStates(dispatch, error.response.data.message);
+      }
+      else if(error.request){
+        setErrorStates(dispatch, error.request);
+      }
+      else {
+        setErrorStates(dispatch, error.message);
+      }
     }
   };
 };
@@ -25,7 +33,7 @@ const setSuccessStates = (dispatch) => {
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiSuccess,
-      payload: { successMessage: "", successMessageSnackbarState: false },
+      payload: { successMessage: "", successMessageSnackbarState: false }
     });
     Router.push("/login");
   }, 2000);
@@ -34,13 +42,13 @@ const setSuccessStates = (dispatch) => {
 const setErrorStates = (dispatch, error) => {
   dispatch({
     type: actionTypes.apiFailed,
-    payload: { errorMessage: error, errorMessageSnackbarState: true },
+    payload: { errorMessage: error, errorMessageSnackbarState: true }
   });
 
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiFailed,
-      payload: { errorMessage: "", errorMessageSnackbarState: false },
+      payload: { errorMessage: "", errorMessageSnackbarState: false }
     });
   }, 2000);
 };

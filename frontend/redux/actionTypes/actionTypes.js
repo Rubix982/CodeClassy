@@ -1,7 +1,9 @@
 export const actionTypes = {
-  apiSuccess: "apiSuccess",
-  apiFailed: "apiFailed",
-  loading: "loading",
-  studentFeedLoaded: "studentFeedLoading",
-  teacherFeedLoaded: "teacherFeedLoaded",
+    apiSuccess: "apiSuccess",
+    apiFailed: "apiFailed",
+    loading: "loading",
+    addSection: "addSection",
+    setClassroomStates: "setClassroomStates",
+    studentFeedLoaded: "studentFeedLoading",
+    teacherFeedLoaded: "teacherFeedLoaded",
 };

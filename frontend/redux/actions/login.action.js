@@ -9,7 +9,15 @@ export const loginUserAction = (credentials) => {
       await api.post("auth/signin", credentials);
       setSuccessStates(dispatch);
     } catch (error) {
-      setErrorStates(dispatch, error.response.data.message[0]);
+      if(error.response){
+        setErrorStates(dispatch, error.response.data.message);
+      }
+      else if(error.request){
+        setErrorStates(dispatch, error.request);
+      }
+      else {
+        setErrorStates(dispatch, error.message);
+      }
     }
   };
 };
@@ -17,12 +25,12 @@ export const loginUserAction = (credentials) => {
 export const setSuccessStates = (dispatch) => {
   dispatch({
     type: actionTypes.apiSuccess,
-    payload: { successMessage: "Welcome!", successMessageSnackbarState: true },
+    payload: { successMessage: "Welcome!", successMessageSnackbarState: true }
   });
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiSuccess,
-      payload: { successMessage: "", successMessageSnackbarState: false },
+      payload: { successMessage: "", successMessageSnackbarState: false }
     });
     //check roles here and redirect to home page depending of user's role.
     Router.push("/s/home");
@@ -32,13 +40,13 @@ export const setSuccessStates = (dispatch) => {
 export const setErrorStates = (dispatch, error) => {
   dispatch({
     type: actionTypes.apiFailed,
-    payload: { errorMessage: error, errorMessageSnackbarState: true },
+    payload: { errorMessage: error, errorMessageSnackbarState: true }
   });
 
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiFailed,
-      payload: { errorMessage: "", errorMessageSnackbarState: false },
+      payload: { errorMessage: "", errorMessageSnackbarState: false }
     });
   }, 2000);
 };
