@@ -31,8 +31,8 @@ export const createSectionAction = (newSection, id) => {
     try {
     const api = API.getInstance();
     await api.post(`classroom/${id}/section`, newSection);
-    const section_id = ''; // extract from post call returned url
-    newSection[section_id] = ''; // appending new section's id as new attirbute.
+    const ID = ''; // extract from post call returned url
+    newSection[ID] = ''; // appending new section's id as new attirbute.
     addNewSection(dispatch, newSection);
     setSuccessStates(dispatch);
     } catch (error) {
@@ -70,7 +70,7 @@ const addNewSection = (dispatch, newSection) => {
     dispatch({
         type: actionTypes.addSection,
         payload: {
-          newSection: newSection
+          newSection: {ID: newSection.ID, name: newSection.name, teacherEmail: newSection.assignedTo}
         }
     });
 }
