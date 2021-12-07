@@ -21,12 +21,14 @@ class API {
 
   async get(__requestUrl) {
     const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
-    await axios.get(fullRequestUrl, this.options);
+    const response = await axios.get(fullRequestUrl, this.options);
+    return response;
   }
 
   async post(__requestUrl, __data) {
     const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
-    await axios.post(fullRequestUrl, __data, this.options);
+    const response = await axios.post(fullRequestUrl, __data, this.options);
+    return response;
   }
 }
 
