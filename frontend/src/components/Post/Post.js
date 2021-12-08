@@ -1,9 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import PostStyling from "../../../styles/Post/Post.module.css"
 import { Avatar} from '@mui/material';
 import Image from "next/image";
 import announcementImage from "../../../public/assets/images/announcement.png"
 import commentImage from "../../../public/assets/images/comment.png"
+import {
+    Grid,
+    FormControl,
+    InputLabel,
+    OutlinedInput,
+    InputAdornment,
+    IconButton
+} from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 const commentsData =
 [
@@ -22,7 +31,23 @@ const commentsData =
 ]
 
 const Post = () => {
+    const [values, setValues] = useState({
+        comment: ''
+    });
 
+    const handleChange = (prop) => (event) => {
+        setValues({ comment: event.target.value });
+    };
+
+    const handlePostComment = () => {
+        // Make post request here to deal with
+        // the setting the new content
+        console.log(values.comment)
+    };
+
+    const handleMouseDownComment = (event) => {
+        event.preventDefault();
+    };
 
   return (
     <div className={PostStyling.container}>
@@ -90,7 +115,29 @@ const Post = () => {
                     <Avatar style={{ backgroundColor: '#f44336', fontSize: '1rem'}} aria-label="recipe">
                         TM
                     </Avatar>
-                    <input type="textarea" className={PostStyling.commentBox}/>
+                    <Grid style={{marginLeft: '15px'}} item xs={11}>
+                        <FormControl sx={{ width: '100%' }} variant="outlined">
+                            <InputLabel htmlFor="outlined-adornment-comment">Comment</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-comment"
+                                value={values.comment}
+                                onChange={handleChange('comment')}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle comment visibility"
+                                            onClick={handlePostComment}
+                                            onMouseDown={handleMouseDownComment}
+                                            edge="end"
+                                        >
+                                            <SendIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="Comment"
+                            />
+                        </FormControl>
+                    </Grid>
                 </div>
 
 
