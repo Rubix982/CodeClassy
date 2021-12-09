@@ -33,7 +33,7 @@ export default function Announcement() {
                         title="Tashik Moin"
                         subheader="1st December, 2021"
                     />
-                    <CardContent style={{ color: '#3c4043'}}>
+                    <CardContent style={{ textAlign: 'justify', color: '#3c4043'}}>
                         <Typography variant="body2" >
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In viverra bibendum neque quis aliquam. Integer semper lorem vel tellus iaculis, at ultricies est euismod. Mauris ut gravida velit. Ut dapibus turpis ut sapien bibendum mattis. ed vehicula nulla eu venenatis mollis. Nullam pretium ante et turpis tempor efficitur. Aliquam leo purus, feugiat vitae pharetra convallis, ultrices vel dui. Nulla pharetra nisl vitae tellus cursus, pulvinar tempor purus tincidunt.
                         </Typography>
