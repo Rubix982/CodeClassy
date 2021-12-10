@@ -8,7 +8,7 @@ export const getClassroomAction = (id) => {
       try {
       const response = await axios.get(`http://localhost:5000/classroom/${id}`,{ withCredentials: true });
       setClassroomStates(dispatch, response.data);
-      setSuccessStates(dispatch);
+      setSuccessStates(dispatch, response.data.name);
       } catch (error) {
           if(error.response){
               setErrorStates(dispatch, error.response.data.message);
@@ -31,10 +31,10 @@ export const createSectionAction = (newSection, id) => {
     try {
     const api = API.getInstance();
     await api.post(`classroom/${id}/section`, newSection);
-    const section_id = ''; // extract from post call returned url
-    newSection[section_id] = ''; // appending new section's id as new attirbute.
+    const ID = ''; // extract from post call returned url
+    newSection[ID] = ''; // appending new section's id as new attirbute.
     addNewSection(dispatch, newSection);
-    setSuccessStates(dispatch);
+    setSuccessStates(dispatch, "New Section Created Successfully!");
     } catch (error) {
         if(error.response){
             setErrorStates(dispatch, error.response.data.message);
@@ -70,16 +70,16 @@ const addNewSection = (dispatch, newSection) => {
     dispatch({
         type: actionTypes.addSection,
         payload: {
-          newSection: newSection
+          newSection: {ID: newSection.ID, name: newSection.name, teacherEmail: newSection.assignedTo}
         }
     });
 }
 
-const setSuccessStates = (dispatch) => {
+const setSuccessStates = (dispatch, msg) => {
   dispatch({
     type: actionTypes.apiSuccess,
     payload: {
-      successMessage: "New Section Created Successfully!",
+      successMessage: msg,
       successMessageSnackbarState: true,
     }
   });

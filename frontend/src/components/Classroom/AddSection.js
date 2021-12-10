@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import styles from '@styles/Classroom/AddSection.module.css';
 import Image from 'next/image'
 import AddImage from '../../../public/assets/images/add.png'
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 
 
 // redux imports
@@ -22,9 +20,6 @@ import {
 import { withRouter } from 'next/router';
 
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 
 const style = {
@@ -59,21 +54,6 @@ const AddSection = withRouter((props) => {
 
     return (
         <>
-            {props.successMessageSnackbar && (
-            <Snackbar open={true} autoHideDuration={3000}>
-                <Alert severity="success" sx={{ width: "100%" }}>
-                    {props.responseMessage}
-                </Alert>
-            </Snackbar>
-            )}
-
-            {props.errorMessageSnackbar && (
-            <Snackbar open={true} autoHideDuration={3000}>
-                <Alert severity="error" sx={{ width: "100%" }}>
-                    {props.responseMessage}
-                </Alert>
-            </Snackbar>
-            )}
 
             <div style={{ display: 'flex' }}>
                 <div className={styles.addSectionButtonStyling} onClick={handleOpen}>
@@ -169,11 +149,7 @@ const AddSection = withRouter((props) => {
 
 
 const mapStateToProps = (state) => {
-    return {
-        responseMessage: state.apiReducer.responseMessage,
-        successMessageSnackbar: state.apiReducer.successMessageSnackbar,
-        errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
-    };
+    return {};
   };
   
 export default connect(mapStateToProps, { createSectionAction })(AddSection);
