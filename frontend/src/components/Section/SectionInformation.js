@@ -28,6 +28,7 @@ export default function SectionInformation({ section }) {
 
             <Grid item >
                 <Grid
+                    style={{ marginBottom: '15vh'}}
                     container
                     direction="column"
                     justifyContent="center"
