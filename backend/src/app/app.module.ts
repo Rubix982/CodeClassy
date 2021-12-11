@@ -12,6 +12,7 @@ import { MemberVerificationModule } from 'src/member-verification/member-verific
 import { TeacherModule } from 'src/teacher/teacher.module';
 import { StudentModule } from 'src/student/Student.module';
 import { SectionModule } from 'src/section/section.module';
+import { AnnouncementModule } from 'src/announcement/announcement.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { SectionModule } from 'src/section/section.module';
     TeacherModule,
     StudentModule,
     SectionModule,
+    AnnouncementModule,
     CryptoModule,
   ],
   controllers: [AppController],

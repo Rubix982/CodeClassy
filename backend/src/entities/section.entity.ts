@@ -5,9 +5,11 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
+import { Announcement } from './announcement.entity';
 import { Classroom } from './classroom.entity';
 import { Student } from './student.entity';
 import { Teacher } from './teacher.entity';
@@ -42,4 +44,7 @@ export class Section {
   })
   @JoinTable({ name: 'section_students' })
   students: Student[];
+
+  @OneToMany(() => Announcement, (announcement) => announcement.section)
+  announcements: Announcement[];
 }
