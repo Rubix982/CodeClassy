@@ -327,6 +327,51 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Announcement creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "contentBody",
+							"value": "\"Welcome to FAST\"",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/home/hassan/Documents/collaborative-learning.pdf",
+								"/home/hassan/Documents/banner.pptx"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/section/:id/announcement",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"section",
+						":id",
+						"announcement"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "33397d2f-7920-44d6-acca-efd53a850a9d"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
