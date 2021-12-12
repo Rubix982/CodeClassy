@@ -13,6 +13,9 @@ import { TeacherModule } from 'src/teacher/teacher.module';
 import { StudentModule } from 'src/student/Student.module';
 import { SectionModule } from 'src/section/section.module';
 import { AnnouncementModule } from 'src/announcement/announcement.module';
+import { JSONQueryExtractorModule } from 'src/json-query-extractor/json-query-extractor.module';
+import { SectionStudentModule } from 'src/section-student/section-student.module';
+import { AnnouncementCommentModule } from 'src/announcement-comment/announcement-comment.module';
 
 @Module({
   imports: [
@@ -28,7 +31,10 @@ import { AnnouncementModule } from 'src/announcement/announcement.module';
     StudentModule,
     SectionModule,
     AnnouncementModule,
+    SectionStudentModule,
+    AnnouncementCommentModule,
     CryptoModule,
+    JSONQueryExtractorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
