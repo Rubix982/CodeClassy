@@ -372,6 +372,42 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Announcement comment creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contentBody\": \"Thank you!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/announcement/:id/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"announcement",
+						":id",
+						"comment"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "66df1f84-7039-4d83-9457-8b504050d7c6"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
