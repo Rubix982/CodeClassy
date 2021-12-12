@@ -1,0 +1,6 @@
+[
+  {
+    "id": 1,
+    "query": "SELECT * FROM section_students SectionStudents WHERE SectionStudents.sectionID = ? AND SectionStudents.studentEmail = ?;"
+  }
+]
