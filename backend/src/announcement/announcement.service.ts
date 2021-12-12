@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Announcement } from 'src/entities/announcement.entity';
 import { Section } from 'src/entities/section.entity';
@@ -23,5 +23,19 @@ export class AnnouncementService {
 
     await this.announcementRepository.save(announcement);
     return announcement.ID;
+  }
+
+  async getAnnouncement(__announcementID: string) {
+    const announcement = await this.announcementRepository.findOne(
+      __announcementID,
+    );
+
+    if (announcement) {
+      return announcement;
+    } else {
+      throw new NotFoundException([
+        `Could not find announcement with ID: ${__announcementID}`,
+      ]);
+    }
   }
 }
