@@ -63,7 +63,7 @@ export class SectionService {
     }
   }
 
-  async addSectionMember(__sectionID: string, __studentEmail) {
+  async addSectionMember(__sectionID: string, __studentEmail: string) {
     const section = await this.getSectionWithStudents(__sectionID);
     const student = await this.studentService.getStudent(__studentEmail);
     section.students = [...section.students, student];
