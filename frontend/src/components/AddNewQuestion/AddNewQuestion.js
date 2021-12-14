@@ -5,46 +5,55 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import {TabPanel, a11yProps}  from '../MaterialCustomComponents/TabPanel'
-import {Avatar} from "@mui/material";
 import Button from '@mui/material/Button';
+import FreeText from './FreeText';
+import Matching from './Matching';
+import Mcq from './Mcq';
+import Essay from './Essay';
+import TrueFalse from './TrueFalse';
+
+let tabsData = 
+[
+    {
+        "index": 0,
+        "image": "mcq",
+        "name": "Multiple Choice",
+        "component": Mcq
+    },
+    {
+        "index": 1,
+        "image": "truefalse",
+        "name": "True False",
+        "component": TrueFalse
+    },
+    {
+        "index": 2,
+        "image": "matching",
+        "name": "Matching",
+        "component": Matching
+    },
+    {
+        "index": 3,
+        "image": "freetext",
+        "name": "Free Text",
+        "component": FreeText
+    },
+    {
+        "index": 4,
+        "image": "essay",
+        "name": "Essay",
+        "component": Essay
+    }
+]
 
 
 const AddNewQuestion= () =>
 {
     const [value, setValue] = useState(0);
-    const [mcqColor, setMcq] = useState('red');
-    const [trueFalseColor, setTrueFalse] = useState('grey');
-    const [matchingColor, setMatching] = useState('grey');
-    const [freeTextColor, setFreeText] = useState('grey');
-    const [essayColor, setEssay] = useState('grey');
-
+    const [currentTabID, setCurrentTabID] = useState("Multiple Choice");
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
-    };
-
-    const setStates = (newVal) => {
-        setValue(newVal);
-        setMcq('grey');
-        setTrueFalse('grey');
-        setMatching('grey');
-        setFreeText('grey');
-        setEssay('grey');
-        if(newVal == 0){
-            setMcq('red');
-        }
-        else if(newVal == 1){
-            setTrueFalse('red');
-        }
-        else if(newVal == 2){
-            setMatching('red');
-        }
-        else if(newVal == 3){
-            setFreeText('red');
-        }
-        else{
-            setEssay('red');
-        }
     };
 
     return(
@@ -58,154 +67,62 @@ const AddNewQuestion= () =>
                             display: "none",
                         }
                     }}
+                    centered
                     value={value} 
                     onChange={handleChange} 
                     aria-label="basic tabs example"
                     style={{ height: '95px'}}
                     >
-                        <Tab 
-                        {...a11yProps(0)}
-                        component={() => (
-                            <Button 
-                            style={{ 
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            padding: '25px',
-                            border: '1px solid #d0d0d0',
-                            margin: '3px',
-                            width: '118px',
-                            textAlign: 'center',
-                            color: '#5b605b',
-                            justifyContent: 'center'
-                            }} 
 
-                            onClick={() => setStates(0)}>
-                               <Image height={22} width={35} wid src={`/assets/images/mcq-${mcqColor}.webp`} /> 
-                               <label style={{ color: `${mcqColor}`}} className={NewQuestionStyles.tablabel}> Multiple Choice </label>  
-                            </Button>
-                         )}
+                        {tabsData.map((i, index) => {
+                            let color = "grey";
+                            if (currentTabID === i.name) {
+                                color = "red";                   
+                            }
+                        return(
+                            <Tab 
+                            key={index}
+                            {...a11yProps(4)}
+                            component={() => (
+                                <Button 
+                                style={{ 
+                                display: 'flex', 
+                                flexDirection: 'column',
+                                padding: '25px',
+                                border: '1px solid #d0d0d0',
+                                margin: '3px',
+                                width: '118px',
+                                textAlign: 'center',
+                                color: '#5b605b',
+                                justifyContent: 'center'
+                                }} 
+                                onClick={()=>{
+                                    setValue(index);
+                                    setCurrentTabID(i.name);
+                                }}
+                            >
+                                <Image height={22} width={35} wid src={`/assets/images/${i.image}-${color}.webp`} /> 
+                                <label style={{ color: color}} className={NewQuestionStyles.tablabel}> {i.name} </label>  
+                                </Button>
+                            )}
                         /> 
-
-                        <Tab 
-                        {...a11yProps(1)}
-                        component={() => (
-                            <Button 
-                            style={{ 
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            padding: '25px',
-                            border: '1px solid #d0d0d0',
-                            margin: '3px',
-                            width: '118px',
-                            textAlign: 'center',
-                            color: '#5b605b',
-                            justifyContent: 'center'
-                            }} 
-
-                            onClick={() => setStates(1)}>
-                               <Image height={22} width={35} wid src={`/assets/images/truefalse-${trueFalseColor}.webp`} /> 
-                               <label style={{ color: `${trueFalseColor}`}} className={NewQuestionStyles.tablabel}> True False </label>  
-                            </Button>
-                         )}
-                        /> 
-
-
-                        <Tab 
-                        {...a11yProps(2)}
-                        component={() => (
-                            <Button 
-                            style={{ 
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            padding: '25px',
-                            border: '1px solid #d0d0d0',
-                            margin: '3px',
-                            width: '118px',
-                            textAlign: 'center',
-                            color: '#5b605b',
-                            justifyContent: 'center'
-                            }} 
-
-                            onClick={() => setStates(2)}>
-                               <Image height={22} width={35} wid src={`/assets/images/matching-${matchingColor}.webp`} /> 
-                               <label style={{ color: `${matchingColor}`}} className={NewQuestionStyles.tablabel}> Matching </label>  
-                            </Button>
-                         )}
-                        /> 
-
-
-                        <Tab 
-                        {...a11yProps(3)}
-                        component={() => (
-                            <Button 
-                            style={{ 
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            padding: '25px',
-                            border: '1px solid #d0d0d0',
-                            margin: '3px',
-                            width: '118px',
-                            textAlign: 'center',
-                            color: '#5b605b',
-                            justifyContent: 'center'
-                            }} 
-
-                            onClick={() => setStates(3)}>
-                               <Image height={22} width={35} wid src={`/assets/images/freetext-${freeTextColor}.webp`} /> 
-                               <label style={{ color: `${freeTextColor}`}} className={NewQuestionStyles.tablabel}> Free Text </label>  
-                            </Button>
-                         )}
-                        /> 
-
-
-                        <Tab 
-                        {...a11yProps(4)}
-                        component={() => (
-                            <Button 
-                            style={{ 
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            padding: '25px',
-                            border: '1px solid #d0d0d0',
-                            margin: '3px',
-                            width: '118px',
-                            textAlign: 'center',
-                            color: '#5b605b',
-                            justifyContent: 'center'
-                            }} 
-
-                            onClick={() => setStates(4)}>
-                               <Image height={22} width={35} wid src={`/assets/images/essay-${essayColor}.webp`} /> 
-                               <label style={{ color: `${essayColor}`}} className={NewQuestionStyles.tablabel}> Essay </label>  
-                            </Button>
-                         )}
-                        /> 
-
-                        
-
+                        );
+                        })}
 
                     </Tabs>
                 </Box>
 
-                <TabPanel value={value} index={0}>
-                    Item One
-                </TabPanel>
+                {
+                    tabsData.map((element, index)=> {
+                        return (        
+                            <TabPanel key={index} value={value} index={index}>
+                                <element.component/>
+                            </TabPanel>
+                        )
+                    })
+                }
 
-                <TabPanel value={value} index={1}>
-                    Item Two
-                </TabPanel>
-
-                <TabPanel value={value} index={2}>
-                    Item Three
-                </TabPanel>
-
-                <TabPanel value={value} index={3}>
-                    Item Four
-                </TabPanel>
-
-                <TabPanel value={value} index={4}>
-                    Item Five
-                </TabPanel>
+              
 
             </div>
             
