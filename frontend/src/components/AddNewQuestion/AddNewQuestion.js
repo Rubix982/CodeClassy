@@ -58,7 +58,6 @@ const AddNewQuestion= () =>
                             display: "none",
                         }
                     }}
-                    centered
                     value={value} 
                     onChange={handleChange} 
                     aria-label="basic tabs example"
