@@ -1,30 +1,100 @@
 import React, { useState } from "react";
-const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then(mod => mod.Editor),
-  { ssr: false }
-)
-import { EditorState } from "draft-js"
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import dynamic from 'next/dynamic';
+import Image from "next/image";
+import RichTextEditor from "../RichTextEditor/RichTextEditor"
+import Checkbox from '@mui/material/Checkbox';
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+let Answers = 
+[ "(A)", "(B)", "(C)" , "(D)", "(E)", "(F)", "(G)", "(H)", "(I)", "(J)", "(K)", "(L)", "(M)", "(N)", 
+  "(O)", "(P)", "(Q)", "(R)", "(S)", "(T)", "(U)", "(V)", "(W)", "(X)", "(Y)", "(Z)"
+]
+
 
 const Mcq = () => {
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
-  }
+  const[currentAnswers, setCurrentAnswers] = useState(4);
 
   return(
-  <>
-    <Editor
-      editorState={editorState}
-      toolbarClassName="toolbarClassName"
-      wrapperClassName="wrapperClassName"
-      editorClassName="editorClassName"
-      onEditorStateChange={onEditorStateChange}
-    />
-  </>
+    <div style={{marginTop: '30px'}}>
+      <h4 style={{margin: '10px', color: '#444444'}}> Question </h4>
+      <RichTextEditor/>
+      <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
+
+      { Answers.slice(0, currentAnswers).map((item, index) => {
+        return (
+          <div key={index}>
+            <div style={{ display: 'flex', flexDirection: 'row'}}>
+              <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> {item} </h4>
+              <Checkbox 
+              {...label} 
+              size="small"
+              style={{ marginTop: '17px'}}
+              color="success" 
+              />
+
+              <h4 style={{ margin: '10px', marginLeft: '0px', marginTop: '32px', color: '#444444' }}>
+                This answer option is correct
+              </h4>
+
+            </div>
+            <RichTextEditor/>
+          </div>
+        );
+      })}
+
+      <div style={{marginTop: '50px'}}>
+        <button 
+        onClick={() => setCurrentAnswers(currentAnswers+1)}
+        style={{ 
+          fontSize: '1rem', 
+          marginLeft: '10px', 
+          width: '88%', 
+          cursor: 'pointer',
+          border: '1px solid #d0d2d2',
+          backgroundColor: '#ffffff',
+          outline: 'none',
+          height:'60px'
+        }}
+        > 
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', padding: '5px'}}>
+            <Image
+              height={30}
+              width={35}
+              src={`/assets/images/addBlack.png`}
+            />
+            <h4 style={{marginLeft: '10px', color: '#444444' }}>
+              Add an answer option
+            </h4>
+          </div>
+        </button>
+
+        <button 
+        onClick={() => setCurrentAnswers(currentAnswers-1)}
+        style={{ 
+          fontSize: '1rem', 
+          marginLeft: '10px', 
+          width: '88%', 
+          cursor: 'pointer',
+          marginTop: '30px',
+          border: '1px solid #d0d2d2',
+          backgroundColor: '#ffffff',
+          outline: 'none',
+          height:'60px'
+        }}
+        > 
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', padding: '5px'}}>
+            <Image
+              height={30}
+              width={35}
+              src={`/assets/images/remove.png`}
+            />
+            <h4 style={{marginLeft: '10px', color: '#444444' }}>
+              Remove an answer option
+            </h4>
+          </div>
+        </button>
+      </div>
+
+    </div>
   );
 };
 

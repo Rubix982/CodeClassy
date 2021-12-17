@@ -103,7 +103,6 @@ const AddNewQuestion = () => {
                       <Image
                         height={22}
                         width={35}
-                        wid
                         src={`/assets/images/${i.image}-${color}.webp`}
                       />
                       <label
