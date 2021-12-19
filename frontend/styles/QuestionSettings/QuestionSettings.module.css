@@ -1,0 +1,19 @@
+.container {
+    width: 86%;
+    margin: 5% 1%;
+    padding: 1%;
+    background-color: #f7f7f7;
+}
+
+.settingsHeading {
+    margin-bottom: 10px;
+}
+
+.subContainer{
+    margin: 2%;
+    width: 95%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #cccccc;
+}
+
+
