@@ -3,7 +3,7 @@ const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
   { ssr: false }
 )
-import { EditorState } from "draft-js"
+import { EditorState, convertToRaw } from "draft-js"
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import dynamic from 'next/dynamic';
 
@@ -14,6 +14,9 @@ const RichTextEditor = () => {
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
   }
+
+  // console.log(convertToRaw(editorState.getCurrentContent()).blocks[0].text)
+  // for text from richtext ^^^
 
   return(
     <div 
