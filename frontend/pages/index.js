@@ -1,7 +1,5 @@
 import React from "react";
-
 import styles from "../styles/index.module.css";
-
 import { Grid, Button } from '@mui/material';
 
 export default function Index() {

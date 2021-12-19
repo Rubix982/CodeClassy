@@ -3,6 +3,8 @@ import Image from "next/image";
 import RichTextEditor from "../RichTextEditor/RichTextEditor"
 import Checkbox from '@mui/material/Checkbox';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+import QuestionSettings from './QuestionSettings.js'
+import Question from './Question'
 
 let Answers = 
 [ "(A)", "(B)", "(C)" , "(D)", "(E)", "(F)", "(G)", "(H)", "(I)", "(J)", "(K)", "(L)", "(M)", "(N)", 
@@ -12,13 +14,13 @@ let Answers =
 
 const Mcq = () => {
   const[currentAnswers, setCurrentAnswers] = useState(4);
+  const[addButtonBackground, setAddButtonBackground] = useState('#ffffff');
+  const[removeButtonBackground, setRemoveButtonBackground] = useState('#ffffff');
 
   return(
     <div style={{marginTop: '30px'}}>
-      <h4 style={{margin: '10px', color: '#444444'}}> Question </h4>
-      <RichTextEditor/>
+      <Question/>
       <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
-
       { Answers.slice(0, currentAnswers).map((item, index) => {
         return (
           <div key={index}>
@@ -41,21 +43,24 @@ const Mcq = () => {
         );
       })}
 
-      <div style={{marginTop: '50px'}}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '50px'}}>
         <button 
         onClick={() => setCurrentAnswers(currentAnswers+1)}
+        onMouseEnter={(e) => setAddButtonBackground('#e0e0e0')}
+        onMouseLeave={(e) => setAddButtonBackground('#ffffff')}
         style={{ 
           fontSize: '1rem', 
-          marginLeft: '10px', 
-          width: '88%', 
+          marginLeft: '14px', 
+          width: '43%', 
           cursor: 'pointer',
           border: '1px solid #d0d2d2',
-          backgroundColor: '#ffffff',
+          backgroundColor: addButtonBackground,
           outline: 'none',
           height:'60px'
         }}
         > 
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', padding: '5px'}}>
+          <div 
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', padding: '5px'}}>
             <Image
               height={30}
               width={35}
@@ -69,19 +74,25 @@ const Mcq = () => {
 
         <button 
         onClick={() => setCurrentAnswers(currentAnswers-1)}
+        onMouseEnter={(e) => setRemoveButtonBackground('#e0e0e0')}
+        onMouseLeave={(e) => setRemoveButtonBackground('#ffffff')}
         style={{ 
           fontSize: '1rem', 
           marginLeft: '10px', 
-          width: '88%', 
+          width: '43%', 
           cursor: 'pointer',
-          marginTop: '30px',
           border: '1px solid #d0d2d2',
-          backgroundColor: '#ffffff',
+          backgroundColor: removeButtonBackground,
           outline: 'none',
           height:'60px'
         }}
         > 
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', padding: '5px'}}>
+          <div 
+          style={{ display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          flexDirection: 'row', 
+          padding: '5px'}}>
             <Image
               height={30}
               width={35}
@@ -93,6 +104,8 @@ const Mcq = () => {
           </div>
         </button>
       </div>
+
+      <QuestionSettings questionsCategory={true} points={true} randomize={true}/>
 
     </div>
   );
