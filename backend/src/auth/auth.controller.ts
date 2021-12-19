@@ -33,14 +33,16 @@ export class AuthController {
 
   @Post('signin')
   async signIn(@Res() response: Response, @Body() __requestBody: SignInDto) {
-    const accessToken = await this.authService.signInUser(__requestBody);
+    const { accessToken, redirectUrl } = await this.authService.signInUser(
+      __requestBody,
+    );
     response.cookie('accessToken', accessToken, {
       sameSite: true,
       httpOnly: true,
     });
     response
       .status(HttpStatus.OK)
-      .json({ message: 'User successfully signed in!' });
+      .json({ message: 'User successfully signed in!', redirectUrl });
   }
 
   @Post('logout')

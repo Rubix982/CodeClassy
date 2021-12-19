@@ -57,7 +57,16 @@ export class AuthService {
     );
 
     const jwtPayload = entityTransformer.fromEntity(member);
-    return this.jwtService.sign({ ...jwtPayload });
+    let redirectUrl = '';
+
+    if (member.role === 'Teacher') {
+      redirectUrl = '/t/home';
+    } else {
+      redirectUrl = '/s/home';
+    }
+
+    const accessToken = this.jwtService.sign({ ...jwtPayload });
+    return { accessToken, redirectUrl };
   }
 
   async validateAccessToken(__accessToken: string) {
