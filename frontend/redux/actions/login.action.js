@@ -7,7 +7,7 @@ export const loginUserAction = (credentials) => {
     try {
       const api = API.getInstance();
       const response = await api.post("auth/signin", credentials);
-      setSuccessStates(dispatch, response.data.redirectUrl);
+      setSuccessStates(dispatch, response.data.payload);
     } catch (error) {
       if (error.response) {
         setErrorStates(dispatch, error.response.data.message);
@@ -20,7 +20,7 @@ export const loginUserAction = (credentials) => {
   };
 };
 
-export const setSuccessStates = (dispatch, redirectUrl) => {
+export const setSuccessStates = (dispatch, payload) => {
   dispatch({
     type: actionTypes.apiSuccess,
     payload: { successMessage: "Welcome!", successMessageSnackbarState: true },
@@ -30,8 +30,12 @@ export const setSuccessStates = (dispatch, redirectUrl) => {
       type: actionTypes.apiSuccess,
       payload: { successMessage: "", successMessageSnackbarState: false },
     });
+    dispatch({
+      type: actionTypes.userLoggedIn,
+      payload: { userRole: payload.role },
+    });
     //check roles here and redirect to home page depending of user's role.
-    Router.push(redirectUrl);
+    Router.push("/h");
   }, 2000);
 };
 
