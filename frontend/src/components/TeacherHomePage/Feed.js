@@ -5,6 +5,7 @@ import FeedClassroomCard from "@components/FeedClassroomCard/FeedClassroomCard";
 import FeedSectionCard from "@components/FeedSectionCard/FeedSectionCard";
 import { connect } from "react-redux";
 import { getTeacherFeed } from "redux/actions/teacher.action";
+import Box from "@mui/material/Box";
 
 const Feed = ({
     feedLoading,
@@ -47,3 +48,6 @@ const mapStateToProps = (state) => ({
   });
   
 export default connect(mapStateToProps, { getTeacherFeed })(Feed);
+
+
+

@@ -10,18 +10,11 @@ import Add from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import { Typography } from "@mui/material";
 import { red, purple } from "@mui/material/colors";
 import HomePageStyling from "@styles/HomePage/HomePage.module.scss";
 import CreateClassroomDialog from "./CreateClassroomDialog";
-import LinearProgress from "@mui/material/LinearProgress";
 import { connect } from "react-redux";
 import { getTeacherFeed } from "redux/actions/teacher.action";
-import FeedClassroomCard from "@components/FeedClassroomCard/FeedClassroomCard";
-import FeedSectionCard from "@components/FeedSectionCard/FeedSectionCard";
 import { TabPanel, a11yProps } from "../MaterialCustomComponents/TabPanel"
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -30,6 +23,8 @@ import Feed from "./Feed";
 import QuestionBank from "./QuestionBank"
 import Quizes from "./Quizes"
 import Assignments from "./Assignments"
+import FeedClassroomCard from "@components/FeedClassroomCard/FeedClassroomCard";
+import FeedSectionCard from "@components/FeedSectionCard/FeedSectionCard";
 
 let tabsData = 
 [
@@ -40,7 +35,10 @@ let tabsData =
 ]
 
 const HomePage = ({
-  getTeacherFeed
+  getTeacherFeed,
+  feedLoading,
+  teacherClassrooms,
+  teacherSections,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -68,7 +66,7 @@ const HomePage = ({
   }, []);
 
   return (
-    <div>
+    <div style={{display: 'flex', flexDirection: 'column'}}>
       <div className={HomePageStyling.navbar}>
         <h1>CodeClassy</h1>
         <Box>
@@ -119,7 +117,7 @@ const HomePage = ({
       </div>
 
       <div className={HomePageStyling.subTabMenu}>
-      <Tabs
+          <Tabs
             TabIndicatorProps={{
               style: {
                 display: "none",
@@ -133,7 +131,7 @@ const HomePage = ({
           >
             {tabsData.map((i, index) => {
               let color = "grey";
-              if (currentTabID === i) {
+              if (currentTabID === i.name) {
                 color = "#000000";
               }
               return (
@@ -167,14 +165,39 @@ const HomePage = ({
               );
             })}
           </Tabs>
-
-          {tabsData.map((element, index) => {
+          
+                  
+          {/* {tabsData.map((element, index) => {
           return (
             <TabPanel key={index} value={value} index={index}>
               <element.component />
             </TabPanel>
           );
-        })}
+          })} */}
+
+
+{/* {feedLoading ? (
+    <LinearProgress />
+    ) : (
+        <>
+          <div className={HomePageStyling.classrooms}>
+            <h2 className={HomePageStyling.subHeading}>Classrooms</h2>
+            <div className={HomePageStyling.cardSection}>
+              {teacherClassrooms.map((classroom) => (
+                <FeedClassroomCard classroomData={classroom} />
+              ))}
+            </div>
+          </div>
+          <div className={HomePageStyling.sections}>
+            <h2 className={HomePageStyling.subHeading}>Sections</h2>
+            <div className={HomePageStyling.cardSection}>
+              {teacherSections.map((section) => (
+                <FeedSectionCard sectionData={section} />
+              ))}
+            </div>
+          </div>
+        </>
+      )} */}
       </div>
 
     </div>
