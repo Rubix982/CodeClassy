@@ -57,15 +57,12 @@ export class AuthService {
     );
 
     const jwtPayload = entityTransformer.fromEntity(member);
-    return this.jwtService.sign({ ...jwtPayload });
+    const accessToken = this.jwtService.sign({ ...jwtPayload });
+    return { accessToken, jwtPayload };
   }
 
   async validateAccessToken(__accessToken: string) {
-    try {
-      const payload = await this.jwtService.verify(__accessToken);
-      return payload;
-    } catch (error) {
-      throw new UnauthorizedException();
-    }
+    const payload = await this.jwtService.verify(__accessToken);
+    return payload;
   }
 }

@@ -6,47 +6,49 @@ export const loginUserAction = (credentials) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
-      await api.post("auth/signin", credentials);
-      setSuccessStates(dispatch);
+      const response = await api.post("auth/signin", credentials);
+      setSuccessStates(dispatch, response.data.payload);
     } catch (error) {
-      if(error.response){
+      if (error.response) {
         setErrorStates(dispatch, error.response.data.message);
-      }
-      else if(error.request){
+      } else if (error.request) {
         setErrorStates(dispatch, error.request);
-      }
-      else {
+      } else {
         setErrorStates(dispatch, error.message);
       }
     }
   };
 };
 
-export const setSuccessStates = (dispatch) => {
+export const setSuccessStates = (dispatch, payload) => {
   dispatch({
     type: actionTypes.apiSuccess,
-    payload: { successMessage: "Welcome!", successMessageSnackbarState: true }
+    payload: { successMessage: "Welcome!", successMessageSnackbarState: true },
   });
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiSuccess,
-      payload: { successMessage: "", successMessageSnackbarState: false }
+      payload: { successMessage: "", successMessageSnackbarState: false },
+    });
+    dispatch({
+      type: actionTypes.userLoggedIn,
+      payload: { userRole: payload.role },
     });
     //check roles here and redirect to home page depending of user's role.
-    Router.push("/s/home");
+    Router.push("/h");
   }, 2000);
 };
 
 export const setErrorStates = (dispatch, error) => {
   dispatch({
     type: actionTypes.apiFailed,
-    payload: { errorMessage: error, errorMessageSnackbarState: true }
+    payload: { errorMessage: error, errorMessageSnackbarState: true },
   });
 
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiFailed,
-      payload: { errorMessage: "", errorMessageSnackbarState: false }
+      payload: { errorMessage: "", errorMessageSnackbarState: false },
     });
   }, 2000);
 };
