@@ -6,6 +6,7 @@ import {
   Post,
   Req,
   Res,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './signin.dto';
@@ -18,11 +19,18 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get()
-  async authorize(@Req() __request: Request) {
-    const { accessToken } = __request.cookies;
-    const decodedUser = await this.authService.validateAccessToken(accessToken);
-    const transformedUser = new AuthorizeResponseDTO(decodedUser);
-    return transformedUser;
+  async authorize(@Req() __request: Request, @Res() __response: Response) {
+    try {
+      const { accessToken } = __request.cookies;
+      const decodedUser = await this.authService.validateAccessToken(
+        accessToken,
+      );
+      const transformedUser = new AuthorizeResponseDTO(decodedUser);
+      __response.json(transformedUser);
+    } catch (error) {
+      __response.clearCookie('accessToken');
+      throw new UnauthorizedException();
+    }
   }
 
   @Post('signup')
@@ -33,16 +41,15 @@ export class AuthController {
 
   @Post('signin')
   async signIn(@Res() response: Response, @Body() __requestBody: SignInDto) {
-    const { accessToken, redirectUrl } = await this.authService.signInUser(
-      __requestBody,
-    );
+    const { accessToken, jwtPayload: payload } =
+      await this.authService.signInUser(__requestBody);
     response.cookie('accessToken', accessToken, {
       sameSite: true,
       httpOnly: true,
     });
     response
       .status(HttpStatus.OK)
-      .json({ message: 'User successfully signed in!', redirectUrl });
+      .json({ message: 'User successfully signed in!', payload });
   }
 
   @Post('logout')

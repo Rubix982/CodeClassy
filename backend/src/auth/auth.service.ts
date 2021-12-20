@@ -57,24 +57,12 @@ export class AuthService {
     );
 
     const jwtPayload = entityTransformer.fromEntity(member);
-    let redirectUrl = '';
-
-    if (member.role === 'Teacher') {
-      redirectUrl = '/t/home';
-    } else {
-      redirectUrl = '/s/home';
-    }
-
     const accessToken = this.jwtService.sign({ ...jwtPayload });
-    return { accessToken, redirectUrl };
+    return { accessToken, jwtPayload };
   }
 
   async validateAccessToken(__accessToken: string) {
-    try {
-      const payload = await this.jwtService.verify(__accessToken);
-      return payload;
-    } catch (error) {
-      throw new UnauthorizedException();
-    }
+    const payload = await this.jwtService.verify(__accessToken);
+    return payload;
   }
 }
