@@ -165,41 +165,15 @@ const HomePage = ({
               );
             })}
           </Tabs>
-          
-                  
-          {/* {tabsData.map((element, index) => {
-          return (
-            <TabPanel key={index} value={value} index={index}>
-              <element.component />
-            </TabPanel>
-          );
-          })} */}
-
-
-{/* {feedLoading ? (
-    <LinearProgress />
-    ) : (
-        <>
-          <div className={HomePageStyling.classrooms}>
-            <h2 className={HomePageStyling.subHeading}>Classrooms</h2>
-            <div className={HomePageStyling.cardSection}>
-              {teacherClassrooms.map((classroom) => (
-                <FeedClassroomCard classroomData={classroom} />
-              ))}
-            </div>
-          </div>
-          <div className={HomePageStyling.sections}>
-            <h2 className={HomePageStyling.subHeading}>Sections</h2>
-            <div className={HomePageStyling.cardSection}>
-              {teacherSections.map((section) => (
-                <FeedSectionCard sectionData={section} />
-              ))}
-            </div>
-          </div>
-        </>
-      )} */}
       </div>
-
+           
+      {tabsData.map((element, index) => {
+      return (
+        <TabPanel key={index} value={value} index={index}>
+          <element.component />
+        </TabPanel>
+      );
+      })}
     </div>
   );
 };
