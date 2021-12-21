@@ -105,7 +105,7 @@ const Mcq = () => {
         </button>
       </div>
 
-      <QuestionSettings questionsCategory={true} points={true} randomize={true}/>
+      <QuestionSettings questionsCategory={true} points={true} randomize={true} shuffle={true} grading={true}/>
 
     </div>
   );
