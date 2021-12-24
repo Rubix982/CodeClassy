@@ -32,6 +32,18 @@ const authReducer = (state = intitialState, action) => {
         userRole: action.payload.userRole,
       };
 
+    case actionTypes.userLogout:
+      return {
+        ...state,
+        isAuthenticated: false,
+      };
+
+    case actionTypes.userLogoutError:
+      return {
+        ...state,
+        isAuthenticated: true,
+      };
+
     default:
       return { ...state };
   }
