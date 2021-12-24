@@ -1,10 +1,22 @@
 [
   {
     "id": 1,
+    "title": "SELECT a single section_student using sectionID and studentEmail",
     "query": "SELECT * FROM section_students SectionStudents WHERE SectionStudents.sectionID = ? AND SectionStudents.studentEmail = ?;"
   },
   {
     "id": 2,
+    "title": "SELECT sections that a student is part of using studentEmail",
     "query": "SELECT section.id as sectionID, `section`.`name` as sectionName, `classroom`.`name` AS classroomName, `classroom`.`description` AS classroomDescription, `member`.`fullName` AS teacherFullName FROM `student` `student` JOIN `section_students` `section_student` ON `section_student`.`studentEmail`=`student`.`email` JOIN `section` `section` ON `section`.`ID`=`section_student`.`sectionID` JOIN `classroom` `classroom` ON `classroom`.`ID`=`section`.`classroomID` JOIN `member` `member` ON `member`.`email`=`section`.`teacherEmail` WHERE `student`.`email`= ?;"
+  },
+  {
+    "id": 3,
+    "title": "SELECT classrooms that a teacher has created using teacherEmail",
+    "query": "SELECT `classroom`.`ID` AS classroomID, `classroom`.`name` AS classroomName, `classroom`.`description` AS classroomDescription, `teacher`.`fullName` AS teacherFullName FROM `member` `teacher` JOIN `classroom` `classroom` ON `classroom`.`createdBy`=`teacher`.`email` WHERE `teacher`.`email`= ?;"
+  },
+  {
+    "id": 4,
+    "title": "SELECT sections that a teacher has been assigned using teacherEmail",
+    "query": "  SELECT section.id as sectionID, `section`.`name` as sectionName, `classroom`.`name` AS classroomName, `classroom`.`description` AS classroomDescription, `teacher`.`fullName` AS teacherFullName FROM `member` `teacher` JOIN `section` `section` ON `section`.`teacherEmail`=`teacher`.`email` JOIN `classroom` `classroom` ON `classroom`.`ID`=`section`.`classroomID` WHERE `teacher`.`email`= ?;"
   }
 ]
