@@ -15,29 +15,33 @@ const FeedSectionCard = ({ sectionData }) => {
     classroomDescription,
   } = sectionData;
 
+  const isSectionDataEmpty = Object.values(sectionData).every(x => x === null || x === '');
+
   return (
-    <Card
-      sx={{ cursor: "pointer" }}
-      onClick={() => {
-        Router.push(`/section/${sectionID}`);
-      }}
-      variant="outlined"
-    >
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
-            {teacherFullName.substring(0, 1)}
-          </Avatar>
-        }
-        title={`${classroomName} (${sectionName})`}
-        subheader={teacherFullName}
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {classroomDescription}
-        </Typography>
-      </CardContent>
-    </Card>
+    <>
+      {!isSectionDataEmpty && (<Card
+        sx={{ cursor: "pointer" }}
+        onClick={() => {
+          Router.push(`/section/${sectionID}`);
+        }}
+        variant="outlined"
+      >
+        <CardHeader
+          avatar={
+            <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
+              {teacherFullName.substring(0, 1)}
+            </Avatar>
+          }
+          title={`${classroomName} (${sectionName})`}
+          subheader={teacherFullName}
+        />
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {classroomDescription}
+          </Typography>
+        </CardContent>
+      </Card>)}
+    </>
   );
 };
 

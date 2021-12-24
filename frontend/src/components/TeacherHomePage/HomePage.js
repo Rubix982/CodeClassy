@@ -144,8 +144,7 @@ const HomePage = ({
                         display: "flex",
                         flexDirection: "column",
                         padding: "10px",
-                        margin: "3px",
-                        width: "130px",
+                        margin: "15px",
                         textAlign: "center",
                         justifyContent: "center"
                       }}
