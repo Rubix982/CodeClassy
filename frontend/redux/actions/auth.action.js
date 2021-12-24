@@ -23,3 +23,19 @@ export const authorizeUser = () => {
     }
   };
 };
+
+export const logoutUser = () => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      await api.post("auth/logout", {});
+      dispatch({
+        type: actionTypes.userLogout,
+      });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.userLogoutError,
+      });
+    }
+  };
+};

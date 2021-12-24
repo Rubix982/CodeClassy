@@ -1,107 +1,74 @@
-import React from 'react';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
+import { red } from "@mui/material/colors";
+import NavbarStyling from "@styles/Navbar/Navbar.module.scss";
+import { logoutUser } from "redux/actions/auth.action";
+import { connect } from "react-redux";
 
-import styles from '@styles/Navbar/navbar.module.css';
-
-import InvitationModal from './InvitationModal';
-
-import { Grid } from "@mui/material";
-
-export default function Navbar({
-  linkToDashboardPage,
-  linkToPeoplePage,
-  isFeedPage, // Is this the feed (section) page?
-  isPeoplePage // is the tab selected for the 'people' view?
-}) {
-
-  // Get basic styles first for the dashboard and the people tab
-  var dashboardTabStyling = `${styles.itemStyling}`;
-  var dashboardTabTextStyling = `${styles.linkStyling}`
-
-  var peopleTabStyling = `${styles.itemStyling}`;
-  var peopleTabTextStyling = `${styles.linkStyling}`
-
-  // If this is the people's tab ...
-  if (isPeoplePage) {
-    // ... Append the selected styles to the people tab
-    peopleTabStyling += ` ${styles.selectedItemStyling}`;
-    peopleTabTextStyling += ` ${styles.selectedItemTextStyling}`;
-    dashboardTabTextStyling += ` ${styles.unSelectedItemTextStyling}`;
-  }
-  else {
-    // ... Append the selected styles to the dashboard tab
-    dashboardTabStyling += ` ${styles.selectedItemStyling}`;
-    dashboardTabTextStyling += ` ${styles.selectedItemTextStyling}`;
-    peopleTabTextStyling += ` ${styles.unSelectedItemTextStyling}`;
-  }
+const Navbar = ({ userFullName, logoutUser }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <Grid
-      container
-      direction="row"
-      justifyContent="center"
-      alignItems="flex-start"
-      className={styles.navbarPaper}
-    >
-      <Grid item xs={4}>
-        {/* Space */}
-      </Grid>
-
-      <Grid item xs={4}>
-        <ul className={styles.ulStyling}>
-          <li className={styles.liStyling}>
-            <div className={dashboardTabStyling}>
-              <a
-                className={dashboardTabTextStyling}
-                href={linkToDashboardPage}
-              >
-                Dashboard
-              </a>
-            </div>
-          </li>
-          <li className={styles.liStyling}>
-            <div className={peopleTabStyling}>
-              <a
-                className={peopleTabTextStyling}
-                href={linkToPeoplePage}
-              >
-                People
-              </a>
-            </div>
-          </li>
-        </ul>
-      </Grid>
-
-      <Grid item xs={2}>
-
-      </Grid>
-
-      <Grid item xs={2} className={styles.iconGridStyling}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="flex-end"
-          alignItems="flex-start"
+    <div className={NavbarStyling.navbar}>
+      <h1>CodeClassy</h1>
+      <Box>
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            className={NavbarStyling.icon}
+          >
+            <Avatar sx={{ bgcolor: red[500] }} className={NavbarStyling.icon}>
+              {userFullName[0]}
+            </Avatar>
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        className={NavbarStyling.avatarMenu}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+      >
+        <MenuItem>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          Settings
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            logoutUser();
+          }}
         >
-          <Grid item>
-            {
-              isFeedPage
-              &&
-              <ul className={styles.ulStyling}>
-                <InvitationModal />
-              </ul>
-            }
-          </Grid>
-          <Grid item>
-            <ul className={styles.ulStyling}>
-              <li className={`${styles.iconStyling} ${styles.itemStyling}`}>
-                <div className={`${styles.profileLogoStyling}`}>
-                  <span className={styles.profileTextStyling}>SUI</span>
-                </div>
-              </li>
-            </ul>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
-  )
-}
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Sign out
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  userFullName: state.authReducer.userFullName,
+});
+
+export default connect(mapStateToProps, { logoutUser })(Navbar);
