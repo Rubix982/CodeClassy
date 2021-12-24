@@ -2,13 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Member } from 'src/entities/member.entity';
 import { Student } from 'src/entities/student.entity';
-import { Repository } from 'typeorm';
+import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
+import { getManager, Repository } from 'typeorm';
 
 @Injectable()
 export class StudentService {
   constructor(
     @InjectRepository(Student)
     private readonly studentRepository: Repository<Student>,
+    private readonly JSONQueryExtractorService: JSONQueryExtractorService,
   ) {}
 
   async createStudent(__member: Member) {
@@ -30,21 +32,12 @@ export class StudentService {
   }
 
   async getAllSectionsByStudentEmail(__studentEmail: string) {
-    const studentSectionsData = await this.studentRepository
-      .createQueryBuilder('student')
-      .leftJoin('student.sections', 'section')
-      .leftJoin('section.classroom', 'classroom')
-      .leftJoin('section.teacher', 'teacher')
-      .leftJoin('teacher.member', 'member')
-      .select([
-        'section.id as sectionID',
-        'section.name as sectionName',
-        'classroom.name AS classroomName',
-        'classroom.description AS classroomDescription',
-        'member.fullName AS teacherFullName',
-      ])
-      .where('student.email=:email', { email: __studentEmail })
-      .getRawMany();
+    const query = this.JSONQueryExtractorService.getQueryByID(2);
+    const entityManager = getManager();
+    const studentSectionsData = await entityManager.query(query, [
+      __studentEmail,
+    ]);
+
     return studentSectionsData;
   }
 }
