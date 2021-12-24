@@ -1,0 +1,42 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.categorySearch {
+    margin-top: 20px;
+    display: flex; 
+    justify-content: flex-end;
+    width: 74%;
+}
+
+.questions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 78%;
+    border: none;
+    padding: 30px 10px;
+}
+
+.questionCard{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 25px;
+    width: 90%;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.questionCard p {
+    color: rgba(0,0,0,0.87);
+    font-family: 'Roboto',Helvetica,Arial,sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+}

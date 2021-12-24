@@ -40,7 +40,6 @@ const FreeText = () => {
                 <div key={index} style={{marginLeft: '15px', width: '50%', padding: '15px 5px'}}>
                 <TextField
                 fullWidth
-                placeholder={`Answer # ${index+1}`}
                 id="standard-multiline-flexible"
                 label={`Answer # ${index+1}`}
                 multiline

@@ -10,7 +10,6 @@ const Question = () => {
         <TextField
         style={{margin: '13px', width: '88%'}}
         fullWidth
-        placeholder="Title"
         id="standard-multiline-flexible"
         label="Title"
         multiline

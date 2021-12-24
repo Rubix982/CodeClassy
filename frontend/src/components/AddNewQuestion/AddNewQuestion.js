@@ -94,6 +94,7 @@ const AddNewQuestion = () => {
                         textAlign: "center",
                         color: "#5b605b",
                         justifyContent: "center",
+                        cursor: 'pointer'
                       }}
                       onClick={() => {
                         setValue(index);
@@ -106,7 +107,7 @@ const AddNewQuestion = () => {
                         src={`/assets/images/${i.image}-${color}.webp`}
                       />
                       <label
-                        style={{ color: color }}
+                        style={{ color: color, cursor: 'pointer' }}
                         className={NewQuestionStyles.tablabel}
                       >
                         {i.name}

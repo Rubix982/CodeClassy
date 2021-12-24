@@ -20,7 +20,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
 import Feed from "./Feed";
-import QuestionBank from "./QuestionBank"
+import QuestionBank from "./QuestionBank/QuestionBank"
 import Quizes from "./Quizes"
 import Assignments from "./Assignments"
 import FeedClassroomCard from "@components/FeedClassroomCard/FeedClassroomCard";
