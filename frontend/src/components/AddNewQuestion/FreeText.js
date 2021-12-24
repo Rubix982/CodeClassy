@@ -4,21 +4,27 @@ import Question from './Question'
 import QuestionSettings from './QuestionSettings'
 import TextField from '@mui/material/TextField';
 
-let possibleAnswers = 
-[ 
-    { "Answer": ""},
-    { "Answer": ""},
-    { "Answer": ""},
-    { "Answer": ""}
-]
+
 
 const FreeText = () => {
-    const[currentAnswers, setCurrentAnswers] = React.useState(4);
+    const[possibleAnswers, setPossibleAnswers] = React.useState([ 
+        { "Answer": ""},
+        { "Answer": ""},
+        { "Answer": ""},
+        { "Answer": ""}
+    ]);
     const[addButtonBackground, setAddButtonBackground] = React.useState('#ffffff');
     const[removeButtonBackground, setRemoveButtonBackground] = React.useState('#ffffff');
 
-    const addNewAnswer = (newAnswer) => {
-        possibleAnswers.push(newAnswer);
+    const updateAnswerValue = (newValue, index) => {
+        const tempArr = [...possibleAnswers];
+        tempArr[index] = { "Answer": newValue} ;
+        setPossibleAnswers(tempArr);
+        console.log(possibleAnswers);
+    }
+
+    const addNewAnswer = () => {
+        setPossibleAnswers([...possibleAnswers, { "Answer": ""}])
     }
 
     const removeAnswer = () => {
@@ -29,7 +35,7 @@ const FreeText = () => {
      <div style={{marginTop: '30px'}}>
         <Question/>
         <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Accepted answers </h4>
-        {possibleAnswers.slice(0,currentAnswers).map((item,index) => {
+        {possibleAnswers.map((item,index) => {
             return(
                 <div key={index} style={{marginLeft: '15px', width: '50%', padding: '15px 5px'}}>
                 <TextField
@@ -40,7 +46,7 @@ const FreeText = () => {
                 multiline
                 maxRows="infinity"
                 value={item.Answer}
-                onChange={(e) => setValue(e.target.value)}
+                onChange={(e) => updateAnswerValue(e.target.value, index)}
                 variant="standard"
                 />
             </div>
@@ -49,7 +55,7 @@ const FreeText = () => {
 
 <div style={{ display: 'flex', flexDirection: 'row', marginTop: '50px'}}>
         <button 
-        onClick={() => {setCurrentAnswers(currentAnswers+1), addNewAnswer({ "Answer": ""}) }}
+        onClick={() => { addNewAnswer() }}
         onMouseEnter={(e) => setAddButtonBackground('#e0e0e0')}
         onMouseLeave={(e) => setAddButtonBackground('#ffffff')}
         style={{ 
@@ -77,7 +83,7 @@ const FreeText = () => {
         </button>
 
         <button 
-        onClick={() => {setCurrentAnswers(currentAnswers-1), removeAnswer() }}
+        onClick={() => {removeAnswer() }}
         onMouseEnter={(e) => setRemoveButtonBackground('#e0e0e0')}
         onMouseLeave={(e) => setRemoveButtonBackground('#ffffff')}
         style={{ 
