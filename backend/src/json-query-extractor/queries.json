@@ -2,5 +2,9 @@
   {
     "id": 1,
     "query": "SELECT * FROM section_students SectionStudents WHERE SectionStudents.sectionID = ? AND SectionStudents.studentEmail = ?;"
+  },
+  {
+    "id": 2,
+    "query": "SELECT section.id as sectionID, `section`.`name` as sectionName, `classroom`.`name` AS classroomName, `classroom`.`description` AS classroomDescription, `member`.`fullName` AS teacherFullName FROM `student` `student` JOIN `section_students` `section_student` ON `section_student`.`studentEmail`=`student`.`email` JOIN `section` `section` ON `section`.`ID`=`section_student`.`sectionID` JOIN `classroom` `classroom` ON `classroom`.`ID`=`section`.`classroomID` JOIN `member` `member` ON `member`.`email`=`section`.`teacherEmail` WHERE `student`.`email`= ?;"
   }
 ]
