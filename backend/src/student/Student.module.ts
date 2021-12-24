@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppService } from 'src/app/app.service';
 import { AuthModule } from 'src/auth/auth.module';
-import { AuthService } from 'src/auth/auth.service';
 import { Student } from 'src/entities/student.entity';
+import { JSONQueryExtractorModule } from 'src/json-query-extractor/json-query-extractor.module';
 import { StudentController } from './student.controller';
 import { StudentService } from './student.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Student]), AuthModule],
+  imports: [
+    TypeOrmModule.forFeature([Student]),
+    AuthModule,
+    JSONQueryExtractorModule,
+  ],
   controllers: [StudentController],
   providers: [StudentService],
   exports: [StudentService],

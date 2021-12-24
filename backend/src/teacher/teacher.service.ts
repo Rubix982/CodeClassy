@@ -2,13 +2,19 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Member } from 'src/entities/member.entity';
 import { Teacher } from 'src/entities/teacher.entity';
-import { Repository } from 'typeorm';
+import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
+import { EntityManager, getManager, Repository } from 'typeorm';
 
 @Injectable()
 export class TeacherService {
+  private readonly entityManager: EntityManager;
   constructor(
-    @InjectRepository(Teacher) readonly teacherRepository: Repository<Teacher>,
-  ) {}
+    @InjectRepository(Teacher)
+    private readonly teacherRepository: Repository<Teacher>,
+    private readonly JSONQueryExtractorService: JSONQueryExtractorService,
+  ) {
+    this.entityManager = getManager();
+  }
 
   async createTeacher(__member: Member) {
     const teacher = new Teacher();
@@ -29,38 +35,16 @@ export class TeacherService {
   }
 
   async getClassrooms(__teacherEmail: string) {
-    const classrooms = this.teacherRepository
-      .createQueryBuilder('teacher')
-      .leftJoin('teacher.classrooms', 'classroom')
-      .leftJoin('classroom.owner', 'classroomTeacher')
-      .leftJoin('classroomTeacher.member', 'member')
-      .select([
-        'classroom.ID AS classroomID',
-        'classroom.name AS classroomName',
-        'classroom.description AS classroomDescription',
-        'member.fullName AS teacherFullName',
-      ])
-      .where('teacher.email=:email', { email: __teacherEmail })
-      .getRawMany();
+    const query = this.JSONQueryExtractorService.getQueryByID(3);
+    const classrooms = await this.entityManager.query(query, [__teacherEmail]);
+
     return classrooms;
   }
 
   async getSections(__teacherEmail: string) {
-    const sections = await this.teacherRepository
-      .createQueryBuilder('teacher')
-      .leftJoin('teacher.sections', 'section')
-      .leftJoin('section.classroom', 'classroom')
-      .leftJoin('section.teacher', 'sectionTeacher')
-      .leftJoin('sectionTeacher.member', 'member')
-      .select([
-        'section.id as sectionID',
-        'section.name as sectionName',
-        'classroom.name AS classroomName',
-        'classroom.description AS classroomDescription',
-        'member.fullName AS teacherFullName',
-      ])
-      .where('teacher.email=:email', { email: __teacherEmail })
-      .getRawMany();
+    const query = this.JSONQueryExtractorService.getQueryByID(4);
+    const sections = await this.entityManager.query(query, [__teacherEmail]);
+
     return sections;
   }
 }
