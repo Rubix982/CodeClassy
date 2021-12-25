@@ -20,7 +20,8 @@ import Feed from "./Feed"
 import Quizes from "./Quizes"
 import Assignments from "./Assignments"
 import RemoteCodeExecution from "./RemoteCodeExecution"
-
+import FeedSectionCard from "../FeedSectionCard/FeedSectionCard";
+import Navbar from "@components/Navbar/Navbar";
 
 
 let tabsData = 
@@ -31,16 +32,9 @@ let tabsData =
   {"name": "Remote Code Execution", component: RemoteCodeExecution}
 ]
 
-const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
+
+const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {
   React.useEffect(() => {
     getStudentFeed();
   }, []);
@@ -54,46 +48,7 @@ const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {
 
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
-      <div className={HomePageStyling.navbar}>
-        <h1>CodeClassy</h1>
-        <Box>
-          <Tooltip title="Account settings">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              className={HomePageStyling.icon}
-            >
-              <Avatar
-                sx={{ bgcolor: red[500] }}
-                className={HomePageStyling.icon}
-              >
-                M
-              </Avatar>
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <Menu
-          className={HomePageStyling.avatarMenu}
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-        >
-          <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize="small" />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <Logout fontSize="small" />
-            </ListItemIcon>
-            Sign out
-          </MenuItem>
-        </Menu>
-      </div>
-
+      <Navbar />
 
       <div className={HomePageStyling.subTabMenu}>
           <Tabs
@@ -152,7 +107,6 @@ const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {
         </TabPanel>
       );
       })}
-
 
     </div>
   );

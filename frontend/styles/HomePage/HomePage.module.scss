@@ -33,10 +33,19 @@
   margin-bottom: 100px;
 }
 
-.subHeading {
+.classroomsContainer {
+  display: flex;
+  justify-content: space-between;
   padding: 20px 20px 0 20px;
+}
+
+.subHeading {
   font-family: "Roboto";
   font-weight: lighter;
+}
+
+.subHeadingPadding {
+  padding: 20px 20px 0 20px;
 }
 
 .cardSection {
@@ -59,7 +68,6 @@
     flex-direction: column;
   }
 }
-
 
 .subTabMenu {
   height: 8vh;

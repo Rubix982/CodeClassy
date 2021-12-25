@@ -34,8 +34,6 @@ export const setSuccessStates = (dispatch, payload) => {
       type: actionTypes.userLoggedIn,
       payload: { userRole: payload.role },
     });
-    //check roles here and redirect to home page depending of user's role.
-    Router.push("/h");
   }, 2000);
 };
 
