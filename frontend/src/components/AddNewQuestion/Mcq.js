@@ -17,6 +17,18 @@ const Mcq = () => {
   const[addButtonBackground, setAddButtonBackground] = useState('#ffffff');
   const[removeButtonBackground, setRemoveButtonBackground] = useState('#ffffff');
 
+  const updateCurrentAnswers = (value) => {
+    if(value <= 26 && value >= 2){
+      setCurrentAnswers(value);
+    }
+    else if( value == 1){
+      alert(`Minimum two answers are required.`);
+    }
+    else{
+      alert(`Answers limit exceeds.`);
+    }
+  }
+
   return(
     <div style={{marginTop: '30px'}}>
       <Question/>
@@ -45,7 +57,7 @@ const Mcq = () => {
 
       <div style={{ display: 'flex', flexDirection: 'row', marginTop: '50px'}}>
         <button 
-        onClick={() => setCurrentAnswers(currentAnswers+1)}
+        onClick={(e) => updateCurrentAnswers(currentAnswers+1)}
         onMouseEnter={(e) => setAddButtonBackground('#e0e0e0')}
         onMouseLeave={(e) => setAddButtonBackground('#ffffff')}
         style={{ 
@@ -73,7 +85,7 @@ const Mcq = () => {
         </button>
 
         <button 
-        onClick={() => setCurrentAnswers(currentAnswers-1)}
+        onClick={(e) => updateCurrentAnswers(currentAnswers-1)}
         onMouseEnter={(e) => setRemoveButtonBackground('#e0e0e0')}
         onMouseLeave={(e) => setRemoveButtonBackground('#ffffff')}
         style={{ 

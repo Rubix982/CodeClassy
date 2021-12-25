@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function QuestionBank() {
+export default function Quizes() {
     return (
       <>
-        
+        Quizes
       </>
     );
   }

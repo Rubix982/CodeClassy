@@ -176,7 +176,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            <Button style={{marginTop: '15px'}} variant="contained"> Save </Button>
+            <Button style={{margin: '15px'}} variant="contained"> Save </Button>
 
         </div>
     )
