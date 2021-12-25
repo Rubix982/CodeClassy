@@ -21,8 +21,16 @@
   margin-top: 5px;
 }
 
+.sections,
 .classrooms {
-  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 30px;
+}
+
+.sections {
+  margin-bottom: 100px;
 }
 
 .subHeading {

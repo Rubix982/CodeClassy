@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link'
 import QuestionBankStyling from "../../../../styles/TeacherHomePage/QuestionBank.module.css"
 import QuestionCard from "./QuestionCard"
 import Button from '@mui/material/Button';
@@ -6,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import Avatar from '@mui/material/Avatar';
 
 let Questions =
 [
@@ -38,31 +40,42 @@ let Questions =
 
 export default function QuestionBank() {
 
-  const [category, setCategory] = React.useState('');
+  const [category, setCategory] = React.useState('Programming Fundamentals');
 
 
     return (
       <div className={QuestionBankStyling.container}>
 
-        <div style={{ height: '45px', display: 'flex', justifyContent: 'flex-end', width: '74%'}}>
-          <Button onClick={() => {}} variant="contained">Add a new question</Button>
-        </div>
+
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '70%'}}>
+        <Link href="/questionbank/newquestion">
+          <a style={{textDecoration: 'none'}}>
+            <Button 
+            startIcon={<Avatar style={{height: '20px', width: '17px'}} src={'/assets/images/add.png'} />}
+            style={{ height: '45px', backgroundColor: 'grey'}} 
+            variant="contained"
+            > 
+              Add a new question
+            </Button>
+          </a>
+        </Link>
+      </div>
 
         <div className={QuestionBankStyling.categorySearch}>
           <FormControl>
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select
-                style={{width: '300px'}}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={category}
-                label="Category"
-                onChange={(event) => setCategory(event.target.value)}
-              >
-                <MenuItem value={'Programming Fundamentals'}>Programming Fundamentals</MenuItem>
-                <MenuItem value={'Data Structures'}>Data Structures</MenuItem>
-                <MenuItem value={'Operating Systems'}>Operating Systems</MenuItem>
-              </Select>
+          <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <Select
+              style={{width: '300px'}}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category}
+              label="Category"
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              <MenuItem value={'Programming Fundamentals'}>Programming Fundamentals</MenuItem>
+              <MenuItem value={'Data Structures'}>Data Structures</MenuItem>
+              <MenuItem value={'Operating Systems'}>Operating Systems</MenuItem>
+            </Select>
           </FormControl>
 
         </div>
@@ -70,7 +83,11 @@ export default function QuestionBank() {
         <div className={QuestionBankStyling.questions}>
           {Questions.map((item, index) => {
             return(
-              <QuestionCard key={index} title={item.title} content={item.content}/>
+              <Link key={index} href="/questionbank/newquestion">
+                <a style={{color: '#000000', textDecoration: 'none'}}>
+                  <QuestionCard title={item.title} content={item.content}/>
+                </a>
+              </Link>
             )
           })}
         </div>
