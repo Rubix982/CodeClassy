@@ -1,17 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 .tabPanelStyling {
     padding: 0px;
-}
-
-.profileTextStyling {
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
 }
 
 .profileLogoStyling {
@@ -30,4 +20,17 @@
     height: 65px;
     font-size: 1.25rem;
     text-transform: capitalize;
+}
+
+.icon {
+    margin-left: 10px;
+}
+
+.avatarMenu {
+    margin-top: 5px;
+}
+
+.codeClassyStyling {
+    color: black;
+    cursor: pointer;
 }
