@@ -1,153 +1,181 @@
-import React, {useState} from "react";
-import PostStyling from "../../../styles/Post/Post.module.css"
-import { Avatar} from '@mui/material';
+// Styling imports
+import React from "react";
+
+// NextJS imports
 import Image from "next/image";
-import announcementImage from "../../../public/assets/images/announcement.png"
-import commentImage from "../../../public/assets/images/comment.png"
+import { withRouter, useRouter } from "next/router";
+
+// Styling imports
+import PostStyling from "@styles/Post/Post.module.css";
+
+// MUI imports
 import {
-    Grid,
-    FormControl,
-    InputLabel,
-    OutlinedInput,
-    InputAdornment,
-    IconButton
-} from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
+  Grid,
+  Avatar,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 
-const commentsData =
-[
-    {
-        "name": "Tashik Moin",
-        "comment": "Commodo amet irure laborum aute culpa voluptate officia qui nulla sint in tempor sint. Qui ut ea mollit aliqua et fugiat anim sit et adipisicing ullamco commodo. Veniam quis enim consequat est quis. Duis aliqua esse nisi laborum tempor consequat magna ut occaecat veniam veniam incididunt ex magna. Elit elit ad officia consequat."
-    },
-    {
-        "name": "Muhammad Hassan Zahid",
-        "comment": "Commodo amet irure laborum aute culpa voluptate officia qui nulla sint in tempor sint. Qui ut ea mollit aliqua et fugiat anim sit et adipisicing ullamco commodo. Veniam quis enim consequat est quis. Duis aliqua esse nisi laborum tempor consequat magna ut occaecat veniam veniam incididunt ex magna. Elit elit ad officia consequat."
-    },
-    {
-        "name": "Saif Ul Islam",
-        "comment": "Commodo amet irure laborum aute culpa voluptate officia qui nulla sint in tempor sint. Qui ut ea mollit aliqua et fugiat anim sit et adipisicing ullamco commodo. Veniam quis enim consequat est quis. Duis aliqua esse nisi laborum tempor consequat magna ut occaecat veniam veniam incididunt ex magna. Elit elit ad officia consequat."
-    }
-]
+/// MUI Icon imports
+import SendIcon from "@mui/icons-material/Send";
 
-const Post = () => {
-    const [values, setValues] = useState({
-        comment: ''
-    });
+// Component imports
+import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
+import { StringAvatar } from "@components/Section/helper/StringHelpers";
 
-    const handleChange = (prop) => (event) => {
-        setValues({ comment: event.target.value });
-    };
+// Redux imports
+import { postPageLoad, commentAddition } from "redux/actions/post.action";
+import { connect } from "react-redux";
 
-    const handlePostComment = () => {
-        // Make post request here to deal with
-        // the setting the new content
-        console.log(values.comment)
-    };
+// Asset imports
+import announcementImage from "/public/assets/images/announcement.png";
+import commentImage from "/public/assets/images/comment.png";
 
-    const handleMouseDownComment = (event) => {
-        event.preventDefault();
-    };
+const Post = ({
+  postPageLoad,
+  commentAddition,
+  responseMessage,
+  successMessageSnackbar,
+  errorMessageSnackbar,
+  userFullName,
+  comments,
+  router,
+}) => {
+  const [values, setValues] = React.useState({
+    comment: "",
+  });
+  const { id } = useRouter().query;
+
+  React.useEffect(() => {
+    postPageLoad(id);
+  }, [id]);
+
+  const handleChange = (prop) => (event) => {
+    setValues({ comment: event.target.value });
+  };
+
+  const handlePostComment = () => {
+    commentAddition(id, { contentBody: values.comment });
+  };
+
+  const handleMouseDownComment = (event) => {
+    event.preventDefault();
+  };
 
   return (
-    <div className={PostStyling.container}>
-        <div className={PostStyling.postcontainer}>
+    <>
+      {successMessageSnackbar && (
+        <SnackBarAlert severity={"success"} message={responseMessage} />
+      )}
 
-            <div className={PostStyling.postheader}>
+      {errorMessageSnackbar && (
+        <SnackBarAlert severity={"error"} message={responseMessage} />
+      )}
 
-                <div className={PostStyling.imagecontainer}>
-                    <Image src={announcementImage} height={70} width={70}></Image>
-                </div>
-
-                <div className={PostStyling.headingcontainer}>
-                    <h1 className={PostStyling.heading}> Announcement </h1> 
-                    <div className={PostStyling.teachername}> Rauf Ahmed Shams Malick • Oct 31 </div>
-                    {/* teachername + date  //media query to be written */}
-                </div> 
-
+      <div className={PostStyling.container}>
+        <div className={PostStyling.postContainer}>
+          <div className={PostStyling.postHeader}>
+            <div className={PostStyling.imageContainer}>
+              <Image src={announcementImage} height={70} width={70}></Image>
             </div>
 
-            <div className={PostStyling.postcontent}>
-                <p className={PostStyling.content}>
-                    Proident deserunt do dolore Lorem veniam magna aliquip adipisicing esse nisi. Ad esse non voluptate minim Lorem laboris. Enim irure do voluptate cupidatat in. Pariatur culpa amet duis amet non esse commodo minim culpa cupidatat incididunt. Sit amet deserunt et ipsum aliqua pariatur amet cupidatat fugiat. Proident et magna do laboris tempor non eu nostrud labore ad ipsum laborum. Id amet mollit nisi laborum amet in aliquip aute dolor commodo voluptate.
+            <div className={PostStyling.headingContainer}>
+              <h1 className={PostStyling.heading}> Announcement </h1>
+              <div className={PostStyling.teacherName}>
+                {" "}
+                {router.query.fullName} • {router.query.creationDate}{" "}
+              </div>
+              {/* teacherName + date  //media query to be written */}
+            </div>
+          </div>
 
-                    Duis id esse dolore sit eu voluptate labore amet. Consectetur ipsum incididunt irure do cillum nisi id ullamco irure est. Labore sit pariatur sunt pariatur. Exercitation id et sint ullamco exercitation ipsum.
+          <div className={PostStyling.postContent}>
+            <p className={PostStyling.content}>{router.query.contentBody}</p>
+          </div>
 
-                    Amet consequat laborum amet nisi eu. Do sit cillum esse pariatur consequat magna commodo. Laborum consequat irure veniam ex ex amet tempor amet quis cupidatat sunt sint.
-
-                    In ipsum aliqua consectetur amet voluptate aliqua reprehenderit ipsum quis cupidatat. Id consequat velit incididunt sunt id laboris. Consequat et veniam occaecat consectetur reprehenderit consequat veniam velit. Nostrud amet cupidatat exercitation ex nostrud.
-
-                    Commodo amet irure laborum aute culpa voluptate officia qui nulla sint in tempor sint. Qui ut ea mollit aliqua et fugiat anim sit et adipisicing ullamco commodo. Veniam quis enim consequat est quis. Duis aliqua esse nisi laborum tempor consequat magna ut occaecat veniam veniam incididunt ex magna. Elit elit ad officia consequat.
-                </p>
+          <div className={PostStyling.commentsContainer}>
+            <div className={PostStyling.commentHeadingContainer}>
+              <Image src={commentImage} height={30} width={28}></Image>
+              <h1 className={PostStyling.commentHeading}>Comments</h1>
             </div>
 
-            <div className={PostStyling.commentsContainer}>
+            <div className={PostStyling.commentsArray}>
+              {comments.map((item, index) => {
+                return (
+                  <div key={index} className={PostStyling.comment}>
+                    <Avatar
+                      sx={{ fontSize: "1rem" }}
+                      aria-label="recipe"
+                      {...StringAvatar(
+                        item.announcement_comment_commentatorFullName
+                      )}
+                    />
 
-                <div className={PostStyling.commentHeadingContainer}>
-                    <Image src={commentImage} height={30} width={28}></Image>
-                    <h1 className={PostStyling.commentHeading}> 
-                        Comments
-                    </h1>
-                </div>
-
-                <div className={PostStyling.commentsArray}>
-
-                    {commentsData.map((i, index) => {
-                        return (
-                            <div key={index} className={PostStyling.comment}>
-                                <Avatar style={{ backgroundColor: '#f44336', fontSize: '1rem'}} aria-label="recipe">
-                                TM
-                                </Avatar>
-        
-                                <div>
-                                    <h3 className={PostStyling.commenter} > {i.name} </h3>
-                                    <p style={{ marginLeft: '15px'}}>
-                                    {i.comment}
-                                    </p>
-                                </div>
-                            </div>
-                        );
-                    })}
-
-                </div>
-
-                <div className={PostStyling.writeComment}>
-                    <Avatar style={{ backgroundColor: '#f44336', fontSize: '1rem'}} aria-label="recipe">
-                        TM
-                    </Avatar>
-                    <Grid style={{marginLeft: '15px'}} item xs={11}>
-                        <FormControl sx={{ width: '100%' }} variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-comment">Comment</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-comment"
-                                value={values.comment}
-                                onChange={handleChange('comment')}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle comment visibility"
-                                            onClick={handlePostComment}
-                                            onMouseDown={handleMouseDownComment}
-                                            edge="end"
-                                        >
-                                            <SendIcon />
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                label="Comment"
-                            />
-                        </FormControl>
-                    </Grid>
-                </div>
-
-
-
+                    <div>
+                      <h3 className={PostStyling.commenter}>
+                        {" "}
+                        {item.announcement_comment_commentatorFullName}{" "}
+                      </h3>
+                      <p style={{ marginLeft: "15px" }}>
+                        {item.announcement_comment_contentBody}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
+            <div className={PostStyling.writeComment}>
+              <Avatar
+                sx={{ fontSize: "1rem" }}
+                aria-label="recipe"
+                {...StringAvatar(userFullName)}
+              />
+              <Grid style={{ marginLeft: "15px" }} item xs={11}>
+                <FormControl sx={{ width: "100%" }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-comment">
+                    Comment
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-comment"
+                    value={values.comment}
+                    onChange={handleChange("comment")}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle comment visibility"
+                          onClick={handlePostComment}
+                          onMouseDown={handleMouseDownComment}
+                          edge="end"
+                        >
+                          <SendIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Comment"
+                  />
+                </FormControl>
+              </Grid>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
+    </>
   );
 };
 
+const mapStateToProps = (state) => ({
+  responseMessage: state.apiReducer.responseMessage,
+  successMessageSnackbar: state.apiReducer.successMessageSnackbar,
+  errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+  userFullName: state.authReducer.userFullName,
+  comments: state.postReducer.postComments,
+});
 
-export default Post;
+export default connect(mapStateToProps, {
+  postPageLoad,
+  commentAddition,
+})(withRouter(Post));
