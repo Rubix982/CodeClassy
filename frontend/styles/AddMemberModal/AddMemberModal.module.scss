@@ -1,0 +1,79 @@
+.modal {
+    width: 100%;
+}
+
+.innerModalStyling {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900;
+    background-color: "background.paper";
+    border: 1px solid #dadbe0;
+    box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 28px;
+}
+
+.outerModalStyling {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% -50%);
+    width: 400;
+    background-color: "background.paper";
+    border: 2px solid #000;
+    box-shadow: 24;
+    padding: 4px;
+}
+
+.box {
+    border-bottom: 1;
+    border-color: "divider";
+    display: "flex";
+    align-items: "center";
+    justify-content: "center";
+}
+
+.iconStyling {
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.itemStyling {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.invitationText {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 41px;
+    color: #000000;
+}
+
+.typographyTextBox {
+    padding: 20px;
+}
+
+.invitationSection {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border-radius: 0px 0px 20px 20px;
+    width: 100%;
+}
+
+.addIconButtonStyling {
+    cursor: pointer;
+}
+
+.addIconStyling {
+    color: black;
+}
