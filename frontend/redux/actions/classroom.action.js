@@ -1,5 +1,13 @@
+// NextJS imports
+import Router from "next/router";
+
+// Redux imports
 import { actionTypes } from "../actionTypes/actionTypes";
+
+// Axios imports
 import axios from "axios";
+
+// API imports
 import API from "api";
 
 
@@ -10,15 +18,26 @@ export const getClassroomAction = (id) => {
       setClassroomStates(dispatch, response.data);
       setSuccessStates(dispatch, response.data.name);
       } catch (error) {
+          let errorMessage = null, errorCode = null;
           if(error.response){
+              errorMessage = error.response.data.message;
               setErrorStates(dispatch, error.response.data.message);
           }
           else if(error.request){
+              errorCode = error.request;
               setErrorStates(dispatch, error.request);
           }
           else {
+              errorMessage = error.message;
               setErrorStates(dispatch, error.message);
           }
+
+          console.log(errorMessage, errorCode);
+
+          Router.push({
+            pathname: '/error',
+            query: { errorMessage: errorMessage, errorCode: errorCode },
+          });
       }
     };
   };
