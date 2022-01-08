@@ -10,4 +10,8 @@ export const actionTypes = {
   studentFeedLoaded: "studentFeedLoading",
   teacherFeedLoaded: "teacherFeedLoaded",
   userLogout: "userLogout",
+  sectionLoaded: "sectionLoaded",
+  unauthorizedVisit: "unauthorizedVisit",
+  sectionLoadFailed: "sectionLoadFailed",
+  announcementPosted: "announcementPosted",
 };
