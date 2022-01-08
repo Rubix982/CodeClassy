@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 .tabPanelStyling {
     padding: 0px;
 }
 
 .profileTextStyling {
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-style: normal;
     font-weight: 500;
     margin: 0;

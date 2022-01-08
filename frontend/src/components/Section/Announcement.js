@@ -1,46 +1,84 @@
-import React from 'react';
+// React imports
+import React from "react";
 
-import styles from '@styles/Section/Announcement.module.css';
+// NextJS imports
+import Router from "next/router";
 
+// Styling imports
+import AnnouncementStyling from "@styles/Section/Announcement.module.css";
+
+// MUI imports
 import {
-    Grid,
-    Container,
-    Card,
-    CardHeader,
-    CardContent,
-    Typography,
-    Avatar
+  Grid,
+  Container,
+  Card,
+  CardHeader,
+  CardContent,
+  Typography,
+  Button,
+  Avatar,
 } from "@mui/material";
 
+// Component imports
+import { StringAvatar } from "./helper/StringHelpers";
 
+export default function Announcement({ announcementData }) {
+  const {
+    member_fullName,
+    Announcement_ID,
+    Announcement_contentBody,
+    Announcement_creationDate,
+  } = announcementData;
 
-export default function Announcement() {
-    return (
-        <Container className={styles.announcementContainerStyling}>
-            <Grid
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-            >
-                <Card variant="outlined" className={styles.cardStyling}>
-                    <CardHeader
-                        avatar={
-                            <Avatar style={{ backgroundColor: '#f44336', fontSize: '1rem'}} sx={{ width: 40, height: 40 }}>
-                                TM
-                            </Avatar>
-                        }
-                        title="Tashik Moin"
-                        subheader="1st December, 2021"
-                    />
-                    <CardContent style={{ textAlign: 'justify', color: '#3c4043'}}>
-                        <Typography variant="body2" >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In viverra bibendum neque quis aliquam. Integer semper lorem vel tellus iaculis, at ultricies est euismod. Mauris ut gravida velit. Ut dapibus turpis ut sapien bibendum mattis. ed vehicula nulla eu venenatis mollis. Nullam pretium ante et turpis tempor efficitur. Aliquam leo purus, feugiat vitae pharetra convallis, ultrices vel dui. Nulla pharetra nisl vitae tellus cursus, pulvinar tempor purus tincidunt.
-                        </Typography>
-                    </CardContent>
-                </Card>
+  const onViewComments = () => {
+    Router.push({
+      pathname: `/post/${Announcement_ID}`,
+      query: {
+        fullName: member_fullName,
+        contentBody: Announcement_contentBody,
+        creationDate: Announcement_creationDate,
+      },
+    });
+  };
 
-            </Grid>
-        </Container>
-    )
+  return (
+    <Container
+      className={AnnouncementStyling.announcementContainerStyling}
+      style={{ padding: "0px" }}
+    >
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Card
+          variant="outlined"
+          className={AnnouncementStyling.cardStyling}
+          style={{ margin: "0px" }}
+        >
+          <CardHeader
+            avatar={
+              <Avatar
+                sx={{ fontSize: "1rem", width: 40, height: 40 }}
+                aria-label="recipe"
+                {...StringAvatar(member_fullName)}
+              />
+            }
+            title={`${member_fullName}`}
+            subheader={Announcement_creationDate}
+          />
+          <CardContent className={AnnouncementStyling.cardContentStyling}>
+            <Typography variant="body2">{Announcement_contentBody}</Typography>
+          </CardContent>
+          <Button
+            className={AnnouncementStyling.commentCountStyling}
+            onClick={onViewComments}
+          >
+            <CardContent>View comments</CardContent>
+          </Button>
+        </Card>
+      </Grid>
+    </Container>
+  );
 }

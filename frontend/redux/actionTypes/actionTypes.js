@@ -12,6 +12,10 @@ export const actionTypes = {
   sectionMembersLoaded: "sectionMembersLoaded",
   classroomMembersLoaded: "classroomMembersLoaded",
   userLogout: "userLogout",
+  sectionLoaded: "sectionLoaded",
+  unauthorizedVisit: "unauthorizedVisit",
+  sectionLoadFailed: "sectionLoadFailed",
+  announcementPosted: "announcementPosted",
   postCommentsLoaded: "postCommentsLoaded",
   commentAdded: "commentAdded",
 };
