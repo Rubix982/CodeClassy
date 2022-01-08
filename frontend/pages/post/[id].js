@@ -1,12 +1,24 @@
+// React imports
 import React from "react";
-import Post from "../../src/components/Post/Post";
+
+// NextJS imports
+import Head from "next/head";
+
+// Component imports
+import Post from "@components/Post/Post";
 import EnsureAuthenticated from "@components/Auth/ensure-authenticated";
 
 const PostPage = () => {
   return (
-    <EnsureAuthenticated>
-      <Post />
-    </EnsureAuthenticated>
+    <>
+      <Head>
+        <title>Post</title>
+        <link rel="icon" href="/assets/images/vercel.svg" />
+      </Head>
+      <EnsureAuthenticated>
+        <Post />
+      </EnsureAuthenticated>
+    </>
   );
 };
 
