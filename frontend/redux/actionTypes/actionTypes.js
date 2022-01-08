@@ -9,5 +9,7 @@ export const actionTypes = {
   setClassroomStates: "setClassroomStates",
   studentFeedLoaded: "studentFeedLoading",
   teacherFeedLoaded: "teacherFeedLoaded",
+  sectionMembersLoaded: "sectionMembersLoaded",
+  classroomMembersLoaded: "classroomMembersLoaded",
   userLogout: "userLogout",
 };
