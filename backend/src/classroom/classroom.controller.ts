@@ -27,6 +27,17 @@ export class ClassroomController {
   }
 
   @UseGuards(ClassroomOwnerGuard)
+  @Get(':id/people')
+  async getClassroomPeople(@Param('id') __classroomID: string) {
+    const classroomData: Classroom =
+      await this.classroomService.getClassroomWithSections(__classroomID);
+
+    return await this.classroomService.getClassroomPeopleInformation(
+      classroomData,
+    );
+  }
+
+  @UseGuards(ClassroomOwnerGuard)
   @Post(':id/section')
   async createSection(
     @Body() __requestBody: CreateSectionDTO,
