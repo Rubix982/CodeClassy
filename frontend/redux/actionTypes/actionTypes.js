@@ -14,4 +14,6 @@ export const actionTypes = {
   unauthorizedVisit: "unauthorizedVisit",
   sectionLoadFailed: "sectionLoadFailed",
   announcementPosted: "announcementPosted",
+  postCommentsLoaded: "postCommentsLoaded",
+  commentAdded: "commentAdded",
 };

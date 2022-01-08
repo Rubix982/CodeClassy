@@ -1,8 +1,6 @@
 import { actionTypes } from "redux/actionTypes/actionTypes";
 
 export const errorHandler = (dispatch, error) => {
-  console.log(error.message);
-
   if (error.response) {
     setErrorStates(dispatch, error.data);
   } else if (error.request) {
