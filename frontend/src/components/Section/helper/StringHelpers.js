@@ -27,10 +27,20 @@ export const StringAvatar = (name) => {
     name = "John Doe";
   }
 
+  const nameSplit = name.split(" ");
+
+  let children = "";
+
+  if (nameSplit.length == 1) {
+    children = nameSplit[0][0].toUpperCase();
+  } else {
+    children = `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`.toUpperCase();
+  }
+
   return {
     sx: {
       bgcolor: StringToColor(name),
     },
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`.toUpperCase(),
+    children: children,
   };
 };

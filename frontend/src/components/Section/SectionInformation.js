@@ -24,6 +24,9 @@ function SectionInformation({
   responseMessage,
   successMessageSnackbar,
   errorMessageSnackbar,
+  sectionName,
+  announcements,
+  sectionLoaded,
 }) {
   const { id } = useRouter().query;
 
@@ -44,41 +47,42 @@ function SectionInformation({
         <SnackBarAlert severity={"error"} message={responseMessage} />
       )}
 
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="stretch"
-        className={styles.sectionContentContainerStyling}
-      >
-        <div className={styles.imageContainer}>
-          <div className={styles.backgroundStyling}>
-            <p className={styles.sectionNameStyling}>{id}</p>
+      {sectionLoaded && (
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="stretch"
+          className={styles.sectionContentContainerStyling}
+        >
+          <div className={styles.imageContainer}>
+            <div className={styles.backgroundStyling}>
+              <p className={styles.sectionNameStyling}>{sectionName}</p>
+            </div>
           </div>
-        </div>
 
-        <Grid item>
-          <Grid
-            style={{ marginBottom: "15vh" }}
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="stretch"
-          >
-            <Grid item>
-              <PostAnnouncement />
-            </Grid>
-
-            <Grid item>
-              <Announcement />
-            </Grid>
-
-            <Grid item>
-              <Announcement />
+          <Grid item>
+            <Grid
+              style={{ marginBottom: "15vh" }}
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="stretch"
+            >
+              <Grid item>
+                <PostAnnouncement />
+              </Grid>
+              {announcements.map((announcement, index) => {
+                return (
+                  <Grid item key={index}>
+                    <Announcement announcementData={announcement} />
+                  </Grid>
+                );
+              })}
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      )}
     </>
   );
 }
@@ -88,6 +92,9 @@ const mapStateToProps = (state) => {
     responseMessage: state.apiReducer.responseMessage,
     successMessageSnackbar: state.apiReducer.successMessageSnackbar,
     errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+    sectionName: state.sectionReducer.sectionName,
+    announcements: state.sectionReducer.announcements,
+    sectionLoaded: state.sectionReducer.sectionLoaded,
   };
 };
 
