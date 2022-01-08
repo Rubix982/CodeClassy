@@ -1,0 +1,24 @@
+.member {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 60px;
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0;
+  margin-top: 1%;
+}
+
+.member h4 {
+  letter-spacing: 0.01785714em;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: #3c4043;
+  text-indent: initial;
+}
+
+.profileImage {
+  margin: 0% 2%;
+  border-radius: 50%;
+}
