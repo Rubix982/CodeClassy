@@ -5,21 +5,21 @@ import React from "react";
 import Head from "next/head";
 
 // Component imports
-import Post from "@components/Post/Post";
 import EnsureAuthenticated from "@components/Auth/ensure-authenticated";
+import ErrorPage from "@components/ErrorPage/ErrorPage";
 
-const PostPage = () => {
+const Error = ({ errorCode, errorMessage }) => {
   return (
     <>
       <Head>
-        <title>Post</title>
+        <title>Error</title>
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <Post />
+        <ErrorPage errorCode={errorCode} errorMessage={errorMessage} />
       </EnsureAuthenticated>
     </>
   );
 };
 
-export default PostPage;
+export default Error;
