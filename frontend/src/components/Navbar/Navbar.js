@@ -23,6 +23,11 @@ const Navbar = ({ userFullName, logoutUser }) => {
     setAnchorEl(null);
   };
 
+  const NameCharacter = () => {
+    const Characters = "" + userFullName[0];
+    return Characters.toUpperCase();
+  }
+
   return (
     <div className={NavbarStyling.navbar}>
       <h1>CodeClassy</h1>
@@ -34,7 +39,7 @@ const Navbar = ({ userFullName, logoutUser }) => {
             className={NavbarStyling.icon}
           >
             <Avatar sx={{ bgcolor: red[500] }} className={NavbarStyling.icon}>
-              {userFullName[0]}
+              {NameCharacter()}
             </Avatar>
           </IconButton>
         </Tooltip>
