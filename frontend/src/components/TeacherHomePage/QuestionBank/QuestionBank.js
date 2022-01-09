@@ -83,11 +83,7 @@ export default function QuestionBank() {
         <div className={QuestionBankStyling.questions}>
           {Questions.map((item, index) => {
             return(
-              <Link key={index} href="/questionbank/newquestion">
-                <a style={{color: '#000000', textDecoration: 'none'}}>
-                  <QuestionCard title={item.title} content={item.content}/>
-                </a>
-              </Link>
+              <QuestionCard key={index} title={item.title} content={item.content}/>
             )
           })}
         </div>

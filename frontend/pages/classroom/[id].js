@@ -12,7 +12,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { deepOrange } from "@mui/material/colors";
 
 import ClassroomInformation from "@components/Classroom/ClassroomInformation";
-import MembersView from "@components/MembersView/MembersView";
+import MembersView from "@components/MembersView/ClassroomMembersView";
 import EnsureAuthenticated from "@components/Auth/ensure-authenticated";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({

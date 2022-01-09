@@ -2,7 +2,7 @@
 import React from "react";
 
 // Component imports
-import MembersView from "@components/MembersView/MembersView";
+import MembersView from "@components/MembersView/SectionMembersView";
 import SectionInformation from "@components/Section/SectionInformation";
 import CustomTabs from "@components/MaterialCustomComponents/CustomTabs";
 

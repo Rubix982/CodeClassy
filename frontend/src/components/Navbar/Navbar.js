@@ -30,8 +30,8 @@ const Navbar = ({ userFullName, logoutUser }) => {
 
   return (
     <div className={NavbarStyling.navbar}>
-      <h1>CodeClassy</h1>
-      <Box>
+      <h1 style={{ marginLeft: '30px'}}>CodeClassy</h1>
+      <Box style={{marginRight: '15px'}}>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}

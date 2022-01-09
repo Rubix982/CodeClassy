@@ -12,7 +12,7 @@ const NewQuestion = () => {
   return (
     <>
       <Head>
-        <title>Question Bank</title>
+        <title>Add Question </title>
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
