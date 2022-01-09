@@ -5,6 +5,7 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
+import { Category } from './category.entity';
 import { Classroom } from './classroom.entity';
 import { Member } from './member.entity';
 import { Section } from './section.entity';
@@ -23,4 +24,7 @@ export class Teacher {
 
   @OneToMany(() => Section, (section) => section.teacher)
   sections: Section[];
+
+  @OneToMany(() => Category, (category) => category.owner)
+  categories: Category[];
 }
