@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -8,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { red } from "@mui/material/colors";
+import { StringAvatar } from "@components/Section/helper/StringHelpers";
 import NavbarStyling from "@styles/Navbar/Navbar.module.scss";
 import { logoutUser } from "redux/actions/auth.action";
 import { connect } from "react-redux";
@@ -25,7 +26,9 @@ const Navbar = ({ userFullName, logoutUser }) => {
 
   return (
     <div className={NavbarStyling.navbar}>
-      <h1>CodeClassy</h1>
+      <h1>
+        <Link href="/h">CodeClassy</Link>
+      </h1>
       <Box>
         <Tooltip title="Account settings">
           <IconButton
@@ -33,9 +36,10 @@ const Navbar = ({ userFullName, logoutUser }) => {
             size="small"
             className={NavbarStyling.icon}
           >
-            <Avatar sx={{ bgcolor: red[500] }} className={NavbarStyling.icon}>
-              {userFullName[0]}
-            </Avatar>
+            <Avatar
+              className={NavbarStyling.icon}
+              {...StringAvatar(userFullName)}
+            />
           </IconButton>
         </Tooltip>
       </Box>
