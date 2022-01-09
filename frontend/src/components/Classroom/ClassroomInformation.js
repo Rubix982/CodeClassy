@@ -69,7 +69,7 @@ const ClassroomInformation = (props) => {
                   </span>
 
                   <span className={ClassroomInformationStyling.teacherName}>
-                    {props.classroomInformation.createdBy}
+                    {props.userFullName}
                   </span>
 
                   <span
@@ -140,6 +140,7 @@ const mapStateToProps = (state) => {
     responseMessage: state.apiReducer.responseMessage,
     successMessageSnackbar: state.apiReducer.successMessageSnackbar,
     errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+    userFullName: state.authReducer.userFullName,
   };
 };
 
