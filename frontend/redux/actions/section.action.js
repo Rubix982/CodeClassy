@@ -21,8 +21,12 @@ export const getSectionAction = (id) => {
       setSectionStates(dispatch, data);
       setSuccessStates(dispatch, sectionDataResponse.data.msg);
     } catch (error) {
-      Router.push("/error");
       errorHandler(dispatch, error);
+
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Section not found" },
+      });
     }
   };
 };
