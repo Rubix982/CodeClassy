@@ -45,7 +45,7 @@ let tabsData = [
   },
 ];
 
-const AddNewQuestion = () => {
+const Question = () => {
   const [value, setValue] = useState(0);
   const [currentTabID, setCurrentTabID] = useState("Multiple Choice");
 
@@ -132,4 +132,4 @@ const AddNewQuestion = () => {
   );
 };
 
-export default AddNewQuestion;
+export default Question;

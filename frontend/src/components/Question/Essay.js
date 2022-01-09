@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Question from './Question'
+import Problem from './Problem'
 import QuestionSettings from './QuestionSettings';
 
 const Essay = () => {
     return ( 
      <div style={{marginTop: '30px'}}>
-        <Question/>
+        <Problem/>
         <QuestionSettings questionsCategory={true} points={true} randomize={false}/>
      </div>
     );

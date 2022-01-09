@@ -4,7 +4,7 @@ import RichTextEditor from "../RichTextEditor/RichTextEditor"
 import Checkbox from '@mui/material/Checkbox';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 import QuestionSettings from './QuestionSettings.js'
-import Question from './Question'
+import Problem from './Problem'
 
 let Answers = 
 [ "(A)", "(B)", "(C)" , "(D)", "(E)", "(F)", "(G)", "(H)", "(I)", "(J)", "(K)", "(L)", "(M)", "(N)", 
@@ -31,7 +31,7 @@ const Mcq = () => {
 
   return(
     <div style={{marginTop: '30px'}}>
-      <Question/>
+      <Problem/>
       <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
       { Answers.slice(0, currentAnswers).map((item, index) => {
         return (

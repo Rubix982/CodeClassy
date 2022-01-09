@@ -12,7 +12,7 @@ const options = [
 ]
 const ITEM_HEIGHT = 48;
 
-export default function QuestionCard({title, content}) {
+export default function QuestionCard({title, content, type, id}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -24,10 +24,10 @@ export default function QuestionCard({title, content}) {
 
   const checkOptionType = (option) => {
     if(option == 'Delete'){
-      // delete request here
+      // delete request for question here
     }
     else{
-      Router.push('/questionbank/newquestion')
+      Router.push(`/question/${type}/${id}`)
     }
   }
 

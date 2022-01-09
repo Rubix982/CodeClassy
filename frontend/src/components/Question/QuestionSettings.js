@@ -18,7 +18,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
 {
     const [category, setCategory] = React.useState(categories[0]);
     const [firstRadio, setFirstRadio] = React.useState('Yes');
-    const [secondRadio, setSecondRadio] = React.useState('Shuffle Matches');
+    const [secondRadio, setSecondRadio] = React.useState('Shuffle matches only');
     const [thirdRadio, setThirdRadio] = React.useState('Off');
 
 

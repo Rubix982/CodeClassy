@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from "next/image";
-import Question from './Question'
+import Problem from './Problem'
 import QuestionSettings from './QuestionSettings'
 import TextField from '@mui/material/TextField';
 
@@ -33,7 +33,7 @@ const FreeText = () => {
 
     return ( 
      <div style={{marginTop: '30px'}}>
-        <Question/>
+        <Problem/>
         <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Accepted answers </h4>
         {possibleAnswers.map((item,index) => {
             return(

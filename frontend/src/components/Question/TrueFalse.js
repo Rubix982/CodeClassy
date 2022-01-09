@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Radio from '@mui/material/Radio';
-import Question from './Question'
+import Problem from './Problem'
 import QuestionSettings from './QuestionSettings.js'
 
 const TrueFalse = () => {
@@ -11,7 +11,7 @@ const TrueFalse = () => {
     };
     return ( 
      <div style={{marginTop: '30px'}}>
-        <Question/>
+        <Problem/>
         <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
 
         <div>
