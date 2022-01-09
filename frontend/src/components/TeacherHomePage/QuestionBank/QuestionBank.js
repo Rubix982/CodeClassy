@@ -44,28 +44,28 @@ export default function QuestionBank() {
 
 
     return (
-      <div className={QuestionBankStyling.container}>
+    <div className={QuestionBankStyling.container}>
 
-
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '70%'}}>
-        <Link href="/questionbank/newquestion">
-          <a style={{textDecoration: 'none'}}>
-            <Button 
-            startIcon={<Avatar style={{height: '20px', width: '17px'}} src={'/assets/images/add.png'} />}
-            style={{ height: '45px', backgroundColor: 'grey'}} 
-            variant="contained"
-            > 
-              Add a new question
-            </Button>
-          </a>
-        </Link>
-      </div>
+      <div style={{display: 'flex', width: '74%', alignItems: 'flex-end', flexDirection: 'column'}}>
+        <div>
+          <Link href="/questionbank/newquestion">
+            <a style={{textDecoration: 'none'}}>
+              <Button 
+              startIcon={<Avatar style={{height: '20px', width: '17px'}} src={'/assets/images/add.png'} />}
+              style={{ height: '45px', backgroundColor: 'grey'}} 
+              variant="contained"
+              > 
+                Add a new question
+              </Button>
+            </a>
+          </Link>
+        </div>
 
         <div className={QuestionBankStyling.categorySearch}>
           <FormControl>
-          <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
-              style={{width: '300px'}}
+              style={{width: '500px'}}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={category}
@@ -77,17 +77,17 @@ export default function QuestionBank() {
               <MenuItem value={'Operating Systems'}>Operating Systems</MenuItem>
             </Select>
           </FormControl>
-
-        </div>
-
-        <div className={QuestionBankStyling.questions}>
-          {Questions.map((item, index) => {
-            return(
-              <QuestionCard key={index} title={item.title} content={item.content}/>
-            )
-          })}
         </div>
       </div>
+
+      <div className={QuestionBankStyling.questions}>
+        {Questions.map((item, index) => {
+          return(
+            <QuestionCard key={index} title={item.title} content={item.content}/>
+          )
+        })}
+      </div>
+    </div>
     );
   }
   
