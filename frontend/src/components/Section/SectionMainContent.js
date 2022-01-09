@@ -2,7 +2,7 @@
 import React from "react";
 
 // Component imports
-import MembersView from "@components/MembersView/MembersView";
+import SectionMembersView from "@components/MembersView/SectionMembersView";
 import SectionInformation from "@components/Section/SectionInformation";
 import CustomTabs from "@components/MaterialCustomComponents/CustomTabs";
 
@@ -13,7 +13,7 @@ const tabsData = [
   },
   {
     name: "People",
-    component: MembersView,
+    component: SectionMembersView,
   },
 ];
 
