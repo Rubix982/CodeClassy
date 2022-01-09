@@ -9,30 +9,39 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Avatar from '@mui/material/Avatar';
 
+
+let Categories = ["Operating Systems", "Programming Fundamentals", "Data Structures"]
+
 let Questions =
 [
   {
     "title": "Rotate the matrix by K times.",
+    "category": "Operating Systems",
     "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
   },
   {
     "title": "Number of Islands using DFS.",
+    "category": "Programming Fundamentals",
     "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
   },
   {
     "title": "Rat in a maze problem.",
+    "category": "Data Structures",
     "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
   },
   {
     "title": "Number of ways to reach the nth stair.",
+    "category": "Operating Systems",
     "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
   },
   {
     "title": "0-1 Knapsack problem.",
+    "category": "Programming Fundamentals",
     "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
   },
   {
     "title": "Detect a loop in a linked list.",
+    "category": "Data Structures",
     "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
   }
 
@@ -40,7 +49,7 @@ let Questions =
 
 export default function QuestionBank() {
 
-  const [category, setCategory] = React.useState('Programming Fundamentals');
+  const [category, setCategory] = React.useState(Categories[0]);
 
 
     return (
@@ -72,9 +81,11 @@ export default function QuestionBank() {
               label="Category"
               onChange={(event) => setCategory(event.target.value)}
             >
-              <MenuItem value={'Programming Fundamentals'}>Programming Fundamentals</MenuItem>
-              <MenuItem value={'Data Structures'}>Data Structures</MenuItem>
-              <MenuItem value={'Operating Systems'}>Operating Systems</MenuItem>
+              { Categories.map((item, index) => {
+                return(
+                  <MenuItem key={index} value={item}>{item}</MenuItem>
+                )
+              })}
             </Select>
           </FormControl>
         </div>
@@ -82,9 +93,11 @@ export default function QuestionBank() {
 
       <div className={QuestionBankStyling.questions}>
         {Questions.map((item, index) => {
-          return(
-            <QuestionCard key={index} title={item.title} content={item.content}/>
-          )
+          if (item.category == category ){
+            return(
+              <QuestionCard key={index} title={item.title} content={item.content}/>
+            )
+          }
         })}
       </div>
     </div>
