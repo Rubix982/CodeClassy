@@ -1,12 +1,9 @@
 .boxContent {
     align-items: center;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     position: relative;
     z-index: 0;
+    padding: 16px;
 }
 
 .boxContent:hover {
@@ -24,15 +21,15 @@
     padding: 32px;
 }
 
+.avatarStyling {
+    background-color: '#f44336';
+    font-size: '1rem';
+}
+
 .textAnnouncementStyling {
     align-items: center;
     color: rgba(0, 0, 0, 0.549);
-    display: -webkit-box;
-    display: -moz-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -moz-box-flex: 1 1 auto;
     flex: 1 1 auto;
     height: 100%;
     justify-content: flex-start;

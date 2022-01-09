@@ -13,8 +13,11 @@
     border-radius: 0.5rem;
     margin-top: 5vh;
     margin-bottom: 5vh;
-    overflow: hidden;
+    overflow: scroll;
     width: 100%;
+    scrollbar-width: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .backgroundStyling {
@@ -24,6 +27,12 @@
     height: 40vh;
     position: relative;
     width: 100%;
+}
+
+@media only screen and (max-width: 400px) {
+    .backgroundStyling {
+        height: 60vmax;
+    }
 }
 
 .sectionNameStyling {
@@ -40,4 +49,7 @@
     left: 0;
     padding: 1rem 1.5rem;
     position: absolute;
+
+    /* The 'anywhere' keyword fills only in browsers and not VSC, not sure why */
+    word-wrap: anywhere;
 }

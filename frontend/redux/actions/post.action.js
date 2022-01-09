@@ -1,5 +1,13 @@
+// API import
 import API from "api";
+
+// NextJS imports
+import Router from "next/router";
+
+// ActionTypes import
 import { actionTypes } from "redux/actionTypes/actionTypes";
+
+// ErrorHandler import
 import { errorHandler } from "redux/actions/error.action";
 
 export const postPageLoad = (id) => {
@@ -14,6 +22,11 @@ export const postPageLoad = (id) => {
       setSuccessStates(dispatch, "Post page successfully loaded!");
     } catch (error) {
       errorHandler(dispatch, error);
+
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Post not found" },
+      });
     }
   };
 };

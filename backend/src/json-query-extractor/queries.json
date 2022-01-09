@@ -18,5 +18,20 @@
     "id": 4,
     "title": "SELECT sections that a teacher has been assigned using teacherEmail",
     "query": "  SELECT section.id as sectionID, `section`.`name` as sectionName, `classroom`.`name` AS classroomName, `classroom`.`description` AS classroomDescription, `teacher`.`fullName` AS teacherFullName FROM `member` `teacher` JOIN `section` `section` ON `section`.`teacherEmail`=`teacher`.`email` JOIN `classroom` `classroom` ON `classroom`.`ID`=`section`.`classroomID` WHERE `teacher`.`email`= ?;"
+  },
+  {
+    "id": 5,
+    "title": "SELECT a single section's information along with its announcements and announcement comments",
+    "query": "SELECT `member`.`fullName` AS `member_fullName`, `Announcement`.`announcerEmail` `Announcement_announcerEmail`, `Announcement`.`ID` AS `Announcement_ID`, `Announcement`.`contentBody` AS `Announcement_contentBody`, `Announcement`.`creationDate` AS `Announcement_creationDate` FROM `announcement` `Announcement` LEFT JOIN `member` ON `member`.`email` = `Announcement`.`announcerEmail` WHERE `Announcement`.`sectionID` = ? ORDER BY `Announcement_creationDate` DESC;"
+  },
+  {
+    "id": 6,
+    "title": "SELECT the name of the teacher assigned to a section",
+    "query": "SELECT `fullName` FROM `member` WHERE email = ?;"
+  },
+  {
+    "id": 7,
+    "title": "INSERT member as section_student in a section",
+    "query": "INSERT INTO `section_students`(studentEmail, sectionID) VALUES (?, ?);"
   }
 ]

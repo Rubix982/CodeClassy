@@ -58,6 +58,20 @@ export class MemberService {
     }
   }
 
+  async findAllRecordsWithEmails(__emails: string[]) {
+    const members = await this.memberRepository
+      .createQueryBuilder('members')
+      .select('fullName')
+      .where('email IN(:...emails)', { emails: __emails })
+      .execute();
+
+    if (members) {
+      return members;
+    } else {
+      return [{}];
+    }
+  }
+
   async findOne(__email: string) {
     const member = this.memberRepository.findOne(__email, {
       relations: ['verification'],

@@ -2,7 +2,6 @@
 import React from "react";
 
 // NextJS imports
-import Error from "next/error";
 import { useRouter } from "next/router";
 
 // Styling imports
@@ -56,11 +55,7 @@ const RedirectContent = ({ errorMessage }) => {
 };
 
 const ErrorPage = ({}) => {
-  const { errorMessage, errorCode } = useRouter().query;
-
-  if (errorCode) {
-    return <Error statusCode={errorCode} />;
-  }
+  const { errorMessage } = useRouter().query;
 
   return (
     <>
