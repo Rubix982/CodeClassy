@@ -33,6 +33,7 @@ const AddSection = withRouter((props) => {
   const [open, setOpen] = useState(false);
   const [sectionName, setSectionName] = useState("");
   const [collaboratorsEmail, setCollaboratorsEmail] = useState("");
+  const [disabled, setDisabled] = useState(true);
   const id = props.router.query.id;
 
   const handleOpen = () => setOpen(true);
@@ -83,56 +84,50 @@ const AddSection = withRouter((props) => {
               className={styles.formControlContainerStyling}
             >
               <FormControl className={styles.formControlStyling}>
-                <Grid item>
-                  <Typography id="modal-modal-name" sx={{ mt: 2 }}>
-                    <TextField
-                      className={styles.textFieldStyling}
-                      id="section-name"
-                      label="Name"
-                      value={sectionName}
-                      onChange={(e) => setSectionName(e.target.value)}
-                      variant="standard"
-                    />
-                  </Typography>
-                </Grid>
-
-                <Grid item style={{ paddingTop: "10px" }}>
-                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    <TextField
-                      className={styles.textFieldStyling}
-                      id="coordinator-email-invite"
-                      label="Collaborator's Email"
-                      variant="standard"
-                      value={collaboratorsEmail}
-                      onChange={(e) => setCollaboratorsEmail(e.target.value)}
-                    />
-                  </Typography>
-                </Grid>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  <TextField
+                    className={styles.textFieldStyling}
+                    id="coordinator-email-invite"
+                    label="Collaborator's Email (Required)"
+                    variant="standard"
+                    value={collaboratorsEmail}
+                    onChange={(event) => {
+                      setCollaboratorsEmail(event.target.value);
+                      setDisabled(
+                        !(event.target.value != "" && sectionName != "")
+                      );
+                    }}
+                  />
+                </Typography>
+                <Typography id="modal-modal-name" sx={{ mt: 2 }}>
+                  <TextField
+                    className={styles.textFieldStyling}
+                    id="section-name"
+                    label="Name (Required)"
+                    value={sectionName}
+                    onChange={(event) => {
+                      setSectionName(event.target.value);
+                      setDisabled(
+                        !(event.target.value != "" && collaboratorsEmail != "")
+                      );
+                    }}
+                    variant="standard"
+                  />
+                </Typography>
 
                 <Grid
                   container
                   direction="row"
-                  justifyContent="space-between"
-                  alignItems="stretch"
+                  justifyContent="flex-end"
+                  alignItems="center"
                   style={{ paddingTop: "30px" }}
                 >
                   <Grid item>
-                    <Button
-                      variant="contained"
-                      onClick={createSection}
-                      className={styles.createButtonStyling}
-                    >
-                      Create
-                    </Button>
+                    <Button onClick={handleClose}>Cancel</Button>
                   </Grid>
-
                   <Grid item>
-                    <Button
-                      variant="contained"
-                      className={styles.cancelButtonStyling}
-                      onClick={handleClose}
-                    >
-                      Cancel
+                    <Button disabled={disabled} onClick={createSection}>
+                      Create
                     </Button>
                   </Grid>
                 </Grid>
