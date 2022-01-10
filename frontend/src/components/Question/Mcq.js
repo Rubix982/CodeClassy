@@ -34,15 +34,7 @@ const Mcq = (props) => {
   return(
     <div style={{marginTop: '30px'}}>
       <Problem/>
-      { props.update && ( 
-        <Button 
-          style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
-          variant="contained" 
-          startIcon={<UpdateIcon />}
-        > 
-          Update
-        </Button>
-      )}
+      <QuestionSettings update={props.update} questionsCategory={true} points={true} randomize={true} shuffle={true} grading={true}/>
       <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
       { Answers.slice(0, currentAnswers).map((item, index) => {
         return (
@@ -62,12 +54,21 @@ const Mcq = (props) => {
 
             </div>
             <RichTextEditor/>
+            { props.update && ( 
+              <Button 
+                style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
+                variant="contained" 
+                startIcon={<UpdateIcon />}
+              > 
+                Update Answer
+              </Button>
+            )}
           </div>
         );
       })}
 
 
-      <div style={{ display: 'flex', width: '30%', flexDirection: 'column', marginTop: '50px'}}>
+      <div style={{ display: 'flex', width: '30%', flexDirection: 'column', marginTop: '50px', marginBottom: '100px'}}>
         <Button 
         variant="contained" 
         startIcon={<AddBoxIcon />}
@@ -87,18 +88,6 @@ const Mcq = (props) => {
         </Button>
 
       </div>
-
-      { props.update && ( 
-        <Button 
-          style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
-          variant="contained" 
-          startIcon={<UpdateIcon />}
-        > 
-          Update
-        </Button>
-      )}
-
-      <QuestionSettings update={props.update} questionsCategory={true} points={true} randomize={true} shuffle={true} grading={true}/>
 
 
     </div>
