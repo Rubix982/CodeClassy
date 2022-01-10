@@ -17,9 +17,19 @@ const MainContent = () => {
         justifyContent: "center",
       }}
     >
-      <Grid item xs={4}>
-        <div className={styles.mainCodeClassyTitle}>
-          <p>Welcome To CodeClassy!</p>
+      <Grid item xs={4} 
+      style={{ 
+        border: '1px solid #e0e0e0', 
+        borderRadius: '2%',
+        padding: '50px',
+        width: '100%', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        flexDirection: 'column'}}
+      >
+        <div className={styles.mainCodeClassyTitle} >
+          <p>Welcome To Codeclassy!</p>
         </div>
 
         <div className={styles.mainCodeClassyContent}>
@@ -30,8 +40,9 @@ const MainContent = () => {
         <Grid
           container
           direction="row"
-          justifyContent="space-between"
+          justifyContent="center"
           alignItems="flex-end"
+          style={{ width: '80%', margin: '15px'}}
         >
           <Grid
             item

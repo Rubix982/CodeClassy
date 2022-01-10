@@ -9,89 +9,137 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Avatar from '@mui/material/Avatar';
 
-let Questions =
-[
+
+let Categories = ["Operating Systems", "Programming Fundamentals", "Data Structures"]
+
+let multipleChoiceQuestions = [
   {
-    "title": "Rotate the matrix by K times.",
-    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
-  },
-  {
+    "id": 1,
     "title": "Number of Islands using DFS.",
-    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
-  },
-  {
-    "title": "Rat in a maze problem.",
-    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
-  },
-  {
-    "title": "Number of ways to reach the nth stair.",
-    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
-  },
-  {
-    "title": "0-1 Knapsack problem.",
-    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
-  },
-  {
-    "title": "Detect a loop in a linked list.",
+    "category": "Programming Fundamentals",
     "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
   }
-
 ]
+
+let trueFalseQuestions = [
+  {
+    "id": 2,
+    "title": "Rat in a maze problem.",
+    "category": "Data Structures",
+    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
+  },
+  {
+    "id": 3,
+    "title": "Number of ways to reach the nth stair.",
+    "category": "Operating Systems",
+    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
+  }
+]
+
+
+let essayQuestions = [
+  {
+    "id": 4,
+    "title": "Rotate the matrix by K times.",
+    "category": "Operating Systems",
+    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
+  }
+]
+
+let freeTextQuestions = [
+  {
+    "id": 5,
+    "title": "Deadlock Problem",
+    "category": "Operating Systems",
+    "content": "Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result."
+  }
+]
+
 
 export default function QuestionBank() {
 
-  const [category, setCategory] = React.useState('Programming Fundamentals');
+  const [category, setCategory] = React.useState(Categories[0]);
 
 
     return (
-      <div className={QuestionBankStyling.container}>
+    <div className={QuestionBankStyling.container}>
 
-
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '70%'}}>
-        <Link href="/questionbank/newquestion">
-          <a style={{textDecoration: 'none'}}>
-            <Button 
-            startIcon={<Avatar style={{height: '20px', width: '17px'}} src={'/assets/images/add.png'} />}
-            style={{ height: '45px', backgroundColor: 'grey'}} 
-            variant="contained"
-            > 
-              Add a new question
-            </Button>
-          </a>
-        </Link>
-      </div>
+      <div style={{display: 'flex', width: '74%', alignItems: 'flex-end', flexDirection: 'column'}}>
+        <div>
+          <Link href="/question/newquestion">
+            <a style={{textDecoration: 'none'}}>
+              <Button 
+              startIcon={<Avatar style={{height: '20px', width: '17px'}} src={'/assets/images/add.png'} />}
+              style={{ height: '45px', backgroundColor: 'grey'}} 
+              variant="contained"
+              > 
+                Add a question
+              </Button>
+            </a>
+          </Link>
+        </div>
 
         <div className={QuestionBankStyling.categorySearch}>
           <FormControl>
-          <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
-              style={{width: '300px'}}
+              style={{width: '500px'}}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={category}
               label="Category"
               onChange={(event) => setCategory(event.target.value)}
             >
-              <MenuItem value={'Programming Fundamentals'}>Programming Fundamentals</MenuItem>
-              <MenuItem value={'Data Structures'}>Data Structures</MenuItem>
-              <MenuItem value={'Operating Systems'}>Operating Systems</MenuItem>
+              { Categories.map((item, index) => {
+                return(
+                  <MenuItem key={index} value={item}>{item}</MenuItem>
+                )
+              })}
             </Select>
           </FormControl>
-
-        </div>
-
-        <div className={QuestionBankStyling.questions}>
-          {Questions.map((item, index) => {
-            return(
-              <Link key={index} href="/questionbank/newquestion">
-                <a style={{color: '#000000', textDecoration: 'none'}}>
-                  <QuestionCard title={item.title} content={item.content}/>
-                </a>
-              </Link>
-            )
-          })}
         </div>
       </div>
+
+      <div className={QuestionBankStyling.questions}>
+
+        {multipleChoiceQuestions.map((item, index) => {
+          if (item.category == category ){
+            return(
+              <QuestionCard key={index} id={item.id} type="multiplechoice" title={item.title} content={item.content}/>
+            )
+          }
+        })}
+        {trueFalseQuestions.map((item, index) => {
+          if (item.category == category ){
+            return(
+              <QuestionCard key={index} id={item.id} type="truefalse" title={item.title} content={item.content}/>
+            )
+          }
+        })}
+        {/* {matchingQuestions.map((item, index) => {
+          if (item.category == category ){
+            return(
+              <QuestionCard key={index} id={item.id} type="matching" title={item.title} content={item.content}/>
+            )
+          }
+        })} */}
+        {essayQuestions.map((item, index) => {
+          if (item.category == category ){
+            return(
+              <QuestionCard key={index} id={item.id} type="essay" title={item.title} content={item.content}/>
+            )
+          }
+        })}
+        {freeTextQuestions.map((item, index) => {
+          if (item.category == category ){
+            return(
+              <QuestionCard key={index} id={item.id} type="freetext" title={item.title} content={item.content}/>
+            )
+          }
+        })}
+
+      </div>
+    </div>
     );
   }
   

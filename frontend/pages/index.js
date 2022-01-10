@@ -12,7 +12,7 @@ const Index = () => {
   return (
     <>
       <Head>
-        <title>Index Page</title>
+        <title> Codeclassy </title>
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <ForwardAuthenticated>

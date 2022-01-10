@@ -6,6 +6,8 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import settingsStyle from '../../../styles/QuestionSettings/QuestionSettings.module.css'
 import Button from '@mui/material/Button';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import UpdateIcon from '@mui/icons-material/Update';
 
 let categories = 
 [
@@ -14,11 +16,22 @@ let categories =
     "Object-Oriented Programming"
 ]
 
-const QuestionSettings = ({questionsCategory, points, randomize, shuffle, grading}) =>
+
+const createQuestion = () => {
+    // post request for question
+    // bring data of other components using redux store to send a post request. 
+}
+
+const updateQuestion = () => {
+    // put request for settings update
+}
+
+
+const QuestionSettings = ({questionsCategory, points, randomize, shuffle, grading, update}) =>
 {
     const [category, setCategory] = React.useState(categories[0]);
     const [firstRadio, setFirstRadio] = React.useState('Yes');
-    const [secondRadio, setSecondRadio] = React.useState('Shuffle Matches');
+    const [secondRadio, setSecondRadio] = React.useState('Shuffle matches only');
     const [thirdRadio, setThirdRadio] = React.useState('Off');
 
 
@@ -81,6 +94,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             value={'Yes'}
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'Yes' }}
+                            style={{color: '#616161'}}
                         />
                         <label> Yes </label>
                     </div>
@@ -92,6 +106,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             value={'No'}
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'No' }}
+                            style={{color: '#616161'}}
                         />
                         <label> No </label>
                     </div>
@@ -109,6 +124,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             value={'Shuffle matches only'}
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'Shuffle matches only' }}
+                            style={{color: '#616161'}}
                         />
                         <label> Shuffle matches only </label>
                     </div>
@@ -120,6 +136,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             value={'Shuffle clues only'}
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'Shuffle clues only' }}
+                            style={{color: '#616161'}}
                         />
                         <label> Shuffle clues only</label>
                     </div>
@@ -131,6 +148,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             value={'Shuffle clues and matches'}
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'Shuffle clues and matches' }}
+                            style={{color: '#616161'}}
                         />
                         <label> Shuffle clues and matches </label>
                     </div>
@@ -148,6 +166,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             value={'Off'}
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'Off' }}
+                            style={{color: '#616161'}}
                         />
                         <label> Off </label>
                     </div>
@@ -159,6 +178,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             value={'Partial with deduction'}
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'Partial with deduction' }}
+                            style={{color: '#616161'}}
                         />
                         <label> Partial with deduction </label>
                     </div>
@@ -170,13 +190,35 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             value={'Partial without deduction'}
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'Partial without deduction' }}
+                            style={{color: '#616161'}}
                         />
                         <label> Partial without deduction </label>
                     </div>
                 </div>)
             }
 
-            <Button style={{margin: '15px'}} variant="contained"> Save </Button>
+            { !update && (
+                <Button 
+                style={{margin: '15px', marginLeft: '0px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
+                variant="contained" 
+                startIcon={<AddBoxIcon />}
+                onClick={updateQuestion}
+                > 
+                    Create 
+                </Button>
+            )}
+
+            { update && (
+                <Button 
+                style={{margin: '15px', marginLeft: '0px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
+                variant="contained" 
+                startIcon={<UpdateIcon />}
+                onClick={updateQuestion}
+                > 
+                    Update 
+                </Button>
+            )}
+            
 
         </div>
     )
