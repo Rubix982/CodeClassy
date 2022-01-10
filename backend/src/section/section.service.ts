@@ -62,12 +62,16 @@ export class SectionService {
       __sectionID,
       __sectionID,
     ]);
-    sectionData.announcements.sort((firstElement, secondElement) => {
-      return (
-        new Date(secondElement.creationDate) >
-        new Date(firstElement.creationDate)
-      );
-    });
+
+    if (sectionData.announcements) {
+      sectionData.announcements.sort((firstElement, secondElement) => {
+        return (
+          new Date(secondElement.creationDate) >
+          new Date(firstElement.creationDate)
+        );
+      });
+    }
+
     return sectionData;
   }
 
