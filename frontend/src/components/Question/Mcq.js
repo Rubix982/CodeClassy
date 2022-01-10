@@ -8,6 +8,7 @@ import Problem from './Problem'
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import UpdateIcon from '@mui/icons-material/Update';
 
 let Answers = 
 [ "(A)", "(B)", "(C)" , "(D)", "(E)", "(F)", "(G)", "(H)", "(I)", "(J)", "(K)", "(L)", "(M)", "(N)", 
@@ -34,9 +35,13 @@ const Mcq = (props) => {
     <div style={{marginTop: '30px'}}>
       <Problem/>
       { props.update && ( 
-        <div style={{margin: '25px 13px'}}>
-            <Button variant="contained"> Update </Button>
-        </div>
+        <Button 
+          style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
+          variant="contained" 
+          startIcon={<UpdateIcon />}
+        > 
+          Update
+        </Button>
       )}
       <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
       { Answers.slice(0, currentAnswers).map((item, index) => {
@@ -84,9 +89,13 @@ const Mcq = (props) => {
       </div>
 
       { props.update && ( 
-      <div style={{margin: '25px 13px'}}>
-          <Button variant="contained"> Update </Button>
-      </div>
+        <Button 
+          style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
+          variant="contained" 
+          startIcon={<UpdateIcon />}
+        > 
+          Update
+        </Button>
       )}
 
       <QuestionSettings update={props.update} questionsCategory={true} points={true} randomize={true} shuffle={true} grading={true}/>

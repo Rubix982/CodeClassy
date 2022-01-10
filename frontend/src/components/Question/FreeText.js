@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import UpdateIcon from '@mui/icons-material/Update';
 
 
 
@@ -38,9 +39,13 @@ const FreeText = (props) => {
      <div style={{marginTop: '30px'}}>
         <Problem/>
         { props.update && ( 
-        <div style={{margin: '25px 13px'}}>
-            <Button variant="contained"> Update </Button>
-        </div>
+        <Button 
+        style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
+        variant="contained" 
+        startIcon={<UpdateIcon />}
+        > 
+          Update
+        </Button>
         )}
         <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Accepted answers </h4>
         {possibleAnswers.map((item,index) => {
@@ -81,9 +86,13 @@ const FreeText = (props) => {
       </div>
 
       { props.update && ( 
-        <div style={{margin: '25px 13px'}}>
-            <Button variant="contained"> Update </Button>
-        </div>
+        <Button 
+        style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
+        variant="contained" 
+        startIcon={<UpdateIcon />}
+        > 
+          Update
+        </Button>
       )}
 
         <QuestionSettings update={props.update} questionsCategory={true} points={true} randomize={false}/>
