@@ -18,7 +18,9 @@ import Button from "@mui/material/Button";
 
 const CustomTabs = ({ tabsData }) => {
   const [value, setValue] = React.useState(0);
-  const [currentTabID, setCurrentTabID] = React.useState("Feed");
+  const [currentTabID, setCurrentTabID] = React.useState(
+    tabsData.length != 0 ? tabsData[0].name : ""
+  );
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
@@ -26,7 +28,7 @@ const CustomTabs = ({ tabsData }) => {
   };
 
   return (
-    <div className={CustomTabsStyling.container}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <Navbar />
       <div className={CustomTabsStyling.subTabMenu}>
         <Tabs
@@ -39,7 +41,7 @@ const CustomTabs = ({ tabsData }) => {
           value={value}
           onChange={handleChange}
           aria-label="Tabs"
-          className={CustomTabsStyling.tabStyling}
+          style={{ height: "100%", display: "flex", alignItems: "center" }}
         >
           {tabsData.map((item, index) => {
             let color = "grey";
@@ -52,7 +54,14 @@ const CustomTabs = ({ tabsData }) => {
                 {...a11yProps(index)}
                 component={() => (
                   <Button
-                    className={CustomTabsStyling.tabButtonStyling}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      padding: "10px",
+                      margin: "15px",
+                      textAlign: "center",
+                      justifyContent: "center",
+                    }}
                     onClick={() => {
                       setValue(index);
                       setCurrentTabID(item.name);
