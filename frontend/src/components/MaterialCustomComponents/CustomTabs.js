@@ -28,54 +28,58 @@ const CustomTabs = ({ tabsData }) => {
   return (
     <div className={CustomTabsStyling.container}>
       <Navbar />
-      <div className={CustomTabsStyling.subTabMenu}>
-        <Tabs
-          TabIndicatorProps={{
-            style: {
-              display: "none",
-            },
-          }}
-          centered
-          value={value}
-          onChange={handleChange}
-          aria-label="Tabs"
-          className={CustomTabsStyling.tabStyling}
-        >
-          {tabsData.map((item, index) => {
-            let color = "grey";
-            if (currentTabID === item.name) {
-              color = "#000000";
-            }
+      {tabsData.length != 0 && (
+        <>
+          <div className={CustomTabsStyling.subTabMenu}>
+            <Tabs
+              TabIndicatorProps={{
+                style: {
+                  display: "none",
+                },
+              }}
+              centered
+              value={value}
+              onChange={handleChange}
+              aria-label="Tabs"
+              className={CustomTabsStyling.tabStyling}
+            >
+              {tabsData.map((item, index) => {
+                let color = "grey";
+                if (currentTabID === item.name) {
+                  color = "#000000";
+                }
+                return (
+                  <Tab
+                    key={index}
+                    {...a11yProps(index)}
+                    component={() => (
+                      <Button
+                        className={CustomTabsStyling.tabButtonStyling}
+                        onClick={() => {
+                          setValue(index);
+                          setCurrentTabID(item.name);
+                        }}
+                      >
+                        <label style={{ color: color, cursor: "pointer" }}>
+                          {item.name}
+                        </label>
+                      </Button>
+                    )}
+                  />
+                );
+              })}
+            </Tabs>
+          </div>
+
+          {tabsData.map((element, index) => {
             return (
-              <Tab
-                key={index}
-                {...a11yProps(index)}
-                component={() => (
-                  <Button
-                    className={CustomTabsStyling.tabButtonStyling}
-                    onClick={() => {
-                      setValue(index);
-                      setCurrentTabID(item.name);
-                    }}
-                  >
-                    <label style={{ color: color, cursor: "pointer" }}>
-                      {item.name}
-                    </label>
-                  </Button>
-                )}
-              />
+              <TabPanel key={index} value={value} index={index}>
+                <element.component />
+              </TabPanel>
             );
           })}
-        </Tabs>
-      </div>
-
-      {tabsData.map((element, index) => {
-        return (
-          <TabPanel key={index} value={value} index={index}>
-            <element.component />
-          </TabPanel>
-        );
-      })}
+        </>
+      )}
     </div>
   );
 };
