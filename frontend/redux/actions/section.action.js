@@ -10,7 +10,6 @@ export const getSectionAction = (id) => {
       const response = await api.get(`section/${id}`);
       dispatch({ type: actionTypes.sectionLoaded, payload: response.data });
     } catch (error) {
-      console.log(error);
       errorHandler(dispatch, error);
 
       Router.push({
@@ -32,11 +31,10 @@ export const postAnnouncementContent = (id, data, name) => {
       const response = await api.post(`section/${id}/announcement`, data);
 
       const announcement = {
-        Announcement_ID: response.data.announcement.ID,
-        Announcement_announcerEmail: response.data.announcement.announcer,
-        Announcement_contentBody: response.data.announcement.contentBody,
-        Announcement_creationDate: response.data.announcement.creationDate,
-        member_fullName: name,
+        ID: response.data.announcement.ID,
+        contentBody: response.data.announcement.contentBody,
+        creationDate: response.data.announcement.creationDate,
+        teacherFullName: name,
       };
 
       setAnnouncementStates(dispatch, announcement);

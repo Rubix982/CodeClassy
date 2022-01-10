@@ -187,6 +187,8 @@ const Post = ({
     event.preventDefault();
   };
 
+  console.log(announcementContentBody);
+
   return (
     <>
       {successMessageSnackbar && (
@@ -208,11 +210,12 @@ const Post = ({
                 <Image src={announcementImage} height={70} width={70}></Image>
               </div>
 
-            <div className={PostStyling.headingContainer}>
-              <h1 className={PostStyling.heading}> Announcement </h1>
-              <div className={PostStyling.teacherName}>
-                {teacherFullName} •{" "}
-                {Moment(announcementCreationDate).format("MMM DD, YYYY")}
+              <div className={PostStyling.headingContainer}>
+                <h1 className={PostStyling.heading}> Announcement </h1>
+                <div className={PostStyling.teacherName}>
+                  {teacherFullName} •{" "}
+                  {Moment(announcementCreationDate).format("MMM DD, YYYY")}
+                </div>
               </div>
             </div>
 
@@ -224,9 +227,6 @@ const Post = ({
                 deleteAnnouncement={deleteAnnouncement}
               />
             </div>
-          <div className={PostStyling.postContent}>
-            <p className={PostStyling.content}>{announcementContentBody}</p>
-          </div>
 
             <div className={PostStyling.postContent}>
               <TextField
@@ -284,38 +284,37 @@ const Post = ({
                 })}
             </div>
 
-              <div className={PostStyling.writeComment}>
-                <Avatar
-                  sx={{ fontSize: "1rem" }}
-                  aria-label="recipe"
-                  {...StringAvatar(userFullName)}
-                />
-                <Grid style={{ marginLeft: "15px" }} item xs={11}>
-                  <FormControl sx={{ width: "100%" }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-comment">
-                      Comment
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-comment"
-                      value={values.comment}
-                      onChange={handleChange("comment")}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle comment visibility"
-                            onClick={handlePostComment}
-                            onMouseDown={handleMouseDownComment}
-                            edge="end"
-                          >
-                            <Send />
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label="Comment"
-                    />
-                  </FormControl>
-                </Grid>
-              </div>
+            <div className={PostStyling.writeComment}>
+              <Avatar
+                sx={{ fontSize: "1rem" }}
+                aria-label="recipe"
+                {...StringAvatar(userFullName)}
+              />
+              <Grid style={{ marginLeft: "15px" }} item xs={11}>
+                <FormControl sx={{ width: "100%" }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-comment">
+                    Comment
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-comment"
+                    value={values.comment}
+                    onChange={handleChange("comment")}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle comment visibility"
+                          onClick={handlePostComment}
+                          onMouseDown={handleMouseDownComment}
+                          edge="end"
+                        >
+                          <Send />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Comment"
+                  />
+                </FormControl>
+              </Grid>
             </div>
           </div>
         </div>
