@@ -8,7 +8,6 @@ export const getSectionAction = (id) => {
     try {
       const api = API.getInstance();
       const response = await api.get(`section/${id}`);
-      console.log(response.data);
       dispatch({ type: actionTypes.sectionLoaded, payload: response.data });
     } catch (error) {
       console.log(error);
