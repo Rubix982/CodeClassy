@@ -21,10 +21,10 @@ import { getSectionAction } from "redux/actions/section.action";
 
 function SectionInformation({
   getSectionAction,
-  responseMessage,
-  successMessageSnackbar,
-  errorMessageSnackbar,
+  classroomName,
+  classroomDescription,
   sectionName,
+  teacherFullName,
   announcements,
   sectionLoaded,
 }) {
@@ -39,14 +39,6 @@ function SectionInformation({
 
   return (
     <>
-      {successMessageSnackbar && (
-        <SnackBarAlert severity={"success"} message={responseMessage} />
-      )}
-
-      {errorMessageSnackbar && (
-        <SnackBarAlert severity={"error"} message={responseMessage} />
-      )}
-
       {sectionLoaded && (
         <Grid
           container
@@ -57,6 +49,7 @@ function SectionInformation({
         >
           <div className={styles.imageContainer}>
             <div className={styles.backgroundStyling}>
+              <p className={styles.sectionNameStyling}>{classroomName}</p>
               <p className={styles.sectionNameStyling}>{sectionName}</p>
             </div>
           </div>
@@ -72,13 +65,17 @@ function SectionInformation({
               <Grid item>
                 <PostAnnouncement />
               </Grid>
-              {announcements.map((announcement, index) => {
-                return (
-                  <Grid item key={index}>
-                    <Announcement announcementData={announcement} />
-                  </Grid>
-                );
-              })}
+              {announcements &&
+                announcements.map((announcement, index) => {
+                  return (
+                    <Grid item key={index}>
+                      <Announcement
+                        announcementData={announcement}
+                        teacherFullName={teacherFullName}
+                      />
+                    </Grid>
+                  );
+                })}
             </Grid>
           </Grid>
         </Grid>
@@ -89,9 +86,9 @@ function SectionInformation({
 
 const mapStateToProps = (state) => {
   return {
-    responseMessage: state.apiReducer.responseMessage,
-    successMessageSnackbar: state.apiReducer.successMessageSnackbar,
-    errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+    classroomName: state.sectionReducer.classroomName,
+    classroomDescription: state.sectionReducer.classroomDescription,
+    teacherFullName: state.sectionReducer.teacherFullName,
     sectionName: state.sectionReducer.sectionName,
     announcements: state.sectionReducer.announcements,
     sectionLoaded: state.sectionReducer.sectionLoaded,

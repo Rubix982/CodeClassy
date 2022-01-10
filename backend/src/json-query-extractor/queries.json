@@ -26,8 +26,8 @@
   },
   {
     "id": 6,
-    "title": "SELECT the name of the teacher assigned to a section",
-    "query": "SELECT `fullName` FROM `member` WHERE email = ?;"
+    "title": "SELECT section data (information, announcements, members)",
+    "query": "SELECT section.ID AS sectionID, section.name AS sectionName, classroom.name AS classroomName, classroom.description AS classroomDescription, teacher.fullName AS teacherFullName, students, announcements FROM `section` INNER JOIN `classroom` ON section.classroomID = classroom.ID INNER JOIN `member` `teacher` ON section.teacherEmail = `teacher`.email LEFT JOIN ( SELECT sectionStudents.sectionID, JSON_ARRAYAGG(JSON_OBJECT('email', sectionStudents.studentEmail, 'fullName', `student`.fullName)) AS students FROM `section_students` sectionStudents INNER JOIN `member` `student` ON sectionStudents.studentEmail = `student`.email WHERE sectionStudents.sectionID = ? GROUP BY sectionStudents.sectionID ) aggregatedStudents ON (aggregatedStudents.sectionID = section.ID) LEFT JOIN ( SELECT announcement.sectionID, JSON_ARRAYAGG(JSON_OBJECT('ID', announcement.ID, 'creationDate', announcement.creationDate, 'contentBody', announcement.contentBody)) AS announcements FROM announcement WHERE announcement.sectionID = ? GROUP BY announcement.sectionID ) aggregatedAnnouncements ON (aggregatedAnnouncements.sectionID = section.ID) WHERE section.ID = ?"
   },
   {
     "id": 7,

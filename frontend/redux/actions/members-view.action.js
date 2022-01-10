@@ -2,22 +2,6 @@ import API from "api";
 import { actionTypes } from "redux/actionTypes/actionTypes";
 import { errorHandler } from "redux/actions/error.action";
 
-export const getMembersForSectionView = (id) => {
-  return async (dispatch) => {
-    try {
-      const api = API.getInstance();
-
-      const response = await api.get(`section/${id}/people`);
-
-      setSectionMemberStates(dispatch, response.data);
-
-      setSuccessStates(dispatch, "Members view successfully loaded");
-    } catch (error) {
-      errorHandler(error);
-    }
-  };
-};
-
 export const getMembersForClassroomView = (id) => {
   return async (dispatch) => {
     try {
@@ -39,16 +23,6 @@ const setClassroomMemberStates = (dispatch, data) => {
     type: actionTypes.classroomMembersLoaded,
     payload: {
       classroomMembers: data,
-      hasDataLoaded: true,
-    },
-  });
-};
-
-const setSectionMemberStates = (dispatch, data) => {
-  dispatch({
-    type: actionTypes.sectionMembersLoaded,
-    payload: {
-      sectionMembers: data.members,
       hasDataLoaded: true,
     },
   });

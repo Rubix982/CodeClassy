@@ -66,47 +66,8 @@ export class SectionController {
 
   @UseGuards(SectionMemberGuard)
   @Get(':id')
-  async getSectionInformation(@Param('id') __sectionID: string) {
-    const response = await this.sectionService.getSection(__sectionID);
-
-    const result = await this.sectionService.getTeacherData(response.teacherEmail);
-
-    if (response && result) {
-      return {
-        teacherData: result,
-        response: response,
-        msg: `Section successfully loaded!`,
-      };
-    } else {
-      return {};
-    }
-  }
-
-  @UseGuards(SectionMemberGuard)
-  @Get(':id/announcement')
-  async getSectionAnnouncements(@Param('id') __sectionID: string) {
-    const announcements =
-      await this.announcementService.getAnnouncementForSection(__sectionID);
-
-    if (announcements) {
-      return {
-        msg: 'Announcements successfully retrieved',
-        announcements: announcements,
-      };
-    }
-  }
-
-  @UseGuards(SectionMemberGuard)
-  @Get(':id/people')
-  async getSectionMembers(@Param('id') __sectionID: string) {
-    const people = await this.sectionService.getSectionWithStudents(
-      __sectionID,
-    );
-
-    if (people) {
-      return people;
-    } else {
-      return {};
-    }
+  async getSectionData(@Param('id') __sectionID: string) {
+    const sectionData = await this.sectionService.getSectionData(__sectionID);
+    return sectionData;
   }
 }
