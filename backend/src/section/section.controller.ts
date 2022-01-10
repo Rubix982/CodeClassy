@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -69,5 +70,14 @@ export class SectionController {
   async getSectionData(@Param('id') __sectionID: string) {
     const sectionData = await this.sectionService.getSectionData(__sectionID);
     return sectionData;
+  }
+
+  @Delete(':id')
+  async deleteSection(@Param('id') __sectionID: string) {
+    await this.sectionService.deleteSection(__sectionID);
+    return {
+      msg: `Successfully deleted section: ${__sectionID}`,
+      sectionID: __sectionID,
+    };
   }
 }

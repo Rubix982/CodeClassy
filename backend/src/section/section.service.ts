@@ -81,4 +81,8 @@ export class SectionService {
       }
     }
   }
+
+  async deleteSection(__sectionID: string) {
+    await this.sectionRepository.delete(__sectionID);
+  }
 }
