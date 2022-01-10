@@ -37,7 +37,7 @@ const MoreVertMenu = ({ deleteSection, ID }) => {
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title="Account settings">
+        <Tooltip title="Section settings">
           <IconButton
             onClick={handleClick}
             size="small"
