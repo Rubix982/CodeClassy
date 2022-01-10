@@ -27,22 +27,22 @@ let tabsData = [
   },
   {
     index: 2,
-    image: "matching",
-    name: "Matching",
-    component: Matching,
-  },
-  {
-    index: 3,
     image: "freetext",
     name: "Free Text",
     component: FreeText,
   },
   {
-    index: 4,
+    index: 3,
     image: "essay",
     name: "Essay",
     component: Essay,
   },
+  // {
+  //   index: 4,
+  //   image: "matching",
+  //   name: "Matching",
+  //   component: Matching,
+  // },
 ];
 
 const Question = (props) => {
@@ -60,7 +60,7 @@ const Question = (props) => {
           {" "}
           Select Question Type{" "}
         </h3>
-        <Box sx={{ borderBottom: 1, borderColor: "divider", width: "70%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider", width: "55%" }}>
           <Tabs
             TabIndicatorProps={{
               style: {

@@ -14,7 +14,7 @@ let categories =
     "Object-Oriented Programming"
 ]
 
-const QuestionSettings = ({questionsCategory, points, randomize, shuffle, grading}) =>
+const QuestionSettings = ({questionsCategory, points, randomize, shuffle, grading, update}) =>
 {
     const [category, setCategory] = React.useState(categories[0]);
     const [firstRadio, setFirstRadio] = React.useState('Yes');
@@ -176,7 +176,14 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            <Button style={{margin: '15px'}} variant="contained"> Save </Button>
+            { !update && (
+                <Button style={{margin: '15px', marginLeft: '0px'}} variant="contained"> Save </Button>
+            )}
+
+            { update && (
+                <Button style={{margin: '15px', marginLeft: '0px'}} variant="contained"> Update </Button>
+            )}
+            
 
         </div>
     )

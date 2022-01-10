@@ -2,6 +2,7 @@ import * as React from 'react';
 import Radio from '@mui/material/Radio';
 import Problem from './Problem'
 import QuestionSettings from './QuestionSettings.js'
+import Button from '@mui/material/Button';
 
 const TrueFalse = (props) => {
     const [selectedValue, setSelectedValue] = React.useState('True');
@@ -13,7 +14,11 @@ const TrueFalse = (props) => {
     return ( 
      <div style={{marginTop: '30px'}}>
         <Problem/>
-        { props.update && ( <button> Update </button>)}
+        { props.update && ( 
+        <div style={{margin: '25px 13px'}}>
+            <Button variant="contained"> Update </Button>
+        </div>
+        )}
         <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
 
         <div>
@@ -38,7 +43,13 @@ const TrueFalse = (props) => {
             <label> False </label>
         </div>
 
-        <QuestionSettings questionsCategory={true} points={true} randomize={false}/>
+        { props.update && ( 
+        <div style={{margin: '25px 13px'}}>
+            <Button variant="contained"> Update </Button>
+        </div>
+        )}
+
+        <QuestionSettings update={props.update} questionsCategory={true} points={true} randomize={false}/>
 
      </div>
     );
