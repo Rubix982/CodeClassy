@@ -36,6 +36,10 @@ export class ClassroomService {
     return classroom;
   }
 
+  async deleteClassroom(__classroomID: string) {
+    await this.classroomRepository.delete(__classroomID);
+  }
+
   async getClassroomPeopleInformation(__classroomData: Classroom) {
     let emails = [];
 

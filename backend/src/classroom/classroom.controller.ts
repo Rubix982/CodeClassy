@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { Classroom } from 'src/entities/classroom.entity';
@@ -24,6 +32,15 @@ export class ClassroomController {
     const classroom: Classroom =
       await this.classroomService.getClassroomWithSections(__classroomID);
     return classroom;
+  }
+
+  @Delete(':id')
+  async deleteClassroom(@Param('id') __classroomID: string) {
+    await this.classroomService.deleteClassroom(__classroomID);
+    return {
+      msg: `Successfully deleted classroom: ${__classroomID}`,
+      classroomID: __classroomID,
+    };
   }
 
   @UseGuards(ClassroomOwnerGuard)
