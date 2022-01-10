@@ -6,6 +6,7 @@ import { AddAnnouncementDTO } from 'src/section/add-announcement.dto';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
 import { EntityManager, getManager, Repository } from 'typeorm';
 import { JWTPayload } from 'src/auth/signin.dto';
+import { GetAnnouncementDTO } from './get-announcement.dto';
 
 @Injectable()
 export class AnnouncementService {
@@ -50,10 +51,10 @@ export class AnnouncementService {
 
   async getAnnouncementWithComments(__announcementID: string) {
     const queryString: string = this.jsonQueryExtractorService.getQueryByID(5);
-    const announcementData = await this.entityManager.query(queryString, [
+    const [announcementData] = await this.entityManager.query(queryString, [
       __announcementID,
       __announcementID,
     ]);
-    return announcementData[0];
+    return new GetAnnouncementDTO(announcementData);
   }
 }
