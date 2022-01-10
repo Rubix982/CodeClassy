@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
+import { CategoryModule } from 'src/category/category.module';
 import { ClassroomModule } from 'src/classroom/classroom.module';
 import { Teacher } from 'src/entities/teacher.entity';
 import { JSONQueryExtractorModule } from 'src/json-query-extractor/json-query-extractor.module';
@@ -12,6 +13,7 @@ import { TeacherService } from './teacher.service';
     TypeOrmModule.forFeature([Teacher]),
     AuthModule,
     ClassroomModule,
+    CategoryModule,
     JSONQueryExtractorModule,
   ],
   controllers: [TeacherController],

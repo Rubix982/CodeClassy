@@ -4,13 +4,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { JWTPayload } from 'src/auth/signin.dto';
-import { SectionTeacherRouteHandler } from 'src/handlers/section-teacher-handler';
+import { SectionMemberRouteHandler } from 'src/handlers/section-member-handler';
 
 @Injectable()
-export class SectionTeacherGuard {
+export class SectionMemberGuard {
   private shouldForwardRequest = false;
 
-  constructor(private readonly rootHandler: SectionTeacherRouteHandler) {}
+  constructor(private readonly rootHandler: SectionMemberRouteHandler) {}
 
   handleError(__error: Error) {
     if (__error instanceof NotFoundException) {

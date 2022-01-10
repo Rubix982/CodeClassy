@@ -3,10 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AnnouncementModule } from 'src/announcement/announcement.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { Section } from 'src/entities/section.entity';
-import { SectionTeacherRouteHandler } from 'src/handlers/section-teacher-handler';
+import { SectionMemberRouteHandler } from 'src/handlers/section-member-handler';
 import { StudentModule } from 'src/student/Student.module';
 import { SectionController } from './section.controller';
 import { SectionService } from './section.service';
+import { JSONQueryExtractorModule } from 'src/json-query-extractor/json-query-extractor.module';
 
 @Module({
   imports: [
@@ -14,9 +15,10 @@ import { SectionService } from './section.service';
     AuthModule,
     StudentModule,
     AnnouncementModule,
+    JSONQueryExtractorModule,
   ],
   controllers: [SectionController],
-  providers: [SectionService, SectionTeacherRouteHandler],
+  providers: [SectionService, SectionMemberRouteHandler],
   exports: [SectionService],
 })
 export class SectionModule {}

@@ -34,4 +34,20 @@ export class AnnouncementCommentService {
     >(AddAnnouncementCommentResponseDTO);
     return entityTransformer.fromEntity(announcementComment);
   }
+
+  public async getAnnouncementComments(__announcementID: string) {
+    const announcementComments = await this.announcementCommentRepository
+      .createQueryBuilder('announcement_comment')
+      .where('announcementID = :announcementID', {
+        announcementID: __announcementID,
+      })
+      .orderBy('creationDate', 'DESC')
+      .execute();
+
+    if (announcementComments) {
+      return announcementComments;
+    } else {
+      return {};
+    }
+  }
 }

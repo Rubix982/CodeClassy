@@ -7,12 +7,14 @@ import { TeacherModule } from 'src/teacher/teacher.module';
 import { ClassroomController } from './classroom.controller';
 import { ClassroomService } from './classroom.service';
 import { ClassroomOwnerRouteHandler } from 'src/handlers/classroom-owner-handler';
+import { MemberModule } from 'src/member/member.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Classroom]),
     AuthModule,
     forwardRef(() => TeacherModule),
+    forwardRef(() => MemberModule),
     SectionModule,
   ],
   controllers: [ClassroomController],

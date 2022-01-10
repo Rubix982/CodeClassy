@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AnnouncementCommentService } from 'src/announcement-comment/announcement-comment.service';
 import { AppGuard } from 'src/app/app.guard';
 import { JWTPayload } from 'src/auth/signin.dto';
@@ -34,5 +34,17 @@ export class AnnouncementController {
       msg: 'Succesfully created announcement comment',
       announcementComment,
     };
+  }
+
+  @Get(':id/comment')
+  async getAnnouncementComments(@Param('id') __announcementID: string) {
+    const results =
+      await this.announcementCommentService.getAnnouncementComments(
+        __announcementID,
+      );
+
+    if (results) {
+      return results;
+    }
   }
 }

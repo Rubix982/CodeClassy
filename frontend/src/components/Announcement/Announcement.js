@@ -25,9 +25,13 @@ import SendIcon from "@mui/icons-material/Send";
 // Component imports
 import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 import { StringAvatar } from "@components/Section/helper/StringHelpers";
+import Moment from "moment";
 
 // Redux imports
-import { postPageLoad, commentAddition } from "redux/actions/post.action";
+import {
+  announcementPageLoadAction,
+  commentAddition,
+} from "redux/actions/announcement.action";
 import { connect } from "react-redux";
 
 // Asset imports
@@ -35,22 +39,29 @@ import announcementImage from "/public/assets/images/announcement.png";
 import commentImage from "/public/assets/images/comment.png";
 
 const Post = ({
-  postPageLoad,
-  commentAddition,
-  responseMessage,
   successMessageSnackbar,
   errorMessageSnackbar,
+  responseMessage,
+  announcementPageLoadAction,
+  commentAddition,
   userFullName,
   comments,
+  teacherFullName,
+  announcementCreationDate,
+  announcementContentBody,
   router,
 }) => {
   const [values, setValues] = React.useState({
     comment: "",
   });
+
   const { id } = useRouter().query;
 
   React.useEffect(() => {
-    postPageLoad(id);
+    if (!id) {
+      return;
+    }
+    announcementPageLoadAction(id);
   }, [id]);
 
   const handleChange = (prop) => (event) => {
@@ -59,6 +70,7 @@ const Post = ({
 
   const handlePostComment = () => {
     commentAddition(id, { contentBody: values.comment });
+    setValues({ comment: "" });
   };
 
   const handleMouseDownComment = (event) => {
@@ -85,15 +97,14 @@ const Post = ({
             <div className={PostStyling.headingContainer}>
               <h1 className={PostStyling.heading}> Announcement </h1>
               <div className={PostStyling.teacherName}>
-                {" "}
-                {router.query.fullName} • {router.query.creationDate}{" "}
+                {teacherFullName} •{" "}
+                {Moment(announcementCreationDate).format("MMM DD, YYYY")}
               </div>
-              {/* teacherName + date  //media query to be written */}
             </div>
           </div>
 
           <div className={PostStyling.postContent}>
-            <p className={PostStyling.content}>{router.query.contentBody}</p>
+            <p className={PostStyling.content}>{announcementContentBody}</p>
           </div>
 
           <div className={PostStyling.commentsContainer}>
@@ -103,29 +114,27 @@ const Post = ({
             </div>
 
             <div className={PostStyling.commentsArray}>
-              {comments.map((item, index) => {
-                return (
-                  <div key={index} className={PostStyling.comment}>
-                    <Avatar
-                      sx={{ fontSize: "1rem" }}
-                      aria-label="recipe"
-                      {...StringAvatar(
-                        item.announcement_comment_commentatorFullName
-                      )}
-                    />
+              {comments &&
+                comments.map((item, index) => {
+                  return (
+                    <div key={index} className={PostStyling.comment}>
+                      <Avatar
+                        sx={{ fontSize: "1rem" }}
+                        aria-label="recipe"
+                        {...StringAvatar(item.fullName)}
+                      />
 
-                    <div>
-                      <h3 className={PostStyling.commenter}>
-                        {" "}
-                        {item.announcement_comment_commentatorFullName}{" "}
-                      </h3>
-                      <p style={{ marginLeft: "15px" }}>
-                        {item.announcement_comment_contentBody}
-                      </p>
+                      <div>
+                        <h3 className={PostStyling.commenter}>
+                          {item.fullName} •{" "}
+                          {Moment(item.creationDate).format("MMM DD, YYYY")}
+                        </h3>
+
+                        <p style={{ marginLeft: "15px" }}>{item.contentBody}</p>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
 
             <div className={PostStyling.writeComment}>
@@ -172,10 +181,13 @@ const mapStateToProps = (state) => ({
   successMessageSnackbar: state.apiReducer.successMessageSnackbar,
   errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
   userFullName: state.authReducer.userFullName,
-  comments: state.postReducer.postComments,
+  teacherFullName: state.announcementReducer.teacherFullName,
+  announcementCreationDate: state.announcementReducer.announcementCreationDate,
+  announcementContentBody: state.announcementReducer.announcementContentBody,
+  comments: state.announcementReducer.announcementComments,
 });
 
 export default connect(mapStateToProps, {
-  postPageLoad,
+  announcementPageLoadAction,
   commentAddition,
-})(withRouter(Post));
+})(Post);

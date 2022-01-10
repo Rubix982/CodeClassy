@@ -5,21 +5,21 @@ import React from "react";
 import Head from "next/head";
 
 // Component imports
-import Post from "@components/Post/Post";
+import Announcement from "@components/Announcement/Announcement";
 import EnsureAuthenticated from "@components/Auth/ensure-authenticated";
 
-const PostPage = () => {
+const AnnouncementPage = () => {
   return (
     <>
       <Head>
-        <title>Post</title>
+        <title>Announcement</title>
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <Post />
+        <Announcement />
       </EnsureAuthenticated>
     </>
   );
 };
 
-export default PostPage;
+export default AnnouncementPage;

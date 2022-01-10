@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Post,
   UploadedFiles,
@@ -12,8 +13,10 @@ import { AnnouncementService } from 'src/announcement/announcement.service';
 import { AppGuard } from 'src/app/app.guard';
 import { AddAnnouncementDTO } from './add-announcement.dto';
 import { AddStudentDTO } from './add-student.dto';
-import { SectionTeacherGuard } from './section-teacher.guard';
+import { SectionMemberGuard } from './section-member.guard';
 import { SectionService } from './section.service';
+import { RequestDecodedMember } from 'src/decorators/member.decorator';
+import { JWTPayload } from 'src/auth/signin.dto';
 
 @UseGuards(AppGuard)
 @Controller('section')
@@ -23,7 +26,7 @@ export class SectionController {
     private readonly announcementService: AnnouncementService,
   ) {}
 
-  @UseGuards(SectionTeacherGuard)
+  @UseGuards(SectionMemberGuard)
   @Post(':id/student')
   async addSectionMember(
     @Param('id') __sectionID: string,
@@ -38,24 +41,33 @@ export class SectionController {
     };
   }
 
-  @UseGuards(SectionTeacherGuard)
+  @UseGuards(SectionMemberGuard)
   @Post(':id/announcement')
   @UseInterceptors(FilesInterceptor('files'))
   async addSectionAnnouncement(
     @Param('id') __sectionID: string,
     @UploadedFiles() __files: Array<Express.Multer.File>,
+    @RequestDecodedMember() __member: JWTPayload,
     @Body() __requestBody: AddAnnouncementDTO,
   ) {
-    console.log(__files);
     const section = await this.sectionService.getSection(__sectionID);
-    const announcementID = await this.announcementService.createAnnouncement(
+    const announcement = await this.announcementService.createAnnouncement(
       section,
       __requestBody,
+      __member,
     );
 
     return {
       msg: `Successfully added announcement`,
-      ID: announcementID,
+      ID: announcement.ID,
+      announcement: announcement,
     };
+  }
+
+  @UseGuards(SectionMemberGuard)
+  @Get(':id')
+  async getSectionData(@Param('id') __sectionID: string) {
+    const sectionData = await this.sectionService.getSectionData(__sectionID);
+    return sectionData;
   }
 }

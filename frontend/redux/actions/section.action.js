@@ -7,37 +7,18 @@ export const getSectionAction = (id) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
-      const sectionDataResponse = await api.get(`section/${id}`);
-
-      const announcementResponse = await api.get(`section/${id}/announcement`);
-
-      const data = {
-        teacherName: sectionDataResponse.data.teacherData[0].fullName,
-        teacherEmail: sectionDataResponse.data.response.teacherEmail,
-        sectionName: sectionDataResponse.data.response.name,
-        announcements: announcementResponse.data.announcements,
-      };
-
-      setSectionStates(dispatch, data);
-      setSuccessStates(dispatch, sectionDataResponse.data.msg);
+      const response = await api.get(`section/${id}`);
+      dispatch({ type: actionTypes.sectionLoaded, payload: response.data });
     } catch (error) {
-      Router.push("/error");
+      console.log(error);
       errorHandler(dispatch, error);
+
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Section not found" },
+      });
     }
   };
-};
-
-const setSectionStates = (dispatch, data) => {
-  dispatch({
-    type: actionTypes.sectionLoaded,
-    payload: {
-      teacherName: data.teacherName,
-      teacherEmail: data.teacherEmail,
-      sectionName: data.sectionName,
-      announcements: data.announcements,
-      sectionLoaded: true,
-    },
-  });
 };
 
 export const postAnnouncementContent = (id, data, name) => {

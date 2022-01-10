@@ -8,17 +8,22 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Classroom } from 'src/entities/classroom.entity';
 import { Section } from 'src/entities/section.entity';
 import { Teacher } from 'src/entities/teacher.entity';
-import { StudentService } from 'src/student/student.service';
-import { Repository } from 'typeorm';
+import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
+import { MemberService } from 'src/member/member.service';
+import { EntityManager, getManager, Repository } from 'typeorm';
 import { CreateSectionDTO } from './create.dto';
 
 @Injectable()
 export class SectionService {
+  private readonly entityManager: EntityManager;
+
   constructor(
     @InjectRepository(Section)
     private readonly sectionRepository: Repository<Section>,
-    private readonly studentService: StudentService,
-  ) {}
+    private readonly JSONQueryExtractorService: JSONQueryExtractorService,
+  ) {
+    this.entityManager = getManager();
+  }
   async createSection(
     __classroom: Classroom,
     __teacher: Teacher,
@@ -50,26 +55,23 @@ export class SectionService {
     }
   }
 
-  async getSectionWithStudents(__sectionID: string) {
-    const sectionWithStudents = await this.sectionRepository.findOne(
+  async getSectionData(__sectionID: string) {
+    const queryString: string = this.JSONQueryExtractorService.getQueryByID(6);
+    const sectionData = await this.entityManager.query(queryString, [
       __sectionID,
-      { relations: ['students'] },
-    );
-
-    if (sectionWithStudents) {
-      return sectionWithStudents;
-    } else {
-      throw new NotFoundException([`Could not find section: ${__sectionID}`]);
-    }
+      __sectionID,
+      __sectionID,
+    ]);
+    return sectionData[0];
   }
 
   async addSectionMember(__sectionID: string, __studentEmail: string) {
-    const section = await this.getSectionWithStudents(__sectionID);
-    const student = await this.studentService.getStudent(__studentEmail);
-    section.students = [...section.students, student];
-
     try {
-      await this.sectionRepository.save(section);
+      const query = this.JSONQueryExtractorService.getQueryByID(7);
+
+      const entityManager = getManager();
+
+      await entityManager.query(query, [__studentEmail, __sectionID]);
     } catch (error) {
       if (error.errno === 1062) {
         throw new ConflictException([

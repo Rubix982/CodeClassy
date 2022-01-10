@@ -8,7 +8,7 @@ import Head from "next/head";
 import EnsureAuthenticated from "@components/Auth/ensure-authenticated";
 import ErrorPage from "@components/ErrorPage/ErrorPage";
 
-const Error = ({ errorCode, errorMessage }) => {
+const Error = ({ errorMessage }) => {
   return (
     <>
       <Head>
@@ -16,7 +16,7 @@ const Error = ({ errorCode, errorMessage }) => {
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <ErrorPage errorCode={errorCode} errorMessage={errorMessage} />
+        <ErrorPage errorMessage={errorMessage} />
       </EnsureAuthenticated>
     </>
   );

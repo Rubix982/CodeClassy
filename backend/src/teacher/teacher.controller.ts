@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
 import { JWTPayload } from 'src/auth/signin.dto';
+import { CategoryService } from 'src/category/category.service';
+import { CreateCategoryDTO } from 'src/category/create.dto';
 import { ClassroomService } from 'src/classroom/classroom.service';
 import { CreateClassroomDTO } from 'src/classroom/create.dto';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
@@ -13,6 +15,7 @@ export class TeacherController {
   constructor(
     private readonly teacherService: TeacherService,
     private readonly classroomService: ClassroomService,
+    private readonly categoryService: CategoryService,
   ) {}
 
   @Post('classroom')
@@ -28,6 +31,21 @@ export class TeacherController {
     return {
       msg: `Successfully created classroom: ${__requestBody.name}`,
       ID: classroomID,
+    };
+  }
+
+  @Post('category')
+  async createCategory(
+    @Body() __requestBody: CreateCategoryDTO,
+    @RequestDecodedMember() __member: JWTPayload,
+  ) {
+    const category = await this.categoryService.createCategory(
+      __member.email,
+      __requestBody,
+    );
+    return {
+      msg: `Successfully created category: ${__requestBody.name}`,
+      category,
     };
   }
 

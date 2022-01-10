@@ -25,42 +25,62 @@ export const createClassroom = (data) => {
       const api = API.getInstance();
       const response = await api.post("teacher/classroom", data);
 
-      dispatch({
-        type: actionTypes.apiSuccess,
-        payload: {
-          successMessage: response.data.msg,
-          successMessageSnackbarState: true,
-        },
-      });
-
-      setTimeout(() => {
-        dispatch({
-          type: actionTypes.apiSuccess,
-          payload: {
-            successMessage: "",
-            successMessageSnackbarState: false,
-          },
-        });
-      }, 2000);
+      setSuccessStates(dispatch, response.data.msg);
       Router.push(`/classroom/${response.data.ID}`);
     } catch (error) {
-      dispatch({
-        type: actionTypes.apiFailed,
-        payload: {
-          errorMessage: error.response.data.message[0],
-          errorMessageSnackbarState: true,
-        },
-      });
-
-      setTimeout(() => {
-        dispatch({
-          type: actionTypes.apiFailed,
-          payload: {
-            errorMessage: "",
-            errorMessageSnackbarState: false,
-          },
-        });
-      }, 2000);
+      setErrorStates(dispatch, error.response.data.message[0]);
     }
   };
+};
+
+export const deleteClassroom = (id) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+
+      setSuccessStates(dispatch, "Classroom deleted");
+    } catch (error) {
+      setErrorStates(dispatch, "Classroom could not be deleted");
+    }
+  };
+};
+
+const setSuccessStates = (dispatch, msg) => {
+  dispatch({
+    type: actionTypes.apiSuccess,
+    payload: {
+      successMessage: msg,
+      successMessageSnackbarState: true,
+    },
+  });
+
+  setTimeout(() => {
+    dispatch({
+      type: actionTypes.apiSuccess,
+      payload: {
+        successMessage: "",
+        successMessageSnackbarState: false,
+      },
+    });
+  }, 2000);
+};
+
+const setErrorStates = (dispatch, msg) => {
+  dispatch({
+    type: actionTypes.apiFailed,
+    payload: {
+      errorMessage: msg,
+      errorMessageSnackbarState: true,
+    },
+  });
+
+  setTimeout(() => {
+    dispatch({
+      type: actionTypes.apiFailed,
+      payload: {
+        errorMessage: "",
+        errorMessageSnackbarState: false,
+      },
+    });
+  }, 2000);
 };
