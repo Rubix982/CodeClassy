@@ -10,17 +10,20 @@ import { Section } from 'src/entities/section.entity';
 import { Teacher } from 'src/entities/teacher.entity';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
 import { MemberService } from 'src/member/member.service';
-import { getManager, Repository } from 'typeorm';
+import { EntityManager, getManager, Repository } from 'typeorm';
 import { CreateSectionDTO } from './create.dto';
 
 @Injectable()
 export class SectionService {
+  private readonly entityManager: EntityManager;
+
   constructor(
     @InjectRepository(Section)
     private readonly sectionRepository: Repository<Section>,
-    private readonly memberService: MemberService,
     private readonly JSONQueryExtractorService: JSONQueryExtractorService,
-  ) {}
+  ) {
+    this.entityManager = getManager();
+  }
   async createSection(
     __classroom: Classroom,
     __teacher: Teacher,
@@ -52,36 +55,14 @@ export class SectionService {
     }
   }
 
-  async getSectionWithStudents(__sectionID: string) {
-    const sectionInformation = await this.sectionRepository.findOne(
+  async getSectionData(__sectionID: string) {
+    const queryString: string = this.JSONQueryExtractorService.getQueryByID(6);
+    const sectionData = await this.entityManager.query(queryString, [
       __sectionID,
-      { relations: ['students'] },
-    );
-
-    let memberInformation = {};
-
-    if (sectionInformation.students.length !== 0) {
-      let emails = [];
-
-      for (var i = 0; i < sectionInformation.students.length; ++i) {
-        emails.push(sectionInformation.students[i].email);
-      }
-
-      memberInformation = await this.memberService.findAllRecordsWithEmails(
-        emails,
-      );
-    } else {
-      memberInformation = [{}];
-    }
-
-    if (sectionInformation) {
-      return {
-        section: sectionInformation,
-        members: memberInformation,
-      };
-    } else {
-      throw new NotFoundException([`Could not find section: ${__sectionID}`]);
-    }
+      __sectionID,
+      __sectionID,
+    ]);
+    return sectionData[0];
   }
 
   async addSectionMember(__sectionID: string, __studentEmail: string) {
@@ -97,18 +78,6 @@ export class SectionService {
           `${__studentEmail} is already part of the section`,
         ]);
       }
-    }
-  }
-
-  async getTeacherData(__teacherEmail: string) {
-    try {
-      const query = this.JSONQueryExtractorService.getQueryByID(6);
-
-      const entityManager = getManager();
-
-      return await entityManager.query(query, [__teacherEmail]);
-    } catch(error) {
-      throw new NotFoundException(`Could not find a teacher with email: ${__teacherEmail}`)
     }
   }
 }
