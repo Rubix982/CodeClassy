@@ -4,13 +4,17 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Router from "next/router";
+import Link from 'next/link'
 
 const options = [
   'Edit',
   'Delete'
 ]
 const ITEM_HEIGHT = 48;
+
+const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
+      ? <Link href={to}><a style={{textDecoration: 'none', color: '#202020'}}>{children}</a></Link>
+      : <>{children}</>;
 
 export default function QuestionCard({title, content, type, id}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -22,12 +26,10 @@ export default function QuestionCard({title, content, type, id}) {
     setAnchorEl(null);
   };
 
-  const checkOptionType = (option) => {
+  const isDelete = (option) => {
     if(option == 'Delete'){
       // delete request for question here
-    }
-    else{
-      Router.push(`/question/${type}/${id}`)
+      console.log("Delete Called");
     }
   }
 
@@ -66,8 +68,10 @@ export default function QuestionCard({title, content, type, id}) {
               }}
             >
               {options.map((option) => (
-                <MenuItem key={option} selected={option === 'Pyxis'} onClick={() => { handleClose(), checkOptionType(option) }}>
-                  {option}
+                <MenuItem key={option} selected={option === 'Pyxis'} onClick={() => { handleClose(), isDelete(option) }}>
+                  <ConditionalLink  to={`/question/${type}/${id}`} condition={option == 'Edit'}>
+                    {option}
+                  </ConditionalLink>
                 </MenuItem>
               ))}
             </Menu>

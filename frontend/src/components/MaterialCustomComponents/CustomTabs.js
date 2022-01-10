@@ -18,7 +18,9 @@ import Button from "@mui/material/Button";
 
 const CustomTabs = ({ tabsData }) => {
   const [value, setValue] = React.useState(0);
-  const [currentTabID, setCurrentTabID] = React.useState("Feed");
+  const [currentTabID, setCurrentTabID] = React.useState(
+    tabsData.length != 0 ? tabsData[0].name : ""
+  );
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
@@ -26,7 +28,7 @@ const CustomTabs = ({ tabsData }) => {
   };
 
   return (
-    <div className={CustomTabsStyling.container}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <Navbar />
       {tabsData.length != 0 && (
         <>

@@ -36,15 +36,12 @@ export class AnnouncementController {
     };
   }
 
-  @Get(':id/comment')
-  async getAnnouncementComments(@Param('id') __announcementID: string) {
-    const results =
-      await this.announcementCommentService.getAnnouncementComments(
+  @Get(':id')
+  async getAnnouncement(@Param('id') __announcementID: string) {
+    const announcementData =
+      await this.announcementService.getAnnouncementWithComments(
         __announcementID,
       );
-
-    if (results) {
-      return results;
-    }
+    return announcementData;
   }
 }

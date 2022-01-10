@@ -21,8 +21,8 @@
   },
   {
     "id": 5,
-    "title": "SELECT a single section's information along with its announcements and announcement comments",
-    "query": "SELECT `member`.`fullName` AS `member_fullName`, `Announcement`.`announcerEmail` `Announcement_announcerEmail`, `Announcement`.`ID` AS `Announcement_ID`, `Announcement`.`contentBody` AS `Announcement_contentBody`, `Announcement`.`creationDate` AS `Announcement_creationDate` FROM `announcement` `Announcement` LEFT JOIN `member` ON `member`.`email` = `Announcement`.`announcerEmail` WHERE `Announcement`.`sectionID` = ? ORDER BY `Announcement_creationDate` DESC;"
+    "title": "SELECT announcement data (information, comments)",
+    "query": "SELECT announcement.ID, announcement.creationDate, announcement.contentBody, teacher.fullName AS teacherFullName, comments FROM announcement INNER JOIN `section` ON announcement.sectionID = `section`.ID INNER JOIN `member` teacher ON `section`.teacherEmail = teacher.email LEFT JOIN ( SELECT announcementComment.announcementID, JSON_ARRAYAGG(JSON_OBJECT('fullName', announcementComment.commentatorFullName, 'contentBody', announcementComment.contentBody, 'creationDate', announcementComment.creationDate)) AS comments FROM `announcement_comment` announcementComment WHERE announcementComment.announcementID = ? GROUP BY announcementComment.announcementID ) aggregatedComments ON (aggregatedComments.announcementID = announcement.ID) WHERE announcement.ID = ?;"
   },
   {
     "id": 6,

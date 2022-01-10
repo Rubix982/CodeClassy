@@ -41,7 +41,7 @@ import {
   deleteAnnouncement,
   announcementPageLoadAction,
   commentAddition,
-} from "redux/actions/post.action";
+} from "redux/actions/announcement.action";
 import { connect } from "react-redux";
 
 // Asset imports
@@ -163,7 +163,7 @@ const Post = ({
   });
   const [readOnlyText, setReadOnlyText] = React.useState(true);
   const [textFieldContent, setTextFieldContent] = React.useState(
-    router.query.contentBody
+    announcementContentBody
   );
   const { id } = useRouter().query;
 
