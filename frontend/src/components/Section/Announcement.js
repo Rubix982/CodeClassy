@@ -23,21 +23,9 @@ import {
 import { StringAvatar } from "./helper/StringHelpers";
 
 export default function Announcement({ announcementData, teacherFullName }) {
-  const {
-    member_fullName,
-    Announcement_ID,
-    Announcement_contentBody,
-    Announcement_creationDate,
-  } = announcementData;
-
   const onViewComments = () => {
     Router.push({
-      pathname: `/post/${Announcement_ID}`,
-      query: {
-        fullName: member_fullName,
-        contentBody: Announcement_contentBody,
-        creationDate: Announcement_creationDate,
-      },
+      pathname: `/announcement/${announcementData.ID}`,
     });
   };
 
