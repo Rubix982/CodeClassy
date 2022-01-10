@@ -1,10 +1,12 @@
 import { actionTypes } from "redux/actionTypes/actionTypes";
 
 const initialState = {
-  teacherName: "",
-  teacherEmail: "",
+  classroomName: "",
+  classroomDescription: "",
   sectionName: "",
+  teacherFullName: "",
   announcements: [],
+  students: [],
   sectionLoaded: false,
 };
 
@@ -13,11 +15,13 @@ const sectionReducer = (state = initialState, action) => {
     case actionTypes.sectionLoaded:
       return {
         ...state,
-        teacherName: action.payload.teacherName,
-        teacherEmail: action.payload.teacherEmail,
+        classroomName: action.payload.classroomName,
+        classroomDescription: action.payload.classroomDescription,
         sectionName: action.payload.sectionName,
+        teacherFullName: action.payload.teacherFullName,
         announcements: action.payload.announcements,
-        sectionLoaded: action.payload.sectionLoaded,
+        students: action.payload.students,
+        sectionLoaded: true,
       };
 
     case actionTypes.announcementPosted:
