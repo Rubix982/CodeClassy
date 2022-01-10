@@ -12,6 +12,7 @@ import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-e
 import { MemberService } from 'src/member/member.service';
 import { EntityManager, getManager, Repository } from 'typeorm';
 import { CreateSectionDTO } from './create.dto';
+import { GetSectionDTO } from './get-section.dto';
 
 @Injectable()
 export class SectionService {
@@ -57,22 +58,12 @@ export class SectionService {
 
   async getSectionData(__sectionID: string) {
     const queryString: string = this.JSONQueryExtractorService.getQueryByID(6);
-    const [sectionData] = await this.entityManager.query(queryString, [
+    const [data] = await this.entityManager.query(queryString, [
       __sectionID,
       __sectionID,
       __sectionID,
     ]);
-
-    if (sectionData.announcements) {
-      sectionData.announcements.sort((firstElement, secondElement) => {
-        return (
-          new Date(secondElement.creationDate) >
-          new Date(firstElement.creationDate)
-        );
-      });
-    }
-
-    return sectionData;
+    return new GetSectionDTO(data);
   }
 
   async addSectionMember(__sectionID: string, __studentEmail: string) {

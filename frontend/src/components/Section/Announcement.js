@@ -19,6 +19,8 @@ import {
   Avatar,
 } from "@mui/material";
 
+import Moment from "moment";
+
 // Component imports
 import { StringAvatar } from "./helper/StringHelpers";
 
@@ -54,7 +56,9 @@ export default function Announcement({ announcementData, teacherFullName }) {
               />
             }
             title={teacherFullName}
-            subheader={announcementData.creationDate}
+            subheader={Moment(announcementData.creationDate).format(
+              "MMM DD, YYYY"
+            )}
           />
           <CardContent className={AnnouncementStyling.cardContentStyling}>
             <Typography variant="body2">
