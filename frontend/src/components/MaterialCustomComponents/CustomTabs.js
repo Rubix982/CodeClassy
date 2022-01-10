@@ -15,6 +15,7 @@ import {
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
+import { connect } from "react-redux";
 
 const CustomTabs = ({ tabsData }) => {
   const [value, setValue] = React.useState(0);
