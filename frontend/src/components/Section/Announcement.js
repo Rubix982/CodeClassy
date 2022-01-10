@@ -22,22 +22,10 @@ import {
 // Component imports
 import { StringAvatar } from "./helper/StringHelpers";
 
-export default function Announcement({ announcementData }) {
-  const {
-    member_fullName,
-    Announcement_ID,
-    Announcement_contentBody,
-    Announcement_creationDate,
-  } = announcementData;
-
+export default function Announcement({ announcementData, teacherFullName }) {
   const onViewComments = () => {
     Router.push({
-      pathname: `/post/${Announcement_ID}`,
-      query: {
-        fullName: member_fullName,
-        contentBody: Announcement_contentBody,
-        creationDate: Announcement_creationDate,
-      },
+      pathname: `/announcement/${announcementData.ID}`,
     });
   };
 
@@ -62,14 +50,16 @@ export default function Announcement({ announcementData }) {
               <Avatar
                 sx={{ fontSize: "1rem", width: 40, height: 40 }}
                 aria-label="recipe"
-                {...StringAvatar(member_fullName)}
+                {...StringAvatar(teacherFullName)}
               />
             }
-            title={`${member_fullName}`}
-            subheader={Announcement_creationDate}
+            title={teacherFullName}
+            subheader={announcementData.creationDate}
           />
           <CardContent className={AnnouncementStyling.cardContentStyling}>
-            <Typography variant="body2">{Announcement_contentBody}</Typography>
+            <Typography variant="body2">
+              {announcementData.contentBody}
+            </Typography>
           </CardContent>
           <Button
             className={AnnouncementStyling.commentCountStyling}

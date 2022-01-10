@@ -33,12 +33,13 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import CustomTabs from "@components/MaterialCustomComponents/CustomTabs";
 import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 import { StringAvatar } from "@components/Section/helper/StringHelpers";
+import Moment from "moment";
 
 // Redux imports
 import {
   updateAnnouncement,
   deleteAnnouncement,
-  postPageLoad,
+  announcementPageLoadAction,
   commentAddition,
 } from "redux/actions/post.action";
 import { connect } from "react-redux";
@@ -145,15 +146,16 @@ const MoreVertMenu = (props) => {
 };
 
 const Post = ({
-  postPageLoad,
-  commentAddition,
-  updateAnnouncement,
-  deleteAnnouncement,
-  responseMessage,
   successMessageSnackbar,
   errorMessageSnackbar,
+  responseMessage,
+  announcementPageLoadAction,
+  commentAddition,
   userFullName,
   comments,
+  teacherFullName,
+  announcementCreationDate,
+  announcementContentBody,
   router,
 }) => {
   const [values, setValues] = React.useState({
@@ -166,7 +168,10 @@ const Post = ({
   const { id } = useRouter().query;
 
   React.useEffect(() => {
-    postPageLoad(id);
+    if (!id) {
+      return;
+    }
+    announcementPageLoadAction(id);
   }, [id]);
 
   const handleChange = (prop) => (event) => {
@@ -175,6 +180,7 @@ const Post = ({
 
   const handlePostComment = () => {
     commentAddition(id, { contentBody: values.comment });
+    setValues({ comment: "" });
   };
 
   const handleMouseDownComment = (event) => {
@@ -202,13 +208,11 @@ const Post = ({
                 <Image src={announcementImage} height={70} width={70}></Image>
               </div>
 
-              <div className={PostStyling.headingContainer}>
-                <h1 className={PostStyling.heading}> Announcement </h1>
-                <div className={PostStyling.teacherName}>
-                  {" "}
-                  {router.query.fullName} • {router.query.creationDate}{" "}
-                </div>
-                {/* teacherName + date  //media query to be written */}
+            <div className={PostStyling.headingContainer}>
+              <h1 className={PostStyling.heading}> Announcement </h1>
+              <div className={PostStyling.teacherName}>
+                {teacherFullName} •{" "}
+                {Moment(announcementCreationDate).format("MMM DD, YYYY")}
               </div>
             </div>
 
@@ -220,6 +224,9 @@ const Post = ({
                 deleteAnnouncement={deleteAnnouncement}
               />
             </div>
+          <div className={PostStyling.postContent}>
+            <p className={PostStyling.content}>{announcementContentBody}</p>
+          </div>
 
             <div className={PostStyling.postContent}>
               <TextField
@@ -251,32 +258,31 @@ const Post = ({
                 <Image src={commentImage} height={30} width={28}></Image>
                 <h1 className={PostStyling.commentHeading}>Comments</h1>
               </div>
+            </div>
 
-              <div className={PostStyling.commentsArray}>
-                {comments.map((item, index) => {
+            <div className={PostStyling.commentsArray}>
+              {comments &&
+                comments.map((item, index) => {
                   return (
                     <div key={index} className={PostStyling.comment}>
                       <Avatar
                         sx={{ fontSize: "1rem" }}
                         aria-label="recipe"
-                        {...StringAvatar(
-                          item.announcement_comment_commentatorFullName
-                        )}
+                        {...StringAvatar(item.fullName)}
                       />
 
                       <div>
                         <h3 className={PostStyling.commenter}>
-                          {" "}
-                          {item.announcement_comment_commentatorFullName}{" "}
+                          {item.fullName} •{" "}
+                          {Moment(item.creationDate).format("MMM DD, YYYY")}
                         </h3>
-                        <p style={{ marginLeft: "15px" }}>
-                          {item.announcement_comment_contentBody}
-                        </p>
+
+                        <p style={{ marginLeft: "15px" }}>{item.contentBody}</p>
                       </div>
                     </div>
                   );
                 })}
-              </div>
+            </div>
 
               <div className={PostStyling.writeComment}>
                 <Avatar
@@ -323,12 +329,15 @@ const mapStateToProps = (state) => ({
   successMessageSnackbar: state.apiReducer.successMessageSnackbar,
   errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
   userFullName: state.authReducer.userFullName,
-  comments: state.postReducer.postComments,
+  teacherFullName: state.announcementReducer.teacherFullName,
+  announcementCreationDate: state.announcementReducer.announcementCreationDate,
+  announcementContentBody: state.announcementReducer.announcementContentBody,
+  comments: state.announcementReducer.announcementComments,
 });
 
 export default connect(mapStateToProps, {
-  postPageLoad,
+  announcementPageLoadAction,
   commentAddition,
   updateAnnouncement,
   deleteAnnouncement,
-})(withRouter(Post));
+})(Post);

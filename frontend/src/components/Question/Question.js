@@ -27,27 +27,27 @@ let tabsData = [
   },
   {
     index: 2,
-    image: "matching",
-    name: "Matching",
-    component: Matching,
-  },
-  {
-    index: 3,
     image: "freetext",
     name: "Free Text",
     component: FreeText,
   },
   {
-    index: 4,
+    index: 3,
     image: "essay",
     name: "Essay",
     component: Essay,
   },
+  // {
+  //   index: 4,
+  //   image: "matching",
+  //   name: "Matching",
+  //   component: Matching,
+  // },
 ];
 
-const AddNewQuestion = () => {
-  const [value, setValue] = useState(0);
-  const [currentTabID, setCurrentTabID] = useState("Multiple Choice");
+const Question = (props) => {
+  const [value, setValue] = useState(props.tabIndex);
+  const [currentTabID, setCurrentTabID] = useState(typeof props.updateTab === 'undefined'? 'Multiple Choice': props.updateTab);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,7 +60,7 @@ const AddNewQuestion = () => {
           {" "}
           Select Question Type{" "}
         </h3>
-        <Box sx={{ borderBottom: 1, borderColor: "divider", width: "70%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider", width: "55%" }}>
           <Tabs
             TabIndicatorProps={{
               style: {
@@ -97,8 +97,14 @@ const AddNewQuestion = () => {
                         cursor: 'pointer'
                       }}
                       onClick={() => {
-                        setValue(index);
-                        setCurrentTabID(i.name);
+                        if(typeof props.updateTab === 'undefined')
+                        {
+                          setValue(index);
+                          setCurrentTabID(i.name);
+                        }
+                        else{
+                          alert(`Sorry, this type contradicts with the initial question type.`);
+                        }
                       }}
                     >
                       <Image
@@ -123,7 +129,7 @@ const AddNewQuestion = () => {
         {tabsData.map((element, index) => {
           return (
             <TabPanel key={index} value={value} index={index}>
-              <element.component />
+              <element.component update={typeof props.updateTab === 'undefined'? false : true}/>
             </TabPanel>
           );
         })}
@@ -132,4 +138,4 @@ const AddNewQuestion = () => {
   );
 };
 
-export default AddNewQuestion;
+export default Question;

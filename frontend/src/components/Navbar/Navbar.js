@@ -24,12 +24,17 @@ const Navbar = ({ userFullName, logoutUser }) => {
     setAnchorEl(null);
   };
 
+  const NameCharacter = () => {
+    const Characters = "" + userFullName[0];
+    return Characters.toUpperCase();
+  }
+
   return (
     <div className={NavbarStyling.navbar}>
-      <h1>
+      <h1 style={{ marginLeft: '30px'}}>
         <Link href="/h">CodeClassy</Link>
       </h1>
-      <Box>
+      <Box style={{marginRight: '15px'}}>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}

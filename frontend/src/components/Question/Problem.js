@@ -2,7 +2,7 @@ import * as React from 'react';
 import RichTextEditor from "../RichTextEditor/RichTextEditor"
 import TextField from '@mui/material/TextField';
 
-const Question = () => {
+const Problem = () => {
     const [value, setValue] = React.useState('');
     return ( 
      <>
@@ -23,4 +23,4 @@ const Question = () => {
     );
 }
  
-export default Question;
+export default Problem;

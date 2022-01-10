@@ -5,21 +5,25 @@ import React from "react";
 import Head from "next/head";
 
 // Component imports
-import AddNewQuestion from "@components/AddNewQuestion/AddNewQuestion";
+import Question from "@components/Question/Question";
 import EnsureAuthenticated from "@components/Auth/ensure-authenticated";
 
-const NewQuestion = () => {
+
+
+const FreeText = () => {
+
   return (
-    <>
+    <div>
       <Head>
-        <title>Question Bank</title>
+        <title>Question</title>
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <AddNewQuestion />
+        <Question tabIndex={2} updateTab="Free Text"/>
       </EnsureAuthenticated>
-    </>
+      
+    </div>
   );
 };
 
-export default NewQuestion;
+export default FreeText;

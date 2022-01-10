@@ -30,20 +30,6 @@ export class AnnouncementService {
     return announcement;
   }
 
-  async getAnnouncementForSection(__sectionID: string) {
-    const queryString = this.jsonQueryExtractorService.getQueryByID(5);
-
-    const entityManager = getManager();
-
-    const result = await entityManager.query(queryString, [__sectionID]);
-
-    if (result) {
-      return result;
-    } else {
-      return {};
-    }
-  }
-
   async getAnnouncement(__announcementID: string) {
     const announcement = await this.announcementRepository.findOne(
       __announcementID,
