@@ -10,6 +10,30 @@ import { actionTypes } from "redux/actionTypes/actionTypes";
 // ErrorHandler import
 import { errorHandler } from "redux/actions/error.action";
 
+export const updateAnnouncement = (id, content) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+
+      setSuccessStates(dispatch, "Announcement updated successfully");
+    } catch (error) {
+      errorHandler(handler, error);
+    }
+  };
+};
+
+export const deleteAnnouncement = (id) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+
+      setSuccessStates(dispatch, "Announcement deleted successfully");
+    } catch (error) {
+      errorHandler(handler, error);
+    }
+  };
+};
+
 export const postPageLoad = (id) => {
   return async (dispatch) => {
     try {
