@@ -4,16 +4,20 @@ import { Announcement } from 'src/entities/announcement.entity';
 import { Section } from 'src/entities/section.entity';
 import { AddAnnouncementDTO } from 'src/section/add-announcement.dto';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
-import { getManager, Repository } from 'typeorm';
+import { EntityManager, getManager, Repository } from 'typeorm';
 import { JWTPayload } from 'src/auth/signin.dto';
 
 @Injectable()
 export class AnnouncementService {
+  private readonly entityManager: EntityManager;
+
   constructor(
     @InjectRepository(Announcement)
     private readonly announcementRepository: Repository<Announcement>,
     private readonly jsonQueryExtractorService: JSONQueryExtractorService,
-  ) {}
+  ) {
+    this.entityManager = getManager();
+  }
 
   async createAnnouncement(
     __section: Section,
@@ -42,5 +46,14 @@ export class AnnouncementService {
         `Could not find announcement with ID: ${__announcementID}`,
       ]);
     }
+  }
+
+  async getAnnouncementWithComments(__announcementID: string) {
+    const queryString: string = this.jsonQueryExtractorService.getQueryByID(5);
+    const announcementData = await this.entityManager.query(queryString, [
+      __announcementID,
+      __announcementID,
+    ]);
+    return announcementData[0];
   }
 }
