@@ -1,21 +1,126 @@
+// React imports
 import React from "react";
 
-import styles from "@styles/Classroom/CardMedia.module.css";
+// Styling imports
+import CardMediaStyling from "@styles/Classroom/CardMedia.module.css";
 
-import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+// MUI imports
+import {
+  Box,
+  Card,
+  Menu,
+  Tooltip,
+  MenuItem,
+  IconButton,
+  CardHeader,
+  Typography,
+  CardContent,
+} from "@mui/material";
 
-export default function CardMedia({ section, assignee }) {
+// MUI Icon imports
+import { DeleteForever, MoreVert } from "@mui/icons-material";
+
+// Redux imports
+import { connect } from "react-redux";
+import { deleteSection } from "redux/actions/classroom.action";
+
+const MoreVertMenu = ({ deleteSection, ID }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Card sx={{ maxWidth: "450px", minWidth: "350px", margin: "10px" }}>
-      <CardHeader title={section} />
-      <CardContent className={styles.cardContentStyling}>
+    <>
+      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+        <Tooltip title="Section settings">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
+            <MoreVert />
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem onClick={() => deleteSection(ID)}>
+          <DeleteForever />
+          Delete
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
+
+const CardMedia = ({ deleteSection, section }) => {
+  const { ID, name, teacherEmail } = section;
+
+  return (
+    <Card className={CardMediaStyling.cardStyling}>
+      <CardHeader
+        title={name}
+        action={
+          <div>
+            <MoreVertMenu deleteSection={deleteSection} ID={ID} />
+          </div>
+        }
+      />
+      <CardContent className={CardMediaStyling.cardContentStyling}>
         <Typography variant="body2" color="text.secondary">
           Assigned to{" "}
-          <a href={`mailto:${assignee}`} style={{ textDecoration: "none" }}>
-            {assignee}
+          <a href={`mailto:${teacherEmail}`} style={{ textDecoration: "none" }}>
+            {teacherEmail}
           </a>
         </Typography>
       </CardContent>
     </Card>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+export default connect(mapStateToProps, { deleteSection })(CardMedia);

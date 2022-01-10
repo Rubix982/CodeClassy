@@ -119,10 +119,10 @@ const ClassroomInformation = (props) => {
             alignItems="stretch"
             className={ClassroomInformationStyling.gridContainerStyling}
           >
-            {props.sections.map((i, index) => {
+            {props.sections.map((item, index) => {
               return (
                 <Grid item key={index}>
-                  <CardMedia section={i.name} assignee={i.teacherEmail} />
+                  <CardMedia section={item} />
                 </Grid>
               );
             })}
