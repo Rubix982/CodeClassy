@@ -3,7 +3,9 @@ import Image from "next/image";
 import Problem from './Problem';
 import QuestionSettings from './QuestionSettings';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';;
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 
 
@@ -14,8 +16,6 @@ const FreeText = (props) => {
         { "Answer": ""},
         { "Answer": ""}
     ]);
-    const[addButtonBackground, setAddButtonBackground] = React.useState('#ffffff');
-    const[removeButtonBackground, setRemoveButtonBackground] = React.useState('#ffffff');
 
     const updateAnswerValue = (newValue, index) => {
         const tempArr = [...possibleAnswers];
@@ -25,11 +25,13 @@ const FreeText = (props) => {
     }
 
     const addNewAnswer = () => {
-        setPossibleAnswers([...possibleAnswers, { "Answer": ""}])
+      setPossibleAnswers([...possibleAnswers, { "Answer": ""}])
     }
 
     const removeAnswer = () => {
-        possibleAnswers.pop();
+      possibleAnswers.pop();
+      const tempArr = [...possibleAnswers];
+      setPossibleAnswers([...tempArr])
     }
 
     return ( 
@@ -58,66 +60,24 @@ const FreeText = (props) => {
             )
         })}
 
-      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '50px'}}>
-        <button 
-        onClick={() => { addNewAnswer() }}
-        onMouseEnter={(e) => setAddButtonBackground('#e0e0e0')}
-        onMouseLeave={(e) => setAddButtonBackground('#ffffff')}
-        style={{ 
-          fontSize: '1rem', 
-          marginLeft: '14px', 
-          width: '43%', 
-          cursor: 'pointer',
-          border: '1px solid #d0d2d2',
-          backgroundColor: addButtonBackground,
-          outline: 'none',
-          height:'60px'
-        }}
+      <div style={{ display: 'flex', width: '30%', flexDirection: 'column', marginTop: '50px'}}>
+        <Button 
+        variant="contained" 
+        startIcon={<AddBoxIcon />}
+        onClick={(e) => addNewAnswer()}
+        style={{ margin: '13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}}
         > 
-          <div 
-          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', padding: '5px'}}>
-            <Image
-              height={30}
-              width={35}
-              src={`/assets/images/addBlack.png`}
-            />
-            <h4 style={{marginLeft: '10px', color: '#444444' }}>
-              Add an answer option
-            </h4>
-          </div>
-        </button>
+          Add Answer
+        </Button>
 
-        <button 
-        onClick={() => {removeAnswer() }}
-        onMouseEnter={(e) => setRemoveButtonBackground('#e0e0e0')}
-        onMouseLeave={(e) => setRemoveButtonBackground('#ffffff')}
-        style={{ 
-          fontSize: '1rem', 
-          marginLeft: '10px', 
-          width: '43%', 
-          cursor: 'pointer',
-          border: '1px solid #d0d2d2',
-          backgroundColor: removeButtonBackground,
-          outline: 'none',
-          height:'60px'
-        }}
+        <Button 
+        variant="contained" 
+        startIcon={<DeleteIcon />}
+        onClick={(e) => removeAnswer()}
+        style={{ margin: '13px', marginTop: '20px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}}
         > 
-          <div 
-          style={{ display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          flexDirection: 'row', 
-          padding: '5px'}}>
-            <Image
-              height={30}
-              width={35}
-              src={`/assets/images/remove.png`}
-            />
-            <h4 style={{marginLeft: '10px', color: '#444444' }}>
-              Remove an answer option
-            </h4>
-          </div>
-        </button>
+          Remove Answer
+        </Button>
       </div>
 
       { props.update && ( 
