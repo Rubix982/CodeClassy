@@ -34,6 +34,7 @@ export class ClassroomController {
     return classroom;
   }
 
+  @UseGuards(ClassroomOwnerGuard)
   @Delete(':id')
   async deleteClassroom(@Param('id') __classroomID: string) {
     await this.classroomService.deleteClassroom(__classroomID);
