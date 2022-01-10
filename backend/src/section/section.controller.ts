@@ -18,6 +18,7 @@ import { SectionMemberGuard } from './section-member.guard';
 import { SectionService } from './section.service';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { JWTPayload } from 'src/auth/signin.dto';
+import { SectionOwnerGuard } from './section-owner.guard';
 
 @UseGuards(AppGuard)
 @Controller('section')
@@ -72,6 +73,7 @@ export class SectionController {
     return sectionData;
   }
 
+  @UseGuards(SectionOwnerGuard)
   @Delete(':id')
   async deleteSection(@Param('id') __sectionID: string) {
     await this.sectionService.deleteSection(__sectionID);
