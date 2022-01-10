@@ -28,7 +28,7 @@ const FeedSectionCard = ({ sectionData }) => {
       >
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" {...StringAvatar(teacherFullName)} />
+            <Avatar aria-label="recipe" {...StringAvatar(sectionName)} />
           }
           title={`${classroomName} (${sectionName})`}
           subheader={teacherFullName}
