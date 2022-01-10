@@ -68,7 +68,7 @@ export default function QuestionBank() {
 
       <div style={{display: 'flex', width: '74%', alignItems: 'flex-end', flexDirection: 'column'}}>
         <div>
-          <Link href="/questionbank/newquestion">
+          <Link href="/question/newquestion">
             <a style={{textDecoration: 'none'}}>
               <Button 
               startIcon={<Avatar style={{height: '20px', width: '17px'}} src={'/assets/images/add.png'} />}
