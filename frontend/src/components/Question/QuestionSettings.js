@@ -14,6 +14,17 @@ let categories =
     "Object-Oriented Programming"
 ]
 
+
+const createQuestion = () => {
+    // post request for question
+    // bring data of other components using redux store to send a post request. 
+}
+
+const updateQuestion = () => {
+    // put request for settings update
+}
+
+
 const QuestionSettings = ({questionsCategory, points, randomize, shuffle, grading, update}) =>
 {
     const [category, setCategory] = React.useState(categories[0]);
@@ -177,11 +188,23 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
             }
 
             { !update && (
-                <Button style={{margin: '15px', marginLeft: '0px'}} variant="contained"> Save </Button>
+                <Button 
+                style={{margin: '15px', marginLeft: '0px'}} 
+                variant="contained"
+                onClick={createQuestion}
+                > 
+                    Create 
+                </Button>
             )}
 
             { update && (
-                <Button style={{margin: '15px', marginLeft: '0px'}} variant="contained"> Update </Button>
+                <Button 
+                style={{margin: '15px', marginLeft: '0px'}} 
+                variant="contained"
+                onClick={updateQuestion}
+                > 
+                    Update 
+                </Button>
             )}
             
 

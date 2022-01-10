@@ -19,7 +19,7 @@ const Matching = () => {
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <Question updateTab="Matching"/>
+        <Question tabIndex={4} updateTab="Matching"/>
       </EnsureAuthenticated>
       
     </div>

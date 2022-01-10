@@ -5,6 +5,7 @@ import Checkbox from '@mui/material/Checkbox';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 import QuestionSettings from './QuestionSettings.js'
 import Problem from './Problem'
+import Button from '@mui/material/Button';
 
 let Answers = 
 [ "(A)", "(B)", "(C)" , "(D)", "(E)", "(F)", "(G)", "(H)", "(I)", "(J)", "(K)", "(L)", "(M)", "(N)", 
@@ -12,7 +13,7 @@ let Answers =
 ]
 
 
-const Mcq = () => {
+const Mcq = (props) => {
   const[currentAnswers, setCurrentAnswers] = useState(4);
   const[addButtonBackground, setAddButtonBackground] = useState('#ffffff');
   const[removeButtonBackground, setRemoveButtonBackground] = useState('#ffffff');
@@ -32,6 +33,11 @@ const Mcq = () => {
   return(
     <div style={{marginTop: '30px'}}>
       <Problem/>
+      { props.update && ( 
+        <div style={{margin: '25px 13px'}}>
+            <Button variant="contained"> Update </Button>
+        </div>
+      )}
       <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
       { Answers.slice(0, currentAnswers).map((item, index) => {
         return (
@@ -54,6 +60,7 @@ const Mcq = () => {
           </div>
         );
       })}
+
 
       <div style={{ display: 'flex', flexDirection: 'row', marginTop: '50px'}}>
         <button 
@@ -117,7 +124,14 @@ const Mcq = () => {
         </button>
       </div>
 
-      <QuestionSettings questionsCategory={true} points={true} randomize={true} shuffle={true} grading={true}/>
+      { props.update && ( 
+      <div style={{margin: '25px 13px'}}>
+          <Button variant="contained"> Update </Button>
+      </div>
+      )}
+
+      <QuestionSettings update={props.update} questionsCategory={true} points={true} randomize={true} shuffle={true} grading={true}/>
+
 
     </div>
   );

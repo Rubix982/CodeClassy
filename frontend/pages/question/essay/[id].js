@@ -19,7 +19,7 @@ const Essay = () => {
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <Question updateTab="Essay"/>
+        <Question tabIndex={3} updateTab="Essay"/>
       </EnsureAuthenticated>
       
     </div>

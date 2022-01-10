@@ -19,7 +19,7 @@ const MultipleChoice = () => {
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <Question updateTab="Multiple Choice"/>
+        <Question tabIndex={0} updateTab="Multiple Choice"/>
       </EnsureAuthenticated>
       
     </div>

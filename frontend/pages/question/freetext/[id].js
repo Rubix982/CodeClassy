@@ -19,7 +19,7 @@ const FreeText = () => {
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <Question updateTab="Free Text"/>
+        <Question tabIndex={2} updateTab="Free Text"/>
       </EnsureAuthenticated>
       
     </div>
