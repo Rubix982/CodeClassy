@@ -56,8 +56,8 @@ const Mcq = (props) => {
             <RichTextEditor/>
             { props.update && ( 
               <Button 
-                style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
-                variant="contained" 
+                style={{margin: '25px 13px', height: '45px', color: '#616161' ,borderColor: '#000000'}} 
+                variant="outlined" 
                 startIcon={<UpdateIcon />}
               > 
                 Update Answer

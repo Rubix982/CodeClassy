@@ -14,6 +14,7 @@ import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 
 // MUI imports
 import { Grid } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
 
 // Redux imports
 import { connect } from "react-redux";
@@ -39,7 +40,9 @@ function SectionInformation({
 
   return (
     <>
-      {sectionLoaded && (
+      {!sectionLoaded ? (
+        <LinearProgress />
+      ) : (
         <Grid
           container
           direction="column"

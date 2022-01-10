@@ -284,8 +284,8 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
 
             { update && (
                 <Button 
-                style={{margin: '15px', marginLeft: '0px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
-                variant="contained" 
+                style={{margin: '15px', height: '45px', color: '#616161' ,borderColor: '#000000'}} 
+                variant="outlined" 
                 startIcon={<UpdateIcon />}
                 onClick={updateQuestion}
                 > 
