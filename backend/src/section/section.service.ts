@@ -57,12 +57,18 @@ export class SectionService {
 
   async getSectionData(__sectionID: string) {
     const queryString: string = this.JSONQueryExtractorService.getQueryByID(6);
-    const sectionData = await this.entityManager.query(queryString, [
+    const [sectionData] = await this.entityManager.query(queryString, [
       __sectionID,
       __sectionID,
       __sectionID,
     ]);
-    return sectionData[0];
+    sectionData.announcements.sort((firstElement, secondElement) => {
+      return (
+        new Date(secondElement.creationDate) >
+        new Date(firstElement.creationDate)
+      );
+    });
+    return sectionData;
   }
 
   async addSectionMember(__sectionID: string, __studentEmail: string) {
