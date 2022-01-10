@@ -16,7 +16,7 @@ const QuestionPage = () => {
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <Question />
+        <Question tabIndex={0}/>
       </EnsureAuthenticated>
     </>
   );

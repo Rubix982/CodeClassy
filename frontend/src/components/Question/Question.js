@@ -46,7 +46,7 @@ let tabsData = [
 ];
 
 const Question = (props) => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(props.tabIndex);
   const [currentTabID, setCurrentTabID] = useState(typeof props.updateTab === 'undefined'? 'Multiple Choice': props.updateTab);
 
   const handleChange = (event, newValue) => {

@@ -19,7 +19,7 @@ const TrueFalse = () => {
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <Question updateTab="True False"/>
+        <Question tabIndex={1} updateTab="True False"/>
       </EnsureAuthenticated>
       
     </div>
