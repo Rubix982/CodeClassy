@@ -1,4 +1,12 @@
-import React, { useState } from "react";
+// React imports
+import React from "react";
+
+// NextJS imports
+import Head from "next/head";
+
+// Component imports
+import Question from "@components/Question/Question";
+import EnsureAuthenticated from "@components/Auth/ensure-authenticated";
 
 
 
@@ -6,7 +14,14 @@ const Essay = () => {
 
   return (
     <div>
-      Essay
+      <Head>
+        <title>Question</title>
+        <link rel="icon" href="/assets/images/vercel.svg" />
+      </Head>
+      <EnsureAuthenticated>
+        <Question updateTab="Essay"/>
+      </EnsureAuthenticated>
+      
     </div>
   );
 };

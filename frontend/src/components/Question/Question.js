@@ -45,9 +45,9 @@ let tabsData = [
   },
 ];
 
-const Question = () => {
+const Question = (props) => {
   const [value, setValue] = useState(0);
-  const [currentTabID, setCurrentTabID] = useState("Multiple Choice");
+  const [currentTabID, setCurrentTabID] = useState(typeof props.updateTab === 'undefined'? 'Multiple Choice': props.updateTab);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -97,8 +97,14 @@ const Question = () => {
                         cursor: 'pointer'
                       }}
                       onClick={() => {
-                        setValue(index);
-                        setCurrentTabID(i.name);
+                        if(typeof props.updateTab === 'undefined')
+                        {
+                          setValue(index);
+                          setCurrentTabID(i.name);
+                        }
+                        else{
+                          alert(`Sorry, this type contradicts with the initial question type.`);
+                        }
                       }}
                     >
                       <Image
@@ -123,7 +129,7 @@ const Question = () => {
         {tabsData.map((element, index) => {
           return (
             <TabPanel key={index} value={value} index={index}>
-              <element.component />
+              <element.component update={typeof props.updateTab === 'undefined'? false : true}/>
             </TabPanel>
           );
         })}

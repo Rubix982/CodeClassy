@@ -3,7 +3,7 @@ import Radio from '@mui/material/Radio';
 import Problem from './Problem'
 import QuestionSettings from './QuestionSettings.js'
 
-const TrueFalse = () => {
+const TrueFalse = (props) => {
     const [selectedValue, setSelectedValue] = React.useState('True');
 
     const handleChange = (event) => {
@@ -12,6 +12,7 @@ const TrueFalse = () => {
     return ( 
      <div style={{marginTop: '30px'}}>
         <Problem/>
+        { props.update && ( <button> Update </button>)}
         <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Answers </h4>
 
         <div>
