@@ -18,13 +18,10 @@ import { getMembersForClassroomView } from "redux/actions/members-view.action";
 function People({
   getMembersForClassroomView,
   responseMessage,
-  successMessageSnackbar,
   errorMessageSnackbar,
   classroomMembers,
   hasDataLoaded,
 }) {
-  const [classroomOwner, setClassroomOwner] = useState("");
-  const [collaborators, setCollaborators] = useState([]);
   const { id } = useRouter().query;
 
   React.useEffect(() => {
@@ -33,10 +30,6 @@ function People({
 
   return (
     <>
-      {successMessageSnackbar && (
-        <SnackBarAlert severity={"success"} message={responseMessage} />
-      )}
-
       {errorMessageSnackbar && (
         <SnackBarAlert severity={"error"} message={responseMessage} />
       )}
@@ -70,13 +63,10 @@ function People({
 const mapStateToProps = (state) => {
   return {
     responseMessage: state.apiReducer.responseMessage,
-    successMessageSnackbar: state.apiReducer.successMessageSnackbar,
     errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
     classroomMembers: state.membersViewReducer.classroomMembers,
     hasDataLoaded: state.membersViewReducer.hasDataLoaded,
   };
 };
 
-export default connect(mapStateToProps, { getMembersForClassroomView })(
-  People
-);
+export default connect(mapStateToProps, { getMembersForClassroomView })(People);

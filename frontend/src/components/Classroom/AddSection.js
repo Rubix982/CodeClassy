@@ -46,6 +46,7 @@ const AddSection = withRouter((props) => {
       assignedTo: collaboratorsEmail,
     };
     props.createSectionAction(newSection, id);
+    setOpen(false);
   };
 
   return (
