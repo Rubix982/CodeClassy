@@ -5,7 +5,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // Styling imports
-import ClassroomInformationStyling from "@styles/Classroom/Dashboard.module.css";
+import DashboardStyling from "@styles/Classroom/Dashboard.module.css";
 
 // Component imports
 import CardMedia from "@components/Classroom/CardMedia";
@@ -60,27 +60,27 @@ const Dashboard = (props) => {
           justifyContent="center"
           alignItems="stretch"
           className={
-            ClassroomInformationStyling.classroomContentContainerStyling
+            DashboardStyling.classroomContentContainerStyling
           }
         >
           <Grid item xs={6} sx={{ width: "100%" }}>
             <div
-              className={ClassroomInformationStyling.backgroundContentContainer}
+              className={DashboardStyling.backgroundContentContainer}
             >
-              <div className={ClassroomInformationStyling.backgroundStyling}>
-                <div className={ClassroomInformationStyling.headerContainer}>
-                  <div className={ClassroomInformationStyling.titleContainer}>
-                    <span className={ClassroomInformationStyling.classroomName}>
+              <div className={DashboardStyling.backgroundStyling}>
+                <div className={DashboardStyling.headerContainer}>
+                  <div className={DashboardStyling.titleContainer}>
+                    <span className={DashboardStyling.classroomName}>
                       {props.classroomInformation.name}
                     </span>
 
-                    <span className={ClassroomInformationStyling.teacherName}>
+                    <span className={DashboardStyling.teacherName}>
                       {props.userFullName}
                     </span>
 
                     <span
                       className={
-                        ClassroomInformationStyling.classroomDescription
+                        DashboardStyling.classroomDescription
                       }
                     >
                       {props.classroomInformation.description}
@@ -94,17 +94,17 @@ const Dashboard = (props) => {
           <Grid
             item
             xs={2}
-            className={ClassroomInformationStyling.gridItemSpacing}
+            className={DashboardStyling.gridItemSpacing}
           >
             <Grid
               container
               direction="row"
               justifyContent="space-between"
               alignItems="stretch"
-              className={ClassroomInformationStyling.gridContainerStyling}
+              className={DashboardStyling.gridContainerStyling}
             >
               <Grid item>
-                <span className={ClassroomInformationStyling.sectionStyling}>
+                <span className={DashboardStyling.sectionStyling}>
                   Sections
                 </span>
               </Grid>
@@ -115,7 +115,7 @@ const Dashboard = (props) => {
             </Grid>
           </Grid>
 
-          <div className={ClassroomInformationStyling.cardSection}>
+          <div className={DashboardStyling.cardSection}>
             {props.sections.map((item, index) => {
               return (
                 <Grid item key={index}>
