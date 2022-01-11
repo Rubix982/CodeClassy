@@ -38,9 +38,25 @@ export const deleteClassroom = (id) => {
     try {
       const api = API.getInstance();
 
+      await api.delete(`classroom/${id}`);
       setSuccessStates(dispatch, "Classroom deleted");
     } catch (error) {
       setErrorStates(dispatch, "Classroom could not be deleted");
+    }
+  };
+};
+
+export const updateClassroom = (id, body) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      const response = await api.put(`classroom/${id}`, body);
+      setSuccessStates(
+        dispatch,
+        `Successfully updated classroom '${body.name}'`
+      );
+    } catch (error) {
+      setErrorStates(dispatch, "Classroom could not be updated");
     }
   };
 };

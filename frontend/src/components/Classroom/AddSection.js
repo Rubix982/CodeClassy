@@ -51,7 +51,7 @@ const AddSection = withRouter((props) => {
   return (
     <>
       <div style={{ display: "flex" }}>
-        <div className={styles.addSectionButtonStyling} onClick={handleOpen}>
+        <Box className={styles.addSectionButtonStyling} onClick={handleOpen}>
           <Button
             startIcon={
               <Image width={18} height={17} alt="Add" src={AddImage} />
@@ -61,7 +61,7 @@ const AddSection = withRouter((props) => {
           >
             <b>Add</b>
           </Button>
-        </div>
+        </Box>
         <Modal
           open={open}
           onClose={handleClose}
