@@ -75,11 +75,11 @@ const AddMemberModal = ({
         alignItems="center"
       >
         <Button variant="contained" onClick={() => setOpen(true)}>
-          <Add /> Add Member
+          <Add /> Add Student
         </Button>
       </Grid>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Add Member</DialogTitle>
         <DialogContent>
           <DialogContentText></DialogContentText>
           <TextField
