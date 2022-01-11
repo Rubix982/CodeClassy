@@ -66,6 +66,7 @@ const MoreVertMenu = ({
         PaperProps={{
           elevation: 0,
           sx: {
+            width: "110px",
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
@@ -93,7 +94,9 @@ const MoreVertMenu = ({
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem
-          sx={{ justifyContent: "space-around" }}
+          style={{
+            justifyContent: "space-between",
+          }}
           onClick={() => {
             deleteSection(ID);
             handleClose();
@@ -102,7 +105,11 @@ const MoreVertMenu = ({
           <DeleteForever />
           Delete
         </MenuItem>
-        <MenuItem>
+        <MenuItem
+          style={{
+            justifyContent: "space-between",
+          }}
+        >
           <EditSection
             sectionID={sectionID}
             sectionName={sectionName}

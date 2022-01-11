@@ -43,10 +43,8 @@ const EditSection = ({ updateSection, sectionID, sectionName, assignedTo }) => {
 
   return (
     <>
-      <div onClick={handleClickOpen}>
-        <Edit />
-        Edit
-      </div>
+      <Edit onClick={handleClickOpen} />
+      Edit
       <Dialog
         fullScreen={fullScreen}
         open={open}

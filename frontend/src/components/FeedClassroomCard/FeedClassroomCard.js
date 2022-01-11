@@ -95,7 +95,9 @@ const MoreVertMenu = ({
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem
-          sx={{ justifyContent: "space-around" }}
+          style={{
+            justifyContent: "space-between",
+          }}
           onClick={() => {
             deleteClassroom(classroomID);
             handleClose();
@@ -104,7 +106,11 @@ const MoreVertMenu = ({
           <DeleteForever />
           Delete
         </MenuItem>
-        <MenuItem sx={{ justifyContent: "space-around" }}>
+        <MenuItem
+          style={{
+            justifyContent: "space-between",
+          }}
+        >
           <EditClassroom
             classroomID={classroomID}
             classroomName={classroomName}
