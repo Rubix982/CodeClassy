@@ -28,6 +28,11 @@ const CreateClassroomDialog = ({
   const [classroomName, setClassroomName] = useState("");
   const [classroomDescription, setClassroomDescription] = useState("");
 
+  const handleClick = () => {
+    setClassroomName("");
+    setClassroomDescription("");
+  }
+
   return (
     <>
       {successMessageSnackbar && (
