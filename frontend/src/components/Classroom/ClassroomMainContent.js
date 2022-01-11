@@ -3,17 +3,17 @@ import React from "react";
 
 // Component imports
 import CustomTabs from "@components/MaterialCustomComponents/CustomTabs";
-import ClassroomInformation from "@components/Classroom/ClassroomInformation";
-import ClassroomMembersView from "@components/MembersView/ClassroomMembersView";
+import Dashboard from "@components/Classroom/Dashboard";
+import People from "@components/Classroom/People";
 
 const tabsData = [
   {
     name: "Dashboard",
-    component: ClassroomInformation,
+    component: Dashboard,
   },
   {
     name: "People",
-    component: ClassroomMembersView,
+    component: People,
   },
 ];
 

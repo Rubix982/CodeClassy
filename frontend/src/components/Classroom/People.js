@@ -15,7 +15,7 @@ import MemberCard from "@components/MembersView/MemberCard";
 import { connect } from "react-redux";
 import { getMembersForClassroomView } from "redux/actions/members-view.action";
 
-function ClassroomMembersView({
+function People({
   getMembersForClassroomView,
   responseMessage,
   successMessageSnackbar,
@@ -78,5 +78,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { getMembersForClassroomView })(
-  ClassroomMembersView
+  People
 );

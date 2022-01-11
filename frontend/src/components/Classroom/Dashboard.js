@@ -5,7 +5,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // Styling imports
-import ClassroomInformationStyling from "@styles/Classroom/ClassroomInformation.module.css";
+import ClassroomInformationStyling from "@styles/Classroom/Dashboard.module.css";
 
 // Component imports
 import CardMedia from "@components/Classroom/CardMedia";
@@ -24,7 +24,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const ClassroomInformation = (props) => {
+const Dashboard = (props) => {
   const { id } = useRouter().query;
 
   React.useEffect(() => {
@@ -142,6 +142,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getClassroomAction })(
-  ClassroomInformation
-);
+export default connect(mapStateToProps, { getClassroomAction })(Dashboard);
