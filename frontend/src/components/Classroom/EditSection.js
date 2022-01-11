@@ -58,6 +58,7 @@ const EditSection = ({ updateSection, sectionID, sectionName, assignedTo }) => {
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
+        fullWidth
         aria-labelledby="Edit section information"
       >
         <DialogTitle id="edit-section-information">
