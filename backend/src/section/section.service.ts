@@ -35,6 +35,7 @@ export class SectionService {
         teacher: __teacher,
       });
       await this.sectionRepository.save(section);
+      return section.ID;
     } catch (error) {
       if (error.errno === 1062) {
         throw new ConflictException([

@@ -86,10 +86,15 @@ export class ClassroomController {
     const teacher = await this.teacherService.findTeacher(
       __requestBody.assignedTo,
     );
-    await this.sectionService.createSection(classroom, teacher, __requestBody);
+    const sectionID = await this.sectionService.createSection(
+      classroom,
+      teacher,
+      __requestBody,
+    );
 
     return {
       msg: `Successfully assigned section: ${__requestBody.name} to ${__requestBody.assignedTo}`,
+      sectionID,
     };
   }
 }
