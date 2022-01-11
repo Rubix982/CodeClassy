@@ -1,6 +1,6 @@
 import { IsEmail, IsString } from 'class-validator';
 
-export class CreateSectionDTO {
+export class SectionRequestDTO {
   @IsString()
   name: string;
 

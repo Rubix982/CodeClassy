@@ -11,7 +11,7 @@ import {
 import { JWTPayload } from 'src/auth/signin.dto';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { Classroom } from 'src/entities/classroom.entity';
-import { CreateSectionDTO } from 'src/section/create.dto';
+import { SectionRequestDTO } from 'src/section/section.dto';
 import { SectionService } from 'src/section/section.service';
 import { TeacherService } from 'src/teacher/teacher.service';
 import { ClassroomService } from './classroom.service';
@@ -78,7 +78,7 @@ export class ClassroomController {
   @UseGuards(ClassroomOwnerGuard)
   @Post(':id/section')
   async createSection(
-    @Body() __requestBody: CreateSectionDTO,
+    @Body() __requestBody: SectionRequestDTO,
     @Param('id') __classroomID: string,
     @RequestDecodedMember() __member: JWTPayload,
   ) {

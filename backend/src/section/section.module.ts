@@ -8,7 +8,6 @@ import { StudentModule } from 'src/student/Student.module';
 import { SectionController } from './section.controller';
 import { SectionService } from './section.service';
 import { JSONQueryExtractorModule } from 'src/json-query-extractor/json-query-extractor.module';
-import { ClassroomOwnerRouteHandler } from 'src/handlers/classroom-owner-handler';
 import { ClassroomModule } from 'src/classroom/classroom.module';
 import { SectionOwnerRouteHandler } from 'src/handlers/section-owner-handler';
 
