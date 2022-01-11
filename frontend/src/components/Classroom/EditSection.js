@@ -3,6 +3,7 @@ import React from "react";
 
 // MUI imports
 import {
+  Grid,
   Button,
   Dialog,
   TextField,
@@ -43,8 +44,16 @@ const EditSection = ({ updateSection, sectionID, sectionName, assignedTo }) => {
 
   return (
     <>
-      <Edit onClick={handleClickOpen} />
-      Edit
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        onClick={handleClickOpen}
+      >
+        <Edit />
+        Edit
+      </Grid>
       <Dialog
         fullScreen={fullScreen}
         open={open}
