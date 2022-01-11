@@ -91,12 +91,12 @@ const LoginForm = (props) =>
               />
             </div>
 
-            <Link href="/forgotpassword">
+            {/* <Link href="/forgotpassword">
               <a className={LoginFormStyling.forgetpassword}>
                 {" "}
                 Forgot password?{" "}
               </a>
-            </Link>
+            </Link> */}
           </div>
 
           <div className={LoginFormStyling.formfooter}>

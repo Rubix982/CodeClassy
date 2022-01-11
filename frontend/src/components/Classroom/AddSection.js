@@ -18,6 +18,8 @@ import {
 } from "@mui/material";
 import { withRouter } from "next/router";
 
+import { Add } from "@mui/icons-material";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -54,13 +56,18 @@ const AddSection = withRouter((props) => {
       <div style={{ display: "flex" }}>
         <Box className={styles.addSectionButtonStyling} onClick={handleOpen}>
           <Button
-            startIcon={
-              <Image width={18} height={17} alt="Add" src={AddImage} />
-            }
-            className={styles.addSectionStyling}
+            style={{
+              margin: "5px",
+              width: "100px",
+              marginLeft: "10px",
+              height: "40px",
+              color: "#ffffff",
+              borderColor: "#000000",
+            }}
             variant="contained"
+            startIcon={<Add />}
           >
-            <b>Add</b>
+            Create
           </Button>
         </Box>
         <Modal

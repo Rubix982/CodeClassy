@@ -55,12 +55,12 @@ const Navbar = ({ userFullName, logoutUser }) => {
         onClose={handleClose}
         onClick={handleClose}
       >
-        <MenuItem>
+        {/* <MenuItem>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           onClick={() => {
             logoutUser();
