@@ -9,7 +9,12 @@ const categoriesReducer = (state = initialState, action) => {
 
       case actionTypes.getCategories:
         return { ...state, 
-          totalSections: [...state.categories, action.payload.categories]
+          categories: [...state.categories, action.payload.categories]
+        }
+
+      case actionTypes.addCategories:
+        return { ...state, 
+            categories: action.payload.categories.slice()
         }
 
       default:

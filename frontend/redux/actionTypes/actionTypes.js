@@ -19,4 +19,5 @@ export const actionTypes = {
   announcementLoaded: "announcementLoaded",
   commentAdded: "commentAdded",
   getCategories: "getCategories",
+  addCategories: "addCategories"
 };

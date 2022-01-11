@@ -15,8 +15,7 @@ export const getCategories = () => {
     try {
       const api = API.getInstance();
 
-      const response = await api.get(`/category`);
-
+      const response = await api.get(`category`);
       setCategories(dispatch, response.data);
       setSuccessStates(dispatch, `Categories read successfully!`)
     } catch (error) {
@@ -32,7 +31,7 @@ export const getCategories = () => {
 
 const setCategories = (dispatch, data) => {
     dispatch({
-      type: actionTypes.getCategories,
+      type: actionTypes.addCategories,
       payload: {
         categories: data, //categories array
       },
@@ -65,8 +64,6 @@ export const createCategory = (data) => {
     try {
       const api = API.getInstance();
       await api.post(`teacher/category`, data);
-      console.log(`hereeeeeeeeeeeeeeeeeee`);
-      console.log(data);
       addNewCategory(dispatch, data);
       setSuccessStates(dispatch, "New Category Created Successfully!");
     } catch (error) {

@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 import { createCategory } from "redux/actions/categories.action";
+import { getCategories } from "redux/actions/categories.action";
 import { connect } from "react-redux";
 
 
@@ -30,13 +31,6 @@ const style = {
     outline: 'none'
   };
 
-
-let categories = 
-[
-    "Programming Fundamentals",
-    "Data Structures",
-    "Object-Oriented Programming"
-]
 
 
 const createQuestion = () => {
@@ -56,7 +50,7 @@ const QuestionSettings = (props) =>
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [category, setCategory] = React.useState(categories[0]);
+    const [category, setCategory] = React.useState('');
     const [firstRadio, setFirstRadio] = React.useState('Yes');
     const [secondRadio, setSecondRadio] = React.useState('Shuffle matches only');
     const [thirdRadio, setThirdRadio] = React.useState('Off');
@@ -68,8 +62,17 @@ const QuestionSettings = (props) =>
         else{
             props.createCategory({name: newCategory});
             setOpen(false);
+            setNewCategory('');
         }
     }
+
+    React.useEffect(() => {
+        if(!props.categories[0]){
+            props.getCategories();
+            return;
+        }
+        setCategory(props.categories[0].name)
+      }, [props.categories]);
 
 
 
@@ -127,7 +130,7 @@ const QuestionSettings = (props) =>
 
                     
 
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                    <FormControl style={{marginTop: '20px'}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <Select
                         fullWidth
                         labelId="demo-simple-select-standard-label"
@@ -137,9 +140,9 @@ const QuestionSettings = (props) =>
                         label="Category"
                         >
                         {
-                            categories.map((item, index) => {
+                            props.categories.map((item, index) => {
                                 return(
-                                    <MenuItem key={index} value={item}> {item} </MenuItem>
+                                    <MenuItem key={index} value={item.name}> {item.name} </MenuItem>
                                 )
                             })
                         }
@@ -315,6 +318,6 @@ const mapStateToProps = (state) => {
     };
   };
   
-  export default connect(mapStateToProps, { createCategory })(
+  export default connect(mapStateToProps, { createCategory, getCategories })(
     QuestionSettings
   );
