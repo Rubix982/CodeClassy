@@ -23,6 +23,8 @@ import {
 import { connect } from "react-redux";
 import { addStudentAsMember } from "redux/actions/add.action";
 
+import { Add } from "@mui/icons-material";
+
 const AddMemberModal = ({
   addStudentAsMember,
   responseMessage,
@@ -73,7 +75,7 @@ const AddMemberModal = ({
         alignItems="center"
       >
         <Button variant="contained" onClick={() => setOpen(true)}>
-          Add Member
+          <Add /> Add Member
         </Button>
       </Grid>
       <Dialog open={open} onClose={handleClose}>

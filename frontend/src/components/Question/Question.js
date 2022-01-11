@@ -47,7 +47,9 @@ let tabsData = [
 
 const Question = (props) => {
   const [value, setValue] = useState(props.tabIndex);
-  const [currentTabID, setCurrentTabID] = useState(typeof props.updateTab === 'undefined'? 'Multiple Choice': props.updateTab);
+  const [currentTabID, setCurrentTabID] = useState(
+    typeof props.updateTab === "undefined" ? "Multiple Choice" : props.updateTab
+  );
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,7 +62,7 @@ const Question = (props) => {
           {" "}
           Select Question Type{" "}
         </h3>
-        <Box sx={{ borderBottom: 1, borderColor: "divider", width: "55%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider", width: "65%" }}>
           <Tabs
             TabIndicatorProps={{
               style: {
@@ -89,21 +91,21 @@ const Question = (props) => {
                         flexDirection: "column",
                         padding: "25px",
                         border: "1px solid #d0d0d0",
-                        margin: "3px",
-                        width: "118px",
+                        margin: "8px",
+                        width: "130px",
                         textAlign: "center",
                         color: "#5b605b",
                         justifyContent: "center",
-                        cursor: 'pointer'
+                        cursor: "pointer",
                       }}
                       onClick={() => {
-                        if(typeof props.updateTab === 'undefined')
-                        {
+                        if (typeof props.updateTab === "undefined") {
                           setValue(index);
                           setCurrentTabID(i.name);
-                        }
-                        else{
-                          alert(`Sorry, this type contradicts with the initial question type.`);
+                        } else {
+                          alert(
+                            `Sorry, this type contradicts with the initial question type.`
+                          );
                         }
                       }}
                     >
@@ -113,7 +115,7 @@ const Question = (props) => {
                         src={`/assets/images/${i.image}-${color}.webp`}
                       />
                       <label
-                        style={{ color: color, cursor: 'pointer' }}
+                        style={{ color: color, cursor: "pointer" }}
                         className={NewQuestionStyles.tablabel}
                       >
                         {i.name}
@@ -129,7 +131,9 @@ const Question = (props) => {
         {tabsData.map((element, index) => {
           return (
             <TabPanel key={index} value={value} index={index}>
-              <element.component update={typeof props.updateTab === 'undefined'? false : true}/>
+              <element.component
+                update={typeof props.updateTab === "undefined" ? false : true}
+              />
             </TabPanel>
           );
         })}

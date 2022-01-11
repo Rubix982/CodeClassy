@@ -48,10 +48,10 @@ const EditClassroom = ({
 
   return (
     <>
-      <div onClick={handleClickOpen}>
-        <Edit />
-        Edit
-      </div>
+      {/* <div > */}
+      <Edit onClick={handleClickOpen} />
+      Edit
+      {/* </div> */}
       <Dialog
         fullScreen={fullScreen}
         open={open}

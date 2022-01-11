@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import { getCategories } from "redux/actions/categories.action";
 import { connect } from "react-redux";
 
+import { Add } from "@mui/icons-material";
 
 let multipleChoiceQuestions = [
   {
@@ -78,11 +79,10 @@ const QuestionBank = (props) => {
           <Link href="/question/newquestion">
             <a style={{textDecoration: 'none'}}>
               <Button 
-              startIcon={<Avatar style={{height: '20px', width: '17px'}} src={'/assets/images/add.png'} />}
               style={{ height: '45px', backgroundColor: 'grey'}} 
               variant="contained"
               > 
-                Add a question
+                <Add /> Add a question
               </Button>
             </a>
           </Link>

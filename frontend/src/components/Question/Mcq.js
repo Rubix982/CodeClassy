@@ -7,7 +7,7 @@ import QuestionSettings from './QuestionSettings.js'
 import Problem from './Problem'
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddIcon from '@mui/icons-material/Add';
 import UpdateIcon from '@mui/icons-material/Update';
 
 let Answers = 
@@ -71,7 +71,7 @@ const Mcq = (props) => {
       <div style={{ display: 'flex', width: '30%', flexDirection: 'column', marginTop: '50px', marginBottom: '100px'}}>
         <Button 
         variant="contained" 
-        startIcon={<AddBoxIcon />}
+        startIcon={<AddIcon />}
         onClick={(e) => updateCurrentAnswers(currentAnswers+1)}
         style={{ margin: '13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}}
         > 
