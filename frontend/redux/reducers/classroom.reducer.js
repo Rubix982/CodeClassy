@@ -1,30 +1,30 @@
 import { actionTypes } from "../actionTypes/actionTypes";
 
 const initialState = {
-  classroomInformation : {},
-  totalSections : []
-}
+  classroomLoaded: false,
+  classroomInformation: {},
+  totalSections: [],
+};
 
 const classroomReducer = (state = initialState, action) => {
-    switch (action.type) {
+  switch (action.type) {
+    case actionTypes.setClassroomStates:
+      return {
+        ...state,
+        classroomInformation: action.payload.classroomInformation,
+        totalSections: action.payload.sections,
+        classroomLoaded: true,
+      };
 
-      case actionTypes.setClassroomStates:
-        return { ...state, 
-          classroomInformation: action.payload.classroomInformation,
-          totalSections:  action.payload.sections
-        }
+    case actionTypes.addSection:
+      return {
+        ...state,
+        totalSections: [...state.totalSections, action.payload.newSection],
+      };
 
-      case actionTypes.addSection:
-        return { ...state, 
-          totalSections: [...state.totalSections, action.payload.newSection]
-        }
-
-      default:
-        return {...state}
-    }
-  };
+    default:
+      return { ...state };
+  }
+};
 
 export default classroomReducer;
-
-
-

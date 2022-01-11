@@ -13,6 +13,7 @@ import AddSection from "@components/Classroom//AddSection";
 
 // MUI imports
 import { Snackbar, Grid } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
 import MuiAlert from "@mui/material/Alert";
 
 // redux imports
@@ -50,91 +51,100 @@ const ClassroomInformation = (props) => {
           </Alert>
         </Snackbar>
       )}
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="stretch"
-        className={ClassroomInformationStyling.classroomContentContainerStyling}
-      >
-        <Grid item xs={6} sx={{ width: "100%" }}>
-          <div
-            className={ClassroomInformationStyling.backgroundContentContainer}
-          >
-            <div className={ClassroomInformationStyling.backgroundStyling}>
-              <div className={ClassroomInformationStyling.headerContainer}>
-                <div className={ClassroomInformationStyling.titleContainer}>
-                  <span className={ClassroomInformationStyling.classroomName}>
-                    {props.classroomInformation.name}
-                  </span>
+      {!props.classroomLoaded ? (
+        <LinearProgress />
+      ) : (
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="stretch"
+          className={
+            ClassroomInformationStyling.classroomContentContainerStyling
+          }
+        >
+          <Grid item xs={6} sx={{ width: "100%" }}>
+            <div
+              className={ClassroomInformationStyling.backgroundContentContainer}
+            >
+              <div className={ClassroomInformationStyling.backgroundStyling}>
+                <div className={ClassroomInformationStyling.headerContainer}>
+                  <div className={ClassroomInformationStyling.titleContainer}>
+                    <span className={ClassroomInformationStyling.classroomName}>
+                      {props.classroomInformation.name}
+                    </span>
 
-                  <span className={ClassroomInformationStyling.teacherName}>
-                    {props.userFullName}
-                  </span>
+                    <span className={ClassroomInformationStyling.teacherName}>
+                      {props.userFullName}
+                    </span>
 
-                  <span
-                    className={ClassroomInformationStyling.classroomDescription}
-                  >
-                    {props.classroomInformation.description}
-                  </span>
+                    <span
+                      className={
+                        ClassroomInformationStyling.classroomDescription
+                      }
+                    >
+                      {props.classroomInformation.description}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Grid>
+          </Grid>
 
-        <Grid
-          item
-          xs={2}
-          className={ClassroomInformationStyling.gridItemSpacing}
-        >
           <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="stretch"
-            className={ClassroomInformationStyling.gridContainerStyling}
+            item
+            xs={2}
+            className={ClassroomInformationStyling.gridItemSpacing}
           >
-            <Grid item>
-              <span className={ClassroomInformationStyling.sectionStyling}>
-                Sections
-              </span>
-            </Grid>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="stretch"
+              className={ClassroomInformationStyling.gridContainerStyling}
+            >
+              <Grid item>
+                <span className={ClassroomInformationStyling.sectionStyling}>
+                  Sections
+                </span>
+              </Grid>
 
-            <Grid item>
-              <AddSection />
+              <Grid item>
+                <AddSection />
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            xs={4}
+            className={ClassroomInformationStyling.gridItemSpacing}
+          >
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="stretch"
+              className={ClassroomInformationStyling.gridContainerStyling}
+            >
+              {props.sections.map((item, index) => {
+                return (
+                  <Grid item key={index}>
+                    <CardMedia section={item} />
+                  </Grid>
+                );
+              })}
             </Grid>
           </Grid>
         </Grid>
-
-        <Grid
-          item
-          xs={4}
-          className={ClassroomInformationStyling.gridItemSpacing}
-        >
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="stretch"
-            className={ClassroomInformationStyling.gridContainerStyling}
-          >
-            {props.sections.map((item, index) => {
-              return (
-                <Grid item key={index}>
-                  <CardMedia section={item} />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Grid>
-      </Grid>
+      )}
     </>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
+    classroomLoaded: state.classroomReducer.classroomLoaded,
     classroomInformation: state.classroomReducer.classroomInformation,
     sections: state.classroomReducer.totalSections,
     responseMessage: state.apiReducer.responseMessage,
