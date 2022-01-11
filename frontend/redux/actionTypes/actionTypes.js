@@ -6,6 +6,7 @@ export const actionTypes = {
   userLoadedError: "userLoadedError",
   userLoggedIn: "userLoggedIn",
   addSection: "addSection",
+  deleteSection: "deleteSection",
   setClassroomStates: "setClassroomStates",
   studentFeedLoaded: "studentFeedLoading",
   teacherFeedLoaded: "teacherFeedLoaded",
@@ -18,4 +19,6 @@ export const actionTypes = {
   announcementPosted: "announcementPosted",
   announcementLoaded: "announcementLoaded",
   commentAdded: "commentAdded",
+  getCategories: "getCategories",
+  addCategories: "addCategories",
 };

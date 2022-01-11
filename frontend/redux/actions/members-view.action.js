@@ -10,8 +10,6 @@ export const getMembersForClassroomView = (id) => {
       const results = await api.get(`classroom/${id}/people`);
 
       setClassroomMemberStates(dispatch, results.data);
-
-      setSuccessStates(dispatch, "Members view successfully loaded");
     } catch (error) {
       errorHandler(error);
     }

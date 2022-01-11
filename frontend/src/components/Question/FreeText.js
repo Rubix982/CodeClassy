@@ -38,15 +38,7 @@ const FreeText = (props) => {
     return ( 
      <div style={{marginTop: '30px'}}>
         <Problem/>
-        { props.update && ( 
-        <Button 
-        style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
-        variant="contained" 
-        startIcon={<UpdateIcon />}
-        > 
-          Update
-        </Button>
-        )}
+        <QuestionSettings update={props.update} questionsCategory={true} points={true} randomize={false}/>
         <h4 style={{ margin: '10px', marginTop: '30px', color: '#444444'}}> Accepted answers </h4>
         {possibleAnswers.map((item,index) => {
             return(
@@ -61,6 +53,15 @@ const FreeText = (props) => {
                 onChange={(e) => updateAnswerValue(e.target.value, index)}
                 variant="standard"
                 />
+                { props.update && ( 
+                  <Button 
+                  style={{margin: '25px 0px', height: '45px', color: '#616161' ,borderColor: '#000000'}} 
+                  variant="outlined" 
+                  startIcon={<UpdateIcon />}
+                  > 
+                    Update
+                  </Button>
+                )}
             </div>
             )
         })}
@@ -85,17 +86,6 @@ const FreeText = (props) => {
         </Button>
       </div>
 
-      { props.update && ( 
-        <Button 
-        style={{margin: '25px 13px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
-        variant="contained" 
-        startIcon={<UpdateIcon />}
-        > 
-          Update
-        </Button>
-      )}
-
-        <QuestionSettings update={props.update} questionsCategory={true} points={true} randomize={false}/>
      </div>
     );
 }

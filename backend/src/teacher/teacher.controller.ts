@@ -4,7 +4,7 @@ import { JWTPayload } from 'src/auth/signin.dto';
 import { CategoryService } from 'src/category/category.service';
 import { CreateCategoryDTO } from 'src/category/create.dto';
 import { ClassroomService } from 'src/classroom/classroom.service';
-import { CreateClassroomDTO } from 'src/classroom/create.dto';
+import { ClassroomRequestDTO } from 'src/classroom/classroom.dto';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { TeacherGuard } from './teacher.guard';
 import { TeacherService } from './teacher.service';
@@ -20,7 +20,7 @@ export class TeacherController {
 
   @Post('classroom')
   async createClassroom(
-    @Body() __requestBody: CreateClassroomDTO,
+    @Body() __requestBody: ClassroomRequestDTO,
     @RequestDecodedMember() __member: JWTPayload,
   ) {
     const teacher = await this.teacherService.findTeacher(__member.email);

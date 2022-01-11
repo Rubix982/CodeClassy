@@ -18,7 +18,6 @@ export const getClassroomAction = (id) => {
       const response = await api.get(`classroom/${id}`);
 
       setClassroomStates(dispatch, response.data);
-      setSuccessStates(dispatch, response.data.name);
     } catch (error) {
       errorHandler(dispatch, error);
 
@@ -34,9 +33,8 @@ export const createSectionAction = (newSection, id) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
-      await api.post(`classroom/${id}/section`, newSection);
-      const ID = ""; // extract from post call returned url
-      newSection[ID] = ""; // appending new section's id as new attirbute.
+      const response = await api.post(`classroom/${id}/section`, newSection);
+      newSection.ID = response.data.sectionID;
       addNewSection(dispatch, newSection);
       setSuccessStates(dispatch, "New Section Created Successfully!");
     } catch (error) {
@@ -50,7 +48,23 @@ export const deleteSection = (id) => {
     try {
       const api = API.getInstance();
 
-      setSuccessStates(dispatch, "Section deleted successfully");
+      await api.delete(`section/${id}`);
+      dispatch({ type: actionTypes.deleteSection, payload: { id } });
+      setSuccessStates(dispatch, "Deleted section successfully");
+    } catch (error) {
+      errorHandler(dispatch, error);
+    }
+  };
+};
+
+export const updateSection = (id, body) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+
+      const response = await api.put(`section/${id}`, body);
+
+      setSuccessStates(dispatch, "Updated section successfully");
     } catch (error) {
       errorHandler(dispatch, error);
     }

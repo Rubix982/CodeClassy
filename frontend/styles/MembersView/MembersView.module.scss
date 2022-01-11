@@ -22,6 +22,12 @@
   border-bottom: 1px solid #5f6368;
 }
 
+.addMemberButton {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .header h1 {
   font-family: "Google Sans", Roboto, Arial, sans-serif;
   font-size: 2 rem;
@@ -47,6 +53,7 @@
   color: #3c4043;
   text-indent: initial;
 }
+
 .profileimage {
   margin: 0% 2%;
   border-radius: 50%;
@@ -56,4 +63,9 @@
 .collaborators,
 .students {
   width: 100%;
+}
+
+.addMember {
+  display: flex;
+  margin: auto;
 }

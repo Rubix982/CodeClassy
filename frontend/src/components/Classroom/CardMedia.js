@@ -4,6 +4,9 @@ import React from "react";
 // Styling imports
 import CardMediaStyling from "@styles/Classroom/CardMedia.module.css";
 
+// Component imports
+import EditSection from "@components/Classroom/EditSection";
+
 // MUI imports
 import {
   Box,
@@ -24,7 +27,12 @@ import { DeleteForever, MoreVert } from "@mui/icons-material";
 import { connect } from "react-redux";
 import { deleteSection } from "redux/actions/classroom.action";
 
-const MoreVertMenu = ({ deleteSection, ID }) => {
+const MoreVertMenu = ({
+  deleteSection,
+  sectionID,
+  sectionName,
+  assignedTo,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -55,10 +63,10 @@ const MoreVertMenu = ({ deleteSection, ID }) => {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
+            width: "110px",
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
@@ -85,9 +93,28 @@ const MoreVertMenu = ({ deleteSection, ID }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={() => deleteSection(ID)}>
+        <MenuItem
+          style={{
+            justifyContent: "space-between",
+          }}
+          onClick={() => {
+            deleteSection(sectionID);
+            handleClose();
+          }}
+        >
           <DeleteForever />
           Delete
+        </MenuItem>
+        <MenuItem
+          style={{
+            justifyContent: "space-between",
+          }}
+        >
+          <EditSection
+            sectionID={sectionID}
+            sectionName={sectionName}
+            assignedTo={assignedTo}
+          />
         </MenuItem>
       </Menu>
     </>
@@ -98,12 +125,17 @@ const CardMedia = ({ deleteSection, section }) => {
   const { ID, name, teacherEmail } = section;
 
   return (
-    <Card className={CardMediaStyling.cardStyling}>
+    <Card variant="outlined" className={CardMediaStyling.cardStyling}>
       <CardHeader
         title={name}
         action={
           <div>
-            <MoreVertMenu deleteSection={deleteSection} ID={ID} />
+            <MoreVertMenu
+              deleteSection={deleteSection}
+              sectionID={ID}
+              sectionName={name}
+              assignedTo={teacherEmail}
+            />
           </div>
         }
       />

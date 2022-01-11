@@ -7,6 +7,7 @@ import teacherReducer from "./teacher.reducer";
 import membersViewReducer from "./members-view.reducer";
 import sectionReducer from "./section.reducer";
 import announcementReducer from "./announcement.reducer";
+import categoriesReducer from "./categories.reducer"
 
 const rootReducer = combineReducers({
   apiReducer: apiReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   membersViewReducer: membersViewReducer,
   sectionReducer: sectionReducer,
   announcementReducer: announcementReducer,
+  categoriesReducer: categoriesReducer
 });
 
 export default rootReducer;

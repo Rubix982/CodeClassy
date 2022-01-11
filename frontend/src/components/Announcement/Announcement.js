@@ -3,7 +3,7 @@ import React from "react";
 
 // NextJS imports
 import Image from "next/image";
-import { withRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 // Styling imports
 import PostStyling from "@styles/Post/Post.module.css";
@@ -33,6 +33,7 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import CustomTabs from "@components/MaterialCustomComponents/CustomTabs";
 import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 import { StringAvatar } from "@components/Section/helper/StringHelpers";
+import Navbar from "@components/Navbar/Navbar";
 import Moment from "moment";
 
 // Redux imports
@@ -167,11 +168,11 @@ const Post = ({
   );
   const { id } = useRouter().query;
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
     if (!id) {
       return;
     }
-    announcementPageLoadAction(id);
+    await announcementPageLoadAction(id);
   }, [id]);
 
   const handleChange = (prop) => (event) => {
@@ -187,8 +188,6 @@ const Post = ({
     event.preventDefault();
   };
 
-  console.log(announcementContentBody);
-
   return (
     <>
       {successMessageSnackbar && (
@@ -200,122 +199,120 @@ const Post = ({
       )}
 
       <div>
-        <div>
-          <CustomTabs tabsData={[]} />
-        </div>
-        <div className={PostStyling.container}>
-          <div className={PostStyling.postContainer}>
-            <div className={PostStyling.postHeader}>
-              <div className={PostStyling.imageContainer}>
-                <Image src={announcementImage} height={70} width={70}></Image>
-              </div>
+        <Navbar />
+      </div>
+      <div className={PostStyling.container}>
+        <div className={PostStyling.postContainer}>
+          <div className={PostStyling.postHeader}>
+            <div className={PostStyling.imageContainer}>
+              <Image src={announcementImage} height={70} width={70}></Image>
+            </div>
 
-              <div className={PostStyling.headingContainer}>
-                <h1 className={PostStyling.heading}> Announcement </h1>
-                <div className={PostStyling.teacherName}>
-                  {teacherFullName} •{" "}
-                  {Moment(announcementCreationDate).format("MMM DD, YYYY")}
-                </div>
+            <div className={PostStyling.headingContainer}>
+              <h1 className={PostStyling.heading}> Announcement </h1>
+              <div className={PostStyling.teacherName}>
+                {teacherFullName} •{" "}
+                {Moment(announcementCreationDate).format("MMM DD, YYYY")}
               </div>
             </div>
+          </div>
 
-            <div className={PostStyling.moreVertMenu}>
-              <MoreVertMenu
-                textFieldContent={textFieldContent}
-                setReadOnlyText={setReadOnlyText}
-                updateAnnouncement={updateAnnouncement}
-                deleteAnnouncement={deleteAnnouncement}
-              />
+          <div className={PostStyling.moreVertMenu}>
+            <MoreVertMenu
+              textFieldContent={textFieldContent}
+              setReadOnlyText={setReadOnlyText}
+              updateAnnouncement={updateAnnouncement}
+              deleteAnnouncement={deleteAnnouncement}
+            />
+          </div>
+
+          <div className={PostStyling.postContent}>
+            <TextField
+              id="standard-textarea"
+              label=" "
+              placeholder="Announcement here"
+              multiline
+              variant="standard"
+              defaultValue={textFieldContent}
+              inputProps={{
+                maxLength: 255,
+              }}
+              InputProps={{
+                disableUnderline: true,
+                readOnly: readOnlyText,
+              }}
+              sx={{
+                margin: 0,
+              }}
+              onChange={(event) => {
+                setTextFieldContent(event.target.value);
+              }}
+              className={PostStyling.content}
+            />
+          </div>
+
+          <div className={PostStyling.commentsContainer}>
+            <div className={PostStyling.commentHeadingContainer}>
+              <Image src={commentImage} height={30} width={28}></Image>
+              <h1 className={PostStyling.commentHeading}>Comments</h1>
             </div>
+          </div>
 
-            <div className={PostStyling.postContent}>
-              <TextField
-                id="standard-textarea"
-                label=" "
-                placeholder="Announcement here"
-                multiline
-                variant="standard"
-                defaultValue={textFieldContent}
-                inputProps={{
-                  maxLength: 255,
-                }}
-                InputProps={{
-                  disableUnderline: true,
-                  readOnly: readOnlyText,
-                }}
-                sx={{
-                  margin: 0,
-                }}
-                onChange={() => {
-                  setTextFieldContent(event.target.value);
-                }}
-                className={PostStyling.content}
-              />
-            </div>
+          <div className={PostStyling.commentsArray}>
+            {comments &&
+              comments.map((item, index) => {
+                return (
+                  <div key={index} className={PostStyling.comment}>
+                    <Avatar
+                      sx={{ fontSize: "1rem" }}
+                      aria-label="recipe"
+                      {...StringAvatar(item.fullName)}
+                    />
 
-            <div className={PostStyling.commentsContainer}>
-              <div className={PostStyling.commentHeadingContainer}>
-                <Image src={commentImage} height={30} width={28}></Image>
-                <h1 className={PostStyling.commentHeading}>Comments</h1>
-              </div>
-            </div>
+                    <div>
+                      <h3 className={PostStyling.commenter}>
+                        {item.fullName} •{" "}
+                        {Moment(item.creationDate).format("MMM DD, YYYY")}
+                      </h3>
 
-            <div className={PostStyling.commentsArray}>
-              {comments &&
-                comments.map((item, index) => {
-                  return (
-                    <div key={index} className={PostStyling.comment}>
-                      <Avatar
-                        sx={{ fontSize: "1rem" }}
-                        aria-label="recipe"
-                        {...StringAvatar(item.fullName)}
-                      />
-
-                      <div>
-                        <h3 className={PostStyling.commenter}>
-                          {item.fullName} •{" "}
-                          {Moment(item.creationDate).format("MMM DD, YYYY")}
-                        </h3>
-
-                        <p style={{ marginLeft: "15px" }}>{item.contentBody}</p>
-                      </div>
+                      <p style={{ marginLeft: "15px" }}>{item.contentBody}</p>
                     </div>
-                  );
-                })}
-            </div>
+                  </div>
+                );
+              })}
+          </div>
 
-            <div className={PostStyling.writeComment}>
-              <Avatar
-                sx={{ fontSize: "1rem" }}
-                aria-label="recipe"
-                {...StringAvatar(userFullName)}
-              />
-              <Grid style={{ marginLeft: "15px" }} item xs={11}>
-                <FormControl sx={{ width: "100%" }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-comment">
-                    Comment
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-comment"
-                    value={values.comment}
-                    onChange={handleChange("comment")}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle comment visibility"
-                          onClick={handlePostComment}
-                          onMouseDown={handleMouseDownComment}
-                          edge="end"
-                        >
-                          <Send />
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Comment"
-                  />
-                </FormControl>
-              </Grid>
-            </div>
+          <div className={PostStyling.writeComment}>
+            <Avatar
+              sx={{ fontSize: "1rem" }}
+              aria-label="recipe"
+              {...StringAvatar(userFullName)}
+            />
+            <Grid style={{ marginLeft: "15px" }} item xs={11}>
+              <FormControl sx={{ width: "100%" }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-comment">
+                  Comment
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-comment"
+                  value={values.comment}
+                  onChange={handleChange("comment")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle comment visibility"
+                        onClick={handlePostComment}
+                        onMouseDown={handleMouseDownComment}
+                        edge="end"
+                      >
+                        <Send />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Comment"
+                />
+              </FormControl>
+            </Grid>
           </div>
         </div>
       </div>

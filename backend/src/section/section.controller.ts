@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
+  Put,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -17,6 +19,9 @@ import { SectionMemberGuard } from './section-member.guard';
 import { SectionService } from './section.service';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { JWTPayload } from 'src/auth/signin.dto';
+import { SectionOwnerGuard } from './section-owner.guard';
+import { TeacherService } from 'src/teacher/teacher.service';
+import { SectionRequestDTO } from './section.dto';
 
 @UseGuards(AppGuard)
 @Controller('section')
@@ -69,5 +74,32 @@ export class SectionController {
   async getSectionData(@Param('id') __sectionID: string) {
     const sectionData = await this.sectionService.getSectionData(__sectionID);
     return sectionData;
+  }
+
+  @UseGuards(SectionOwnerGuard)
+  @Delete(':id')
+  async deleteSection(@Param('id') __sectionID: string) {
+    await this.sectionService.deleteSection(__sectionID);
+    return {
+      msg: `Successfully deleted section: ${__sectionID}`,
+      sectionID: __sectionID,
+    };
+  }
+
+  @Put(':id')
+  async updateSectionInformation(
+    @Param('id') __sectionID: string,
+    @Body() __requestBody: SectionRequestDTO,
+  ) {
+    const section = await this.sectionService.getSection(__sectionID);
+    const updatedSection = await this.sectionService.updateSectionInformation(
+      section,
+      __requestBody,
+    );
+
+    return {
+      msg: `Successfully updated section: ${__sectionID}`,
+      section: updatedSection,
+    };
   }
 }

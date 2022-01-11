@@ -22,13 +22,19 @@ import {
 import { DeleteForever, MoreVert } from "@mui/icons-material";
 
 // Component imports
+import EditClassroom from "@components/FeedClassroomCard/EditClassroom";
 import { StringAvatar } from "@components/Section/helper/StringHelpers";
 
 // Redux imports
 import { connect } from "react-redux";
 import { deleteClassroom } from "redux/actions/teacher.action.js";
 
-const MoreVertMenu = ({ deleteClassroom, classroomID }) => {
+const MoreVertMenu = ({
+  deleteClassroom,
+  classroomID,
+  classroomName,
+  classroomDescription,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -59,10 +65,10 @@ const MoreVertMenu = ({ deleteClassroom, classroomID }) => {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
+            width: '110px',
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
@@ -89,9 +95,28 @@ const MoreVertMenu = ({ deleteClassroom, classroomID }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={() => deleteClassroom(classroomID)}>
+        <MenuItem
+          style={{
+            justifyContent: "space-between",
+          }}
+          onClick={() => {
+            deleteClassroom(classroomID);
+            handleClose();
+          }}
+        >
           <DeleteForever />
           Delete
+        </MenuItem>
+        <MenuItem
+          style={{
+            justifyContent: "space-between",
+          }}
+        >
+          <EditClassroom
+            classroomID={classroomID}
+            classroomName={classroomName}
+            classroomDescription={classroomDescription}
+          />
         </MenuItem>
       </Menu>
     </>
@@ -113,6 +138,8 @@ const FeedClassroomCard = ({ deleteClassroom, classroomData }) => {
             <MoreVertMenu
               deleteClassroom={deleteClassroom}
               classroomID={classroomID}
+              classroomName={classroomName}
+              classroomDescription={classroomDescription}
             />
           </div>
         }

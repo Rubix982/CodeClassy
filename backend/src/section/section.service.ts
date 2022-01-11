@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -9,9 +8,8 @@ import { Classroom } from 'src/entities/classroom.entity';
 import { Section } from 'src/entities/section.entity';
 import { Teacher } from 'src/entities/teacher.entity';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
-import { MemberService } from 'src/member/member.service';
 import { EntityManager, getManager, Repository } from 'typeorm';
-import { CreateSectionDTO } from './create.dto';
+import { SectionRequestDTO } from './section.dto';
 import { GetSectionDTO } from './get-section.dto';
 
 @Injectable()
@@ -28,7 +26,7 @@ export class SectionService {
   async createSection(
     __classroom: Classroom,
     __teacher: Teacher,
-    __requestBody: CreateSectionDTO,
+    __requestBody: SectionRequestDTO,
   ) {
     try {
       const section = this.sectionRepository.create({
@@ -37,9 +35,10 @@ export class SectionService {
         teacher: __teacher,
       });
       await this.sectionRepository.save(section);
+      return section.ID;
     } catch (error) {
       if (error.errno === 1062) {
-        throw new BadRequestException([
+        throw new ConflictException([
           `Section already present with name: ${__requestBody.name}`,
         ]);
       }
@@ -70,15 +69,41 @@ export class SectionService {
     try {
       const query = this.JSONQueryExtractorService.getQueryByID(7);
 
-      const entityManager = getManager();
-
-      await entityManager.query(query, [__studentEmail, __sectionID]);
+      await this.entityManager.query(query, [__studentEmail, __sectionID]);
     } catch (error) {
       if (error.errno === 1062) {
         throw new ConflictException([
           `${__studentEmail} is already part of the section`,
         ]);
       }
+      if (error.errno === 1452) {
+        throw new NotFoundException([
+          `${__studentEmail} is not a registered student email`,
+        ]);
+      }
+    }
+  }
+
+  async deleteSection(__sectionID: string) {
+    await this.sectionRepository.delete(__sectionID);
+  }
+
+  async updateSectionInformation(
+    __section: Section,
+    __requestBody: SectionRequestDTO,
+  ) {
+    try {
+      __section.name = __requestBody.name;
+      __section.teacherEmail = __requestBody.assignedTo;
+      return await this.sectionRepository.save(__section);
+    } catch (error) {
+      let errorString: string = '';
+      if (error.errno === 1062) {
+        errorString = `Section already present with name: ${__requestBody.name}`;
+      } else if (error.errno === 1452) {
+        errorString = `Provided teacher email is invalid: ${__requestBody.assignedTo}`;
+      }
+      throw new ConflictException([errorString]);
     }
   }
 }

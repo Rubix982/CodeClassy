@@ -21,7 +21,9 @@ export class Announcement {
   @Column()
   sectionID: string;
 
-  @ManyToOne(() => Section, (section) => section.announcements)
+  @ManyToOne(() => Section, (section) => section.announcements, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'sectionID' })
   section: Section;
 

@@ -1,71 +1,115 @@
 // React imports
 import React from "react";
 
-// Styling imports
-import AddMemberModalStyling from "@styles/AddMemberModal/AddMemberModal.module.scss";
+// NextJS imports
+import { useRouter } from "next/router";
 
-// Component imports
-import AddMemberModalNavbar from "@components/AddMemberModal/AddMemberModalNavbar";
+// Components
+import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 
 // MUI imports
 import {
   Grid,
-  Box,
-  Typography,
-  Modal,
-  IconButton,
-  Backdrop,
-  Fade,
+  Button,
+  Dialog,
+  TextField,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
 } from "@mui/material";
 
-// MUI Icons import
-import AddIcon from "@mui/icons-material/Add";
+// Redux import
+import { connect } from "react-redux";
+import { addStudentAsMember } from "redux/actions/add.action";
 
-const AddMemberModal = () => {
+import { Add } from "@mui/icons-material";
+
+const AddMemberModal = ({
+  addStudentAsMember,
+  responseMessage,
+  successMessageSnackbar,
+  errorMessageSnackbar,
+}) => {
+  const [email, setEmail] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const { id } = useRouter().query;
+
+  React.useEffect(() => {
+    if (!id) {
+      return;
+    }
+  }, [id]);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    const isStudentAddedSuccessfully = await addStudentAsMember(id, {
+      email: email,
+    });
+
+    if (isStudentAddedSuccessfully) {
+      setOpen(false);
+      setEmail("");
+    }
+  };
 
   return (
-    <div>
-      <IconButton size="small" onClick={() => setOpen(true)}>
-        <AddIcon className={AddMemberModalStyling.addIconStyling} />
-      </IconButton>
-      <Modal
-        aria-labelledby="Title"
-        aria-describedby="Description"
-        open={open}
-        onClose={() => setOpen(false)}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+    <>
+      {successMessageSnackbar && (
+        <SnackBarAlert severity={"success"} message={responseMessage} />
+      )}
+
+      {errorMessageSnackbar && (
+        <SnackBarAlert severity={"error"} message={responseMessage} />
+      )}
+
+      <Grid
+        container
+        direction="row"
+        justifyContent="flex-end"
+        alignItems="center"
       >
-        <Fade in={open}>
-          <Box className={AddMemberModalStyling.outerModalStyling}>
-            <Box className={AddMemberModalStyling.innerModalStyling}>
-              <Typography
-                variant="h6"
-                component="h2"
-                className={AddMemberModalStyling.typographyTextBox}
-              >
-                <span className={AddMemberModalStyling.invitationText}>
-                  Add Members
-                </span>
-              </Typography>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="stretch"
-              >
-                <AddMemberModalNavbar />
-              </Grid>
-            </Box>
-          </Box>
-        </Fade>
-      </Modal>
-    </div>
+        <Button variant="contained" onClick={() => setOpen(true)}>
+          <Add /> Add Student
+        </Button>
+      </Grid>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Add Student</DialogTitle>
+        <DialogContent>
+          <DialogContentText></DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+            onChange={() => {
+              setEmail(event.target.value);
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={onSubmit}>Add</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
-export default AddMemberModal;
+const mapStateToProps = (state) => {
+  return {
+    responseMessage: state.apiReducer.responseMessage,
+    successMessageSnackbar: state.apiReducer.successMessageSnackbar,
+    errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+  };
+};
+
+export default connect(mapStateToProps, { addStudentAsMember })(AddMemberModal);

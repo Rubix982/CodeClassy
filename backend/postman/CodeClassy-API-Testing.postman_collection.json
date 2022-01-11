@@ -408,6 +408,145 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Category creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"DSA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/teacher/category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"teacher",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categories GET request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"DSA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section GET request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/section/:id/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"section",
+						":id",
+						""
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "33397d2f-7920-44d6-acca-efd53a850a9d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Classroom deletion request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/classroom/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"classroom",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6dc36007-1a0b-42cc-8ccf-97b04fd38747"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section deletion request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/section/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"section",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "d9ac31d0-3af3-442b-87be-238e44503f68"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

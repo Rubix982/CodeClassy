@@ -69,7 +69,9 @@ export default function Announcement({ announcementData, teacherFullName }) {
             className={AnnouncementStyling.commentCountStyling}
             onClick={onViewComments}
           >
-            <CardContent>View comments</CardContent>
+            <CardContent sx={{ color: "#616161" }}>
+              View Complete Announcement
+            </CardContent>
           </Button>
         </Card>
       </Grid>

@@ -8,9 +8,10 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Avatar from '@mui/material/Avatar';
+import { getCategories } from "redux/actions/categories.action";
+import { connect } from "react-redux";
 
-
-let Categories = ["Operating Systems", "Programming Fundamentals", "Data Structures"]
+import { Add } from "@mui/icons-material";
 
 let multipleChoiceQuestions = [
   {
@@ -56,9 +57,18 @@ let freeTextQuestions = [
 ]
 
 
-export default function QuestionBank() {
+const QuestionBank = (props) => {
 
-  const [category, setCategory] = React.useState(Categories[0]);
+  const [category, setCategory] = React.useState('');
+
+
+  React.useEffect(() => {
+    if(!props.categories[0]){
+        props.getCategories();
+        return;
+    }
+    setCategory(props.categories[0].name)
+  }, [props.categories]);
 
 
     return (
@@ -69,11 +79,10 @@ export default function QuestionBank() {
           <Link href="/question/newquestion">
             <a style={{textDecoration: 'none'}}>
               <Button 
-              startIcon={<Avatar style={{height: '20px', width: '17px'}} src={'/assets/images/add.png'} />}
               style={{ height: '45px', backgroundColor: 'grey'}} 
               variant="contained"
               > 
-                Add a question
+                <Add /> Add a question
               </Button>
             </a>
           </Link>
@@ -90,9 +99,9 @@ export default function QuestionBank() {
               label="Category"
               onChange={(event) => setCategory(event.target.value)}
             >
-              { Categories.map((item, index) => {
+              { props.categories.map((item, index) => {
                 return(
-                  <MenuItem key={index} value={item}>{item}</MenuItem>
+                  <MenuItem key={index} value={item.name}>{item.name}</MenuItem>
                 )
               })}
             </Select>
@@ -143,3 +152,13 @@ export default function QuestionBank() {
     );
   }
   
+
+  const mapStateToProps = (state) => {
+    return {
+      categories: state.categoriesReducer.categories // categories array from categories reducer
+    };
+  };
+  
+  export default connect(mapStateToProps, { getCategories })(
+    QuestionBank
+  );

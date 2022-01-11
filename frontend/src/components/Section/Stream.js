@@ -5,28 +5,28 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // Styling imports
-import styles from "@styles/Section/SectionInformation.module.css";
+import styles from "@styles/Section/Stream.module.css";
 
 // Component imports
 import Announcement from "@components/Section/Announcement";
 import PostAnnouncement from "@components/Section/PostAnnouncement";
-import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 
 // MUI imports
 import { Grid } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
 
 // Redux imports
 import { connect } from "react-redux";
 import { getSectionAction } from "redux/actions/section.action";
 
-function SectionInformation({
+function Stream({
   getSectionAction,
   classroomName,
-  classroomDescription,
   sectionName,
   teacherFullName,
   announcements,
   sectionLoaded,
+  userRole,
 }) {
   const { id } = useRouter().query;
 
@@ -39,7 +39,9 @@ function SectionInformation({
 
   return (
     <>
-      {sectionLoaded && (
+      {!sectionLoaded ? (
+        <LinearProgress />
+      ) : (
         <Grid
           container
           direction="column"
@@ -62,9 +64,7 @@ function SectionInformation({
               justifyContent="center"
               alignItems="stretch"
             >
-              <Grid item>
-                <PostAnnouncement />
-              </Grid>
+              <Grid item>{userRole == "Teacher" && <PostAnnouncement />}</Grid>
               {announcements &&
                 announcements.map((announcement, index) => {
                   return (
@@ -87,14 +87,12 @@ function SectionInformation({
 const mapStateToProps = (state) => {
   return {
     classroomName: state.sectionReducer.classroomName,
-    classroomDescription: state.sectionReducer.classroomDescription,
     teacherFullName: state.sectionReducer.teacherFullName,
     sectionName: state.sectionReducer.sectionName,
     announcements: state.sectionReducer.announcements,
     sectionLoaded: state.sectionReducer.sectionLoaded,
+    userRole: state.authReducer.userRole,
   };
 };
 
-export default connect(mapStateToProps, { getSectionAction })(
-  SectionInformation
-);
+export default connect(mapStateToProps, { getSectionAction })(Stream);
