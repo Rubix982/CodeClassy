@@ -8,13 +8,13 @@ export class AddAnnouncementCommentRequestDTO {
 
 export class AddAnnouncementCommentResponseDTO {
   readonly ID: string;
-  readonly commentatorFullName: string;
+  readonly commentatorEmail: string;
   readonly contentBody: string;
   readonly creationDate: Date;
 
   constructor(__announcementComment: AnnouncementComment) {
     this.ID = __announcementComment.ID;
-    this.commentatorFullName = __announcementComment.commentatorFullName;
+    this.commentatorEmail = __announcementComment.commentatorEmail;
     this.contentBody = __announcementComment.contentBody;
     this.creationDate = __announcementComment.creationDate;
   }

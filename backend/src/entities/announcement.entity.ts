@@ -33,12 +33,6 @@ export class Announcement {
   )
   comments: AnnouncementComment[];
 
-  @ManyToOne(() => Member, (member) => member.announced, {
-    onDelete: 'CASCADE',
-  })
-  @JoinTable({ name: 'memberEmail' })
-  announcer: string;
-
   @Column()
   contentBody: string;
 

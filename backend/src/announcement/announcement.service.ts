@@ -28,7 +28,6 @@ export class AnnouncementService {
     const announcement = this.announcementRepository.create({
       section: __section,
       contentBody: __requestBody.contentBody,
-      announcer: __member.email,
     });
 
     await this.announcementRepository.save(announcement);
