@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import CancelIcon from '@mui/icons-material/Cancel';
 
+import { createCategory } from "redux/actions/categories.action";
+import { connect } from "react-redux";
+
 
 const style = {
     position: 'absolute',
@@ -46,9 +49,10 @@ const updateQuestion = () => {
 }
 
 
-const QuestionSettings = ({questionsCategory, points, randomize, shuffle, grading, update}) =>
+const QuestionSettings = (props) =>
 {
     const [open, setOpen] = React.useState(false);
+    const [newCategory, setNewCategory] = React.useState('');
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -57,8 +61,14 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
     const [secondRadio, setSecondRadio] = React.useState('Shuffle matches only');
     const [thirdRadio, setThirdRadio] = React.useState('Off');
 
-    const createCategory = () => {
-        setOpen(false);
+    const addCategory = () => {
+        if(newCategory == '' || newCategory == null){
+            alert(`A category cannot be empty`);
+        }
+        else{
+            props.createCategory({name: newCategory});
+            setOpen(false);
+        }
     }
 
 
@@ -67,7 +77,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
         <div className={settingsStyle.container}>
 
             <h4 className={settingsStyle.settingsHeading}> Question Settings </h4>
-            { questionsCategory &&
+            { props.questionsCategory &&
                 (<div className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Category </h4>
                     <Button 
@@ -90,7 +100,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             New Category
                         </Typography>
                         
-                        <TextField style={{margin: '15px 0px'}} fullWidth id="standard-basic" label="New Category" variant="standard" />
+                        <TextField value={newCategory} onChange={(e)=> setNewCategory(e.target.value)} style={{margin: '15px 0px'}} fullWidth id="standard-basic" label="New Category" variant="standard" />
 
                         <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
                             <Button 
@@ -106,7 +116,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                             style={{margin: '5px', width: '100px', marginLeft: '10px', height: '40px', color: '#ffffff' ,borderColor: '#000000'}} 
                             variant="contained" 
                             startIcon={<AddBoxIcon />}
-                            onClick={createCategory}
+                            onClick={addCategory}
                             > 
                                 Create
                             </Button>
@@ -141,7 +151,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
 
 
 
-            { points &&
+            { props.points &&
                 (<div className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Total Points </h4>
                     <TextField 
@@ -157,7 +167,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            { randomize &&
+            { props.randomize &&
                 (<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}} 
                 className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Randomize Answers </h4>
@@ -187,7 +197,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            { shuffle &&
+            { props.shuffle &&
                 (<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}} 
                 className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Shuffle Mode </h4>
@@ -229,7 +239,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            { grading &&
+            { props.grading &&
                 (<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}} 
                 className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Grading Scale </h4>
@@ -271,7 +281,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            { !update && (
+            { !props.update && (
                 <Button 
                 style={{margin: '15px', marginLeft: '0px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
                 variant="contained" 
@@ -282,7 +292,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </Button>
             )}
 
-            { update && (
+            { props.update && (
                 <Button 
                 style={{margin: '15px', height: '45px', color: '#616161' ,borderColor: '#000000'}} 
                 variant="outlined" 
@@ -298,4 +308,13 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
     )
 }
 
-export default QuestionSettings;
+
+const mapStateToProps = (state) => {
+    return {
+      categories: state.categoriesReducer.categories // categories array from categories reducer
+    };
+  };
+  
+  export default connect(mapStateToProps, { createCategory })(
+    QuestionSettings
+  );
