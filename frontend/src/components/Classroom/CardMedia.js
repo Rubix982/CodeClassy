@@ -98,7 +98,7 @@ const CardMedia = ({ deleteSection, section }) => {
   const { ID, name, teacherEmail } = section;
 
   return (
-    <Card className={CardMediaStyling.cardStyling}>
+    <Card variant="outlined" className={CardMediaStyling.cardStyling}>
       <CardHeader
         title={name}
         action={

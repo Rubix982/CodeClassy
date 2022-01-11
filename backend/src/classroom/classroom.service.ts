@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Classroom } from 'src/entities/classroom.entity';
 import { Teacher } from 'src/entities/teacher.entity';
 import { MemberService } from 'src/member/member.service';
 import { Repository } from 'typeorm';
-import { CreateClassroomDTO } from './create.dto';
+import { ClassroomRequestDTO } from './classroom.dto';
 
 @Injectable()
 export class ClassroomService {
@@ -13,7 +13,10 @@ export class ClassroomService {
     private readonly classroomRepository: Repository<Classroom>,
     private readonly memberService: MemberService,
   ) {}
-  async createClassroom(__teacher: Teacher, __requestBody: CreateClassroomDTO) {
+  async createClassroom(
+    __teacher: Teacher,
+    __requestBody: ClassroomRequestDTO,
+  ) {
     const classroom = this.classroomRepository.create({
       name: __requestBody.name,
       description: __requestBody.description,
@@ -34,6 +37,27 @@ export class ClassroomService {
       relations: ['sections'],
     });
     return classroom;
+  }
+
+  async deleteClassroom(__classroomID: string) {
+    await this.classroomRepository.delete(__classroomID);
+  }
+
+  async updateClassroomInformation(
+    __classroomID: string,
+    __requestBody: ClassroomRequestDTO,
+  ) {
+    const classroom = await this.getClassroom(__classroomID);
+
+    if (classroom) {
+      classroom.name = __requestBody.name;
+      classroom.description = __requestBody.description;
+    } else {
+      throw new NotFoundException([
+        'Could not find classroom with specified ID',
+      ]);
+    }
+    return await this.classroomRepository.save(classroom);
   }
 
   async getClassroomPeopleInformation(__classroomData: Classroom) {
