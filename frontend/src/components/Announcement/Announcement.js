@@ -16,7 +16,6 @@ import {
   Avatar,
   Tooltip,
   MenuItem,
-  TextField,
   InputLabel,
   IconButton,
   FormControl,
@@ -25,12 +24,10 @@ import {
 } from "@mui/material";
 
 /// MUI Icon imports
-import { ModeEdit, DeleteForever, MoreVert, Send } from "@mui/icons-material";
-
-import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import { DeleteForever, MoreVert, Send } from "@mui/icons-material";
 
 // Component imports
-import CustomTabs from "@components/MaterialCustomComponents/CustomTabs";
+import EditAnnouncement from "@components/Announcement/EditAnnouncement";
 import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 import { StringAvatar } from "@components/Section/helper/StringHelpers";
 import Navbar from "@components/Navbar/Navbar";
@@ -50,6 +47,7 @@ import announcementImage from "/public/assets/images/announcement.png";
 import commentImage from "/public/assets/images/comment.png";
 
 const MoreVertMenu = (props) => {
+  const { sectionID } = useRouter().query;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { id } = useRouter().query;
@@ -82,10 +80,10 @@ const MoreVertMenu = (props) => {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
+            width: "110px",
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
@@ -113,33 +111,20 @@ const MoreVertMenu = (props) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem
-          onClick={() => props.setReadOnlyText(false)}
-          sx={{ justifyContent: "center" }}
-        >
-          <div style={{ marginRight: "10px" }}>
-            <ModeEdit />
-          </div>
-          <span>Edit</span>
-        </MenuItem>
-        <MenuItem
-          onClick={() => props.updateAnnouncement(id, props.textFieldContent)}
-          sx={{ justifyContent: "center" }}
-        >
-          <div style={{ marginRight: "10px" }}>
-            <SaveAltIcon />
-          </div>
-          <span>Save</span>
-        </MenuItem>
-        <MenuItem
           onClick={() => {
-            props.deleteAnnouncement(id);
+            props.deleteAnnouncement(sectionID);
+            handleClose();
           }}
-          sx={{ justifyContent: "center" }}
+          sx={{ justifyContent: "space-between" }}
         >
-          <div style={{ marginRight: "10px" }}>
-            <DeleteForever />
-          </div>
-          <span>Delete</span>
+          <DeleteForever />
+          Delete
+        </MenuItem>
+        <MenuItem sx={{ justifyContent: "space-between" }}>
+          <EditAnnouncement
+            announcementContentBody={props.announcementContentBody}
+            announcementID={props.announcementID}
+          />
         </MenuItem>
       </Menu>
     </>
@@ -147,25 +132,22 @@ const MoreVertMenu = (props) => {
 };
 
 const Post = ({
-  successMessageSnackbar,
-  errorMessageSnackbar,
-  responseMessage,
-  announcementPageLoadAction,
-  commentAddition,
-  userFullName,
   comments,
+  userRole,
+  userFullName,
+  announcementID,
+  responseMessage,
   teacherFullName,
-  announcementCreationDate,
+  commentAddition,
+  errorMessageSnackbar,
+  successMessageSnackbar,
   announcementContentBody,
-  router,
+  announcementCreationDate,
+  announcementPageLoadAction,
 }) => {
   const [values, setValues] = React.useState({
     comment: "",
   });
-  const [readOnlyText, setReadOnlyText] = React.useState(true);
-  const [textFieldContent, setTextFieldContent] = React.useState(
-    announcementContentBody
-  );
   const { id } = useRouter().query;
 
   React.useEffect(async () => {
@@ -217,38 +199,19 @@ const Post = ({
             </div>
           </div>
 
-          <div className={PostStyling.moreVertMenu}>
-            <MoreVertMenu
-              textFieldContent={textFieldContent}
-              setReadOnlyText={setReadOnlyText}
-              updateAnnouncement={updateAnnouncement}
-              deleteAnnouncement={deleteAnnouncement}
-            />
-          </div>
+          {userRole == "Teacher" && (
+            <div className={PostStyling.moreVertMenu}>
+              <MoreVertMenu
+                announcementContentBody={announcementContentBody}
+                announcementID={announcementID}
+                updateAnnouncement={updateAnnouncement}
+                deleteAnnouncement={deleteAnnouncement}
+              />
+            </div>
+          )}
 
           <div className={PostStyling.postContent}>
-            <TextField
-              id="standard-textarea"
-              label=" "
-              placeholder="Announcement here"
-              multiline
-              variant="standard"
-              defaultValue={textFieldContent}
-              inputProps={{
-                maxLength: 255,
-              }}
-              InputProps={{
-                disableUnderline: true,
-                readOnly: readOnlyText,
-              }}
-              sx={{
-                margin: 0,
-              }}
-              onChange={(event) => {
-                setTextFieldContent(event.target.value);
-              }}
-              className={PostStyling.content}
-            />
+            <p className={PostStyling.content}>{announcementContentBody}</p>
           </div>
 
           <div className={PostStyling.commentsContainer}>
@@ -325,7 +288,9 @@ const mapStateToProps = (state) => ({
   successMessageSnackbar: state.apiReducer.successMessageSnackbar,
   errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
   userFullName: state.authReducer.userFullName,
+  userRole: state.authReducer.userRole,
   teacherFullName: state.announcementReducer.teacherFullName,
+  announcementID: state.announcementReducer.announcementID,
   announcementCreationDate: state.announcementReducer.announcementCreationDate,
   announcementContentBody: state.announcementReducer.announcementContentBody,
   comments: state.announcementReducer.announcementComments,

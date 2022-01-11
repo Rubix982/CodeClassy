@@ -2,6 +2,7 @@ import { actionTypes } from "redux/actionTypes/actionTypes";
 
 const initialState = {
   teacherFullName: "",
+  announcementID: "",
   announcementCreationDate: "",
   announcementContentBody: "",
   announcementComments: [],
@@ -13,6 +14,7 @@ const announcementReducer = (state = initialState, action) => {
       return {
         ...state,
         teacherFullName: action.payload.teacherFullName,
+        announcementID: action.payload.announcementID,
         announcementCreationDate: action.payload.creationDate,
         announcementContentBody: action.payload.contentBody,
         announcementComments: action.payload.comments,
