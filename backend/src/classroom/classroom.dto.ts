@@ -1,6 +1,6 @@
 import { IsString, MinLength } from 'class-validator';
 
-export class CreateClassroomDTO {
+export class ClassroomRequestDTO {
   @MinLength(1)
   @IsString()
   name: string;

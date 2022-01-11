@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { JWTPayload } from 'src/auth/signin.dto';
@@ -16,6 +17,7 @@ import { TeacherService } from 'src/teacher/teacher.service';
 import { ClassroomService } from './classroom.service';
 import { ClassroomOwnerGuard } from './classroom-owner.guard';
 import { AppGuard } from '../app/app.guard';
+import { ClassroomRequestDTO } from './classroom.dto';
 
 @UseGuards(AppGuard)
 @Controller('classroom')
@@ -41,6 +43,24 @@ export class ClassroomController {
     return {
       msg: `Successfully deleted classroom: ${__classroomID}`,
       classroomID: __classroomID,
+    };
+  }
+
+  @UseGuards(ClassroomOwnerGuard)
+  @Put(':id')
+  async updateClassroomInformation(
+    @Param('id') __classroomID: string,
+    @Body() __requestBody: ClassroomRequestDTO,
+  ) {
+    const updatedClassroom =
+      await this.classroomService.updateClassroomInformation(
+        __classroomID,
+        __requestBody,
+      );
+
+    return {
+      msg: `Successfully updated classroom: ${__classroomID}`,
+      classroom: updatedClassroom,
     };
   }
 
