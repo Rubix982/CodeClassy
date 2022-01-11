@@ -11,14 +11,18 @@ import AddMemberModal from "@components/AddMemberModal/AddMemberModal";
 // Redux imports
 import { connect } from "react-redux";
 
-function SectionMembersView({ teacherFullName, students }) {
+function SectionMembersView({ userRole, teacherFullName, students }) {
   return (
     <>
-      <div>
-        <AddMemberModal />
-      </div>
       <div className={MembersViewStyling.container}>
         <div className={MembersViewStyling.content}>
+          <div className={MembersViewStyling.teacher}>
+            {userRole == "Teacher" && (
+              <div className={MembersViewStyling.addMemberButton}>
+                <AddMemberModal />
+              </div>
+            )}
+          </div>
           <div className={MembersViewStyling.teacher}>
             <div className={MembersViewStyling.header}>
               <h1> Teacher </h1>
@@ -44,6 +48,7 @@ const mapStateToProps = (state) => {
   return {
     teacherFullName: state.sectionReducer.teacherFullName,
     students: state.sectionReducer.students,
+    userRole: state.authReducer.userRole,
   };
 };
 
