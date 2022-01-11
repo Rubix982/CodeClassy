@@ -95,7 +95,7 @@ const MoreVertMenu = ({
         <MenuItem
           sx={{ justifyContent: "space-around" }}
           onClick={() => {
-            deleteSection(ID);
+            deleteSection(sectionID);
             handleClose();
           }}
         >

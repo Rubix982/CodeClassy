@@ -3,7 +3,7 @@ import React from "react";
 
 // NextJS imports
 import Image from "next/image";
-import { withRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 // Styling imports
 import PostStyling from "@styles/Post/Post.module.css";
@@ -25,6 +25,7 @@ import SendIcon from "@mui/icons-material/Send";
 // Component imports
 import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 import { StringAvatar } from "@components/Section/helper/StringHelpers";
+import Navbar from "@components/Navbar/Navbar";
 import Moment from "moment";
 
 // Redux imports
@@ -87,6 +88,9 @@ const Post = ({
         <SnackBarAlert severity={"error"} message={responseMessage} />
       )}
 
+      <div>
+        <Navbar />
+      </div>
       <div className={PostStyling.container}>
         <div className={PostStyling.postContainer}>
           <div className={PostStyling.postHeader}>
