@@ -24,7 +24,7 @@ const EmailField = ({
   errorMessageSnackbar,
   emailFor,
 }) => {
-  const email = React.useRef(`Add ${emailFor}`);
+  const [email, setEmail] = React.useState('');
   const { id } = useRouter().query;
 
   React.useEffect(() => {

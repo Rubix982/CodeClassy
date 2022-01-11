@@ -14,7 +14,7 @@ import {
   a11yProps,
 } from "@components/MaterialCustomComponents/TabPanel";
 
-export default function AddMemberModalNavbar() {
+const AddMemberModalNavbar = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -27,15 +27,15 @@ export default function AddMemberModalNavbar() {
       <Box className={AddMemberModalStyling.box}>
         <Tabs value={value} onChange={handleChange} aria-label="Tabs">
           <Tab label="Student" {...a11yProps(0)} />
-          <Tab label="Teacher Assistant" {...a11yProps(1)} />
+          {/* <Tab label="Teacher Assistant" {...a11yProps(1)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <EmailField emailFor={"Student(s)"} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         <EmailField emailFor={"Teacher Assistant(s)"} />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 }

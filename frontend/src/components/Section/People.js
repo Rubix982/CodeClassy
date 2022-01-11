@@ -6,6 +6,7 @@ import MembersViewStyling from "@styles/MembersView/MembersView.module.scss";
 
 // Component imports
 import MemberCard from "@components/MembersView/MemberCard";
+import AddMemberModal from "@components/AddMemberModal/AddMemberModal";
 
 // Redux imports
 import { connect } from "react-redux";
@@ -13,6 +14,9 @@ import { connect } from "react-redux";
 function SectionMembersView({ teacherFullName, students }) {
   return (
     <>
+      <div>
+        <AddMemberModal />
+      </div>
       <div className={MembersViewStyling.container}>
         <div className={MembersViewStyling.content}>
           <div className={MembersViewStyling.teacher}>
