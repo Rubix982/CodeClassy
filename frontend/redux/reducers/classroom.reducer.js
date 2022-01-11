@@ -22,6 +22,14 @@ const classroomReducer = (state = initialState, action) => {
         totalSections: [...state.totalSections, action.payload.newSection],
       };
 
+    case actionTypes.deleteSection:
+      return {
+        ...state,
+        totalSections: state.totalSections.filter((element) => {
+          return element.ID !== action.payload.id;
+        }),
+      };
+
     default:
       return { ...state };
   }
