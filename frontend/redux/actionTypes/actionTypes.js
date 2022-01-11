@@ -7,6 +7,7 @@ export const actionTypes = {
   userLoggedIn: "userLoggedIn",
   addSection: "addSection",
   deleteSection: "deleteSection",
+  updateSection: "updateSection",
   setClassroomStates: "setClassroomStates",
   studentFeedLoaded: "studentFeedLoading",
   teacherFeedLoaded: "teacherFeedLoaded",

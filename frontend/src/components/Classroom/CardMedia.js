@@ -26,6 +26,7 @@ import { DeleteForever, MoreVert } from "@mui/icons-material";
 // Redux imports
 import { connect } from "react-redux";
 import { deleteSection } from "redux/actions/classroom.action";
+import { SelectionState } from "draft-js";
 
 const MoreVertMenu = ({
   deleteSection,
@@ -121,8 +122,8 @@ const MoreVertMenu = ({
   );
 };
 
-const CardMedia = ({ deleteSection, section }) => {
-  const { ID, name, teacherEmail } = section;
+const CardMedia = ({ deleteSection, index, sections }) => {
+  const { ID, name, teacherEmail } = sections[index];
 
   return (
     <Card variant="outlined" className={CardMediaStyling.cardStyling}>
@@ -152,7 +153,7 @@ const CardMedia = ({ deleteSection, section }) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {sections: state.classroomReducer.totalSections};
 };
 
 export default connect(mapStateToProps, { deleteSection })(CardMedia);
