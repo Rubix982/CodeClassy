@@ -2,18 +2,18 @@
 import React from "react";
 
 // Component imports
-import SectionMembersView from "@components/MembersView/SectionMembersView";
-import SectionInformation from "@components/Section/SectionInformation";
+import People from "@components/Section/People";
+import Stream from "@components/Section/Stream";
 import CustomTabs from "@components/MaterialCustomComponents/CustomTabs";
 
 const tabsData = [
   {
     name: "Stream",
-    component: SectionInformation,
+    component: Stream,
   },
   {
     name: "People",
-    component: SectionMembersView,
+    component: People,
   },
 ];
 

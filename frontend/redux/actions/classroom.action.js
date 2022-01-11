@@ -18,7 +18,6 @@ export const getClassroomAction = (id) => {
       const response = await api.get(`classroom/${id}`);
 
       setClassroomStates(dispatch, response.data);
-      setSuccessStates(dispatch, response.data.name);
     } catch (error) {
       errorHandler(dispatch, error);
 
