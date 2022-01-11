@@ -12,8 +12,10 @@ export const addStudentAsMember = (id, email) => {
         dispatch,
         `Member with email '${email.email}' added successfully`
       );
+      return true;
     } catch (error) {
       errorHandler(dispatch, error);
+      return false;
     }
   };
 };

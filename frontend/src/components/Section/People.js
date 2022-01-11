@@ -16,13 +16,11 @@ function SectionMembersView({ userRole, teacherFullName, students }) {
     <>
       <div className={MembersViewStyling.container}>
         <div className={MembersViewStyling.content}>
-          <div className={MembersViewStyling.teacher}>
-            {userRole == "Teacher" && (
-              <div className={MembersViewStyling.addMemberButton}>
-                <AddMemberModal />
-              </div>
-            )}
-          </div>
+          {userRole == "Teacher" && (
+            <div className={MembersViewStyling.addMemberButton}>
+              <AddMemberModal />
+            </div>
+          )}
           <div className={MembersViewStyling.teacher}>
             <div className={MembersViewStyling.header}>
               <h1> Teacher </h1>
