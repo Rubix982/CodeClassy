@@ -22,13 +22,19 @@ import {
 import { DeleteForever, MoreVert } from "@mui/icons-material";
 
 // Component imports
+import EditClassroom from "@components/FeedClassroomCard/EditClassroom";
 import { StringAvatar } from "@components/Section/helper/StringHelpers";
 
 // Redux imports
 import { connect } from "react-redux";
 import { deleteClassroom } from "redux/actions/teacher.action.js";
 
-const MoreVertMenu = ({ deleteClassroom, classroomID }) => {
+const MoreVertMenu = ({
+  deleteClassroom,
+  classroomID,
+  classroomName,
+  classroomDescription,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -59,7 +65,6 @@ const MoreVertMenu = ({ deleteClassroom, classroomID }) => {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -89,9 +94,22 @@ const MoreVertMenu = ({ deleteClassroom, classroomID }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={() => deleteClassroom(classroomID)}>
+        <MenuItem
+          sx={{ justifyContent: "space-around" }}
+          onClick={() => {
+            deleteClassroom(classroomID);
+            handleClose();
+          }}
+        >
           <DeleteForever />
           Delete
+        </MenuItem>
+        <MenuItem sx={{ justifyContent: "space-around" }}>
+          <EditClassroom
+            classroomID={classroomID}
+            classroomName={classroomName}
+            classroomDescription={classroomDescription}
+          />
         </MenuItem>
       </Menu>
     </>
@@ -113,6 +131,8 @@ const FeedClassroomCard = ({ deleteClassroom, classroomData }) => {
             <MoreVertMenu
               deleteClassroom={deleteClassroom}
               classroomID={classroomID}
+              classroomName={classroomName}
+              classroomDescription={classroomDescription}
             />
           </div>
         }

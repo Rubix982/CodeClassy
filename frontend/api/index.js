@@ -30,6 +30,22 @@ class API {
     const response = await axios.post(fullRequestUrl, __data, this.options);
     return response;
   }
+
+  async delete(__requestUrl) {
+    const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
+
+    const response = await axios.delete(fullRequestUrl, this.options);
+
+    return response;
+  }
+
+  async put(__requestUrl, __data) {
+    const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
+
+    const response = await axios.put(fullRequestUrl, __data, this.options);
+
+    return response;
+  }
 }
 
 export default API;
