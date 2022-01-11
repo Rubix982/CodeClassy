@@ -79,7 +79,7 @@ const AddMemberModal = ({
         </Button>
       </Grid>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Member</DialogTitle>
+        <DialogTitle>Add Student</DialogTitle>
         <DialogContent>
           <DialogContentText></DialogContentText>
           <TextField
