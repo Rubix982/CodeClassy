@@ -50,7 +50,90 @@ const MoreVertMenu = (props) => {
   const { sectionID } = useRouter().query;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const { id } = useRouter().query;
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+        <Tooltip title="Announcement options">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
+            <MoreVert />
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            width: "110px",
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 40,
+              height: 40,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem
+          onClick={() => {
+            props.deleteAnnouncement(sectionID);
+            handleClose();
+          }}
+          sx={{ justifyContent: "space-between" }}
+        >
+          <DeleteForever />
+          Delete
+        </MenuItem>
+        <MenuItem sx={{ justifyContent: "space-between" }}>
+          <EditAnnouncement
+            announcementContentBody={props.announcementContentBody}
+            announcementID={props.announcementID}
+          />
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
+
+const AnnouncementCommentMenu = (props) => {
+  const { sectionID } = useRouter().query;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -226,20 +309,38 @@ const Post = ({
               comments.map((item, index) => {
                 return (
                   <div key={index} className={PostStyling.comment}>
-                    <Avatar
-                      sx={{ fontSize: "1rem" }}
-                      aria-label="recipe"
-                      {...StringAvatar(item.fullName)}
-                    />
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="flex-start"
+                    >
+                      <Avatar
+                        sx={{ fontSize: "1rem" }}
+                        aria-label="recipe"
+                        {...StringAvatar(item.fullName)}
+                      />
 
-                    <div>
-                      <h3 className={PostStyling.commenter}>
-                        {item.fullName} •{" "}
-                        {Moment(item.creationDate).format("MMM DD, YYYY")}
-                      </h3>
+                      <div>
+                        <h3 className={PostStyling.commenter}>
+                          {item.fullName} •{" "}
+                          {Moment(item.creationDate).format("MMM DD, YYYY")}
+                        </h3>
 
-                      <p style={{ marginLeft: "15px" }}>{item.contentBody}</p>
-                    </div>
+                        <p style={{ marginLeft: "15px" }}>{item.contentBody}</p>
+                      </div>
+                    </Grid>
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="flex-end"
+                      alignItems="flex-end"
+                      sx={{
+                        width: "0",
+                      }}
+                    >
+                      {/* <AnnouncementCommentMenu /> */}
+                    </Grid>
                   </div>
                 );
               })}
