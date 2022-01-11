@@ -8,13 +8,29 @@ import settingsStyle from '../../../styles/QuestionSettings/QuestionSettings.mod
 import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import UpdateIcon from '@mui/icons-material/Update';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import CancelIcon from '@mui/icons-material/Cancel';
 
-let categories = 
-[
-    "Programming Fundamentals",
-    "Data Structures",
-    "Object-Oriented Programming"
-]
+import { createCategory } from "redux/actions/categories.action";
+import { getCategories } from "redux/actions/categories.action";
+import { connect } from "react-redux";
+
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    outline: 'none'
+  };
+
 
 
 const createQuestion = () => {
@@ -27,23 +43,94 @@ const updateQuestion = () => {
 }
 
 
-const QuestionSettings = ({questionsCategory, points, randomize, shuffle, grading, update}) =>
+const QuestionSettings = (props) =>
 {
-    const [category, setCategory] = React.useState(categories[0]);
+    const [open, setOpen] = React.useState(false);
+    const [newCategory, setNewCategory] = React.useState('');
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const [category, setCategory] = React.useState('');
     const [firstRadio, setFirstRadio] = React.useState('Yes');
     const [secondRadio, setSecondRadio] = React.useState('Shuffle matches only');
     const [thirdRadio, setThirdRadio] = React.useState('Off');
+
+    const addCategory = () => {
+        if(newCategory == '' || newCategory == null){
+            alert(`A category cannot be empty`);
+        }
+        else{
+            props.createCategory({name: newCategory});
+            setOpen(false);
+            setNewCategory('');
+        }
+    }
+
+    React.useEffect(() => {
+        if(!props.categories[0]){
+            props.getCategories();
+            return;
+        }
+        setCategory(props.categories[0].name)
+      }, [props.categories]);
 
 
 
     return(
         <div className={settingsStyle.container}>
 
-            <h4 className={settingsStyle.settingsHeading}> Settings </h4>
-            { questionsCategory &&
+            <h4 className={settingsStyle.settingsHeading}> Question Settings </h4>
+            { props.questionsCategory &&
                 (<div className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Category </h4>
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                    <Button 
+                    style={{margin: '15px', width: '250px', marginLeft: '0px', height: '40px', color: '#616161' ,borderColor: '#000000'}} 
+                    variant="outlined" 
+                    startIcon={<AddBoxIcon />}
+                    onClick={handleOpen}
+                    > 
+                        Create New Category
+                    </Button>
+
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                        <Typography style={{marginBottom: '0px'}} id="modal-modal-title" variant="h6" component="h2">
+                            New Category
+                        </Typography>
+                        
+                        <TextField value={newCategory} onChange={(e)=> setNewCategory(e.target.value)} style={{margin: '15px 0px'}} fullWidth id="standard-basic" label="New Category" variant="standard" />
+
+                        <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
+                            <Button 
+                            style={{margin: '5px', width: '100px', marginLeft: '10px', height: '40px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
+                            variant="contained" 
+                            startIcon={<CancelIcon />}
+                            onClick={handleClose}
+                            > 
+                                Cancel
+                            </Button>
+
+                            <Button 
+                            style={{margin: '5px', width: '100px', marginLeft: '10px', height: '40px', color: '#ffffff' ,borderColor: '#000000'}} 
+                            variant="contained" 
+                            startIcon={<AddBoxIcon />}
+                            onClick={addCategory}
+                            > 
+                                Create
+                            </Button>
+                        </div>
+
+                        </Box>
+                    </Modal>
+
+                    
+
+                    <FormControl style={{marginTop: '20px'}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <Select
                         fullWidth
                         labelId="demo-simple-select-standard-label"
@@ -53,9 +140,9 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                         label="Category"
                         >
                         {
-                            categories.map((item, index) => {
+                            props.categories.map((item, index) => {
                                 return(
-                                    <MenuItem key={index} value={item}> {item} </MenuItem>
+                                    <MenuItem key={index} value={item.name}> {item.name} </MenuItem>
                                 )
                             })
                         }
@@ -67,7 +154,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
 
 
 
-            { points &&
+            { props.points &&
                 (<div className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Total Points </h4>
                     <TextField 
@@ -83,7 +170,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            { randomize &&
+            { props.randomize &&
                 (<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}} 
                 className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Randomize Answers </h4>
@@ -113,7 +200,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            { shuffle &&
+            { props.shuffle &&
                 (<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}} 
                 className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Shuffle Mode </h4>
@@ -155,7 +242,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            { grading &&
+            { props.grading &&
                 (<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}} 
                 className={settingsStyle.subContainer}>
                     <h4 style={{marginBottom: '10px'}}> Grading Scale </h4>
@@ -197,7 +284,7 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </div>)
             }
 
-            { !update && (
+            { !props.update && (
                 <Button 
                 style={{margin: '15px', marginLeft: '0px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
                 variant="contained" 
@@ -208,14 +295,14 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
                 </Button>
             )}
 
-            { update && (
+            { props.update && (
                 <Button 
-                style={{margin: '15px', marginLeft: '0px', height: '45px', backgroundColor: '#616161', color: '#ffffff' ,borderColor: '#000000'}} 
-                variant="contained" 
+                style={{margin: '15px', height: '45px', color: '#616161' ,borderColor: '#000000'}} 
+                variant="outlined" 
                 startIcon={<UpdateIcon />}
                 onClick={updateQuestion}
                 > 
-                    Update 
+                    Update Question
                 </Button>
             )}
             
@@ -224,4 +311,13 @@ const QuestionSettings = ({questionsCategory, points, randomize, shuffle, gradin
     )
 }
 
-export default QuestionSettings;
+
+const mapStateToProps = (state) => {
+    return {
+      categories: state.categoriesReducer.categories // categories array from categories reducer
+    };
+  };
+  
+  export default connect(mapStateToProps, { createCategory, getCategories })(
+    QuestionSettings
+  );

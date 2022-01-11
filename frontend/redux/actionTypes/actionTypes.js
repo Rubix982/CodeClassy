@@ -18,4 +18,6 @@ export const actionTypes = {
   announcementPosted: "announcementPosted",
   announcementLoaded: "announcementLoaded",
   commentAdded: "commentAdded",
+  getCategories: "getCategories",
+  addCategories: "addCategories"
 };
