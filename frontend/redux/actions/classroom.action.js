@@ -50,7 +50,23 @@ export const deleteSection = (id) => {
     try {
       const api = API.getInstance();
 
-      setSuccessStates(dispatch, "Section deleted successfully");
+      await api.delete(`section/${id}`);
+
+      setSuccessStates(dispatch, "Deleted section successfully");
+    } catch (error) {
+      errorHandler(dispatch, error);
+    }
+  };
+};
+
+export const updateSection = (id, body) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+
+      const response = await api.put(`section/${id}`, body);
+      
+      setSuccessStates(dispatch, "Updated section successfully");
     } catch (error) {
       errorHandler(dispatch, error);
     }

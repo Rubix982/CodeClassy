@@ -4,6 +4,9 @@ import React from "react";
 // Styling imports
 import CardMediaStyling from "@styles/Classroom/CardMedia.module.css";
 
+// Component imports
+import EditSection from "@components/Classroom/EditSection";
+
 // MUI imports
 import {
   Box,
@@ -24,7 +27,12 @@ import { DeleteForever, MoreVert } from "@mui/icons-material";
 import { connect } from "react-redux";
 import { deleteSection } from "redux/actions/classroom.action";
 
-const MoreVertMenu = ({ deleteSection, ID }) => {
+const MoreVertMenu = ({
+  deleteSection,
+  sectionID,
+  sectionName,
+  assignedTo,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -55,7 +63,6 @@ const MoreVertMenu = ({ deleteSection, ID }) => {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -85,9 +92,22 @@ const MoreVertMenu = ({ deleteSection, ID }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={() => deleteSection(ID)}>
+        <MenuItem
+          sx={{ justifyContent: "space-around" }}
+          onClick={() => {
+            deleteSection(ID);
+            handleClose();
+          }}
+        >
           <DeleteForever />
           Delete
+        </MenuItem>
+        <MenuItem>
+          <EditSection
+            sectionID={sectionID}
+            sectionName={sectionName}
+            assignedTo={assignedTo}
+          />
         </MenuItem>
       </Menu>
     </>
@@ -103,7 +123,12 @@ const CardMedia = ({ deleteSection, section }) => {
         title={name}
         action={
           <div>
-            <MoreVertMenu deleteSection={deleteSection} ID={ID} />
+            <MoreVertMenu
+              deleteSection={deleteSection}
+              sectionID={ID}
+              sectionName={name}
+              assignedTo={teacherEmail}
+            />
           </div>
         }
       />
