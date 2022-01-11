@@ -115,27 +115,15 @@ const ClassroomInformation = (props) => {
             </Grid>
           </Grid>
 
-          <Grid
-            item
-            xs={4}
-            className={ClassroomInformationStyling.gridItemSpacing}
-          >
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="stretch"
-              className={ClassroomInformationStyling.gridContainerStyling}
-            >
-              {props.sections.map((item, index) => {
-                return (
-                  <Grid item key={index}>
-                    <CardMedia section={item} />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Grid>
+          <div className={ClassroomInformationStyling.cardSection}>
+            {props.sections.map((item, index) => {
+              return (
+                <Grid item key={index}>
+                  <CardMedia section={item} />
+                </Grid>
+              );
+            })}
+          </div>
         </Grid>
       )}
     </>
