@@ -26,7 +26,7 @@ export class AnnouncementController {
     const announcementComment =
       await this.announcementCommentService.createAnnouncementComment(
         announcement,
-        __member.fullName,
+        __member.email,
         __reqeustBody,
       );
 

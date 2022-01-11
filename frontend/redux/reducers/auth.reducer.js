@@ -1,6 +1,7 @@
 import { actionTypes } from "../actionTypes/actionTypes";
 
 const intitialState = {
+  userEmail: "",
   userFullName: "",
   userRole: "",
   isAuthenticated: false,
@@ -14,6 +15,7 @@ const authReducer = (state = intitialState, action) => {
         ...state,
         isLoading: false,
         isAuthenticated: true,
+        userEmail: action.payload.userEmail,
         userFullName: action.payload.userFullName,
         userRole: action.payload.userRole,
       };

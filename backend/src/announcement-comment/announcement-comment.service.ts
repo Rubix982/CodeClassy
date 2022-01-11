@@ -23,7 +23,7 @@ export class AnnouncementCommentService {
   ) {
     const announcementComment = this.announcementCommentRepository.create({
       announcement: __announcement,
-      commentatorFullName: __commentatorEmail,
+      commentatorEmail: __commentatorEmail,
       contentBody: __requestBody.contentBody,
     });
     await this.announcementCommentRepository.save(announcementComment);
