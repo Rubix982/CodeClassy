@@ -98,7 +98,7 @@ const MoreVertMenu = ({
             justifyContent: "space-between",
           }}
           onClick={() => {
-            deleteSection(ID);
+            deleteSection(sectionID);
             handleClose();
           }}
         >

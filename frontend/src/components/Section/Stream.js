@@ -26,6 +26,7 @@ function Stream({
   teacherFullName,
   announcements,
   sectionLoaded,
+  userRole,
 }) {
   const { id } = useRouter().query;
 
@@ -63,9 +64,7 @@ function Stream({
               justifyContent="center"
               alignItems="stretch"
             >
-              <Grid item>
-                <PostAnnouncement />
-              </Grid>
+              <Grid item>{userRole == "Teacher" && <PostAnnouncement />}</Grid>
               {announcements &&
                 announcements.map((announcement, index) => {
                   return (
@@ -92,6 +91,7 @@ const mapStateToProps = (state) => {
     sectionName: state.sectionReducer.sectionName,
     announcements: state.sectionReducer.announcements,
     sectionLoaded: state.sectionReducer.sectionLoaded,
+    userRole: state.authReducer.userRole,
   };
 };
 

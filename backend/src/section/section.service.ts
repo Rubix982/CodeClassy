@@ -68,13 +68,16 @@ export class SectionService {
     try {
       const query = this.JSONQueryExtractorService.getQueryByID(7);
 
-      const entityManager = getManager();
-
-      await entityManager.query(query, [__studentEmail, __sectionID]);
+      await this.entityManager.query(query, [__studentEmail, __sectionID]);
     } catch (error) {
       if (error.errno === 1062) {
         throw new ConflictException([
           `${__studentEmail} is already part of the section`,
+        ]);
+      }
+      if (error.errno === 1452) {
+        throw new NotFoundException([
+          `${__studentEmail} is not a registered student email`,
         ]);
       }
     }
