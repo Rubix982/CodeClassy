@@ -123,9 +123,9 @@ const MoreVertMenu = ({
   );
 };
 
-const FeedClassroomCard = ({ deleteClassroom, classroomData }) => {
+const FeedClassroomCard = ({ deleteClassroom, index, teacherClassrooms }) => {
   const { classroomID, classroomName, classroomDescription, teacherFullName } =
-    classroomData;
+  teacherClassrooms[index];
 
   return (
     <Card variant="outlined">
@@ -158,8 +158,8 @@ const FeedClassroomCard = ({ deleteClassroom, classroomData }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {};
-};
+const mapStateToProps = (state) => ({
+  teacherClassrooms: state.teacherReducer.teacherClassrooms
+});
 
 export default connect(mapStateToProps, { deleteClassroom })(FeedClassroomCard);

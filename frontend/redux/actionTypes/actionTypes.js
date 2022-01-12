@@ -11,6 +11,7 @@ export const actionTypes = {
   setClassroomStates: "setClassroomStates",
   studentFeedLoaded: "studentFeedLoading",
   teacherFeedLoaded: "teacherFeedLoaded",
+  updateClassrooms: "updateClassrooms",
   sectionMembersLoaded: "sectionMembersLoaded",
   classroomMembersLoaded: "classroomMembersLoaded",
   userLogout: "userLogout",

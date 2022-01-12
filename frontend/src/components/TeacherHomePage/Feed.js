@@ -40,8 +40,8 @@ const Feed = ({ feedLoading, teacherClassrooms, teacherSections }) => {
               </Box>
             </div>
             <div className={HomePageStyling.cardSection}>
-              {teacherClassrooms.map((classroom) => (
-                <FeedClassroomCard classroomData={classroom} />
+              {teacherClassrooms.map((classroom, index) => (
+                <FeedClassroomCard index={index} />
               ))}
             </div>
           </div>

@@ -16,6 +16,18 @@ const teacherReducer = (state = initialState, action) => {
         feedLoading: false,
       };
 
+    case actionTypes.updateClassrooms: 
+    return {
+      ...state,
+      teacherClassrooms: state.teacherClassrooms.map((classroom) => {
+        if(classroom.classroomID == action.payload.classroom.ID){
+          classroom.classroomName = action.payload.classroom.name;
+          classroom.classroomDescription = action.payload.classroom.description;
+        }
+        return classroom;
+    })
+  };
+
     default:
       return { ...state };
   }
