@@ -90,18 +90,18 @@ const EditAnnouncement = ({
                   width: "100%",
                   margin: "0",
                 }}
-                tabIndex="1"
+                tabIndex={1}
                 autoFocus
               />
             </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button tabIndex="3" onClick={handleClose}>
+          <Button tabIndex={3} onClick={handleClose}>
             Cancel
           </Button>
           <Button
-            tabIndex="4"
+            tabIndex={4}
             onClick={() => {
               updateAnnouncement(announcementID, {
                 contentBody: contentBody,
