@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
-  AddAnnouncementCommentRequestDTO,
-  AddAnnouncementCommentResponseDTO,
-} from 'src/announcement/add-announcement-comment.dto';
+  AnnouncementCommentRequestDTO,
+  AnnouncementCommentResponseDTO,
+} from 'src/announcement/announcement-comment.dto';
 import { AnnouncementComment } from 'src/entities/announcement-comment.entity';
 import { Announcement } from 'src/entities/announcement.entity';
 import EntityTransformer from 'src/helper/EntityTransformer';
@@ -19,7 +19,7 @@ export class AnnouncementCommentService {
   public async createAnnouncementComment(
     __announcement: Announcement,
     __commentatorEmail: string,
-    __requestBody: AddAnnouncementCommentRequestDTO,
+    __requestBody: AnnouncementCommentRequestDTO,
   ) {
     const announcementComment = this.announcementCommentRepository.create({
       announcement: __announcement,
@@ -30,8 +30,8 @@ export class AnnouncementCommentService {
 
     const entityTransformer = new EntityTransformer<
       AnnouncementComment,
-      AddAnnouncementCommentResponseDTO
-    >(AddAnnouncementCommentResponseDTO);
+      AnnouncementCommentResponseDTO
+    >(AnnouncementCommentResponseDTO);
     return entityTransformer.fromEntity(announcementComment);
   }
 

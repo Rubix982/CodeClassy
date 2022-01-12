@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class AddAnnouncementDTO {
+export class AnnouncementRequestDTO {
   @IsString()
   contentBody: string;
 }
