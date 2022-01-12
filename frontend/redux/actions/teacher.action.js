@@ -39,6 +39,12 @@ export const deleteClassroom = (id) => {
       const api = API.getInstance();
 
       await api.delete(`classroom/${id}`);
+      dispatch({
+        type: actionTypes.deleteClassroom,
+        payload: {
+          id: id
+        },
+      });
       setSuccessStates(dispatch, "Classroom deleted");
     } catch (error) {
       setErrorStates(dispatch, "Classroom could not be deleted");

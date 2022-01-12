@@ -16,6 +16,14 @@ const teacherReducer = (state = initialState, action) => {
         feedLoading: false,
       };
 
+    case actionTypes.deleteClassroom:
+      return {
+        ...state,
+        teacherClassrooms: state.teacherClassrooms.filter((element) => {
+          return element.classroomID !== action.payload.id;
+        }),
+      };
+
     case actionTypes.updateClassrooms: 
     return {
       ...state,
