@@ -35,6 +35,20 @@ export class AnnouncementCommentService {
     return entityTransformer.fromEntity(announcementComment);
   }
 
+  public async getAnnouncementComment(__annoucementCommentID: string) {
+    const announcementComment =
+      await this.announcementCommentRepository.findOne(__annoucementCommentID);
+    return announcementComment;
+  }
+
+  public async updateAnnouncementComment(
+    __annoucementComment: AnnouncementComment,
+    __requestBody: AnnouncementCommentRequestDTO,
+  ) {
+    __annoucementComment.contentBody = __requestBody.contentBody;
+    return await this.announcementCommentRepository.save(__annoucementComment);
+  }
+
   public async getAnnouncementComments(__announcementID: string) {
     const announcementComments = await this.announcementCommentRepository
       .createQueryBuilder('announcement_comment')
