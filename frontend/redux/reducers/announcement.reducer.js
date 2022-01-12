@@ -24,6 +24,28 @@ const announcementReducer = (state = initialState, action) => {
         announcementComments: [...state.announcementComments, action.payload],
       };
 
+    case actionTypes.deleteComment:
+      return {
+        ...state,
+        announcementComments: state.announcementComments.filter((element) => {
+          return element.ID !== action.payload.id;
+        }),
+      };
+
+    case actionTypes.updateComment:
+      return {
+        ...state,
+        announcementComments: state.announcementComments.map((comment) => {
+          if(comment.ID == action.payload.comment.ID){
+            comment.name = action.payload.comment.name;
+            comment.teacherEmail = action.payload.comment.teacherEmail;
+          }
+          return comment;
+      })
+    };
+
+
+
     default:
       return { ...state };
   }

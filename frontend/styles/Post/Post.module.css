@@ -110,6 +110,13 @@
     color: #3c4043;
 }
 
+.hamburger{
+    display: flex;
+    width: 70%;
+    justify-content: flex-end;
+
+}
+
 
 .commenter {
     letter-spacing: .01785714em;

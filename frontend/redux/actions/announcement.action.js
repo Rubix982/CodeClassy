@@ -69,3 +69,17 @@ const setSuccessStates = (dispatch, message) => {
     });
   }, 2000);
 };
+
+
+export const deleteComment = (id) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      await api.delete(`announcement-comment/${id}`);
+      dispatch({ type: actionTypes.deleteComment, payload: { id } });
+      setSuccessStates(dispatch, "Comment deleted successfully");
+    } catch (error) {
+      errorHandler(dispatch, error);
+    }
+  };
+};
