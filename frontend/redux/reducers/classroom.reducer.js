@@ -29,6 +29,18 @@ const classroomReducer = (state = initialState, action) => {
           return element.ID !== action.payload.id;
         }),
       };
+    
+    case actionTypes.updateSection: 
+      return {
+        ...state,
+        totalSections: state.totalSections.map((section) => {
+          if(section.ID == action.payload.section.ID){
+            section.name = action.payload.section.name;
+            section.teacherEmail = action.payload.section.teacherEmail;
+          }
+          return section;
+      })
+    };
 
     default:
       return { ...state };

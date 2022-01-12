@@ -47,7 +47,6 @@ export const deleteSection = (id) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
-
       await api.delete(`section/${id}`);
       dispatch({ type: actionTypes.deleteSection, payload: { id } });
       setSuccessStates(dispatch, "Deleted section successfully");
@@ -61,15 +60,27 @@ export const updateSection = (id, body) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
-
       const response = await api.put(`section/${id}`, body);
-
+      addUpdatedSection(dispatch, response.data.section);
       setSuccessStates(dispatch, "Updated section successfully");
     } catch (error) {
       errorHandler(dispatch, error);
     }
   };
 };
+
+
+const addUpdatedSection = (dispatch, newSection) => {
+  dispatch({
+    type: actionTypes.updateSection,
+    payload: {
+      section: newSection
+    },
+  });
+};
+
+
+
 
 const setClassroomStates = (dispatch, data) => {
   dispatch({

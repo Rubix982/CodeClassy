@@ -25,6 +25,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const Dashboard = (props) => {
+
   const { id } = useRouter().query;
 
   React.useEffect(() => {
@@ -32,7 +33,8 @@ const Dashboard = (props) => {
       return;
     }
     props.getClassroomAction(id);
-  }, [id]);
+  }, [id] );
+
 
   return (
     <>
@@ -116,11 +118,9 @@ const Dashboard = (props) => {
           </Grid>
 
           <div className={DashboardStyling.cardSection}>
-            {props.sections.map((item, index) => {
+            {props.sections.map((i, index) => {
               return (
-                <Grid item key={index}>
-                  <CardMedia section={item} />
-                </Grid>
+                <CardMedia key={index} index={index} />
               );
             })}
           </div>

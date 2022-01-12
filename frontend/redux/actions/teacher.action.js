@@ -7,7 +7,7 @@ export const getTeacherFeed = () => {
     try {
       const api = API.getInstance();
       const response = await api.get("teacher/feed");
-
+      console.log(response.data.classrooms);
       dispatch({
         type: actionTypes.teacherFeedLoaded,
         payload: {
@@ -51,6 +51,7 @@ export const updateClassroom = (id, body) => {
     try {
       const api = API.getInstance();
       const response = await api.put(`classroom/${id}`, body);
+      addUpdatedClassroom(dispatch, response.data.classroom)
       setSuccessStates(
         dispatch,
         `Successfully updated classroom '${body.name}'`
@@ -60,6 +61,21 @@ export const updateClassroom = (id, body) => {
     }
   };
 };
+
+
+const addUpdatedClassroom = (dispatch, newClassroom) => {
+  dispatch({
+    type: actionTypes.updateClassrooms,
+    payload: {
+      classroom: newClassroom
+    },
+  });
+};
+
+
+
+
+
 
 const setSuccessStates = (dispatch, msg) => {
   dispatch({
