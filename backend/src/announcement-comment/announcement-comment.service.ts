@@ -49,6 +49,10 @@ export class AnnouncementCommentService {
     return await this.announcementCommentRepository.save(__annoucementComment);
   }
 
+  public async deleteAnnouncementComment(__annoucementCommentID: string) {
+    await this.announcementCommentRepository.delete(__annoucementCommentID);
+  }
+
   public async getAnnouncementComments(__announcementID: string) {
     const announcementComments = await this.announcementCommentRepository
       .createQueryBuilder('announcement_comment')

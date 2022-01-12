@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Put } from '@nestjs/common';
 import { AnnouncementCommentRequestDTO } from 'src/announcement/announcement-comment.dto';
 import { AnnouncementCommentService } from './announcement-comment.service';
 
@@ -26,6 +26,19 @@ export class AnnouncementCommentController {
     return {
       msg: `Successfully updated announcement comment: ${__announcementCommentID}`,
       announcementComment: updatedAnnouncementComment,
+    };
+  }
+
+  @Delete(':id')
+  async deleteAnnouncementComment(
+    @Param('id') __announcementCommentID: string,
+  ) {
+    await this.announcementCommentService.deleteAnnouncementComment(
+      __announcementCommentID,
+    );
+    return {
+      msg: `Successfully deleted announcement: ${__announcementCommentID}`,
+      announcementCommentID: __announcementCommentID,
     };
   }
 }
