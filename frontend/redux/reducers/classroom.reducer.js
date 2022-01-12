@@ -22,6 +22,8 @@ const classroomReducer = (state = initialState, action) => {
         totalSections: [...state.totalSections, action.payload.newSection],
       };
 
+    
+
     case actionTypes.deleteSection:
       return {
         ...state,

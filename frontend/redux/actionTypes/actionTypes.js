@@ -12,6 +12,7 @@ export const actionTypes = {
   studentFeedLoaded: "studentFeedLoading",
   teacherFeedLoaded: "teacherFeedLoaded",
   updateClassrooms: "updateClassrooms",
+  deleteClassroom: "deleteClassroom",
   sectionMembersLoaded: "sectionMembersLoaded",
   classroomMembersLoaded: "classroomMembersLoaded",
   userLogout: "userLogout",
