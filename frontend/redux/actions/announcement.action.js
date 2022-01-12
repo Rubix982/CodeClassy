@@ -15,8 +15,12 @@ export const updateAnnouncement = (id, content) => {
     try {
       const api = API.getInstance();
 
-      await api.put(`announcement/${id}`, content);
+      const response = await api.put(`announcement/${id}`, content);
       setSuccessStates(dispatch, "Announcement updated successfully");
+      dispatch({
+        type: actionTypes.announcementLoaded,
+        payload: response.data.announcement,
+      });
     } catch (error) {
       errorHandler(handler, error);
     }
