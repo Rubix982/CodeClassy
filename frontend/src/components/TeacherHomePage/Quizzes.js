@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link'
 import QuizStyles from "../../../styles/TeacherHomePage/quizzes.module.css"
 import Button from '@mui/material/Button';
 import { Add } from "@mui/icons-material";
@@ -18,9 +19,13 @@ export default function Quizzes() {
   return (
     <div className={QuizStyles.container}>
       <div className={QuizStyles.buttonContainer}>
-        <Button style={{ height: '40px'}} variant="contained"> 
-          <Add /> Create Quiz
-        </Button>
+        <Link href="/quiz/create">
+          <a style={{textDecoration: 'none'}}>
+            <Button style={{ height: '40px'}} variant="contained"> 
+              <Add /> Create Quiz
+            </Button>
+          </a>
+        </Link>
       </div>
 
       <div className={QuizStyles.Quizzes}>
@@ -33,9 +38,13 @@ export default function Quizzes() {
                 </div>
 
                 <div className={QuizStyles.quizView}>
-                  <Button style={{ height: '40px', backgroundColor: '#000000'}} variant="contained"> 
-                    <div style={{height: '100%', paddingRight: '5px'}}><VisibilityIcon/></div> View
-                  </Button>
+                  <Link href="/quiz/view">
+                    <a style={{textDecoration: 'none'}}>
+                      <Button style={{ height: '40px', backgroundColor: '#000000'}} variant="contained"> 
+                        <div style={{height: '100%', paddingRight: '5px'}}><VisibilityIcon/></div> View
+                      </Button>
+                    </a>
+                  </Link>
                 </div>
 
               </div>
