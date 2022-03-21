@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3vh 5vw;
+    /* background-color: black; */
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* background-color:brown; */
+    width: 85%;
+    height: 80px;
+    padding: 15px;
+}
+
+.Quizzes{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    /* background-color:yellow; */
+    /* border: 1px solid #f70808; */
+    width: 85%;
+    padding: 15px;
+    padding-bottom: 50px;
+}
+
+.quizItem{
+    display: flex;
+    align-items: center;
+    padding: 13px;
+    margin: 8px 0px;
+    border: 1px solid #e0e0e0;
+    border-radius: 7px;
+}
+
+.quizName {
+    font-weight: 600;
+    color: grey;
+    width: 50%;
+}
+
+.quizView {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 50%;
+}

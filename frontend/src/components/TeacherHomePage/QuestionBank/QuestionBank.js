@@ -79,7 +79,7 @@ const QuestionBank = (props) => {
           <Link href="/question/newquestion">
             <a style={{textDecoration: 'none'}}>
               <Button 
-              style={{ height: '45px', backgroundColor: 'grey'}} 
+              style={{ height: '45px'}} 
               variant="contained"
               > 
                 <Add /> Add a question
