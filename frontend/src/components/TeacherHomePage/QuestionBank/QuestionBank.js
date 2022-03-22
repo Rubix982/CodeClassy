@@ -76,6 +76,8 @@ const QuestionBank = (props) => {
 
       <div style={{display: 'flex', width: '74%', alignItems: 'flex-end', flexDirection: 'column'}}>
         <div>
+        {
+          props.addquestion && (
           <Link href="/question/newquestion">
             <a style={{textDecoration: 'none'}}>
               <Button 
@@ -85,7 +87,9 @@ const QuestionBank = (props) => {
                 <Add /> Add a question
               </Button>
             </a>
-          </Link>
+          </Link>   
+          )
+        }
         </div>
 
         <div className={QuestionBankStyling.categorySearch}>
@@ -114,14 +118,14 @@ const QuestionBank = (props) => {
         {multipleChoiceQuestions.map((item, index) => {
           if (item.category == category ){
             return(
-              <QuestionCard key={index} id={item.id} type="multiplechoice" title={item.title} content={item.content}/>
+              <QuestionCard check={props.check} addquestion={props.addquestion} key={index} id={item.id} type="multiplechoice" title={item.title} content={item.content}/>
             )
           }
         })}
         {trueFalseQuestions.map((item, index) => {
           if (item.category == category ){
             return(
-              <QuestionCard key={index} id={item.id} type="truefalse" title={item.title} content={item.content}/>
+              <QuestionCard check={props.check} addquestion={props.addquestion} key={index} id={item.id} type="truefalse" title={item.title} content={item.content}/>
             )
           }
         })}
@@ -135,14 +139,14 @@ const QuestionBank = (props) => {
         {essayQuestions.map((item, index) => {
           if (item.category == category ){
             return(
-              <QuestionCard key={index} id={item.id} type="essay" title={item.title} content={item.content}/>
+              <QuestionCard check={props.check} addquestion={props.addquestion} key={index} id={item.id} type="essay" title={item.title} content={item.content}/>
             )
           }
         })}
         {freeTextQuestions.map((item, index) => {
           if (item.category == category ){
             return(
-              <QuestionCard key={index} id={item.id} type="freetext" title={item.title} content={item.content}/>
+              <QuestionCard check={props.check} key={index} id={item.id} type="freetext" title={item.title} content={item.content}/>
             )
           }
         })}

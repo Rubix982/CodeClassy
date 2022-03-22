@@ -40,7 +40,7 @@ export default function Quizzes() {
                 <div className={QuizStyles.quizView}>
                   <Link href="/quiz/view">
                     <a style={{textDecoration: 'none'}}>
-                      <Button style={{ height: '40px', backgroundColor: '#000000'}} variant="contained"> 
+                      <Button style={{ height: '40px', backgroundColor: 'grey'}} variant="contained"> 
                         <div style={{height: '100%', paddingRight: '5px'}}><VisibilityIcon/></div> View
                       </Button>
                     </a>
