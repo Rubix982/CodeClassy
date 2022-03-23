@@ -38,7 +38,7 @@ export default function QuizView() {
             <div className={QuizViewStyles.assigned}>
               <div className={QuizViewStyles.assignedItem}>
                 <div className={QuizViewStyles.email}>
-                  <h4> tashikmoinsheikh@gmail.com</h4>
+                  <h4 style={{color: 'grey'}}> tashikmoinsheikh@gmail.com</h4>
                 </div>
                 <div className={QuizViewStyles.results}>
                   <Button style={{ width: '100px', margin: '2px'}} variant="text"> 
@@ -54,7 +54,7 @@ export default function QuizView() {
             <div className={QuizViewStyles.assigned}>
               <div className={QuizViewStyles.assignedItem}>
                 <div className={QuizViewStyles.email}>
-                  <h4> tashikmoinsheikh@gmail.com</h4>
+                  <h4 style={{color: 'grey'}}> tashikmoinsheikh@gmail.com</h4>
                 </div>
                 <div className={QuizViewStyles.results}>
                   <Button style={{ width: '100px', margin: '2px'}} variant="text"> 
@@ -70,7 +70,7 @@ export default function QuizView() {
             <div className={QuizViewStyles.assigned}>
               <div className={QuizViewStyles.assignedItem}>
                 <div className={QuizViewStyles.email}>
-                  <h4> tashikmoinsheikh@gmail.com</h4>
+                  <h4 style={{color: 'grey'}}> tashikmoinsheikh@gmail.com</h4>
                 </div>
                 <div className={QuizViewStyles.results}>
                   <Button style={{ width: '100px', margin: '2px'}} variant="text"> 
