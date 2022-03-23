@@ -25,7 +25,7 @@ export default function QuizCreation() {
             </div>
 
             <div className={QuizCreationStyles.quizProblems}>
-                <QuestionBank check={true} addquestion={false}/>
+                <QuestionBank category={true} editable={true} check={true} addquestion={false}/>
             </div>
         </div>
     </div>

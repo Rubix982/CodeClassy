@@ -18,7 +18,7 @@ const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
       ? <Link href={to}><a style={{textDecoration: 'none', color: '#202020'}}>{children}</a></Link>
       : <>{children}</>;
 
-export default function QuestionCard({title, content, type, id, check}) {
+export default function QuestionCard({title, content, type, id, check, editable}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -45,6 +45,8 @@ export default function QuestionCard({title, content, type, id, check}) {
           {
             check && (<Checkbox {...label} />)
           }
+
+          {editable && ( 
           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '1%'}}>
             <IconButton
               aria-label="more"
@@ -80,6 +82,7 @@ export default function QuestionCard({title, content, type, id, check}) {
               ))}
             </Menu>
           </div>
+          )}
         </div>
 
 

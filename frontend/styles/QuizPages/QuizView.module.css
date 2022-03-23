@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    margin: 5vh 5vw;
+    margin-bottom: 0;
+}
+
+.questions {
+    display: flex;
+    justify-content: flex-start;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+}
+
+.assignContainer{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+}
+
+
+.assign {
+    display: flex;
+    width: 72%;
+    margin-left: 5vw;
+    justify-content: flex-end;
+}
+
+.assigned {
+    display: flex;
+    justify-content: center;
+    margin-left: 13vw;
+    width: 64%;
+}
+
+.assignedItem{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    height: 70px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.email, .results{
+    width: 50%;
+}
+
+.results{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+}
