@@ -1,7 +1,6 @@
 FROM node:16-alpine3.12 AS builder
-ENV repository=application
-COPY --from=codepuller /${repository} /${repository}
-WORKDIR /${repository}/frontend/
+COPY . /frontend
+WORKDIR /frontend/
 RUN npm install
 EXPOSE 3000
 CMD ["npm", "run", "dev"]
