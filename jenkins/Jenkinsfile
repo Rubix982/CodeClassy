@@ -7,18 +7,28 @@ pipeline {
   }
 
   stages {
- 
-    stage('Building & Pushing Images To DockerHub Registry') {
+
+    stage('Building & Pushing Frontend Image To DockerHub Registry') {
+      steps {
+        container('kaniko') {
+          script {
+            sh '''
+            /kaniko/executor --dockerfile frontend/dockerfile.prod \
+                             --destination=tashikmoin/codeclassy-frontend:${BUILD_NUMBER};
+            '''
+          }
+        }
+      }
+    }
+
+    stage('Building & Pushing Backend Image To DockerHub Registry') {
       steps {
         container('kaniko') {
           script {
             sh '''
             /kaniko/executor --dockerfile backend/dockerfile.prod \
                              --destination=tashikmoin/codeclassy-backend:${BUILD_NUMBER};
-            sleep 10000;
             '''
-            // /kaniko/executor --dockerfile frontend/dockerfile.prod \
-            //                  --destination=tashikmoin/codeclassy-frontend:${BUILD_NUMBER};
           }
         }
       }
