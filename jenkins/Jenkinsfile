@@ -8,14 +8,14 @@ pipeline {
 
   stages {
 
-    stage('Build & Push Images Using Google Kaniko') {
+    stage('Building & Pushing Images To DockerHub Registry') {
       steps {
         container('kaniko') {
           script {
             sh '''
-            /kaniko/executor --dockerfile backend/dockerfile.prod --context `pwd` \
+            /kaniko/executor --dockerfile backend/dockerfile.prod --context `/backend` \
                              --destination=tashikmoin/codeclassy-backend:${BUILD_NUMBER};
-            /kaniko/executor --dockerfile frontend/dockerfile.prod --context `pwd` \
+            /kaniko/executor --dockerfile frontend/dockerfile.prod --context `/frontend` \
                              --destination=tashikmoin/codeclassy-frontend:${BUILD_NUMBER};
             '''
           }
