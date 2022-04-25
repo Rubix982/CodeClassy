@@ -6,7 +6,7 @@ services:
   backend:
     container_name: backend
     build:
-      context: './backend'
+      context: './backend/dockerfile.dev'
       args:
         githubsecret: ${githubsecret}
         username: ${username}
@@ -23,7 +23,7 @@ services:
   frontend:
     container_name: frontend
     build:
-      context: './frontend'
+      context: './frontend/dockerfile.dev'
       args:
         githubsecret: ${githubsecret}
         username: ${username}

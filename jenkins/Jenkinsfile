@@ -13,9 +13,9 @@ pipeline {
         container('kaniko') {
           script {
             sh '''
-            /kaniko/executor --dockerfile backend/dockerfile --context `pwd` \
+            /kaniko/executor --dockerfile backend/dockerfile.prod --context `pwd` \
                              --destination=tashikmoin/codeclassy-backend:${BUILD_NUMBER};
-            /kaniko/executor --dockerfile frontend/dockerfile --context `pwd` \
+            /kaniko/executor --dockerfile frontend/dockerfile.prod --context `pwd` \
                              --destination=tashikmoin/codeclassy-frontend:${BUILD_NUMBER};
             '''
           }
