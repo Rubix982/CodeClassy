@@ -15,6 +15,22 @@ spec:
       command:
         - /busybox/cat
       tty: true
+      env:
+        - name: username
+          valueFrom:
+            secretKeyRef:
+              name: application-secrets # <name of the secret object here>
+              key: username # <key name inside secret object without "">
+        - name: githubsecret
+          valueFrom:
+            secretKeyRef:
+              name: application-secrets # <name of the secret object here>
+              key: githubsecret # <key name inside secret object without "">
+        - name: repository
+          valueFrom:
+            secretKeyRef:
+              name: application-secrets # <name of the secret object here>
+              key: repository # <key name inside secret object without "">
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
