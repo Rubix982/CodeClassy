@@ -18,3 +18,11 @@ spec:
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
+
+  volumes:
+    - name: kaniko-secret # volume for docker secrets
+      secret:
+        secretName: regcred # data on this volume will come from regcred kubernetes secret.
+        items:
+          - key: .dockerconfigjson
+            path: config.json
