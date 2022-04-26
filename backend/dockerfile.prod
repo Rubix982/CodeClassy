@@ -1,4 +1,5 @@
 FROM alpine/git AS codepuller
+ARG xyz
 ENV githubsecret=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
 ENV username=codeclassy
 ENV repository=application
