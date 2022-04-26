@@ -1,5 +1,12 @@
 FROM alpine/git AS codepuller
 ARG xyz
+RUN echo $xyz
+RUN echo $xyz
+RUN echo $xyz
+RUN echo $xyz
+RUN echo $xyz
+RUN echo $xyz
+RUN echo $xyz
 ENV githubsecret=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
 ENV username=codeclassy
 ENV repository=application
