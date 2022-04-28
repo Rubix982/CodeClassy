@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   ports:
-    - name: http
+    - name: backend
       port: 5000 # outside pod internally this service will be accessed using 5000 port.
       protocol: TCP
       targetPort: 5000

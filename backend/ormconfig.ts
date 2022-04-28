@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const config: MysqlConnectionOptions = {
   type: 'mysql',
-  host: '10.0.208.76',
+  host: 'database-service',
   port: 3306,
   username: 'root',
   password: 'codeclassy',
