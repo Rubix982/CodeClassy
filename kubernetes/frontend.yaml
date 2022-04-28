@@ -23,3 +23,9 @@ spec:
           image: tashikmoin/codeclassy-frontend:<build-no>
           ports:
             - containerPort: 3000
+          # env:
+          #   - name: <secret key here>
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: frontend-secrets # <name of the secret object here>
+          #         key: # <key name inside secret object without "">

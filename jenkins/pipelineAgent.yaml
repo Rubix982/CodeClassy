@@ -20,12 +20,6 @@ spec:
       tty: true
       # IMPORTANT NOTE
       # DO NOT FORGET TO CREATE THIS APPLICATION SECRET INSIDE JENKINS NAMESPACE OF YOUR K8 CLUSTER.
-      env:
-        - name: repository
-          valueFrom:
-            secretKeyRef:
-              name: application-secrets # <name of the secret object here>
-              key: repository # <key name inside secret object without "">
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker

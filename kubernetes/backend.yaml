@@ -23,3 +23,29 @@ spec:
           image: tashikmoin/codeclassy-backend:<build-no>
           ports:
             - containerPort: 5000
+          env:
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets # <name of the secret object here>
+                  key: MYSQL_PASSWORD # <key name inside secret object without "">
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets # <name of the secret object here>
+                  key: MYSQL_DATABASE # <key name inside secret object without "">
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets # <name of the secret object here>
+                  key: MYSQL_USER # <key name inside secret object without "">
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets # <name of the secret object here>
+                  key: JWT_SECRET # <key name inside secret object without "">
+            - name: JWT_EXPIRATION
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets # <name of the secret object here>
+                  key: JWT_EXPIRATION # <key name inside secret object without "">

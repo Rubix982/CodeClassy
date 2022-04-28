@@ -22,3 +22,14 @@ spec:
           image: mysql
           ports:
             - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-secrets # <name of the secret object here>
+                  key: MYSQL_ROOT_PASSWORD # <key name inside secret object without "">
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: database-secrets # <name of the secret object here>
+                  key: MYSQL_DATABASE # <key name inside secret object without "">
