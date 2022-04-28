@@ -1,13 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: database-deployment
 spec:
-  revisionHistoryLimit: 30
-  replicas: 5
+  replicas: 7
   selector:
     matchLabels:
-      name: frontend-pod-label
+      name: database-pod-label
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,10 +15,10 @@ spec:
   template:
     metadata:
       labels:
-        name: frontend-pod-label
+        name: database-pod-label
     spec:
       containers:
-        - name: frontend-container
-          image: tashikmoin/codeclassy-frontend:<build-no>
+        - name: database-container
+          image: mysql
           ports:
-            - containerPort: 3000
+            - containerPort: 3306

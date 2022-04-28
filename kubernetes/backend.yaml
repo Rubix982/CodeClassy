@@ -8,7 +8,6 @@ spec:
   selector:
     matchLabels:
       name: backend-pod-label
-  minReadySeconds: 10
   strategy:
     type: RollingUpdate
     rollingUpdate:
