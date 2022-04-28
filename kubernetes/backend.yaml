@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  revisionHistoryLimit: 30
+  replicas: 7
+  selector:
+    matchLabels:
+      name: backend-pod-label
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        name: backend-pod-label
+    spec:
+      containers:
+        - name: backend-container
+          image: tashikmoin/codeclassy-backend:<build-no>
+          ports:
+            - containerPort: 5000
