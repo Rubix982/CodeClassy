@@ -28,6 +28,7 @@ spec:
                 secretKeyRef:
                   name: database-secrets # <name of the secret object here>
                   key: MYSQL_ROOT_PASSWORD # <key name inside secret object without "">
+
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
