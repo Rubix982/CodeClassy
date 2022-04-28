@@ -39,8 +39,7 @@ pipeline {
         container('kubectl') {
           withCredentials([file(credentialsId: 'k8credid', variable: 'KUBECONFIG')]) {
             sh 'sed -i "s/<build-no>/${BUILD_NUMBER}/" backend.yaml frontend.yaml'
-            sh 'kubectl apply -f backend.yaml -f frontend.yaml -f frontend-service.yaml 
-            -f backend-service.yaml -n default'
+            sh 'kubectl apply -f backend.yaml -f frontend.yaml -f frontend-service.yaml -f backend-service.yaml -n default'
             sh 'echo ... successfully deployed! ...'
           }
         }
