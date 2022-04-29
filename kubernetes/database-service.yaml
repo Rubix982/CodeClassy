@@ -5,8 +5,7 @@ metadata:
   namespace: default
 spec:
   ports:
-    - name: mysql
-      port: 3306 # outside pod internally this service will be accessed using 5000 port.
+    - port: 3306 # outside pod internally this service will be accessed using 5000 port.
       protocol: TCP
       targetPort: 3306
   selector:
