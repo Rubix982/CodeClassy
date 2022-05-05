@@ -18,12 +18,4 @@ COPY --from=codepuller /${repository} /${repository}
 WORKDIR /${repository}/backend/
 RUN npm install
 EXPOSE 5000
-<<<<<<< HEAD
-<<<<<<< HEAD
 CMD ["npm", "run", "start"]
-=======
-CMD ["npm", "run", "start", "--tls-min-v1.0"]
->>>>>>> 441fa85a113ed61664b480965a579327ffde4b90
-=======
-CMD ["npm", "run", "start", "--tls-min-v1.0"]
->>>>>>> 441fa85a113ed61664b480965a579327ffde4b90
