@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  revisionHistoryLimit: 30
+  replicas: 5
+  selector:
+    matchLabels:
+      name: frontend-pod-label
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        name: frontend-pod-label
+    spec:
+      containers:
+        - name: frontend-container
+          image: tashikmoin/codeclassy-frontend:<build-no>
+          ports:
+            - containerPort: 3000
+          # env:
+          #   - name: <secret key here>
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: frontend-secrets # <name of the secret object here>
+          #         key: # <key name inside secret object without "">
