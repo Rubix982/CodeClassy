@@ -4,10 +4,12 @@ require('dotenv').config();
 const config: MysqlConnectionOptions = {
   type: 'mysql',
   host: 'localhost',
-  username: 'root',
-  password: 'codeclassy',
-  database: 'codeclassy',
+  port: 3306,
+  username: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
   entities: ['dist/**/*.entity.js'],
+  synchronize: true,
   logging: 'all',
 };
 
