@@ -33,8 +33,6 @@ services:
         # pass args from compose file to dockerfile using the .env of root directory where compose file exists. 
     image: frontend
     restart: always
-    env_file:
-      - ./frontend/.env # adds env for container
     ports:
       - "3000:3000"
     network_mode: "host" # or use http://<service name>:<port> in you code for communication between multiple containers in a docker-compose bridge network.
