@@ -76,18 +76,24 @@ const QuestionBank = (props) => {
 
       <div style={{display: 'flex', width: '74%', alignItems: 'flex-end', flexDirection: 'column'}}>
         <div>
+        {
+          props.addquestion && (
           <Link href="/question/newquestion">
             <a style={{textDecoration: 'none'}}>
               <Button 
-              style={{ height: '45px', backgroundColor: 'grey'}} 
+              style={{ height: '45px'}} 
               variant="contained"
               > 
                 <Add /> Add a question
               </Button>
             </a>
-          </Link>
+          </Link>   
+          )
+        }
         </div>
 
+        {
+        props.category && (
         <div className={QuestionBankStyling.categorySearch}>
           <FormControl>
             <InputLabel id="demo-simple-select-label">Category</InputLabel>
@@ -107,42 +113,46 @@ const QuestionBank = (props) => {
             </Select>
           </FormControl>
         </div>
+          )
+        }
+
       </div>
+
 
       <div className={QuestionBankStyling.questions}>
 
         {multipleChoiceQuestions.map((item, index) => {
-          if (item.category == category ){
+          if (item.category == category || !(props.category) ){
             return(
-              <QuestionCard key={index} id={item.id} type="multiplechoice" title={item.title} content={item.content}/>
+              <QuestionCard editable={props.editable} check={props.check} addquestion={props.addquestion} key={index} id={item.id} type="multiplechoice" title={item.title} content={item.content}/>
             )
           }
         })}
         {trueFalseQuestions.map((item, index) => {
-          if (item.category == category ){
+          if (item.category == category || !(props.category) ){
             return(
-              <QuestionCard key={index} id={item.id} type="truefalse" title={item.title} content={item.content}/>
+              <QuestionCard editable={props.editable} check={props.check} addquestion={props.addquestion} key={index} id={item.id} type="truefalse" title={item.title} content={item.content}/>
             )
           }
         })}
         {/* {matchingQuestions.map((item, index) => {
-          if (item.category == category ){
+          if (item.category == category || !(props.category) ){
             return(
-              <QuestionCard key={index} id={item.id} type="matching" title={item.title} content={item.content}/>
+              <QuestionCard editable={props.editable} key={index} id={item.id} type="matching" title={item.title} content={item.content}/>
             )
           }
         })} */}
         {essayQuestions.map((item, index) => {
-          if (item.category == category ){
+          if (item.category == category || !(props.category) ){
             return(
-              <QuestionCard key={index} id={item.id} type="essay" title={item.title} content={item.content}/>
+              <QuestionCard editable={props.editable} check={props.check} addquestion={props.addquestion} key={index} id={item.id} type="essay" title={item.title} content={item.content}/>
             )
           }
         })}
         {freeTextQuestions.map((item, index) => {
-          if (item.category == category ){
+          if (item.category == category || !(props.category) ){
             return(
-              <QuestionCard key={index} id={item.id} type="freetext" title={item.title} content={item.content}/>
+              <QuestionCard editable={props.editable} check={props.check} key={index} id={item.id} type="freetext" title={item.title} content={item.content}/>
             )
           }
         })}
@@ -155,7 +165,8 @@ const QuestionBank = (props) => {
 
   const mapStateToProps = (state) => {
     return {
-      categories: state.categoriesReducer.categories // categories array from categories reducer
+      categories: state.categoriesReducer.categories 
+      // categories array from categories reducer
     };
   };
   

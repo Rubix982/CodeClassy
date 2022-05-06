@@ -146,20 +146,6 @@ const FeedClassroomCard = ({ deleteClassroom, index, teacherClassrooms }) => {
             {classroomName}
           </div>
         }
-        subheader={
-          <div
-            onClick={() => {
-              Router.push(`/classroom/${classroomID}`);
-            }}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              cursor: "pointer",
-            }}
-          >
-            {teacherFullName}
-          </div>
-        }
         action={
           <div>
             <MoreVertMenu
