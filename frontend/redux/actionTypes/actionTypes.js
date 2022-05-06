@@ -22,6 +22,8 @@ export const actionTypes = {
   announcementPosted: "announcementPosted",
   announcementLoaded: "announcementLoaded",
   commentAdded: "commentAdded",
+  deleteComment: "deleteComment",
+  updateComment: "updateComment",
   getCategories: "getCategories",
   addCategories: "addCategories",
 };
