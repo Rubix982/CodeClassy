@@ -54,17 +54,19 @@ services:
       - 'database:/var/lib/mysql'
     network_mode: "host" # or use http://<service name>:<port> in you code for communication between multiple containers in a docker-compose bridge network.
 
-  codasession:
-    container_name: mongodb
-    image: mongodb
+  nosql-rce:
+    container_name: some-mongo
+    image: mongo
     restart: always
     ports:
       - "27017:27017"
     volumes:
       - "./rce/data/db:/data/db"
     network_mode: "host"
+    depends_on:
+      - collab
 
-  rce:
+  collab:
     container_name: rce
     build:
       context: './rce'
