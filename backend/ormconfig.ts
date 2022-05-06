@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const config: MysqlConnectionOptions = {
   type: 'mysql',
-  host: 'database-service.default.svc.cluster.local:3306',
+  host: 'localhost',
   username: 'root',
   password: 'codeclassy',
   database: 'codeclassy',
