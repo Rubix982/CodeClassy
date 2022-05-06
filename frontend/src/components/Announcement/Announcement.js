@@ -45,8 +45,6 @@ import { connect } from "react-redux";
 // Asset imports
 import announcementImage from "/public/assets/images/announcement.png";
 import commentImage from "/public/assets/images/comment.png";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const options = [
