@@ -1,8 +1,46 @@
 version: "3"
 
+volumes:
+  database:
 services:
-  mysql_db:
-    container_name: mysql_db
+  backend:
+    container_name: backend
+    build:
+      context: './backend'
+      dockerfile: 'dockerfile.dev'
+      args:
+        githubsecret: ${githubsecret}
+        username: ${username}
+        repository: ${repository}
+        # pass args from compose file to dockerfile using the .env of root directory where compose file exists. 
+    image: backend
+    # restart: always
+    env_file:
+      - ./backend/.env # adds env for container
+    ports:
+      - "5000:5000"
+    network_mode: "host" # or use http://<service name>:<port> in you code for communication between multiple containers in a docker-compose bridge network.
+
+  frontend:
+    container_name: frontend
+    build:
+      context: './frontend'
+      dockerfile: 'dockerfile.dev'
+      args:
+        githubsecret: ${githubsecret}
+        username: ${username}
+        repository: ${repository}
+        # pass args from compose file to dockerfile using the .env of root directory where compose file exists. 
+    image: frontend
+    restart: always
+    env_file:
+      - ./frontend/.env # adds env for container
+    ports:
+      - "3000:3000"
+    network_mode: "host" # or use http://<service name>:<port> in you code for communication between multiple containers in a docker-compose bridge network.
+
+  database:
+    container_name: database
     image: mysql
     restart: always
     environment:
@@ -10,3 +48,6 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3306:3306"
+    volumes:
+      - 'database:/var/lib/mysql'
+    network_mode: "host" # or use http://<service name>:<port> in you code for communication between multiple containers in a docker-compose bridge network.
