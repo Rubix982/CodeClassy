@@ -14,7 +14,9 @@ services:
         repository: ${repository}
         # pass args from compose file to dockerfile using the .env of root directory where compose file exists. 
     image: backend
-    # restart: always
+    volumes:
+      - "./backend:/application/backend"
+      # restart: always
     env_file:
       - ./backend/.env # adds env for container
     ports:
@@ -32,6 +34,8 @@ services:
         repository: ${repository}
         # pass args from compose file to dockerfile using the .env of root directory where compose file exists. 
     image: frontend
+    volumes:
+      - "./frontend:/application/frontend"
     restart: always
     ports:
       - "3000:3000"

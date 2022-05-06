@@ -395,7 +395,8 @@ const Post = ({
                         ))}
                       </Menu>
                       </div>
-                    </div>
+                    </Grid>
+                  </div>
                   );
                 })}
             </div>
@@ -453,7 +454,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   announcementPageLoadAction,
   commentAddition,
-  deleteComment,
+  // deleteComment,
   updateAnnouncement,
   deleteAnnouncement,
 })(Post);
