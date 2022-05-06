@@ -13,14 +13,13 @@ import {
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { AnnouncementService } from 'src/announcement/announcement.service';
 import { AppGuard } from 'src/app/app.guard';
-import { AddAnnouncementDTO } from './add-announcement.dto';
+import { AnnouncementRequestDTO } from './announcement.dto';
 import { AddStudentDTO } from './add-student.dto';
 import { SectionMemberGuard } from './section-member.guard';
 import { SectionService } from './section.service';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { SectionOwnerGuard } from './section-owner.guard';
-import { TeacherService } from 'src/teacher/teacher.service';
 import { SectionRequestDTO } from './section.dto';
 
 @UseGuards(AppGuard)
@@ -53,7 +52,7 @@ export class SectionController {
     @Param('id') __sectionID: string,
     @UploadedFiles() __files: Array<Express.Multer.File>,
     @RequestDecodedMember() __member: JWTPayload,
-    @Body() __requestBody: AddAnnouncementDTO,
+    @Body() __requestBody: AnnouncementRequestDTO,
   ) {
     const section = await this.sectionService.getSection(__sectionID);
     const announcement = await this.announcementService.createAnnouncement(

@@ -11,6 +11,7 @@ export const authorizeUser = () => {
         dispatch({
           type: actionTypes.userLoaded,
           payload: {
+            userEmail: response.data.email,
             userRole: response.data.role,
             userFullName: response.data.fullName,
           },

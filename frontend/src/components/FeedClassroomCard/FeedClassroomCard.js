@@ -3,6 +3,7 @@ import React from "react";
 
 // NextJS imports
 import Router from "next/router";
+import Link from "next/link";
 
 // MUI imports
 import {
@@ -68,7 +69,7 @@ const MoreVertMenu = ({
         PaperProps={{
           elevation: 0,
           sx: {
-            width: '110px',
+            width: "110px",
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
@@ -125,14 +126,26 @@ const MoreVertMenu = ({
 
 const FeedClassroomCard = ({ deleteClassroom, index, teacherClassrooms }) => {
   const { classroomID, classroomName, classroomDescription, teacherFullName } =
-  teacherClassrooms[index];
+    teacherClassrooms[index];
 
   return (
     <Card variant="outlined">
       <CardHeader
         avatar={<Avatar aria-label="recipe" {...StringAvatar(classroomName)} />}
-        title={classroomName}
-        subheader={teacherFullName}
+        title={
+          <div
+            onClick={() => {
+              Router.push(`/classroom/${classroomID}`);
+            }}
+            style={{
+              textDecoration: "none",
+              color: "black",
+              cursor: "pointer",
+            }}
+          >
+            {classroomName}
+          </div>
+        }
         action={
           <div>
             <MoreVertMenu
@@ -159,7 +172,7 @@ const FeedClassroomCard = ({ deleteClassroom, index, teacherClassrooms }) => {
 };
 
 const mapStateToProps = (state) => ({
-  teacherClassrooms: state.teacherReducer.teacherClassrooms
+  teacherClassrooms: state.teacherReducer.teacherClassrooms,
 });
 
 export default connect(mapStateToProps, { deleteClassroom })(FeedClassroomCard);

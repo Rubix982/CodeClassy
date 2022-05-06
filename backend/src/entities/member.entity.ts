@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
+import { AnnouncementComment } from './announcement-comment.entity';
 import { Announcement } from './announcement.entity';
 import { MemberVerification } from './member-verification.entity';
 
@@ -18,9 +19,6 @@ export class Member {
 
   @OneToOne(() => MemberVerification, (verification) => verification.member)
   verification: MemberVerification;
-
-  @OneToMany(() => Announcement, (announcement) => announcement.announcer)
-  announced: Announcement[];
 
   constructor(
     __email: string,

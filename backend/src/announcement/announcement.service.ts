@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Announcement } from 'src/entities/announcement.entity';
 import { Section } from 'src/entities/section.entity';
-import { AddAnnouncementDTO } from 'src/section/add-announcement.dto';
+import { AnnouncementRequestDTO } from 'src/section/announcement.dto';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
 import { EntityManager, getManager, Repository } from 'typeorm';
 import { JWTPayload } from 'src/auth/signin.dto';
@@ -22,13 +22,12 @@ export class AnnouncementService {
 
   async createAnnouncement(
     __section: Section,
-    __requestBody: AddAnnouncementDTO,
+    __requestBody: AnnouncementRequestDTO,
     __member: JWTPayload,
   ) {
     const announcement = this.announcementRepository.create({
       section: __section,
       contentBody: __requestBody.contentBody,
-      announcer: __member.email,
     });
 
     await this.announcementRepository.save(announcement);
@@ -56,5 +55,17 @@ export class AnnouncementService {
       __announcementID,
     ]);
     return new GetAnnouncementDTO(announcementData);
+  }
+
+  async updateAnnouncement(
+    __announcement: Announcement,
+    __requestBody: AnnouncementRequestDTO,
+  ) {
+    __announcement.contentBody = __requestBody.contentBody;
+    return await this.announcementRepository.save(__announcement);
+  }
+
+  async deleteAnnouncement(__announcementID: string) {
+    await this.announcementRepository.delete(__announcementID);
   }
 }

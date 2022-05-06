@@ -1,0 +1,50 @@
+pipeline {
+
+  agent {
+    kubernetes {
+      yamlFile 'jenkins/pipelineAgent.yaml'   
+    }
+  }  
+
+  stages {
+
+    stage('Building & Pushing Images To DockerHub Registry') {
+      steps {
+        container('kaniko') {
+            withCredentials([string(credentialsId: 'githubpull', variable: 'githubpullingsecret'), string(credentialsId: 'githubusername', variable: 'githubusername'), string(credentialsId: 'githubrepository', variable: 'githubrepository')]) {
+                script {
+                    sh '''
+                    /kaniko/executor --dockerfile backend/dockerfile.prod \
+                                    --destination=tashikmoin/codeclassy-backend:${BUILD_NUMBER} \
+                                    --build-arg=githubsecret=${githubpullingsecret} \
+                                    --build-arg=username=${githubusername} \
+                                    --build-arg=repository=${githubrepository} \
+                                    --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
+                    
+                    /kaniko/executor --dockerfile frontend/dockerfile.prod \
+                                    --destination=tashikmoin/codeclassy-frontend:${BUILD_NUMBER} \
+                                    --build-arg=githubsecret=${githubpullingsecret} \
+                                    --build-arg=username=${githubusername} \
+                                    --build-arg=repository=${githubrepository} \
+                                    --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
+                    '''
+                }
+            }
+        }
+      }
+    }
+
+    stage('Deploy App to Kubernetes') {     
+      steps {
+        container('kubectl') {
+          withCredentials([file(credentialsId: 'k8credid', variable: 'KUBECONFIG')]) {
+            sh 'sed -i "s/<build-no>/${BUILD_NUMBER}/" kubernetes/backend.yaml kubernetes/frontend.yaml'
+            sh 'kubectl apply -f kubernetes/backend.yaml -f kubernetes/frontend.yaml -f kubernetes/frontend-service.yaml -f kubernetes/backend-service.yaml -f kubernetes/database.yaml -f kubernetes/database-service.yaml -n default'
+            sh 'echo ... successfully deployed! ...'
+          }
+        }
+      } 
+    }
+  
+  }
+}

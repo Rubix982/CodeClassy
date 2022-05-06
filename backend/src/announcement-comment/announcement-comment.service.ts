@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
-  AddAnnouncementCommentRequestDTO,
-  AddAnnouncementCommentResponseDTO,
-} from 'src/announcement/add-announcement-comment.dto';
+  AnnouncementCommentRequestDTO,
+  AnnouncementCommentResponseDTO,
+} from 'src/announcement/announcement-comment.dto';
 import { AnnouncementComment } from 'src/entities/announcement-comment.entity';
 import { Announcement } from 'src/entities/announcement.entity';
 import EntityTransformer from 'src/helper/EntityTransformer';
@@ -19,20 +19,38 @@ export class AnnouncementCommentService {
   public async createAnnouncementComment(
     __announcement: Announcement,
     __commentatorEmail: string,
-    __requestBody: AddAnnouncementCommentRequestDTO,
+    __requestBody: AnnouncementCommentRequestDTO,
   ) {
     const announcementComment = this.announcementCommentRepository.create({
       announcement: __announcement,
-      commentatorFullName: __commentatorEmail,
+      commentatorEmail: __commentatorEmail,
       contentBody: __requestBody.contentBody,
     });
     await this.announcementCommentRepository.save(announcementComment);
 
     const entityTransformer = new EntityTransformer<
       AnnouncementComment,
-      AddAnnouncementCommentResponseDTO
-    >(AddAnnouncementCommentResponseDTO);
+      AnnouncementCommentResponseDTO
+    >(AnnouncementCommentResponseDTO);
     return entityTransformer.fromEntity(announcementComment);
+  }
+
+  public async getAnnouncementComment(__annoucementCommentID: string) {
+    const announcementComment =
+      await this.announcementCommentRepository.findOne(__annoucementCommentID);
+    return announcementComment;
+  }
+
+  public async updateAnnouncementComment(
+    __annoucementComment: AnnouncementComment,
+    __requestBody: AnnouncementCommentRequestDTO,
+  ) {
+    __annoucementComment.contentBody = __requestBody.contentBody;
+    return await this.announcementCommentRepository.save(__annoucementComment);
+  }
+
+  public async deleteAnnouncementComment(__annoucementCommentID: string) {
+    await this.announcementCommentRepository.delete(__annoucementCommentID);
   }
 
   public async getAnnouncementComments(__announcementID: string) {

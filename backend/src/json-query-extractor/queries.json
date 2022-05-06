@@ -22,7 +22,7 @@
   {
     "id": 5,
     "title": "SELECT announcement data (information, comments)",
-    "query": "SELECT announcement.ID, announcement.creationDate, announcement.contentBody, teacher.fullName AS teacherFullName, comments FROM announcement INNER JOIN `section` ON announcement.sectionID = `section`.ID INNER JOIN `member` teacher ON `section`.teacherEmail = teacher.email LEFT JOIN ( SELECT announcementComment.announcementID, JSON_ARRAYAGG(JSON_OBJECT('fullName', announcementComment.commentatorFullName, 'contentBody', announcementComment.contentBody, 'creationDate', announcementComment.creationDate)) AS comments FROM `announcement_comment` announcementComment WHERE announcementComment.announcementID = ? GROUP BY announcementComment.announcementID ) aggregatedComments ON (aggregatedComments.announcementID = announcement.ID) WHERE announcement.ID = ?;"
+    "query": "SELECT announcement.ID, announcement.creationDate, announcement.contentBody, teacher.fullName AS teacherFullName, comments FROM announcement INNER JOIN `section` ON announcement.sectionID = `section`.ID INNER JOIN `member` teacher ON `section`.teacherEmail = teacher.email LEFT JOIN ( SELECT announcementComment.announcementID, JSON_ARRAYAGG(JSON_OBJECT('email', `member`.email, 'fullName', `member`.fullName , 'contentBody', announcementComment.contentBody, 'creationDate', announcementComment.creationDate)) AS comments FROM `announcement_comment` announcementComment INNER JOIN `member` ON `member`.email = announcementComment.commentatorEmail WHERE announcementComment.announcementID = ? GROUP BY announcementComment.announcementID ) aggregatedComments ON (aggregatedComments.announcementID = announcement.ID) WHERE announcement.ID = ?;"
   },
   {
     "id": 6,

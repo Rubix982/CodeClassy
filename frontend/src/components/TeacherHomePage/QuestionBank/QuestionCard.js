@@ -1,6 +1,8 @@
 import React from "react";
 import QuestionBankStyling from "../../../../styles/TeacherHomePage/QuestionBank.module.css"
 import IconButton from '@mui/material/IconButton';
+import Checkbox from '@mui/material/Checkbox';
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -16,7 +18,7 @@ const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
       ? <Link href={to}><a style={{textDecoration: 'none', color: '#202020'}}>{children}</a></Link>
       : <>{children}</>;
 
-export default function QuestionCard({title, content, type, id}) {
+export default function QuestionCard({title, content, type, id, check, editable}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -40,7 +42,11 @@ export default function QuestionCard({title, content, type, id}) {
           <div style={{display: 'flex', alignItems: 'center', width: '99%'}}>
             <h4> Problem: <span style={{ marginLeft: '5px', color: 'grey'}}> {title} </span> </h4>
           </div>
-        
+          {
+            check && (<Checkbox {...label} />)
+          }
+
+          {editable && ( 
           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '1%'}}>
             <IconButton
               aria-label="more"
@@ -76,6 +82,7 @@ export default function QuestionCard({title, content, type, id}) {
               ))}
             </Menu>
           </div>
+          )}
         </div>
 
 

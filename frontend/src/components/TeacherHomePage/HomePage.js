@@ -87,7 +87,7 @@ const HomePage = ({ getTeacherFeed }) => {
       {tabsData.map((element, index) => {
         return (
           <TabPanel key={index} value={value} index={index}>
-            <element.component />
+            <element.component category={true} addquestion={true}/>
           </TabPanel>
         );
       })}

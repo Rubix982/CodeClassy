@@ -10,19 +10,24 @@ import PostStyling from "@styles/Post/Post.module.css";
 
 // MUI imports
 import {
+  Box,
   Grid,
+  Menu,
   Avatar,
-  FormControl,
+  Tooltip,
+  MenuItem,
   InputLabel,
+  IconButton,
+  FormControl,
   OutlinedInput,
   InputAdornment,
-  IconButton,
 } from "@mui/material";
 
 /// MUI Icon imports
-import SendIcon from "@mui/icons-material/Send";
+import { DeleteForever, MoreVert, Send } from "@mui/icons-material";
 
 // Component imports
+import EditAnnouncement from "@components/Announcement/EditAnnouncement";
 import SnackBarAlert from "@components/SnackBarAlert/SnackBarAlert";
 import { StringAvatar } from "@components/Section/helper/StringHelpers";
 import Navbar from "@components/Navbar/Navbar";
@@ -30,6 +35,8 @@ import Moment from "moment";
 
 // Redux imports
 import {
+  updateAnnouncement,
+  deleteAnnouncement,
   announcementPageLoadAction,
   commentAddition,
 } from "redux/actions/announcement.action";
@@ -49,18 +56,189 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
+const MoreVertMenu = (props) => {
+  const { sectionID } = useRouter().query;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+        <Tooltip title="Announcement options">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
+            <MoreVert />
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            width: "110px",
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 40,
+              height: 40,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem
+          onClick={() => {
+            props.deleteAnnouncement(props.announcementID, sectionID);
+            handleClose();
+          }}
+          sx={{ justifyContent: "space-between" }}
+        >
+          <DeleteForever />
+          Delete
+        </MenuItem>
+        <MenuItem sx={{ justifyContent: "space-between" }}>
+          <EditAnnouncement
+            announcementContentBody={props.announcementContentBody}
+            announcementID={props.announcementID}
+          />
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
+
+const AnnouncementCommentMenu = (props) => {
+  const { sectionID } = useRouter().query;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+        <Tooltip title="Announcement options">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
+            <MoreVert />
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            width: "110px",
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 40,
+              height: 40,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem
+          onClick={() => {
+            props.deleteAnnouncement(sectionID);
+            handleClose();
+          }}
+          sx={{ justifyContent: "space-between" }}
+        >
+          <DeleteForever />
+          Delete
+        </MenuItem>
+        <MenuItem sx={{ justifyContent: "space-between" }}>
+          <EditAnnouncement
+            announcementContentBody={props.announcementContentBody}
+            announcementID={props.announcementID}
+          />
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
+
 const Post = ({
-  successMessageSnackbar,
-  errorMessageSnackbar,
-  responseMessage,
-  announcementPageLoadAction,
-  commentAddition,
-  userFullName,
   comments,
+  userRole,
+  userFullName,
+  announcementID,
+  responseMessage,
   teacherFullName,
-  announcementCreationDate,
+  commentAddition,
+  deleteAnnouncement,
+  updateAnnouncement,
+  errorMessageSnackbar,
+  successMessageSnackbar,
   announcementContentBody,
-  router,
+  announcementCreationDate,
+  announcementPageLoadAction,
 }) => {
   const [values, setValues] = React.useState({
     comment: "",
@@ -86,14 +264,13 @@ const Post = ({
     }
     
   }
-
   const { id } = useRouter().query;
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
     if (!id) {
       return;
     }
-    announcementPageLoadAction(id);
+    await announcementPageLoadAction(id);
   }, [id]);
 
   const handleChange = (prop) => (event) => {
@@ -140,6 +317,17 @@ const Post = ({
             </div>
           </div>
 
+          {userRole == "Teacher" && (
+            <div className={PostStyling.moreVertMenu}>
+              <MoreVertMenu
+                announcementContentBody={announcementContentBody}
+                announcementID={announcementID}
+                updateAnnouncement={updateAnnouncement}
+                deleteAnnouncement={deleteAnnouncement}
+              />
+            </div>
+          )}
+
           <div className={PostStyling.postContent}>
             <p className={PostStyling.content}>{announcementContentBody}</p>
           </div>
@@ -149,12 +337,19 @@ const Post = ({
               <Image src={commentImage} height={30} width={28}></Image>
               <h1 className={PostStyling.commentHeading}>Comments</h1>
             </div>
+          </div>
 
-            <div className={PostStyling.commentsArray}>
-              {comments &&
-                comments.map((item, index) => {
-                  return (
-                    <div key={index} className={PostStyling.comment}>
+          <div className={PostStyling.commentsArray}>
+            {comments &&
+              comments.map((item, index) => {
+                return (
+                  <div key={index} className={PostStyling.comment}>
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="flex-start"
+                    >
                       <Avatar
                         sx={{ fontSize: "1rem" }}
                         aria-label="recipe"
@@ -169,7 +364,6 @@ const Post = ({
 
                         <p style={{ marginLeft: "15px" }}>{item.contentBody}</p>
                       </div>
-
                       <div className={PostStyling.hamburger}>
                       <IconButton
                         aria-label="more"
@@ -207,39 +401,37 @@ const Post = ({
                   );
                 })}
             </div>
-
-            <div className={PostStyling.writeComment}>
-              <Avatar
-                sx={{ fontSize: "1rem" }}
-                aria-label="recipe"
-                {...StringAvatar(userFullName)}
-              />
-              <Grid style={{ marginLeft: "15px" }} item xs={11}>
-                <FormControl sx={{ width: "100%" }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-comment">
-                    Comment
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-comment"
-                    value={values.comment}
-                    onChange={handleChange("comment")}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle comment visibility"
-                          onClick={handlePostComment}
-                          onMouseDown={handleMouseDownComment}
-                          edge="end"
-                        >
-                          <SendIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Comment"
-                  />
-                </FormControl>
-              </Grid>
-            </div>
+          <div className={PostStyling.writeComment}>
+            <Avatar
+              sx={{ fontSize: "1rem" }}
+              aria-label="recipe"
+              {...StringAvatar(userFullName)}
+            />
+            <Grid style={{ marginLeft: "15px" }} item xs={11}>
+              <FormControl sx={{ width: "100%" }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-comment">
+                  Comment
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-comment"
+                  value={values.comment}
+                  onChange={handleChange("comment")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle comment visibility"
+                        onClick={handlePostComment}
+                        onMouseDown={handleMouseDownComment}
+                        edge="end"
+                      >
+                        <Send />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Comment"
+                />
+              </FormControl>
+            </Grid>
           </div>
         </div>
       </div>
@@ -252,7 +444,9 @@ const mapStateToProps = (state) => ({
   successMessageSnackbar: state.apiReducer.successMessageSnackbar,
   errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
   userFullName: state.authReducer.userFullName,
+  userRole: state.authReducer.userRole,
   teacherFullName: state.announcementReducer.teacherFullName,
+  announcementID: state.announcementReducer.announcementID,
   announcementCreationDate: state.announcementReducer.announcementCreationDate,
   announcementContentBody: state.announcementReducer.announcementContentBody,
   comments: state.announcementReducer.announcementComments,
@@ -262,4 +456,6 @@ export default connect(mapStateToProps, {
   announcementPageLoadAction,
   commentAddition,
   deleteComment,
+  updateAnnouncement,
+  deleteAnnouncement,
 })(Post);

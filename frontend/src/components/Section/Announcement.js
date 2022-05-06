@@ -2,7 +2,7 @@
 import React from "react";
 
 // NextJS imports
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 // Styling imports
 import AnnouncementStyling from "@styles/Section/Announcement.module.css";
@@ -25,9 +25,12 @@ import Moment from "moment";
 import { StringAvatar } from "./helper/StringHelpers";
 
 export default function Announcement({ announcementData, teacherFullName }) {
+  const { id } = useRouter().query
+
   const onViewComments = () => {
     Router.push({
       pathname: `/announcement/${announcementData.ID}`,
+      query: { sectionID: id },
     });
   };
 
