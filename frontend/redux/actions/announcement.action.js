@@ -15,19 +15,28 @@ export const updateAnnouncement = (id, content) => {
     try {
       const api = API.getInstance();
 
+      const response = await api.put(`announcement/${id}`, content);
       setSuccessStates(dispatch, "Announcement updated successfully");
+      dispatch({
+        type: actionTypes.announcementLoaded,
+        payload: response.data.announcement,
+      });
     } catch (error) {
       errorHandler(handler, error);
     }
   };
 };
 
-export const deleteAnnouncement = (id) => {
+export const deleteAnnouncement = (announcementID, sectionID) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
 
+      await api.delete(`announcement/${announcementID}`);
       setSuccessStates(dispatch, "Announcement deleted successfully");
+      Router.push({
+        pathname: `/section/${sectionID}`,
+      });
     } catch (error) {
       errorHandler(handler, error);
     }

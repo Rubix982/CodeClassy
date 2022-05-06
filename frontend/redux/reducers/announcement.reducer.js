@@ -14,7 +14,7 @@ const announcementReducer = (state = initialState, action) => {
       return {
         ...state,
         teacherFullName: action.payload.teacherFullName,
-        announcementID: action.payload.announcementID,
+        announcementID: action.payload.ID,
         announcementCreationDate: action.payload.creationDate,
         announcementContentBody: action.payload.contentBody,
         announcementComments: action.payload.comments,

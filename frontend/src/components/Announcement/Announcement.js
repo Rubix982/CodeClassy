@@ -111,7 +111,7 @@ const MoreVertMenu = (props) => {
       >
         <MenuItem
           onClick={() => {
-            props.deleteAnnouncement(sectionID);
+            props.deleteAnnouncement(props.announcementID, sectionID);
             handleClose();
           }}
           sx={{ justifyContent: "space-between" }}
@@ -222,6 +222,8 @@ const Post = ({
   responseMessage,
   teacherFullName,
   commentAddition,
+  deleteAnnouncement,
+  updateAnnouncement,
   errorMessageSnackbar,
   successMessageSnackbar,
   announcementContentBody,
