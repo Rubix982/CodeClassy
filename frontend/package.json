@@ -18,6 +18,7 @@
     "draft-js": "^0.11.7",
     "immutable": "^4.0.0",
     "moment": "^2.29.1",
+    "monaco-editor": ">=0.15.6",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -28,6 +29,7 @@
     "sass": "^1.43.4"
   },
   "devDependencies": {
+    "@convergencelabs/monaco-collab-ext": "^0.3.2",
     "@testing-library/cypress": "^8.0.2",
     "cypress": "^9.1.1",
     "eslint": "7.32.0",

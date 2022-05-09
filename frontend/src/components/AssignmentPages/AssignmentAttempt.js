@@ -1,13 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import Navbar from "../Navbar/Navbar"
-import TextField from '@mui/material/TextField';
 import AssignmentAttemptStyles from "../../../styles/AssignmentPages/AssignmentAttempt.module.css"
-import QuestionBank from "@components/TeacherHomePage/QuestionBank/QuestionBank";
 import Button from '@mui/material/Button';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DoneIcon from '@mui/icons-material/Done';
 import CodeImage from "../../../public/assets/images/code.png";
+import MonacoEditor from "../Editor/MonacoEditor"
 
 
 /* 
@@ -122,7 +121,7 @@ export default function AssignmentAttempt() {
                     </div>
 
                     <div className={AssignmentAttemptStyles.Editor}>
-                        
+                        <MonacoEditor/>
                     </div>
 
                     <div className={AssignmentAttemptStyles.EditorOutput}>
