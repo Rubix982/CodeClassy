@@ -10,14 +10,12 @@ import { Tabs, Tab, Button } from "@mui/material";
 import Feed from "@components/StudentHomePage/Feed";
 import Quizzes from "@components/StudentHomePage/Quizzes";
 import Assignments from "@components/StudentHomePage/Assignments";
-import RemoteCodeExecution from "@components/StudentHomePage/RemoteCodeExecution";
 import Navbar from "@components/Navbar/Navbar";
 
 let tabsData = [
   { name: "Feed", component: Feed },
   { name: "Quizzes", component: Quizzes },
   { name: "Assignments", component: Assignments },
-  { name: "Remote Code Execution", component: RemoteCodeExecution },
 ];
 
 const HomePage = ({ getStudentFeed, feedLoading, studentSections }) => {

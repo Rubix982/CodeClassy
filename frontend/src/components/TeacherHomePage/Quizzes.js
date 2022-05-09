@@ -1,5 +1,7 @@
 import React from "react";
 import Link from 'next/link'
+import Image from "next/image";
+import QuizImage from "../../../public/assets/images/quiz.png"
 import QuizStyles from "../../../styles/TeacherHomePage/quizzes.module.css"
 import Button from '@mui/material/Button';
 import { Add } from "@mui/icons-material";
@@ -33,7 +35,16 @@ export default function Quizzes() {
           Quiz_Data.map((item, index) => {
             return (
               <div key={index} className={QuizStyles.quizItem}>
-                <div className={QuizStyles.quizName}>
+                <div style={{margin:'7px'}}>
+                  <Image
+                    height={30}
+                    width={30}
+                    src={QuizImage}
+                    alt="Quiz-image"
+                  />
+                </div>
+
+                <div style={{marginLeft: '20px'}} className={QuizStyles.quizName}>
                   {item.Subject} 
                 </div>
 
