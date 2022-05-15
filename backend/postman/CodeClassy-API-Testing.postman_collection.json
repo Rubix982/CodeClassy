@@ -547,6 +547,289 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Classroom update request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Desgin-Defects-Restructuring\",\n    \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/classroom/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"classroom",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3a288b8d-09e0-4483-903a-80c9f3bf1704"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section update requeest",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"4E\",\n    \"assignedTo\": \"mrfoobar@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/section/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"section",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "ade4f4b9-9af5-4adf-919a-ca3f1cdd4c2e"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Announcement update request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contentBody\": \"Sorry my mistake!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/announcement/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"announcement",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "74d511ba-d27a-459e-8d72-c1602d60c3ab"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Announcement DELETE request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/announcement/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"announcement",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "74d511ba-d27a-459e-8d72-c1602d60c3ab"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Announcement PUT request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contentBody\": \"Thank you!!!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/announcement-comment/:id/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"announcement-comment",
+						":id",
+						""
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "4d1938fb-473c-4b2d-839e-fcb43b73815b"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Announcement comment DELETE request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/announcement-comment/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"announcement-comment",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "4d1938fb-473c-4b2d-839e-fcb43b73815b"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MCQ creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": {\n        \"body\": \"[]\",\n        \"categoryID\": \"471955b5-c51f-40fb-b17b-0292f0d3aa1e\",\n        \"points\": 100\n    },\n    \"answers\": [{\n        \"body\": \"[]\",\n        \"isCorrect\": true\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/teacher/question/mcq",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"teacher",
+						"question",
+						"mcq"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "True-False Question creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": {\n        \"body\": \"[]\",\n        \"categoryID\": \"471955b5-c51f-40fb-b17b-0292f0d3aa1e\",\n        \"points\": 100\n    },\n    \"correctChoice\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/teacher/question/true-false",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"teacher",
+						"question",
+						"true-false"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Free-Text Question creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": {\n        \"body\": \"[]\",\n        \"categoryID\": \"471955b5-c51f-40fb-b17b-0292f0d3aa1e\",\n        \"points\": 100\n    },\n    \"answers\": [{\n        \"body\": \"[]\"\n    },{\n        \"body\": \"[]\"\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/teacher/question/free-text",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"teacher",
+						"question",
+						"free-text"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
