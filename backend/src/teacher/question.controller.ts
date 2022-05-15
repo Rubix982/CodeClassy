@@ -3,6 +3,7 @@ import { AppGuard } from 'src/app/app.guard';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import {
+  CreateFreeTextQuestionDTO,
   CreateMCQDTO,
   CreateTrueFalseQuestionDTO,
 } from 'src/question/create.dto';
@@ -34,6 +35,22 @@ export class TeacherQuestionController {
     @RequestDecodedMember() __member: JWTPayload,
   ) {
     const question = await this.questionService.createTrueFalseQuestion(
+      __member.email,
+      __requestBody,
+    );
+
+    return {
+      msg: `Successfully created question: ${question.ID}`,
+      question,
+    };
+  }
+
+  @Post('free-text')
+  async createFreeTextQuestion(
+    @Body() __requestBody: CreateFreeTextQuestionDTO,
+    @RequestDecodedMember() __member: JWTPayload,
+  ) {
+    const question = await this.questionService.createFreeTextQuestion(
       __member.email,
       __requestBody,
     );

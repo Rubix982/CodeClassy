@@ -10,7 +10,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-class Question {
+export class Question {
   @IsJSON()
   body: string;
 
@@ -50,4 +50,22 @@ export class CreateTrueFalseQuestionDTO {
 
   @IsBoolean()
   correctChoice: boolean;
+}
+
+class FreeTextAnswer {
+  @IsJSON()
+  body: string;
+}
+
+export class CreateFreeTextQuestionDTO {
+  @IsObject()
+  @ValidateNested()
+  @Type(() => Question)
+  question: Question;
+
+  @IsArray()
+  @ArrayNotEmpty()
+  @ValidateNested()
+  @Type(() => FreeTextAnswer)
+  answers: FreeTextAnswer[];
 }

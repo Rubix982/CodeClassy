@@ -1,10 +1,16 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FreeTextAnswer } from 'src/entities/free-text-answer.entity';
 import { MCQAnswer } from 'src/entities/mcq-answer.entity';
 import { Question } from 'src/entities/question.entity';
 import { TrueFalseAnswer } from 'src/entities/true-false-answer.entity';
 import { Repository } from 'typeorm';
-import { CreateMCQDTO, CreateTrueFalseQuestionDTO } from './create.dto';
+import {
+  Question as QuestionDTO,
+  CreateFreeTextQuestionDTO,
+  CreateMCQDTO,
+  CreateTrueFalseQuestionDTO,
+} from './create.dto';
 
 @Injectable()
 export class QuestionService {
@@ -17,16 +23,19 @@ export class QuestionService {
 
     @InjectRepository(TrueFalseAnswer)
     private readonly trueFalseAnswerRepository: Repository<TrueFalseAnswer>,
+
+    @InjectRepository(FreeTextAnswer)
+    private readonly freeTextAnswerRepository: Repository<FreeTextAnswer>,
   ) {}
 
   private async createQuestion(
-    __body: string,
-    __categoryID: string,
+    __question: QuestionDTO,
     __createdBy: string,
   ): Promise<Question> {
     const question = this.questionRepository.create({
-      body: __body,
-      categoryID: __categoryID,
+      body: __question.body,
+      categoryID: __question.categoryID,
+      points: __question.points,
       createdBy: __createdBy,
     });
     await this.questionRepository.save(question);
@@ -36,8 +45,7 @@ export class QuestionService {
 
   async createMCQ(__teacherEmail: string, __requestBody: CreateMCQDTO) {
     const question = await this.createQuestion(
-      __requestBody.question.body,
-      __requestBody.question.categoryID,
+      __requestBody.question,
       __teacherEmail,
     );
 
@@ -55,8 +63,7 @@ export class QuestionService {
     __requestBody: CreateTrueFalseQuestionDTO,
   ) {
     const question = await this.createQuestion(
-      __requestBody.question.body,
-      __requestBody.question.categoryID,
+      __requestBody.question,
       __teacherEmail,
     );
 
@@ -65,6 +72,24 @@ export class QuestionService {
       questionID: question.ID,
     });
     await this.trueFalseAnswerRepository.save(answer);
+
+    return question;
+  }
+
+  async createFreeTextQuestion(
+    __teacherEmail: string,
+    __requestBody: CreateFreeTextQuestionDTO,
+  ) {
+    const question = await this.createQuestion(
+      __requestBody.question,
+      __teacherEmail,
+    );
+
+    const answers = __requestBody.answers.map((answer) => ({
+      ...answer,
+      questionID: question.ID,
+    }));
+    await this.freeTextAnswerRepository.insert(answers);
 
     return question;
   }
