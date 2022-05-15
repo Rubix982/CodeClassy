@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MCQAnswer } from 'src/entities/mcq-answer.entity';
 import { Question } from 'src/entities/question.entity';
+import { TrueFalseAnswer } from 'src/entities/true-false-answer.entity';
 import { QuestionService } from './question.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Question, MCQAnswer])],
+  imports: [TypeOrmModule.forFeature([Question, MCQAnswer, TrueFalseAnswer])],
   providers: [QuestionService],
   exports: [QuestionService],
 })

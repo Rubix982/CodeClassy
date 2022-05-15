@@ -41,3 +41,13 @@ export class CreateMCQDTO {
   @Type(() => MCQAnswer)
   answers: MCQAnswer[];
 }
+
+export class CreateTrueFalseQuestionDTO {
+  @IsObject()
+  @ValidateNested()
+  @Type(() => Question)
+  question: Question;
+
+  @IsBoolean()
+  correctChoice: boolean;
+}
