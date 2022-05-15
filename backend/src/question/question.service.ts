@@ -35,12 +35,11 @@ export class QuestionService {
   }
 
   async createMCQ(__teacherEmail: string, __requestBody: CreateMCQDTO) {
-    const question = this.questionRepository.create({
-      body: __requestBody.question.body,
-      categoryID: __requestBody.question.categoryID,
-      createdBy: __teacherEmail,
-    });
-    await this.questionRepository.save(question);
+    const question = await this.createQuestion(
+      __requestBody.question.body,
+      __requestBody.question.categoryID,
+      __teacherEmail,
+    );
 
     const answers = __requestBody.answers.map((answer) => ({
       ...answer,
