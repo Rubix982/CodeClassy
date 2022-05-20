@@ -17,6 +17,9 @@
         <div class="editor" id="source-editor"></div>
       </div>
     </div>
+    <div>
+      <button onclick="save()">Submit</button>
+    </div>
     <script src="/node_modules/monaco-editor/min/vs/loader.js"></script>
     <script src="/src/js/contents.js"></script>
     <script>
@@ -47,5 +50,23 @@
     <script src="/src/js/config.js"></script>
     <script src="/src/js/monaco-adapter.js"></script>
     <script src="/src/js/monaco.js"></script>
+    <script>
+      async function save() {
+        const data = {
+          src: monaco.editor.getModels()[0].getValue(),
+          stdin: "",
+          lang: "python",
+          timeout: 60,
+        };
+
+        const res = await fetch("http://localhost:7000/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+      }
+    </script>
   </body>
 </html>
