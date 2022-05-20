@@ -60,14 +60,14 @@ services:
       - "database:/var/lib/mysql"
     network_mode: "host"
 
-  #
-  #
-  #
-  #
-  #
-  #
-  #
-  #
+  
+  
+  
+  
+  
+  
+  
+  
 
   ###################################
 
@@ -78,23 +78,20 @@ services:
   rabbitmq:
     image: "rabbitmq"
     restart: always
-    network_mode: "host"
 
   ##
 
   redis-server:
     image: "redis"
     restart: always
-    network_mode: "host"
 
   ##
 
-  server:
+  rce-server:
     build: ./remote_code_executor/server
     restart: always
     ports:
       - "7000:7000"
-    network_mode: "host"
 
   ##
 
@@ -104,37 +101,35 @@ services:
     pids_limit: 60 # Max number of processes running in thw container.
     cpus: 1 # No of CPUs allocated
     mem_limit: 150M # Hard limit
-    network_mode: "host"
 
-  #
-  #
-  #
-  #
-  #
-  #
-  #
-  #
+  
+  
+  
+  
+  
+  
+  
+  
 
   ###################################
 
   ##### MONACO EDITOR + CONVERGENCE SERVICES
 
-  # monaco-editor:
-  #   container_name: editor
-  #   build:
-  #     context: "./editor"
-  #     dockerfile: "dockerfile.dev"
-  #     args:
-  #       githubsecret: ${githubsecret}
-  #       username: ${username}
-  #       repository: ${repository}
-  #   image: monaco-editor
-  #   volumes:
-  #     - "./editor:/application/editor"
-  #   restart: always
-  #   ports:
-  #     - "4000:4000"
-  #   network_mode: "host"
+  monaco-editor:
+    container_name: editor
+    build:
+      context: "./editor"
+      dockerfile: "dockerfile.dev"
+      args:
+        githubsecret: ${githubsecret}
+        username: ${username}
+        repository: ${repository}
+    image: monaco-editor
+    volumes:
+      - "./editor:/application/editor"
+    restart: always
+    ports:
+      - "4000:4000"
 
   #
 
@@ -148,7 +143,6 @@ services:
     volumes:
       - ./data/orientdb/databases:/orientdb/databases
       - ./data/orientdb/backup:/orientdb/backup
-    network_mode: "host"
 
   ##
 
@@ -162,7 +156,6 @@ services:
       JAVA_OPTS: "-Xmx64m -Xss512k -XX:CICompilerCount=1 -XX:-TieredCompilation"
       REMOTING_EXTERNAL_HOSTNAME: cluster-seed
       CLUSTER_SEED_NODES: cluster-seed
-    network_mode: "host"      
 
   ##
 
@@ -175,7 +168,6 @@ services:
     links:
       - cluster-seed
       - orientdb
-    network_mode: "host"
 
   ##
 
@@ -186,7 +178,6 @@ services:
       CONVERGENCE_SERVER_REALTIME_API: "https://${DOCKER_HOSTNAME}/realtime/"
       CONVERGENCE_SERVER_REST_API: "https://${DOCKER_HOSTNAME}/rest/"
       CONVERGENCE_CONSOLE_BASE_URL: "/console/"
-    network_mode: "host"
 
   ##
 
@@ -204,4 +195,3 @@ services:
     ports:
       - "443:443"
       - "80:80"
-    network_mode: "host"
