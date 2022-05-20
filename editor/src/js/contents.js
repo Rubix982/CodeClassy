@@ -1,4 +1,4 @@
-var editorContents = `var observableProto;
+const editorContents = `var observableProto;
 
 /**
  * Represents a push-style collection.

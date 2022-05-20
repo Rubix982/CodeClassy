@@ -30,7 +30,7 @@ require(['vs/editor/editor.main', 'MonacoCollabExt'], function(m, MonacoCollabEx
   // });
   // const sourceUserCursor = remoteCursorManager.addCursor(sourceUser.id, sourceUser.color, sourceUser.label);
   // const staticUserCursor = remoteCursorManager.addCursor(staticUser.id, staticUser.color, staticUser.label);
-
+  
   // const remoteSelectionManager = new MonacoCollabExt.RemoteSelectionManager({editor: target});
   // remoteSelectionManager.addSelection(sourceUser.id, sourceUser.color, sourceUser.label);
   // remoteSelectionManager.addSelection(staticUser.id, staticUser.color, staticUser.label);
@@ -66,24 +66,24 @@ require(['vs/editor/editor.main', 'MonacoCollabExt'], function(m, MonacoCollabEx
     remoteSelectionManager.setSelectionOffsets(sourceUser.id, startOffset, endOffset);
   });
 
-  // const sourceContentManager = new MonacoCollabExt.EditorContentManager({
-  //   editor: source,
-  //   onInsert(index, text) {
-  //     target.updateOptions({readOnly: false});
-  //     targetContentManager.insert(index, text);
-  //     target.updateOptions({readOnly: true});
-  //   },
-  //   onReplace(index, length, text) {
-  //     target.updateOptions({readOnly: false});
-  //     targetContentManager.replace(index, length, text);
-  //     target.updateOptions({readOnly: true});
-  //   },
-  //   onDelete(index, length) {
-  //     target.updateOptions({readOnly: false});
-  //     targetContentManager.delete(index, length);
-  //     target.updateOptions({readOnly: true});
-  //   }
-  // });
+  const sourceContentManager = new MonacoCollabExt.EditorContentManager({
+    editor: source,
+    onInsert(index, text) {
+      target.updateOptions({readOnly: false});
+      targetContentManager.insert(index, text);
+      target.updateOptions({readOnly: true});
+    },
+    onReplace(index, length, text) {
+      target.updateOptions({readOnly: false});
+      targetContentManager.replace(index, length, text);
+      target.updateOptions({readOnly: true});
+    },
+    onDelete(index, length) {
+      target.updateOptions({readOnly: false});
+      targetContentManager.delete(index, length);
+      target.updateOptions({readOnly: true});
+    }
+  });
 
 
   window.addEventListener('resize', () => {

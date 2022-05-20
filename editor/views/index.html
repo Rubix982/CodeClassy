@@ -17,19 +17,35 @@
         <div class="editor" id="source-editor"></div>
       </div>
     </div>
-    <script src="/src/js/editor_contents.js"></script>
+    <script src="/node_modules/monaco-editor/min/vs/loader.js"></script>
+    <script src="/src/js/contents.js"></script>
     <script>
-      var require = { paths: { vs: "/node_modules/monaco-editor/min/vs" } };
+      require.config({
+        paths: {
+          vs: "/node_modules/monaco-editor/min/vs",
+          Convergence:
+            "/node_modules/@convergence/convergence/convergence.amd.js",
+          ConvergenceColorAssigner:
+            "/node_modules/@convergence/color-assigner/umd/color-assigner.min.js",
+          MonacoConvergenceAdapter: "/src/js/monaco-adapter.js",
+          rxjs: "/node_modules/rxjs/dist/bundles/rxjs.umd.js",
+          MonacoCollabExt: "/dist/umd/monaco-collab-ext.min.js",
+        },
+      });
     </script>
+    <script src="/node_modules/@convergence/convergence/convergence.amd.min.js"></script>
+    <script src="/node_modules/@convergence/color-assigner/umd/color-assigner.min.js"></script>
     <script src="/node_modules/monaco-editor/min/vs/loader.js"></script>
     <script src="/node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
     <script src="/node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
-    <script src="/dist/umd/monaco-collab-ext.js"></script>
+    <script src="/dist/umd/monaco-collab-ext.min.js"></script>
     <script src="/src/js/example.js"></script>
-    <script src="/src/js/helpers.js"></script>
     <script type="module">
       import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
       io();
     </script>
+    <script src="/src/js/config.js"></script>
+    <script src="/src/js/monaco-adapter.js"></script>
+    <script src="/src/js/monaco.js"></script>
   </body>
 </html>
