@@ -16,7 +16,7 @@ define("monaco-example", [
   const editor = monaco.editor.create(
     document.getElementById("source-editor"),
     {
-      value: "const text = 'Hello, World!';",
+      value: editorContents,
       theme: "vs-dark'",
       language: "javascript",
     }
@@ -28,10 +28,11 @@ define("monaco-example", [
       // Now open the model, creating it using the initial data if it does not exist.
       return domain.models().openAutoCreate({
         collection: "example-monaco",
-        id: 123,
+        id: convergenceExampleId,
         data: {
           text: editorContents,
         },
+        ephemeral: false,
       });
     })
     .then((model) => {
