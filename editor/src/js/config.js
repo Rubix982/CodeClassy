@@ -5,4 +5,6 @@
 // (https://hub.docker.com/r/convergencelabs/convergence-omnibus)
 // 
 // These are the relevant parts of the URL: http://<host>:<host-port>/api/realtime/<namespace>/<domainId>
-const CONVERGENCE_URL = "http://0.0.0.0:8000/api/realtime/convergence/default";
+// USE API only when running with local docker container, http://0.0.0.0:8000/api/realtime/convergence/default
+// If using Docker Compose, use the url, https://localhost/realtime/convergence/default
+const CONVERGENCE_URL = "https://localhost/realtime/convergence/default";
