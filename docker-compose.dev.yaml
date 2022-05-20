@@ -3,43 +3,49 @@ version: "3"
 volumes:
   database:
 services:
+  ##### APPLICATION STACK SERVICES
+
+  ##
+
   backend:
     container_name: backend
     build:
-      context: './backend'
-      dockerfile: 'dockerfile.dev'
+      context: "./backend"
+      dockerfile: "dockerfile.dev"
       args:
         githubsecret: ${githubsecret}
         username: ${username}
         repository: ${repository}
-        # pass args from compose file to dockerfile using the .env of root directory where compose file exists. 
     image: backend
     volumes:
       - "./backend:/application/backend"
-      # restart: always
+    restart: always
     env_file:
-      - ./backend/.env # adds env for container
+      - ./backend/.env
     ports:
       - "5000:5000"
-    network_mode: "host" # or use http://<service name>:<port> in you code for communication between multiple containers in a docker-compose bridge network.
+    network_mode: "host"
+
+  ##
 
   frontend:
     container_name: frontend
     build:
-      context: './frontend'
-      dockerfile: 'dockerfile.dev'
+      context: "./frontend"
+      dockerfile: "dockerfile.dev"
       args:
         githubsecret: ${githubsecret}
         username: ${username}
         repository: ${repository}
-        # pass args from compose file to dockerfile using the .env of root directory where compose file exists. 
     image: frontend
     volumes:
       - "./frontend:/application/frontend"
     restart: always
     ports:
       - "3000:3000"
-    network_mode: "host" # or use http://<service name>:<port> in you code for communication between multiple containers in a docker-compose bridge network.
+    network_mode: "host"
+
+  ##
 
   database:
     container_name: database
@@ -51,5 +57,151 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - 'database:/var/lib/mysql'
-    network_mode: "host" # or use http://<service name>:<port> in you code for communication between multiple containers in a docker-compose bridge network.
+      - "database:/var/lib/mysql"
+    network_mode: "host"
+
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+
+  ###################################
+
+  ##### REMOTE CODE EXECUTOR SERVICES
+
+  ##
+
+  rabbitmq:
+    image: "rabbitmq"
+    restart: always
+    network_mode: "host"
+
+  ##
+
+  redis-server:
+    image: "redis"
+    restart: always
+    network_mode: "host"
+
+  ##
+
+  server:
+    build: ./remote_code_executor/server
+    restart: always
+    ports:
+      - "7000:7000"
+    network_mode: "host"
+
+  ##
+
+  worker:
+    build: ./remote_code_executor/workers
+    restart: always
+    pids_limit: 60 # Max number of processes running in thw container.
+    cpus: 1 # No of CPUs allocated
+    mem_limit: 150M # Hard limit
+    network_mode: "host"
+
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+
+  ###################################
+
+  ##### MONACO EDITOR + CONVERGENCE SERVICES
+
+  # monaco-editor:
+  #   container_name: editor
+  #   build:
+  #     context: "./editor"
+  #     dockerfile: "dockerfile.dev"
+  #     args:
+  #       githubsecret: ${githubsecret}
+  #       username: ${username}
+  #       repository: ${repository}
+  #   image: monaco-editor
+  #   volumes:
+  #     - "./editor:/application/editor"
+  #   restart: always
+  #   ports:
+  #     - "4000:4000"
+  #   network_mode: "host"
+
+  #
+
+  orientdb:
+    image: orientdb:3.0.37
+    restart: always
+    environment:
+      ORIENTDB_ROOT_PASSWORD: "password"
+      ORIENTDB_OPTS_MEMORY: "-Xms384m -Xmx384m"
+      JAVA_OPTS: "-Dstorage.wal.allowDirectIO=false"
+    volumes:
+      - ./data/orientdb/databases:/orientdb/databases
+      - ./data/orientdb/backup:/orientdb/backup
+    network_mode: "host"
+
+  ##
+
+  cluster-seed:
+    image: ${CONVERGENCE_DOCKER_REPO}/convergence-cluster-seed:${CONVERGENCE_DOCKER_TAG}
+    command: "-Dlog4j.configurationFile=/etc/convergence/log4j2.xml"
+    restart: always
+    volumes:
+      - ./collab/config/convergence/log4j2.xml:/etc/convergence/log4j2.xml
+    environment:
+      JAVA_OPTS: "-Xmx64m -Xss512k -XX:CICompilerCount=1 -XX:-TieredCompilation"
+      REMOTING_EXTERNAL_HOSTNAME: cluster-seed
+      CLUSTER_SEED_NODES: cluster-seed
+    network_mode: "host"      
+
+  ##
+
+  server:
+    image: ${CONVERGENCE_DOCKER_REPO}/convergence-server:${CONVERGENCE_DOCKER_TAG}
+    restart: always
+    volumes:
+      - ./collab/config/convergence/log4j2.xml:/opt/convergence-server/conf/log4j2.xml
+      - ./collab/config/convergence/convergence-server.conf:/opt/convergence-server/conf/convergence-server.conf
+    links:
+      - cluster-seed
+      - orientdb
+    network_mode: "host"
+
+  ##
+
+  admin-console:
+    image: ${CONVERGENCE_DOCKER_REPO}/convergence-admin-console:${CONVERGENCE_DOCKER_TAG}
+    restart: always
+    environment:
+      CONVERGENCE_SERVER_REALTIME_API: "https://${DOCKER_HOSTNAME}/realtime/"
+      CONVERGENCE_SERVER_REST_API: "https://${DOCKER_HOSTNAME}/rest/"
+      CONVERGENCE_CONSOLE_BASE_URL: "/console/"
+    network_mode: "host"
+
+  ##
+
+  proxy:
+    image: nginx:1.21.1-alpine
+    restart: always
+    volumes:
+      - ./collab/config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./collab/config/nginx/html:/usr/share/nginx/html
+      - ./collab/config/nginx/ssl:/etc/nginx/ssl/
+    depends_on:
+      - orientdb
+      - server
+      - admin-console
+    ports:
+      - "443:443"
+      - "80:80"
+    network_mode: "host"
