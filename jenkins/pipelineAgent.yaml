@@ -14,7 +14,7 @@ spec:
       image: gcr.io/kaniko-project/executor:debug
       resources:
         limits:
-          memory: "2Gi"
+          memory: "5Gi"
       command:
         - /busybox/cat
       tty: true
