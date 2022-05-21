@@ -4,7 +4,7 @@ metadata:
   name: backend-deployment
 spec:
   revisionHistoryLimit: 30
-  replicas: 3
+  replicas: 3 
   selector:
     matchLabels:
       name: backend-pod-label
