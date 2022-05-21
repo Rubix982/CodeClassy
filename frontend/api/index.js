@@ -5,7 +5,7 @@ class API {
 
   constructor() {
     this.options = { withCredentials: true };
-    this.baseUrl = "http://localhost:5000";
+    this.baseUrl = "http://backend-service:5000";
   }
 
   static getInstance() {
