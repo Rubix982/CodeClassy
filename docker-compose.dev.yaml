@@ -58,6 +58,8 @@ services:
       - "3306:3306"
     volumes:
       - "database:/var/lib/mysql"
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE      
     network_mode: "host"
 
   
@@ -77,6 +79,7 @@ services:
 
   # port --> 5672
   rabbitmq:
+    container_name: rabbitmq-container
     image: "rabbitmq"
     restart: always
 
@@ -84,6 +87,7 @@ services:
 
   # port --> 6379
   redis-server:
+    container_name: redis-server-container
     image: "redis"
     restart: always
 
@@ -91,7 +95,9 @@ services:
 
   # port --> 7000
   rce-server:
+    container_name: rce-server-container
     build: ./remote_code_executor/server
+    user: root
     restart: always
     ports:
       - "7000:7000"
@@ -99,7 +105,9 @@ services:
   ##
 
   worker:
+    container_name: worker-container
     build: ./remote_code_executor/workers
+    user: root
     restart: always
     pids_limit: 60 # Max number of processes running in thw container.
     cpus: 1 # No of CPUs allocated
@@ -138,6 +146,7 @@ services:
   #
 
   orientdb:
+    container_name: orientdb-container
     image: orientdb:3.0.37
     restart: always
     environment:
@@ -151,6 +160,7 @@ services:
   ##
 
   cluster-seed:
+    container_name: cluster-seed-container
     image: ${CONVERGENCE_DOCKER_REPO}/convergence-cluster-seed:${CONVERGENCE_DOCKER_TAG}
     command: "-Dlog4j.configurationFile=/etc/convergence/log4j2.xml"
     restart: always
@@ -164,6 +174,7 @@ services:
   ##
 
   server:
+    container_name: server-container
     image: ${CONVERGENCE_DOCKER_REPO}/convergence-server:${CONVERGENCE_DOCKER_TAG}
     restart: always
     volumes:
@@ -176,6 +187,7 @@ services:
   ##
 
   admin-console:
+    container_name: admin-console-container
     image: ${CONVERGENCE_DOCKER_REPO}/convergence-admin-console:${CONVERGENCE_DOCKER_TAG}
     restart: always
     environment:
@@ -186,6 +198,7 @@ services:
   ##
 
   proxy:
+    container_name: proxy-container
     image: nginx:1.21.1-alpine
     restart: always
     volumes:
