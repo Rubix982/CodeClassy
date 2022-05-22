@@ -16,16 +16,10 @@ pipeline {
                     sh '''
                     /kaniko/executor --dockerfile backend/dockerfile.prod \
                                     --destination=tashikmoin/codeclassy-backend:${BUILD_NUMBER} \
-                                    --build-arg=githubsecret=${githubpullingsecret} \
-                                    --build-arg=username=${githubusername} \
-                                    --build-arg=repository=${githubrepository} \
                                     --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
                     
                     /kaniko/executor --dockerfile frontend/dockerfile.prod \
                                     --destination=tashikmoin/codeclassy-frontend:${BUILD_NUMBER} \
-                                    --build-arg=githubsecret=${githubpullingsecret} \
-                                    --build-arg=username=${githubusername} \
-                                    --build-arg=repository=${githubrepository} \
                                     --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
 
                     /kaniko/executor --dockerfile remote_code_executor/server/Dockerfile \
@@ -52,6 +46,9 @@ pipeline {
           withCredentials([file(credentialsId: 'k8credid', variable: 'KUBECONFIG')]) {
             sh 'sed -i "s/<build-no>/${BUILD_NUMBER}/" kubernetes/backend.yaml kubernetes/frontend.yaml kubernetes/monaco-editor.yaml kubernetes/worker.yaml kubernetes/rce-server.yaml'
             sh 'kubectl apply -f kubernetes/backend.yaml -f kubernetes/frontend.yaml -f kubernetes/frontend-service.yaml -f kubernetes/backend-service.yaml -f kubernetes/database.yaml -f kubernetes/database-service.yaml -n default'
+            sh 'kubectl apply -f kubernetes/admin-console.yaml -f kubernetes/admin-console-service.yaml -f kubernetes/cluster-seed-service.yaml -f kubernetes/cluster-seed.yaml -f kubernetes/monaco-editor-service.yaml -f kubernetes/monaco-editor.yaml -n default'
+            sh 'kubectl apply -f kubernetes/orientdb-service.yaml -f kubernetes/orientdb.yaml -f kubernetes/proxy-service.yaml -f kubernetes/proxy.yaml -f kubernetes/rabbitmq-service.yaml -f kubernetes/rabbitmq.yaml -n default'
+            sh 'kubectl apply -f kubernetes/rce-server-service.yaml -f kubernetes/rce-server.yaml -f kubernetes/redis-service.yaml -f kubernetes/redis.yaml -f kubernetes/server-service.yaml -f kubernetes/server.yaml -f kubernetes/worker-service.yaml -f kubernetes/worker.yaml-n default'
             sh 'echo ... successfully deployed! ...'
           }
         }
@@ -60,3 +57,13 @@ pipeline {
   
   }
 }
+
+
+
+// KANIKO SYNTAX
+
+// /kaniko/executor --dockerfile <path to dockerfile> \
+//                 --destination=<image name on dockerhub registry>:${BUILD_NUMBER} \
+//                 --build-arg=<docker file arguments key>=<docker file arguments value> \
+//                 --build-arg=<docker file arguments key>=<docker file arguments value> \
+//                 --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
