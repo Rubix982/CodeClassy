@@ -33,5 +33,10 @@
     "id": 7,
     "title": "INSERT member as section_student in a section",
     "query": "INSERT INTO `section_students`(studentEmail, sectionID) VALUES (?, ?);"
+  },
+  {
+    "id": 8,
+    "title": "INSERT question as quiz_questions in a quiz",
+    "query": "INSERT INTO quiz_questions (quizID, questionID) values ?;"
   }
 ]
