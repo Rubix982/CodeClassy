@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend-deployment
 spec:
-  revisionHistoryLimit: 30
+  revisionHistoryLimit: 2
   replicas: 3 
   selector:
     matchLabels:

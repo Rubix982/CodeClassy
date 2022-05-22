@@ -5,9 +5,18 @@ metadata:
   namespace: default
 spec:
   ports:
-    - port: 
+    - port: 80
       protocol: TCP
-      targetPort: 
+      targetPort: 80
+    - port: 443
+      protocol: TCP
+      targetPort: 443
+    - port: 43995
+      protocol: TCP
+      targetPort: 43995
+    - port: 46465
+      protocol: TCP
+      targetPort: 46465
   selector:
     name: worker-pod-label
   type: ClusterIP 

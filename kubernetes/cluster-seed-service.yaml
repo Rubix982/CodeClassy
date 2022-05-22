@@ -5,9 +5,9 @@ metadata:
   namespace: default
 spec:
   ports:
-    - port: 
+    - port: 25520
       protocol: TCP
-      targetPort: 
+      targetPort: 25520
   selector:
     name: cluster-seed-pod-label
   type: ClusterIP 

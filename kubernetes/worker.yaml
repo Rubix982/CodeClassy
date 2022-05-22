@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: worker-deployment
 spec:
+  revisionHistoryLimit: 2
   replicas: 2
   selector:
     matchLabels:
@@ -21,12 +22,21 @@ spec:
         - name: worker-container
           image: tashikmoin/codeclassy-worker:<build-no>
           ports:
-            - containerPort: 
+            - containerPort: 80
+              name: http
+            - containerPort: 443
+              name: https
+            - containerPort: 43995
+              name: servicex
+              protocol: TCP
+            - containerPort: 46465
+              name: servicey
+              protocol: UDP
           resources:
             limits:
               cpu: "1"
             requests:
-              cpu: "0.5"
+              cpu: "1"
           args:
           - -cpus
-          - "2"
+          - "1"

@@ -5,9 +5,12 @@ metadata:
   namespace: default
 spec:
   ports:
-    - port: 
+    - port: 2480
       protocol: TCP
-      targetPort: 
+      targetPort: 2480
+    - port: 2424
+      protocol: TCP
+      targetPort: 2424
   selector:
     name: orientdb-pod-label
   type: ClusterIP 

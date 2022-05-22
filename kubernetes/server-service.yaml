@@ -5,9 +5,15 @@ metadata:
   namespace: default
 spec:
   ports:
-    - port: 
+    - port: 80
       protocol: TCP
-      targetPort: 
+      targetPort: 80 
+    - port: 443
+      protocol: TCP
+      targetPort: 443 
+    - port: 25520
+      protocol: TCP
+      targetPort: 25520
   selector:
     name: server-pod-label
   type: ClusterIP 
