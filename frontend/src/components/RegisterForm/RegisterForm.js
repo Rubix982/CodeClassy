@@ -183,7 +183,7 @@ const RegisterForm = (props) => {
               src={RegisterImage}
               alt="Registration-image"
             />
-            <h2> Let's get started.</h2>
+            <h2> Let&lsquo;s get started.</h2>
           </div>
         </div>
       </div>

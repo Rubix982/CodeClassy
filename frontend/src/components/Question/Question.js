@@ -116,6 +116,7 @@ const Question = (props) => {
                           height={22}
                           width={35}
                           src={`/assets/images/${i.image}-${color}.webp`}
+                          alt=""
                         />
                         <label
                           style={{ color: color, cursor: "pointer" }}

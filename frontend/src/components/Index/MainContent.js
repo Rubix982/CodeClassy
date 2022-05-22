@@ -33,7 +33,7 @@ const MainContent = () => {
         </div>
 
         <div className={styles.mainCodeClassyContent}>
-          <p>The world's biggest learning platform! here.</p>
+          <p>The world&lsquo;s biggest learning platform! here.</p>
 
           <p>Get started today!</p>
         </div>

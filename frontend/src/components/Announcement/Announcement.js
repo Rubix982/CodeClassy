@@ -45,12 +45,9 @@ import { connect } from "react-redux";
 // Asset imports
 import announcementImage from "/public/assets/images/announcement.png";
 import commentImage from "/public/assets/images/comment.png";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const options = [
-  'Edit',
-  'Delete'
-]
+const options = ["Edit", "Delete"];
 
 const ITEM_HEIGHT = 48;
 
@@ -252,23 +249,24 @@ const Post = ({
   };
 
   const checkOption = (option) => {
-    if(option == 'Delete'){
-      
+    if (option == "Delete") {
       console.log("Delete Called");
     }
-    if(option == 'Edit'){
-      
+    if (option == "Edit") {
       console.log("Edit Called");
     }
-    
-  }
+  };
   const { id } = useRouter().query;
 
-  React.useEffect(async () => {
-    if (!id) {
-      return;
+  React.useEffect(() => {
+    async function fetchData() {
+      if (!id) {
+        return;
+      }
+      await announcementPageLoadAction(id);
     }
-    await announcementPageLoadAction(id);
+
+    fetchData();
   }, [id]);
 
   const handleChange = (prop) => (event) => {
@@ -284,7 +282,7 @@ const Post = ({
     event.preventDefault();
   };
 
-  console.log(comments)
+  console.log(comments);
 
   return (
     <>
@@ -303,7 +301,12 @@ const Post = ({
         <div className={PostStyling.postContainer}>
           <div className={PostStyling.postHeader}>
             <div className={PostStyling.imageContainer}>
-              <Image src={announcementImage} height={70} width={70}></Image>
+              <Image
+                src={announcementImage}
+                height={70}
+                width={70}
+                alt=""
+              ></Image>
             </div>
 
             <div className={PostStyling.headingContainer}>
@@ -332,7 +335,7 @@ const Post = ({
 
           <div className={PostStyling.commentsContainer}>
             <div className={PostStyling.commentHeadingContainer}>
-              <Image src={commentImage} height={30} width={28}></Image>
+              <Image src={commentImage} height={30} width={28} alt=""></Image>
               <h1 className={PostStyling.commentHeading}>Comments</h1>
             </div>
           </div>
@@ -363,43 +366,49 @@ const Post = ({
                         <p style={{ marginLeft: "15px" }}>{item.contentBody}</p>
                       </div>
                       <div className={PostStyling.hamburger}>
-                      <IconButton
-                        aria-label="more"
-                        id="long-button"
-                        aria-controls={open ? 'long-menu' : undefined}
-                        aria-expanded={open ? 'true' : undefined}
-                        aria-haspopup="true"
-                        onClick={handleClick}
-                      >
-                      <MoreVertIcon />
-                      </IconButton>
-                      <Menu
-                        id="long-menu"
-                        MenuListProps={{
-                          'aria-labelledby': 'long-button',
-                        }}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        PaperProps={{
-                          style: {
-                            maxHeight: ITEM_HEIGHT * 4.5,
-                            width: '20ch',
-                          },
-                        }}
-                      >
-                        {options.map((option) => (
-                          <MenuItem key={option} selected={option === 'Pyxis'} onClick={() => { handleClose(), checkOption(option) }}>
-                            {option}
-                          </MenuItem>
-                        ))}
-                      </Menu>
+                        <IconButton
+                          aria-label="more"
+                          id="long-button"
+                          aria-controls={open ? "long-menu" : undefined}
+                          aria-expanded={open ? "true" : undefined}
+                          aria-haspopup="true"
+                          onClick={handleClick}
+                        >
+                          <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                          id="long-menu"
+                          MenuListProps={{
+                            "aria-labelledby": "long-button",
+                          }}
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          PaperProps={{
+                            style: {
+                              maxHeight: ITEM_HEIGHT * 4.5,
+                              width: "20ch",
+                            },
+                          }}
+                        >
+                          {options.map((option) => (
+                            <MenuItem
+                              key={option}
+                              selected={option === "Pyxis"}
+                              onClick={() => {
+                                handleClose(), checkOption(option);
+                              }}
+                            >
+                              {option}
+                            </MenuItem>
+                          ))}
+                        </Menu>
                       </div>
                     </Grid>
                   </div>
-                  );
-                })}
-            </div>
+                );
+              })}
+          </div>
           <div className={PostStyling.writeComment}>
             <Avatar
               sx={{ fontSize: "1rem" }}

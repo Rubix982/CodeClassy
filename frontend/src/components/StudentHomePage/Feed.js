@@ -5,11 +5,7 @@ import FeedSectionCard from "@components/FeedSectionCard/FeedSectionCard";
 import { connect } from "react-redux";
 import { getStudentFeed } from "redux/actions/student.action";
 
-
-
-const Feed = ({
-    getStudentFeed, feedLoading, studentSections 
-  }) => {
+const Feed = ({ getStudentFeed, feedLoading, studentSections }) => {
   return (
     <>
       {feedLoading ? (
@@ -18,23 +14,21 @@ const Feed = ({
         <div className={HomePageStyling.classrooms}>
           <h2 className={HomePageStyling.subHeading}>Classrooms</h2>
           <div className={HomePageStyling.cardSection}>
-            {studentSections.map((section) => (
-              <FeedSectionCard sectionData={section} />
+            {studentSections.map((section, index) => (
+              <div key={index}>
+                <FeedSectionCard sectionData={section} />
+              </div>
             ))}
           </div>
         </div>
       )}
     </>
   );
-}
-
+};
 
 const mapStateToProps = (state) => ({
-    feedLoading: state.studentReducer.feedLoading,
-    studentSections: state.studentReducer.studentSections,
-  });
-  
-  export default connect(mapStateToProps, { getStudentFeed })(Feed);
+  feedLoading: state.studentReducer.feedLoading,
+  studentSections: state.studentReducer.studentSections,
+});
 
-
-
+export default connect(mapStateToProps, { getStudentFeed })(Feed);

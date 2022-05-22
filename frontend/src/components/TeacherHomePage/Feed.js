@@ -41,7 +41,9 @@ const Feed = ({ feedLoading, teacherClassrooms, teacherSections }) => {
             </div>
             <div className={HomePageStyling.cardSection}>
               {teacherClassrooms.map((classroom, index) => (
-                <FeedClassroomCard index={index} />
+                <div key={index}>
+                  <FeedClassroomCard index={index} />
+                </div>
               ))}
             </div>
           </div>
@@ -52,8 +54,10 @@ const Feed = ({ feedLoading, teacherClassrooms, teacherSections }) => {
               Sections
             </h2>
             <div className={HomePageStyling.cardSection}>
-              {teacherSections.map((section) => (
-                <FeedSectionCard sectionData={section} />
+              {teacherSections.map((section, index) => (
+                <div key={index}>
+                  <FeedSectionCard sectionData={section} />
+                </div>
               ))}
             </div>
           </div>
