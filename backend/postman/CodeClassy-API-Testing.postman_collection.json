@@ -830,6 +830,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Quiz creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"sample quiz\",\n    \"duration\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/teacher/quiz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"teacher",
+						"quiz"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
