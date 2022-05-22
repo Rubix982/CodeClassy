@@ -8,8 +8,8 @@ RUN npm -v
 
 COPY . .
 RUN mkdir temp
-RUN chmod 700  /
-RUN chmod 755 -R temp/
+RUN chmod 777  /
+RUN chmod 777 -R temp/
 RUN adduser --disabled-password --gecos "" judge
 RUN cd app && npm install
-CMD cd app &&  npm start 
+CMD cd app && sudo npm start 
