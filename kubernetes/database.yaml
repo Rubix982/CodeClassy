@@ -34,3 +34,7 @@ spec:
                 secretKeyRef:
                   name: database-secrets # <name of the secret object here>
                   key: MYSQL_DATABASE # <key name inside secret object without "">
+
+
+# persist
+# /var/lib/mysql

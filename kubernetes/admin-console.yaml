@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-console-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: admin-console-pod-label
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        name: admin-console-pod-label
+    spec:
+      containers:
+        - name: admin-console-container
+          image: admin-console
+          ports:
+            - containerPort: 

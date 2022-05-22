@@ -75,18 +75,21 @@ services:
 
   ##
 
+  # port --> 5672
   rabbitmq:
     image: "rabbitmq"
     restart: always
 
   ##
 
+  # port --> 6379
   redis-server:
     image: "redis"
     restart: always
 
   ##
 
+  # port --> 7000
   rce-server:
     build: ./remote_code_executor/server
     restart: always
@@ -101,6 +104,7 @@ services:
     pids_limit: 60 # Max number of processes running in thw container.
     cpus: 1 # No of CPUs allocated
     mem_limit: 150M # Hard limit
+  # ------------------ port issue
 
   
   

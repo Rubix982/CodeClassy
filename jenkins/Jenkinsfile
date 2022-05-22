@@ -27,6 +27,20 @@ pipeline {
                                     --build-arg=username=${githubusername} \
                                     --build-arg=repository=${githubrepository} \
                                     --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
+
+                    /kaniko/executor --dockerfile remote_code_executor/server \
+                                    --destination=tashikmoin/codeclassy-rce-server:${BUILD_NUMBER} \
+                                    --build-arg=githubsecret=${githubpullingsecret} \
+                                    --build-arg=username=${githubusername} \
+                                    --build-arg=repository=${githubrepository} \
+                                    --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
+
+                    /kaniko/executor --dockerfile remote_code_executor/workers \
+                                    --destination=tashikmoin/codeclassy-worker:${BUILD_NUMBER} \
+                                    --build-arg=githubsecret=${githubpullingsecret} \
+                                    --build-arg=username=${githubusername} \
+                                    --build-arg=repository=${githubrepository} \
+                                    --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
                     '''
                 }
             }
