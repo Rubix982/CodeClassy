@@ -15,7 +15,9 @@
     "@mui/lab": "^5.0.0-alpha.58",
     "@mui/material": "^5.0.6",
     "axios": "^0.24.0",
+    "dotenv": "^16.0.1",
     "draft-js": "^0.11.7",
+    "fs": "^0.0.1-security",
     "immutable": "^4.0.0",
     "moment": "^2.29.1",
     "monaco-editor": ">=0.15.6",
@@ -34,5 +36,10 @@
     "cypress": "^9.1.1",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }
