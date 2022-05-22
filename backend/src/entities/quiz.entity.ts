@@ -2,9 +2,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Question } from './question.entity';
 import { Teacher } from './teacher.entity';
 
 @Entity()
@@ -24,4 +27,10 @@ export class Quiz {
   @ManyToOne(() => Teacher)
   @JoinColumn({ name: 'createdBy' })
   teacher: Teacher;
+
+  @ManyToMany(() => Question)
+  @JoinTable({
+    name: 'quiz_questions',
+  })
+  questions: Question[];
 }

@@ -1,6 +1,17 @@
-import { IsNumber, IsString, Max, Min, MinLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsNumber,
+  IsObject,
+  IsString,
+  Max,
+  Min,
+  MinLength,
+  ValidateNested,
+} from 'class-validator';
 
-export class CreateQuizDTO {
+export class Quiz {
   @MinLength(1)
   @IsString()
   name: string;
@@ -9,4 +20,14 @@ export class CreateQuizDTO {
   @Max(60)
   @IsNumber()
   duration: number;
+}
+
+export class CreateQuizDTO {
+  @IsObject()
+  @ValidateNested()
+  @Type(() => Quiz)
+  quiz: Quiz;
+
+  @IsString({ each: true })
+  questions: string[];
 }
