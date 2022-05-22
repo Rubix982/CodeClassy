@@ -19,6 +19,14 @@ spec:
     spec:
       containers:
         - name: worker-container
-          image: worker
+          image: tashikmoin/codeclassy-worker:<build-no>
           ports:
             - containerPort: 
+          resources:
+            limits:
+              cpu: "1"
+            requests:
+              cpu: "0.5"
+          args:
+          - -cpus
+          - "2"

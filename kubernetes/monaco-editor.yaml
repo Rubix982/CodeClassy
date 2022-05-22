@@ -19,6 +19,7 @@ spec:
     spec:
       containers:
         - name: monaco-editor-container
-          image: monaco-editor
+          image: tashikmoin/codeclassy-monaco-editor:<build-no>
           ports:
-            - containerPort: 
+            - containerPort: 4000
+

@@ -5,9 +5,9 @@ metadata:
   namespace: default
 spec:
   ports:
-    - port: 
+    - port: 4000
       protocol: TCP
-      targetPort: 
+      targetPort: 4000
   selector:
     name: monaco-editor-pod-label
   type: ClusterIP 

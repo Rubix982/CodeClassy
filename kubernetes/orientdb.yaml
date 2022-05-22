@@ -19,6 +19,16 @@ spec:
     spec:
       containers:
         - name: orientdb-container
-          image: orientdb
+          image: orientdb:3.0.37
           ports:
-            - containerPort: 
+            - containerPort: # <port>
+
+# persist 
+# :/orientdb/databases
+# :/orientdb/backup
+
+
+# environment:
+#   ORIENTDB_ROOT_PASSWORD: "password"
+#   ORIENTDB_OPTS_MEMORY: "-Xms384m -Xmx384m"
+#   JAVA_OPTS: "-Dstorage.wal.allowDirectIO=false"

@@ -28,18 +28,16 @@ pipeline {
                                     --build-arg=repository=${githubrepository} \
                                     --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
 
-                    /kaniko/executor --dockerfile remote_code_executor/server \
+                    /kaniko/executor --dockerfile remote_code_executor/server/Dockerfile \
                                     --destination=tashikmoin/codeclassy-rce-server:${BUILD_NUMBER} \
-                                    --build-arg=githubsecret=${githubpullingsecret} \
-                                    --build-arg=username=${githubusername} \
-                                    --build-arg=repository=${githubrepository} \
                                     --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
 
-                    /kaniko/executor --dockerfile remote_code_executor/workers \
+                    /kaniko/executor --dockerfile remote_code_executor/workers/Dockerfile \
                                     --destination=tashikmoin/codeclassy-worker:${BUILD_NUMBER} \
-                                    --build-arg=githubsecret=${githubpullingsecret} \
-                                    --build-arg=username=${githubusername} \
-                                    --build-arg=repository=${githubrepository} \
+                                    --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
+
+                    /kaniko/executor --dockerfile editor/Dockerfile \
+                                    --destination=tashikmoin/codeclassy-monaco-editor:${BUILD_NUMBER} \
                                     --cache=true --ignore-path=/busybox --cleanup && mkdir -p /workspace;
                     '''
                 }
@@ -52,7 +50,7 @@ pipeline {
       steps {
         container('kubectl') {
           withCredentials([file(credentialsId: 'k8credid', variable: 'KUBECONFIG')]) {
-            sh 'sed -i "s/<build-no>/${BUILD_NUMBER}/" kubernetes/backend.yaml kubernetes/frontend.yaml'
+            sh 'sed -i "s/<build-no>/${BUILD_NUMBER}/" kubernetes/backend.yaml kubernetes/frontend.yaml kubernetes/monaco-editor.yaml kubernetes/worker.yaml kubernetes/rce-server.yaml'
             sh 'kubectl apply -f kubernetes/backend.yaml -f kubernetes/frontend.yaml -f kubernetes/frontend-service.yaml -f kubernetes/backend-service.yaml -f kubernetes/database.yaml -f kubernetes/database-service.yaml -n default'
             sh 'echo ... successfully deployed! ...'
           }

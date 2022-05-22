@@ -104,6 +104,7 @@ services:
 
   ##
 
+  # port 43995 tcp 46465 udp 80 tcp
   worker:
     container_name: worker-container
     build: ./remote_code_executor/workers
@@ -131,7 +132,7 @@ services:
     container_name: editor
     build:
       context: "./editor"
-      dockerfile: "dockerfile.dev"
+      dockerfile: "Dockerfile"
       args:
         githubsecret: ${githubsecret}
         username: ${username}
@@ -145,6 +146,7 @@ services:
 
   #
 
+  #port 2424 2480
   orientdb:
     container_name: orientdb-container
     image: orientdb:3.0.37
@@ -156,12 +158,14 @@ services:
     volumes:
       - ./data/orientdb/databases:/orientdb/databases
       - ./data/orientdb/backup:/orientdb/backup
+    # ------------------ port issue
 
   ##
 
+  #port 25520
   cluster-seed:
     container_name: cluster-seed-container
-    image: ${CONVERGENCE_DOCKER_REPO}/convergence-cluster-seed:${CONVERGENCE_DOCKER_TAG}
+    image: convergencelabs/convergence-cluster-seed:1.0.0-rc.12
     command: "-Dlog4j.configurationFile=/etc/convergence/log4j2.xml"
     restart: always
     volumes:
@@ -175,7 +179,7 @@ services:
 
   server:
     container_name: server-container
-    image: ${CONVERGENCE_DOCKER_REPO}/convergence-server:${CONVERGENCE_DOCKER_TAG}
+    image: convergencelabs/convergence-server:1.0.0-rc.12
     restart: always
     volumes:
       - ./collab/config/convergence/log4j2.xml:/opt/convergence-server/conf/log4j2.xml
@@ -188,11 +192,11 @@ services:
 
   admin-console:
     container_name: admin-console-container
-    image: ${CONVERGENCE_DOCKER_REPO}/convergence-admin-console:${CONVERGENCE_DOCKER_TAG}
+    image: convergencelabs/convergence-admin-console:1.0.0-rc.12
     restart: always
     environment:
-      CONVERGENCE_SERVER_REALTIME_API: "https://${DOCKER_HOSTNAME}/realtime/"
-      CONVERGENCE_SERVER_REST_API: "https://${DOCKER_HOSTNAME}/rest/"
+      CONVERGENCE_SERVER_REALTIME_API: "https://localhost/realtime/"
+      CONVERGENCE_SERVER_REST_API: "https://localhost/rest/"
       CONVERGENCE_CONSOLE_BASE_URL: "/console/"
 
   ##

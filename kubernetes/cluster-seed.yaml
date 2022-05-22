@@ -19,6 +19,20 @@ spec:
     spec:
       containers:
         - name: cluster-seed-container
-          image: cluster-seed
+          image: convergencelabs/convergence-cluster-seed:1.0.0-rc.12
+          command: ["/bin/sh", "-c"]
+          args:
+            - -Dlog4j.configurationFile=/etc/convergence/log4j2.xml;
           ports:
             - containerPort: 
+
+
+# env 
+#     environment:
+#       JAVA_OPTS: "-Xmx64m -Xss512k -XX:CICompilerCount=1 -XX:-TieredCompilation"
+#       REMOTING_EXTERNAL_HOSTNAME: cluster-seed
+#       CLUSTER_SEED_NODES: cluster-seed
+
+
+# persist 
+# :/etc/convergence/log4j2.xml
