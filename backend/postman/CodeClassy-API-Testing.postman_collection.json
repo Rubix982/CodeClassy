@@ -830,6 +830,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Quiz creation request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"quiz\": {\n        \"name\": \"sample quiz\",\n        \"duration\": 10\n    },\n    \"questions\": [\"948e28cc-9d82-431d-b8a5-7ef87519464c\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/teacher/quiz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"teacher",
+						"quiz"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
