@@ -859,6 +859,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Assignment of quiz to students of a section",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"quizID\": \"15589bf5-284e-4dc7-9dc3-02cbe75191b6\",\n    \"dueDate\": \"2011-11-11\",\n    \"sectionID\": \"c26f4522-d640-4fcc-9239-8a779a1760b6\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/quiz/section",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"quiz",
+						"section"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

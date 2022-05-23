@@ -38,5 +38,10 @@
     "id": 8,
     "title": "INSERT question as quiz_questions in a quiz",
     "query": "INSERT INTO quiz_questions (quizID, questionID) values ?;"
+  },
+  {
+    "id": 9,
+    "title": "Assign quiz to all students of a section",
+    "query": "INSERT INTO quiz_assignment (ID, dueDate, quizID, studentEmail) SELECT uuid(), ?, ?, section_students.studentEmail FROM section_students WHERE section_students.sectionID  = ?"
   }
 ]
