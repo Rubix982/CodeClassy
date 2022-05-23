@@ -14,7 +14,7 @@ RUN git clone https://username:${githubsecret}@github.com/${username}/${reposito
 FROM node:16-alpine3.12 AS builder
 ARG repository
 COPY --from=codepuller /${repository} /${repository}
-WORKDIR /${repository}/backend/
+WORKDIR /${repository}/backend
 RUN npm install
 EXPOSE 5000
 CMD ["npm", "run", "start"]
