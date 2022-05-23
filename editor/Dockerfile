@@ -12,6 +12,7 @@ RUN git clone https://username:${githubsecret}@github.com/${username}/${reposito
 
 
 FROM node:16.3.0-alpine AS builder
+ARG repository
 COPY --from=codepuller /${repository} /${repository}
 WORKDIR /${repository}/editor
 RUN npm install
