@@ -3,7 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { QuizAssignment } from 'src/entities/quiz-assignment.entity';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
 import { EntityManager, getManager, Repository } from 'typeorm';
-import { CreateSectionQuizAssignmentDTO } from './create.dto';
+import {
+  CreateSectionQuizAssignmentDTO,
+  CreateStudentQuizAssignmentDTO,
+} from './create.dto';
 
 @Injectable()
 export class QuizAssignmentService {
@@ -30,5 +33,15 @@ export class QuizAssignmentService {
         `Could not create assignment for students of section: ${__requestBody.sectionID}`,
       );
     }
+  }
+
+  async createStudentAssignment(__requestBody: CreateStudentQuizAssignmentDTO) {
+    const quizAssignment = this.quizAssignmentRepository.create({
+      dueDate: __requestBody.dueDate,
+      quizID: __requestBody.quizID,
+      studentEmail: __requestBody.studentEmail,
+    });
+
+    await this.quizAssignmentRepository.save(quizAssignment);
   }
 }

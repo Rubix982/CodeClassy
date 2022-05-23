@@ -10,3 +10,14 @@ export class CreateSectionQuizAssignmentDTO {
   @IsString()
   sectionID: string;
 }
+
+export class CreateStudentQuizAssignmentDTO {
+  @IsString()
+  quizID: string;
+
+  @IsISO8601()
+  dueDate: string;
+
+  @IsString()
+  studentEmail: string;
+}
