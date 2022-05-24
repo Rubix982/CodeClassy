@@ -1,16 +1,20 @@
-.container {
+body {
+    margin: 0px;
+}
+
+.main__container {
     display: flex;
     flex-direction: column;
 }
 
-.header {
+.main__header {
     display: flex;
     flex-direction: column;
     margin: 5vh 5vw;
     margin-bottom: 0;
 }
 
-.question {
+.main__question {
     display: flex;
     flex-direction: column;
     text-align: justify;
@@ -21,28 +25,28 @@
     padding: 25px;
 }
 
-.assignContainer {
+.main__assignContainer {
     display: flex;
     flex-direction: column;
     margin-bottom: 100px;
 }
 
 
-.assign {
+.main__assign {
     display: flex;
     width: 72%;
     margin-left: 5vw;
     justify-content: flex-end;
 }
 
-.assigned {
+.main__assigned {
     display: flex;
     justify-content: center;
     margin-left: 13vw;
     width: 64%;
 }
 
-.assignedItem {
+.main__assignedItem {
     display: flex;
     padding: 10px;
     align-items: center;
@@ -53,11 +57,11 @@
     margin-top: 30px;
 }
 
-.email, .results {
+.main__email, .main__results {
     width: 50%;
 }
 
-.results {
+.main__results {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -65,7 +69,7 @@
 }
 
 
-.editorContainer {
+.main__editorContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,15 +78,19 @@
     background-color: #362712;
 }
 
-.editorControls {
+.main__editorControls {
     display: flex;
     align-items: center;
     width: 100%;
     height: 100px;
 }
 
-.editor {
+.main__editor {
     height: 800px;
     width: 90%;
     background-color: #ffffff;
+}
+
+.main__editorOutput {
+    
 }

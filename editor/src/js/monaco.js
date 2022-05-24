@@ -16,9 +16,9 @@ define("monaco-example", [
   const editor = monaco.editor.create(
     document.getElementById("source-editor"),
     {
-      value: editorContents,
+      value: cLangContents,
       theme: "vs-dark'",
-      language: "javascript",
+      language: "python",
     }
   );
 
@@ -30,7 +30,7 @@ define("monaco-example", [
         collection: "default",
         id: convergenceExampleId,
         data: {
-          text: editorContents,
+          text: cLangContents,
         },
         ephemeral: false,
       });
