@@ -88,10 +88,12 @@
               </div>
             </div>
           </div>
-          <div>
+          <div class="main__console-output">
+            <div id="output-window"></div>
+          </div>
+          <div class="main__button-padding">
             <button onclick="save()">Submit</button>
           </div>
-          <div class=".main__editorOutput"></div>
         </div>
       </div>
     </div>
@@ -148,6 +150,7 @@
       }
     </script>
     <script src="/node_modules/monaco-editor/min/vs/loader.js"></script>
+    <script src="/src/js/stdin.js"></script>
     <script src="/src/js/contents.js"></script>
     <script src="/src/js/CLangContents.js"></script>
     <script src="/src/js/PythonContents.js"></script>
@@ -182,10 +185,10 @@
     <script src="/src/js/monaco.js"></script>
     <script>
       async function save() {
-        const data = {
+        const JSONContent = {
           src: monaco.editor.getModels()[0].getValue(),
-          stdin: new FileReader().readAsText('/src/assets/stdin.txt'),
-          lang: "python",
+          stdin: STDIN,
+          lang: "c",
           timeout: 60,
         };
 
@@ -194,8 +197,28 @@
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
-        });
+          body: JSON.stringify(JSONContent),
+        }).then((response) => response.json());
+
+        setTimeout(async () => {
+          await fetch(res.data, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data.data);
+              if (data.data.output === "") {
+                document.getElementById("output-window").innerText =
+                  data.data.stderr;
+              } else {
+                document.getElementById("output-window").innerText =
+                  JSON.stringify(data.data.output, null, 2);
+              }
+            });
+        }, 2000);
       }
     </script>
   </body>

@@ -19,10 +19,9 @@ body {
     flex-direction: column;
     text-align: justify;
     justify-content: flex-start;
-    width: 70%;
     border: 1px solid #e0e0e0;
     margin: 50px 75px;
-    padding: 25px;
+    padding: 20px;
 }
 
 .main__assignContainer {
@@ -73,7 +72,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 900px;
     width: 100%;
     background-color: #362712;
 }
@@ -86,11 +84,22 @@ body {
 }
 
 .main__editor {
-    height: 800px;
     width: 90%;
+    margin: 20px auto;
     background-color: #ffffff;
 }
 
-.main__editorOutput {
-    
+.main__console-output {
+    background: black;
+    width: 90%;
+    justify-content: center;
+    align-items: left;
+    text-align: center;
+    justify-items: center;
+    color: green;
+    padding: 20px;
+}
+
+.main__button-padding { 
+    padding: 30px;
 }
