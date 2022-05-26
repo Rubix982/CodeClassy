@@ -11,19 +11,17 @@ RUN git clone https://username:${githubsecret}@github.com/${username}/${reposito
 
 
 
-FROM ubuntu:16.04 AS builder
+FROM ubuntu:20.04 AS builder
 ARG repository
 COPY --from=codepuller /${repository} /${repository}
-RUN apt-get update -y \
-    apt-get install curl vim sudo build-essential -y \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash \
-    apt-get install nodejs -y \
-    node -v \
-    npm -v
+RUN apt-get update -y; \
+    apt-get install curl vim sudo build-essential -y; \
+    curl -sL https://deb.nodesource.com/setup_16.x | bash; \
+    apt-get install nodejs -y
 WORKDIR /${repository}/remote_code_executor/workers/
-RUN mkdir temp \
-    chmod 700  / \
-    chmod 755 -R temp/ \
+RUN mkdir temp; \
+    chmod 700 /; \
+    chmod 755 -R temp/; \
     adduser --disabled-password --gecos "" judge 
 
 WORKDIR /${repository}/remote_code_executor/workers/app

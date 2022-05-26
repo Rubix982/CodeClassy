@@ -3,7 +3,7 @@ ARG githubsecret
 ARG username
 ARG repository
 WORKDIR /
-RUN git clone https://username:${githubsecret}@github.com/${username}/${repository}.git
+RUN git clone https://{username}:${githubsecret}@github.com/${username}/${repository}.git
 # cross check the username and repository name from the GitHub clone link.
 
 # ENTRYPOINT ["/bin/sh", "-c", "sleep 1200"] 

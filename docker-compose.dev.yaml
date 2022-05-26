@@ -96,7 +96,13 @@ services:
   # port --> 7000
   rce-server:
     container_name: rce-server-container
-    build: ./remote_code_executor/server
+    build:
+      context: "./remote_code_executor/server"
+      dockerfile: "Dockerfile"
+      args:
+        githubsecret: ${githubsecret}
+        username: ${username}
+        repository: ${repository}      
     user: root
     restart: always
     ports:
@@ -107,7 +113,13 @@ services:
   # port 43995 tcp 46465 udp 80 tcp
   worker:
     container_name: worker-container
-    build: ./remote_code_executor/workers
+    build:
+      context: "./remote_code_executor/workers"
+      dockerfile: "Dockerfile"
+      args:
+        githubsecret: ${githubsecret}
+        username: ${username}
+        repository: ${repository}
     user: root
     restart: always
     pids_limit: 60 # Max number of processes running in thw container.
