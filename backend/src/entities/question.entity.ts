@@ -25,6 +25,9 @@ export class Question {
   @Column()
   points: number;
 
+  @Column()
+  type: string;
+
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'categoryID' })
   category: Category;

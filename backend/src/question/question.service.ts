@@ -30,6 +30,7 @@ export class QuestionService {
 
   private async createQuestion(
     __question: QuestionDTO,
+    __type: string,
     __createdBy: string,
   ): Promise<Question> {
     const question = this.questionRepository.create({
@@ -37,6 +38,7 @@ export class QuestionService {
       categoryID: __question.categoryID,
       points: __question.points,
       createdBy: __createdBy,
+      type: __type,
     });
     await this.questionRepository.save(question);
 
@@ -46,6 +48,7 @@ export class QuestionService {
   async createMCQ(__teacherEmail: string, __requestBody: CreateMCQDTO) {
     const question = await this.createQuestion(
       __requestBody.question,
+      'MCQ',
       __teacherEmail,
     );
 
@@ -64,6 +67,7 @@ export class QuestionService {
   ) {
     const question = await this.createQuestion(
       __requestBody.question,
+      'TF',
       __teacherEmail,
     );
 
@@ -82,6 +86,7 @@ export class QuestionService {
   ) {
     const question = await this.createQuestion(
       __requestBody.question,
+      'FT',
       __teacherEmail,
     );
 
