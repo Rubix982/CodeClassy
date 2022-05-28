@@ -1,4 +1,12 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
 import {
   CreateSectionQuizAssignmentDTO,
@@ -6,11 +14,28 @@ import {
 } from 'src/quiz-assignment/create.dto';
 import { QuizAssignmentService } from 'src/quiz-assignment/quiz-assignement.service';
 import { TeacherGuard } from 'src/teacher/teacher.guard';
+import { QuizService } from './quiz.service';
 
 @UseGuards(AppGuard, TeacherGuard)
 @Controller('quiz')
 export class QuizController {
-  constructor(private readonly quizAssignmentService: QuizAssignmentService) {}
+  constructor(
+    private readonly quizAssignmentService: QuizAssignmentService,
+    private readonly quizService: QuizService,
+  ) {}
+
+  @Get(':id')
+  async getQuiz(@Param('id') __quizID: string) {
+    const [quiz] = await this.quizService.getQuiz(__quizID);
+
+    if (!quiz) {
+      return new BadRequestException(
+        `Could not fetch quiz with ID: ${__quizID}`,
+      );
+    }
+
+    return quiz;
+  }
 
   @Post('section')
   async createSectionAssignment(

@@ -16,6 +16,18 @@ export class QuizService {
     this.entityManager = getManager();
   }
 
+  async getQuiz(__quizID: string) {
+    const queryString = this.jsonQueryExtractorService.getQueryByID(10);
+    const quiz = await this.entityManager.query(queryString, [
+      __quizID,
+      __quizID,
+      __quizID,
+      __quizID,
+    ]);
+
+    return quiz;
+  }
+
   async createQuizEntity(__quiz: QuizDTO, __createdBy: string) {
     const quiz = this.quizRepository.create({
       name: __quiz.name,

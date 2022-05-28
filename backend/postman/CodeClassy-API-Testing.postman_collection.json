@@ -917,6 +917,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Quiz GET request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/quiz/b636ab59-79dd-4630-910b-c724024d2e9a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"quiz",
+						"b636ab59-79dd-4630-910b-c724024d2e9a"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
