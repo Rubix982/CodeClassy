@@ -7,8 +7,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Student } from 'src/entities/student.entity';
 import { Assignment } from './assignment.entity';
+import { AssignmentResult } from './assignment-results.entity';
 
 @Entity()
 export class AssignedAssignment {
@@ -24,8 +24,4 @@ export class AssignedAssignment {
   @OneToOne(() => Assignment, (assignment) => assignment)
   @JoinColumn()
   assignment: Assignment;
-
-  @ManyToMany(() => Student)
-  @JoinTable()
-  students: Student[];
 }

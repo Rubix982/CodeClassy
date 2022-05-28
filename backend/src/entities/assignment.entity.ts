@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { CodingQuestion } from './coding-question.entity';
 
 @Entity()
@@ -12,9 +12,9 @@ export class Assignment {
   @Column('datetime')
   duration;
 
-  @ManyToMany(
+  @ManyToOne(
     () => CodingQuestion,
     (codingQuestion) => codingQuestion.assignments,
   )
-  codingQuestions: CodingQuestion[];
+  codingQuestion: CodingQuestion;
 }
