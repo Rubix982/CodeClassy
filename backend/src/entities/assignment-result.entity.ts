@@ -14,6 +14,6 @@ export class AssignmentResult {
   @JoinColumn()
   assignedAssignment: AssignedAssignment;
 
-  @OneToMany(() => StudentAssigned, studentAssigned => studentAssigned.result)
+  @OneToMany(() => StudentAssigned, studentAssigned => studentAssigned.assignmentResult)
   students: StudentAssigned[];
 }

@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Assignment } from './assignment.entity';
-import { AssignmentResult } from './assignment-results.entity';
 
 @Entity()
 export class AssignedAssignment {
