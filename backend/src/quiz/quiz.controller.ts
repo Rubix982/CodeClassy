@@ -13,10 +13,11 @@ import {
   CreateStudentQuizAssignmentDTO,
 } from 'src/quiz-assignment/create.dto';
 import { QuizAssignmentService } from 'src/quiz-assignment/quiz-assignement.service';
+import { StudentGuard } from 'src/student/student.guard';
 import { TeacherGuard } from 'src/teacher/teacher.guard';
 import { QuizService } from './quiz.service';
 
-@UseGuards(AppGuard, TeacherGuard)
+@UseGuards(AppGuard)
 @Controller('quiz')
 export class QuizController {
   constructor(
@@ -24,6 +25,7 @@ export class QuizController {
     private readonly quizService: QuizService,
   ) {}
 
+  @UseGuards(StudentGuard)
   @Get(':id')
   async getQuiz(@Param('id') __quizID: string) {
     const [quiz] = await this.quizService.getQuiz(__quizID);
@@ -37,6 +39,7 @@ export class QuizController {
     return quiz;
   }
 
+  @UseGuards(TeacherGuard)
   @Post('section')
   async createSectionAssignment(
     @Body() __requestBody: CreateSectionQuizAssignmentDTO,
@@ -47,6 +50,7 @@ export class QuizController {
     };
   }
 
+  @UseGuards(TeacherGuard)
   @Post('student')
   async createStudentAssignment(
     @Body() __requestBody: CreateStudentQuizAssignmentDTO,
