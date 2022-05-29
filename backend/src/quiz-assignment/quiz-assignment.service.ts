@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QuizAssignment } from 'src/entities/quiz-assignment.entity';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
+import { QuizService } from 'src/quiz/quiz.service';
 import { EntityManager, getManager, Repository } from 'typeorm';
 import {
   CreateSectionQuizAssignmentDTO,
@@ -15,6 +16,7 @@ export class QuizAssignmentService {
   constructor(
     @InjectRepository(QuizAssignment)
     private readonly quizAssignmentRepository: Repository<QuizAssignment>,
+    private readonly quizService: QuizService,
     private readonly jsonQueryExtractorService: JSONQueryExtractorService,
   ) {
     this.entityManager = getManager();
@@ -43,5 +45,13 @@ export class QuizAssignmentService {
     });
 
     await this.quizAssignmentRepository.save(quizAssignment);
+  }
+
+  async getQuizFromQuizAssignmentID(__quizAssignmentID: string) {
+    const { quizID } = await this.quizAssignmentRepository.findOne(
+      __quizAssignmentID,
+    );
+    const [quiz] = await this.quizService.getQuiz(quizID);
+    return quiz;
   }
 }

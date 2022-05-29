@@ -919,20 +919,20 @@
 			"response": []
 		},
 		{
-			"name": "Quiz GET request",
+			"name": "Quiz GET request for respective Quiz-Assignment",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/quiz/b636ab59-79dd-4630-910b-c724024d2e9a",
+					"raw": "http://localhost:5000/quiz-assignment/5123fa3e-552d-4bb5-94d5-8a24243632ab",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"quiz",
-						"b636ab59-79dd-4630-910b-c724024d2e9a"
+						"quiz-assignment",
+						"5123fa3e-552d-4bb5-94d5-8a24243632ab"
 					]
 				}
 			},

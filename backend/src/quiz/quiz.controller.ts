@@ -1,43 +1,17 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
 import {
   CreateSectionQuizAssignmentDTO,
   CreateStudentQuizAssignmentDTO,
 } from 'src/quiz-assignment/create.dto';
-import { QuizAssignmentService } from 'src/quiz-assignment/quiz-assignement.service';
-import { StudentGuard } from 'src/student/student.guard';
+import { QuizAssignmentService } from 'src/quiz-assignment/quiz-assignment.service';
 import { TeacherGuard } from 'src/teacher/teacher.guard';
 import { QuizService } from './quiz.service';
 
 @UseGuards(AppGuard)
 @Controller('quiz')
 export class QuizController {
-  constructor(
-    private readonly quizAssignmentService: QuizAssignmentService,
-    private readonly quizService: QuizService,
-  ) {}
-
-  @UseGuards(StudentGuard)
-  @Get(':id')
-  async getQuiz(@Param('id') __quizID: string) {
-    const [quiz] = await this.quizService.getQuiz(__quizID);
-
-    if (!quiz) {
-      return new BadRequestException(
-        `Could not fetch quiz with ID: ${__quizID}`,
-      );
-    }
-
-    return quiz;
-  }
+  constructor(private readonly quizAssignmentService: QuizAssignmentService) {}
 
   @UseGuards(TeacherGuard)
   @Post('section')
