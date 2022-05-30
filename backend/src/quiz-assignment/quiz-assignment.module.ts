@@ -6,15 +6,18 @@ import { JSONQueryExtractorModule } from 'src/json-query-extractor/json-query-ex
 import { QuizModule } from 'src/quiz/quiz.module';
 import { QuizAssignmentService } from './quiz-assignment.service';
 import { QuizAssignmentController } from './quiz-assignment.controller';
+import { QuizEvaluationService } from './quiz-evaluation.service';
+import { QuizResultModule } from 'src/quiz-result/quiz-result.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([QuizAssignment]),
     AuthModule,
     forwardRef(() => QuizModule),
+    QuizResultModule,
     JSONQueryExtractorModule,
   ],
-  providers: [QuizAssignmentService],
+  providers: [QuizAssignmentService, QuizEvaluationService],
   controllers: [QuizAssignmentController],
   exports: [QuizAssignmentService],
 })
