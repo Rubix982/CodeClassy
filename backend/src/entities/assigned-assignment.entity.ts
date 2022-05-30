@@ -1,9 +1,10 @@
+import { AssignedAssignmentByStudent } from './assigned-assginment-by-student.entity';
+import { AssignedAssignmentByTeacher } from './assigned-assignment-by-teacher.entity';
 import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -23,4 +24,18 @@ export class AssignedAssignment {
   @OneToOne(() => Assignment, (assignment) => assignment)
   @JoinColumn()
   assignment: Assignment;
+
+  @OneToMany(
+    () => AssignedAssignmentByStudent,
+    (assignedAssignmentByStudent) =>
+      assignedAssignmentByStudent.assignedAssignmentByStudentID,
+  )
+  assignedAssignmentByStudent: AssignedAssignmentByStudent[];
+
+  @OneToMany(
+    () => AssignedAssignmentByTeacher,
+    (assignedAssignmentByTeacher) =>
+      assignedAssignmentByTeacher.assignedAssignmentByTeacherID,
+  )
+  assignedAssignmentByTeacher: AssignedAssignmentByTeacher[];
 }

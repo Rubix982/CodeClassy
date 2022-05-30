@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { CodingQuestion } from './coding-question.entity';
+import { Teacher } from './teacher.entity';
 
 @Entity()
 export class Assignment {
@@ -17,4 +18,7 @@ export class Assignment {
     (codingQuestion) => codingQuestion.assignments,
   )
   codingQuestion: CodingQuestion;
+
+  @ManyToOne(() => Teacher, (teacher) => teacher.assignment)
+  createdBy: Teacher;
 }

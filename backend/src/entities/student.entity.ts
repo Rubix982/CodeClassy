@@ -1,3 +1,4 @@
+import { AssignedAssignmentByStudent } from './assigned-assginment-by-student.entity';
 import {
   Entity,
   JoinColumn,
@@ -25,6 +26,13 @@ export class Student {
     (studentAssigned) => studentAssigned.student,
   )
   studentAssigned: StudentAssigned[];
+
+  @OneToMany(
+    () => AssignedAssignmentByStudent,
+    (assignedAssignmentByStudent) =>
+      assignedAssignmentByStudent.student,
+  )
+  student: AssignedAssignmentByStudent[];
 
   @ManyToMany(() => Section, (section) => section.students, {
     onDelete: 'CASCADE',

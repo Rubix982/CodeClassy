@@ -1,13 +1,13 @@
 import { Student } from 'src/entities/student.entity';
-import { AssignmentResult } from './assignment-result.entity';
 import { Entity, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import { AssignedAssignment } from './assigned-assignment.entity';
 
 @Entity()
-export class StudentAssigned {
+export class AssignedAssignmentByStudent {
   @PrimaryColumn({ type: 'int' })
   @ManyToOne(
-    () => AssignmentResult,
-    (assignmentResult) => assignmentResult.id,
+    () => AssignedAssignment,
+    (assignedAssignment) => assignedAssignment.id,
     {
       nullable: false,
       onUpdate: 'CASCADE',
@@ -15,7 +15,7 @@ export class StudentAssigned {
     },
   )
   @JoinColumn()
-  assignmentResult!: AssignmentResult;
+  assignedAssignmentByStudentID!: AssignedAssignment;
 
   @PrimaryColumn({ type: 'int' })
   @ManyToOne(() => Student, (student) => student.email, {
