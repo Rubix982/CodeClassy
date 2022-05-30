@@ -1,5 +1,4 @@
 import { AssignedAssignmentByStudent } from './assigned-assginment-by-student.entity';
-import { AssignedAssignmentByTeacher } from './assigned-assignment-by-teacher.entity';
 import {
   Column,
   Entity,
@@ -21,6 +20,9 @@ export class AssignedAssignment {
   @Column()
   sessionID: string;
 
+  @Column('double')
+  score;
+
   @OneToOne(() => Assignment, (assignment) => assignment)
   @JoinColumn()
   assignment: Assignment;
@@ -28,14 +30,7 @@ export class AssignedAssignment {
   @OneToMany(
     () => AssignedAssignmentByStudent,
     (assignedAssignmentByStudent) =>
-      assignedAssignmentByStudent.assignedAssignmentByStudentID,
+      assignedAssignmentByStudent.assignedAssignment,
   )
   assignedAssignmentByStudent: AssignedAssignmentByStudent[];
-
-  @OneToMany(
-    () => AssignedAssignmentByTeacher,
-    (assignedAssignmentByTeacher) =>
-      assignedAssignmentByTeacher.assignedAssignmentByTeacherID,
-  )
-  assignedAssignmentByTeacher: AssignedAssignmentByTeacher[];
 }

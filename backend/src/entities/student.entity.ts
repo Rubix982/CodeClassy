@@ -5,12 +5,10 @@ import {
   ManyToMany,
   OneToOne,
   PrimaryColumn,
-  ManyToOne,
   OneToMany,
 } from 'typeorm';
 import { Member } from './member.entity';
 import { Section } from './section.entity';
-import { StudentAssigned } from './student-assigned.entity';
 
 @Entity()
 export class Student {
@@ -20,12 +18,6 @@ export class Student {
   @OneToOne(() => Member, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'email' })
   member: Member;
-
-  @OneToMany(
-    () => StudentAssigned,
-    (studentAssigned) => studentAssigned.student,
-  )
-  studentAssigned: StudentAssigned[];
 
   @OneToMany(
     () => AssignedAssignmentByStudent,

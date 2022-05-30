@@ -10,9 +10,6 @@ export class Assignment {
   @Column()
   name: string;
 
-  @Column('datetime')
-  duration;
-
   @ManyToOne(
     () => CodingQuestion,
     (codingQuestion) => codingQuestion.assignments,
