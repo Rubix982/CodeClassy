@@ -5,10 +5,7 @@ class API {
 
   constructor() {
     this.options = { withCredentials: true };
-    this.baseUrl =
-      process.env.ENV == "DEV"
-        ? "http://localhost:5000"
-        : "http://backend-service:5000";
+    this.baseUrl = "http://localhost:5000";
   }
 
   static getInstance() {
