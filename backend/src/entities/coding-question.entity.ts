@@ -11,8 +11,8 @@ import { Teacher } from './teacher.entity';
 
 @Entity()
 export class CodingQuestion {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   title: string;

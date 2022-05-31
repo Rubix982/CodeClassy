@@ -11,8 +11,8 @@ import { Assignment } from './assignment.entity';
 
 @Entity()
 export class AssignedAssignment {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('datetime')
   dueDate;
