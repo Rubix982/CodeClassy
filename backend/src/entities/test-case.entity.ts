@@ -12,6 +12,12 @@ export class TestCase {
   @Column()
   out: string;
 
-  @ManyToOne(() => CodingQuestion, (codingQuestion) => codingQuestion.testCases)
+  @ManyToOne(
+    (type) => CodingQuestion,
+    (codingQuestion) => codingQuestion.testCases,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   codingQuestion: CodingQuestion;
 }

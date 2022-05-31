@@ -1,4 +1,4 @@
-import { AssignedAssignmentByStudent } from './assigned-assginment-by-student.entity';
+import { AssignedAssignmentByStudent } from './assigned-assignment-by-student.entity';
 import {
   Entity,
   JoinColumn,
@@ -21,8 +21,10 @@ export class Student {
 
   @OneToMany(
     () => AssignedAssignmentByStudent,
-    (assignedAssignmentByStudent) =>
-      assignedAssignmentByStudent.student,
+    (assignedAssignmentByStudent) => assignedAssignmentByStudent.student,
+    {
+      cascade: true,
+    },
   )
   student: AssignedAssignmentByStudent[];
 

@@ -1,4 +1,4 @@
-import { AssignedAssignmentByStudent } from './assigned-assginment-by-student.entity';
+import { AssignedAssignmentByStudent } from './assigned-assignment-by-student.entity';
 import {
   Column,
   Entity,
@@ -23,14 +23,19 @@ export class AssignedAssignment {
   @Column('double')
   score;
 
-  @OneToOne(() => Assignment, (assignment) => assignment)
+  @OneToOne((type) => Assignment, (assignment) => assignment, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   assignment: Assignment;
 
   @OneToMany(
-    () => AssignedAssignmentByStudent,
+    (type) => AssignedAssignmentByStudent,
     (assignedAssignmentByStudent) =>
       assignedAssignmentByStudent.assignedAssignment,
+    {
+      cascade: true,
+    },
   )
   assignedAssignmentByStudent: AssignedAssignmentByStudent[];
 }

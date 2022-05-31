@@ -30,9 +30,17 @@ export class Teacher {
   @OneToMany(() => Category, (category) => category.owner)
   categories: Category[];
 
-  @OneToMany(() => CodingQuestion, (codingQuestion) => codingQuestion.createdBy)
+  @OneToMany(
+    (type) => CodingQuestion,
+    (codingQuestion) => codingQuestion.createdBy,
+    {
+      cascade: true,
+    },
+  )
   codingQuestion: CodingQuestion[];
 
-  @OneToMany(() => Assignment, (assignment) => assignment.createdBy)
-  assignment: Assignment[];  
+  @OneToMany((type) => Assignment, (assignment) => assignment.createdBy, {
+    cascade: true,
+  })
+  assignment: Assignment[];
 }
