@@ -1,5 +1,13 @@
 import { CodingQuestionService } from 'src/coding-question/coding-question.service';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { JWTPayload } from 'src/auth/signin.dto';
@@ -12,9 +20,8 @@ export class CodingQuestionController {
 
   @Get()
   async getCodingQuestions(@RequestDecodedMember() __member: JWTPayload) {
-    const codingQuestionResults = this.codingQuestionService.getCodingQuestions(
-      __member.email,
-    );
+    const codingQuestionResults =
+      await this.codingQuestionService.getCodingQuestions(__member.email);
 
     return {
       msg: 'Successfully fetched assignments created by Teacher',
@@ -25,6 +32,22 @@ export class CodingQuestionController {
   @Post()
   async addCodingQuestion(
     @RequestDecodedMember() __member: JWTPayload,
-    @Body() requestBody: CodingQuestionRequestDTO,
-  ) {}
+    @Body() __requestBody: CodingQuestionRequestDTO,
+  ) {
+    const codingQuestionResult =
+      await this.codingQuestionService.createCodingQuestion(
+        __member.email,
+        __requestBody,
+      );
+
+    return {
+      msg: `Successfully created coding question`,
+      codingQuestionResult,
+    };
+  }
+
+  @Delete(':id')
+  async deleteCodingQuestion(@Param('id') __codingQuestionID: string) {
+    await this.codingQuestionService.deleteCodingQuestion(__codingQuestionID);
+  }
 }
