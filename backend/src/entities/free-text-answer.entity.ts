@@ -6,7 +6,7 @@ export class FreeTextAnswer {
   @PrimaryGeneratedColumn('uuid')
   ID: string;
 
-  @Column('json')
+  @Column()
   body: string;
 
   @Column()

@@ -48,5 +48,20 @@
     "id": 10,
     "title": "SELECT quiz data (information, MCQs, TFQs, FTQs)",
     "query": "SELECT quiz.ID, quiz.name, quiz.duration, mcq.questions as MCQs, tf.questions as TFQs, ft.questions as FTQs FROM quiz LEFT JOIN( SELECT mcqs.quizID as quizID, JSON_ARRAYAGG(JSON_OBJECT('ID', mcqs.questionID, 'body', mcqs.body, 'points', mcqs.points, 'answers', mcqs.answers)) as questions FROM ( SELECT qques.quizID as quizID, q.ID as questionID, q.body, q.points, JSON_ARRAYAGG(JSON_OBJECT('ID', mcqa.ID, 'body', mcqa.body)) as answers FROM quiz_questions qques JOIN question q ON qques.questionID = q.ID JOIN mcq_answer mcqa ON q.ID = mcqa.questionID WHERE qques.quizID = ? AND q.`type` = \"MCQ\" GROUP BY q.ID) mcqs GROUP BY mcqs.quizID ) as mcq ON mcq.quizID = quiz.ID LEFT JOIN ( SELECT qques.quizID as quizID, JSON_ARRAYAGG(JSON_OBJECT('ID', questionID, 'body', q.body, 'points', q.points)) as questions FROM quiz_questions qques JOIN question q ON qques.questionID = q.ID WHERE qques.quizID = ? AND q.`type` = \"TF\" GROUP BY qques.quizID ) as tf ON tf.quizID = quiz.ID LEFT JOIN ( SELECT qques.quizID as quizID, JSON_ARRAYAGG(JSON_OBJECT('ID', questionID, 'body', q.body, 'points', q.points)) as questions FROM quiz_questions qques JOIN question q ON qques.questionID = q.ID WHERE qques.quizID = ? AND q.`type` = \"FT\" GROUP BY qques.quizID ) as ft ON ft.quizID = quiz.ID WHERE quiz.ID = ?;"
+  },
+  {
+    "id": 11,
+    "title": "Evaluate a Multiple Choice Question",
+    "query": "SELECT CASE WHEN ? =(SELECT mcq.ID FROM mcq_answer mcq WHERE mcq.questionID = q.ID AND mcq.isCorrect = true) THEN q.points ELSE 0 END as obtainedPoints, q.points as totalPoints FROM question q WHERE q.ID = ?;"
+  },
+  {
+    "id": 12,
+    "title": "Evaluate a True False Question",
+    "query": "SELECT CASE WHEN ? = (SELECT tfa.correctChoice FROM true_false_answer tfa WHERE tfa.questionID = q.ID) THEN q.points ELSE 0 END as obtainedPoints, q.points as totalPoints FROM question q WHERE q.ID = ?;"
+  },
+  {
+    "id": 13,
+    "title": "Evaluate a Free Text Question",
+    "query": "SELECT CASE WHEN ? IN(SELECT fta.body FROM free_text_answer fta WHERE fta.questionID = q.ID) THEN q.points ELSE 0 END as obtainedPoints, q.points as totalPoints FROM question q WHERE q.ID = ?;"
   }
 ]

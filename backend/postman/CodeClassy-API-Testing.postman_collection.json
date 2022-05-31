@@ -919,20 +919,55 @@
 			"response": []
 		},
 		{
-			"name": "Quiz GET request",
+			"name": "Quiz GET request for respective Quiz-Assignment",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/quiz/b636ab59-79dd-4630-910b-c724024d2e9a",
+					"raw": "http://localhost:5000/quiz-assignment/5123fa3e-552d-4bb5-94d5-8a24243632ab",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"quiz",
-						"b636ab59-79dd-4630-910b-c724024d2e9a"
+						"quiz-assignment",
+						"5123fa3e-552d-4bb5-94d5-8a24243632ab"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Quiz attemption (quiz result creation)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"MCQs\": [\n        {\n            \"questionID\": \"dca1c709-5033-44fa-bef1-35a11ae6f478\",\n            \"answer\": \"0abde93c-137f-40f9-981d-de4714d3c440\"\n        }\n    ],\n    \"TFQs\": [\n        {\n            \"questionID\": \"aea2f135-c320-4655-9dd3-260e6f6256b6\",\n            \"answer\": false\n        }\n    ],\n    \"FTQs\": [\n        {\n            \"questionID\": \"9cbcb4e9-0959-41c3-8962-0116a3599f87\",\n            \"answer\": \"hello\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/quiz-assignment/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"quiz-assignment",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5123fa3e-552d-4bb5-94d5-8a24243632ab"
+						}
 					]
 				}
 			},
