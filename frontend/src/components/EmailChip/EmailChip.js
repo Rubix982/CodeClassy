@@ -100,7 +100,7 @@ export default function EmailChip () {
           multiline
           className={EmailChipStyles.input + (error && "has-error")}
           value={value}
-          placeholder="Type or paste student email addresses."
+          placeholder="Type comma separated student emails"
           onKeyDown={handleKeyDown}
           onChange={handleChange}
           onPaste={() => {if(emails.length > 0) {handlePaste}} }

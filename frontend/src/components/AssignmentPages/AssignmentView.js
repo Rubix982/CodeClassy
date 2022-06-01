@@ -14,6 +14,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import EmailChip from "../EmailChip/EmailChip"
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 
 /* 
     Note: Take input of test cases input and output in a text box when 
@@ -43,8 +46,15 @@ let cases = [
   },
 ];
 
+let sections = ["H", "A", "B", "D"]
+
 export default function AssignmentView() {
   const [open, setOpen] = React.useState(false);
+  const [section, setSection] = React.useState(sections[0]);
+
+  const handleSectionChange = (event) => {
+    setSection(event.target.value);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -172,8 +182,32 @@ export default function AssignmentView() {
                 />
               }
 
-              { (optionValue == "Group" || optionValue == "Section")  &&
+              {optionValue == "Group" &&
                 <EmailChip/>
+              }
+
+              {optionValue == "Section" &&
+              <div style={{margin: '15px', marginLeft: '0px', width: '200px'}}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="demo-simple-select-standard-label">Section</InputLabel>
+                <Select
+                  fullWidth
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={section}
+                  onChange={handleSectionChange}
+                  label="Section"
+                  >
+                  {sections.map((item,index) => {
+                    return (
+                      <MenuItem value={item}>{item}</MenuItem>
+                    )
+
+                  })}
+
+                </Select>
+                </FormControl>
+              </div>
               }
 
 
