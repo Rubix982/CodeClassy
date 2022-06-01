@@ -234,13 +234,6 @@ export default function AssignmentView() {
                     style={{ width: "100px", margin: "2px" }}
                     variant="text"
                   >
-                    <GradeIcon style={{ margin: "2px" }} />
-                    Grade
-                  </Button>
-                  <Button
-                    style={{ width: "100px", margin: "2px" }}
-                    variant="text"
-                  >
                     <AssessmentIcon style={{ margin: "2px" }} />
                     Result
                   </Button>
