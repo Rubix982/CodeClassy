@@ -2,7 +2,6 @@ import React from "react";
 import AssignmentViewStyles from "../../../styles/AssignmentPages/AssignmentView.module.css";
 import Navbar from "../Navbar/Navbar";
 import Button from "@mui/material/Button";
-import GradeIcon from "@mui/icons-material/Grade";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import Dialog from '@mui/material/Dialog';
@@ -17,6 +16,7 @@ import EmailChip from "../EmailChip/EmailChip"
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import AssignmentProblem from "./AssignmentProblem";
 
 /* 
     Note: Take input of test cases input and output in a text box when 
@@ -89,66 +89,7 @@ export default function AssignmentView() {
           </h5>
         </div>
 
-        <div className={AssignmentViewStyles.question}>
-          <h4>
-            {" "}
-            Problem:{" "}
-            <span style={{ color: "grey" }}>
-              {" "}
-              Construct Full Binary Tree using its Preorder traversal and
-              Preorder traversal of its mirror tree.{" "}
-            </span>
-          </h4>
-          <p style={{ margin: "10px 0px" }}>
-            Given two arrays that represent Preorder traversals of a full binary
-            tree and its mirror tree, we need to write a program to construct
-            the binary tree using these two Preorder traversals. A Full Binary
-            Tree is a binary tree where every node has either 0 or 2 children.
-            Note: It is not possible to construct a general binary tree using
-            these two traversal. But we can create a full binary tree using the
-            above traversals without any ambiguity. For more details refer to
-            this article.
-          </p>
-          <h4 style={{ marginTop: "20px" }}> Test cases:</h4>
-          {cases.map((item, index) => {
-            return (
-              <div key={item}>
-                <h4 style={{ margin: "10px", marginTop: "20px" }}>
-                  {" "}
-                  Case: {index + 1}{" "}
-                </h4>
-                <h5 style={{ color: "grey", margin: "15px" }}>
-                  {" "}
-                  Inputs:
-                  {item.inputs.map((item, itemInputIndex) => {
-                    return (
-                      <div key={itemInputIndex}>
-                        <h5 style={{ color: "green", margin: "10px" }}>
-                          {" "}
-                          {item}{" "}
-                        </h5>
-                      </div>
-                    );
-                  })}
-                </h5>
-                <h5 style={{ color: "grey", margin: "15px" }}>
-                  {" "}
-                  Output:
-                  {item.outputs.map((item, itemOutputIndex) => {
-                    return (
-                      <div key={itemOutputIndex}>
-                        <h5 style={{ color: "red", margin: "10px" }}>
-                          {" "}
-                          {item}{" "}
-                        </h5>
-                      </div>
-                    );
-                  })}
-                </h5>
-              </div>
-            );
-          })}
-        </div>
+        <AssignmentProblem/>
 
         <div className={AssignmentViewStyles.assign}>
           <Button style={{ height: "45px" }} variant="contained" onClick={handleClickOpen}>
