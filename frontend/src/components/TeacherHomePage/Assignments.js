@@ -23,9 +23,16 @@ export default function Assignments() {
   return (
     <div className={AssignmentStyles.container}>
       <div className={AssignmentStyles.buttonContainer}>
+      <Link href="/assignment/question">
+          <a style={{textDecoration: 'none'}}>
+            <Button style={{ height: '40px', margin: '5px 0px'}} variant="contained"> 
+              <Add /> Create Question
+            </Button>
+          </a>
+        </Link>
         <Link href="/assignment/create">
           <a style={{textDecoration: 'none'}}>
-            <Button style={{ height: '40px'}} variant="contained"> 
+            <Button style={{ height: '40px', margin: '5px 0px'}} variant="contained"> 
               <Add /> Create Assignment
             </Button>
           </a>

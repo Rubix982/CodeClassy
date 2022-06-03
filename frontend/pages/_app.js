@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     store.dispatch(authorizeUser());
   }, []);
-  return (
+  return ( 
     <Provider store={store}>
       <Component {...pageProps} />
     </Provider>
