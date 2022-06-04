@@ -16,6 +16,9 @@ import { AnnouncementModule } from 'src/announcement/announcement.module';
 import { JSONQueryExtractorModule } from 'src/json-query-extractor/json-query-extractor.module';
 import { SectionStudentModule } from 'src/section-student/section-student.module';
 import { AnnouncementCommentModule } from 'src/announcement-comment/announcement-comment.module';
+import { AssignedModule } from 'src/assigned/assigned.module';
+import { AssignmentModule } from 'src/assignment/assignment.module';
+import { CodingQuestionModule } from 'src/coding-question/coding-question.module';
 
 @Module({
   imports: [
@@ -35,6 +38,9 @@ import { AnnouncementCommentModule } from 'src/announcement-comment/announcement
     AnnouncementCommentModule,
     CryptoModule,
     JSONQueryExtractorModule,
+    AssignedModule,
+    AssignmentModule,
+    CodingQuestionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

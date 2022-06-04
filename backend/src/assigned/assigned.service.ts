@@ -7,16 +7,16 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Convergence } from '@convergence/convergence';
-import { PresenceService } from '@convergence/convergence/typings/presence/PresenceService';
+// import { PresenceService } from '@convergence/convergence/typings/presence/PresenceService';
 
 @Injectable()
 export class AssignedService {
   constructor(
     @InjectRepository(AssignedAssignment)
     private readonly assignedAssignmentRepository: Repository<AssignedAssignment>,
-    private readonly presenceService: PresenceService,
+    // private readonly presenceService: PresenceService,
   ) {
-    this.presenceService = new PresenceService();
+    // this.presenceService = new PresenceService();
   }
 
   async fetchAssigned(__email: string) {

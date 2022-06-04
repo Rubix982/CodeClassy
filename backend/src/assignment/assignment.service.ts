@@ -1,6 +1,7 @@
+import { CodingQuestionService } from 'src/coding-question/coding-question.service';
+import { TeacherService } from './../teacher/teacher.service';
 import { CodingQuestion } from 'src/entities/coding-question.entity';
 import { AssignmentRequestDTO } from './assignment.dto';
-import { Teacher } from 'src/entities/teacher.entity';
 import {
   Injectable,
   NotFoundException,
@@ -15,10 +16,8 @@ export class AssignmentService {
   constructor(
     @InjectRepository(Assignment)
     private readonly assignmentRepository: Repository<Assignment>,
-    @InjectRepository(Teacher)
-    private readonly teacherRepository: Repository<Teacher>,
-    @InjectRepository(CodingQuestion)
-    private readonly codingQuestionRepository: Repository<CodingQuestion>,
+    private readonly codingQuestionService: CodingQuestionService,
+    private readonly teacherService: TeacherService,
   ) {}
 
   async getAllAssignmentsByTeacher(__email: string) {
@@ -39,13 +38,12 @@ export class AssignmentService {
 
   async createAssignment(__email: string, __requestBody: AssignmentRequestDTO) {
     try {
-      const teacher = await this.teacherRepository.findOneOrFail({
-        where: { email: __email },
-      });
+      const teacher = await this.teacherService.findTeacher(__email);
 
-      const codingQuestion = await this.codingQuestionRepository.findOneOrFail({
-        where: { id: __requestBody.codingQuestionId },
-      });
+      const codingQuestion =
+        await this.codingQuestionService.findCodingQuestion(
+          __requestBody.codingQuestionId,
+        );
 
       const assignment = this.assignmentRepository.create({
         name: __requestBody.name,

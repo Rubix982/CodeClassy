@@ -22,9 +22,10 @@ export const getCodingQuestions = () => {
 export const addCodingQuestions = (codingQuestion) => {
   return async (dispatch) => {
     try {
+      console.log(codingQuestion);
       const api = API.getInstance();
 
-      const response = api.post("coding-questions", {
+      const response = api.post("coding-question", {
         title: codingQuestion.title,
         body: codingQuestion.body,
         testCases: codingQuestion.testCases,

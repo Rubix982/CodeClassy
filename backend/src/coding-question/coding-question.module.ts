@@ -1,3 +1,6 @@
+import { JSONQueryExtractorModule } from './../json-query-extractor/json-query-extractor.module';
+import { Teacher } from './../entities/teacher.entity';
+import { TeacherModule } from './../teacher/teacher.module';
 import { CodingQuestionService } from 'src/coding-question/coding-question.service';
 import { CodingQuestionController } from './coding-question.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,7 +9,12 @@ import { Module } from '@nestjs/common';
 import { CodingQuestion } from 'src/entities/coding-question.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CodingQuestion]), AuthModule],
+  imports: [
+    TypeOrmModule.forFeature([CodingQuestion]),
+    JSONQueryExtractorModule,
+    AuthModule,
+    TeacherModule,
+  ],
   controllers: [CodingQuestionController],
   providers: [CodingQuestionService],
   exports: [CodingQuestionService],

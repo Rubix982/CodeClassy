@@ -1,12 +1,23 @@
+// React imports
 import React, { useState } from "react";
-import Navbar from "../Navbar/Navbar";
-import TextField from "@mui/material/TextField";
-import AssignmentQuestionStyles from "../../../styles/AssignmentPages/AssignmentQuestion.module.css";
-import Button from "@mui/material/Button";
+
+// MUI imports
+import { TextField, Button } from "@mui/material";
+
+// MUI Icons Import
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import SendIcon from "@mui/icons-material/Send";
+
+// Component import
+import Navbar from "@components/Navbar/Navbar";
+
+// Redux imports
+import { connect } from "react-redux";
 import { addCodingQuestions } from "redux/actions/coding-question.action";
+
+// Style imports
+import AssignmentQuestionStyles from "@styles/AssignmentPages/AssignmentQuestion.module.css";
 
 const AssignmentQuestion = ({ addCodingQuestions }) => {
   const [currentTestCases, setCurrentTestCases] = useState(2);
@@ -34,7 +45,13 @@ const AssignmentQuestion = ({ addCodingQuestions }) => {
     setTestCases(newArr);
   };
 
-  const CreateQuestion = () => {};
+  const CreateQuestion = () => {
+    addCodingQuestions({
+      title: title,
+      body: description,
+      testCases: TestCases,
+    });
+  };
   return (
     <div>
       <Navbar />
@@ -50,6 +67,10 @@ const AssignmentQuestion = ({ addCodingQuestions }) => {
                 id="standard-basic"
                 placeholder="e.g, Tower of hanoi"
                 variant="standard"
+                onChange={(event) => {
+                  event.preventDefault();
+                  setTitle(event.target.value);
+                }}
               />
             </div>
             <div className={AssignmentQuestionStyles.AssignmentDetailsItems}>
@@ -61,6 +82,10 @@ const AssignmentQuestion = ({ addCodingQuestions }) => {
                 id="standard-basic"
                 placeholder="Problem description"
                 variant="standard"
+                onChange={(event) => {
+                  event.preventDefault();
+                  setDescription(event.target.value);
+                }}
               />
             </div>
 

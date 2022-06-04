@@ -1,4 +1,3 @@
-import { Teacher } from 'src/entities/teacher.entity';
 import { CodingQuestionRequestDTO } from 'src/coding-question/coding-question.dto';
 import {
   Injectable,
@@ -8,14 +7,14 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { CodingQuestion } from 'src/entities/coding-question.entity';
 import { Repository } from 'typeorm';
+import { TeacherService } from 'src/teacher/teacher.service';
 
 @Injectable()
 export class CodingQuestionService {
   constructor(
     @InjectRepository(CodingQuestion)
     private readonly codingQuestionRepository: Repository<CodingQuestion>,
-    @InjectRepository(Teacher)
-    private readonly teacherRepository: Repository<Teacher>,
+    private readonly teacherService: TeacherService,
   ) {}
 
   async getCodingQuestions(__email: string) {
@@ -34,14 +33,22 @@ export class CodingQuestionService {
     }
   }
 
+  async findCodingQuestion(__id: string) {
+    const result = await this.codingQuestionRepository.findOneOrFail({
+      where: { id: __id },
+    });
+
+    return result;
+  }
+
   async createCodingQuestion(
     __email: string,
     __requestBody: CodingQuestionRequestDTO,
   ) {
     try {
-      const requestedTeacher = await this.teacherRepository.findOneOrFail({
-        where: { email: __email },
-      });
+      const requestedTeacher = await this.teacherService.findTeacher(__email);
+
+      
 
       const codingQuestion = this.codingQuestionRepository.create({
         title: __requestBody.title,
@@ -52,11 +59,12 @@ export class CodingQuestionService {
       });
 
       await this.codingQuestionRepository.save(codingQuestion);
-    } catch (error) {}
-
-    throw new BadRequestException([
-      `Could not find teacher with provided email, ${__email}`,
-    ]);
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException([
+        `Could not find teacher with provided email, ${__email}`,
+      ]);
+    }
   }
 
   async deleteCodingQuestion(__codingQuestionID: string) {
