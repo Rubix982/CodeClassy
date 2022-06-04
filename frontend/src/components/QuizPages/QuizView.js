@@ -6,7 +6,6 @@ import GradeIcon from '@mui/icons-material/Grade';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import QuestionBank from "@components/TeacherHomePage/QuestionBank/QuestionBank";
-import Link from 'next/link'
 
 export default function QuizView() {
   return (
