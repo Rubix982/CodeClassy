@@ -1,9 +1,12 @@
 import { ValidateFloatConstraints } from './ValidateFloatConstraint';
-import { IsISO8601 } from 'class-validator';
+import { IsISO8601, Validate } from 'class-validator';
 
 export class CreateAssignedAssignmentRequestDTO {
   @IsISO8601()
   dueDate: string;
 
-  @ValidateFloatConstraints()
+  @Validate(ValidateFloatConstraints, {
+    message: `Score is stored in the invalid format!`,
+  })
+  score;
 }
