@@ -1,4 +1,5 @@
 import API from "api";
+import { actionTypes } from "redux/actionTypes/actionTypes";
 import { errorHandler } from "./error.action";
 import { setSuccessStates } from "./login.action";
 
@@ -28,8 +29,9 @@ export const getAssignments = () => {
     try {
       const api = API.getInstance();
 
-      const assignments = api.get("assignment");
+      const response = api.get("assignment");
 
+      setAssignments(dispatch, response.data);
       setSuccessStates(dispatch, `Assignments successfully fetched`);
 
       return true;
@@ -60,4 +62,13 @@ export const deleteAssignment = (id) => {
       return false;
     }
   };
+};
+
+const setAssignments = (dispatch, data) => {
+  dispatch({
+    type: actionTypes.loadAssignments,
+    payload: {
+      loadAssignments: data, // assignments array
+    },
+  });
 };

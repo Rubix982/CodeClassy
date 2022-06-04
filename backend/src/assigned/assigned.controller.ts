@@ -1,6 +1,7 @@
 import {
   CreateAssignedAssignmentForIndividualDTO,
   CreateAssignedAssignmentForGroupDTO,
+  CreateAssignedAssignmentForSectionDTO,
 } from './assigned.dto';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { AssignedService } from 'src/assigned/assigned.service';
@@ -57,19 +58,19 @@ export class AssignedController {
     };
   }
 
-  @Post(':assignmentID/section/:sectionId')
+  @Post(':assignmentID/section')
   async createAssignedAssignmentForSection(
     @Param('assignmentID') __assignmentID: string,
-    @Param('sectionId') __sectionID: string,
+    @Body() __requestBody: CreateAssignedAssignmentForSectionDTO,
   ) {
     const assignedAssignment =
       await this.AssignedService.createAssignedAssignmentForSection(
         __assignmentID,
-        __sectionID,
+        __requestBody.id,
       );
 
     return {
-      msg: `Successfully assigned assignment to section with id ${__sectionID}`,
+      msg: `Successfully assigned assignment to section with id ${__requestBody.id}`,
       assignedAssignment,
     };
   }
