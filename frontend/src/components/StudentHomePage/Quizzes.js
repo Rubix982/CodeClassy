@@ -39,7 +39,7 @@ export default function Quizzes() {
                 </div>
 
                 <div className={QuizStyles.quizView}>
-                  <Link href="/quiz/view">
+                  <Link href="/quiz/start">
                     <a style={{textDecoration: 'none'}}>
                       <Button style={{ height: '40px', backgroundColor: 'orange'}} variant="contained"> 
                         <div style={{height: '100%', paddingRight: '5px'}}><KeyboardArrowRightIcon/></div> Start
