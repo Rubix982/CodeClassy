@@ -1,14 +1,14 @@
+import { AssignedAssignmentByStudent } from './assigned-assignment-by-student.entity';
 import {
   Entity,
   JoinColumn,
   ManyToMany,
   OneToOne,
   PrimaryColumn,
-  ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { Member } from './member.entity';
 import { Section } from './section.entity';
-import { StudentAssigned } from './student-assigned.entity';
 
 @Entity()
 export class Student {
@@ -19,11 +19,14 @@ export class Student {
   @JoinColumn({ name: 'email' })
   member: Member;
 
-  @ManyToOne(
-    () => StudentAssigned,
-    (studentAssigned) => studentAssigned.students,
+  @OneToMany(
+    () => AssignedAssignmentByStudent,
+    (assignedAssignmentByStudent) => assignedAssignmentByStudent.student,
+    {
+      cascade: true,
+    },
   )
-  studentAssignedResult: StudentAssigned;
+  student: AssignedAssignmentByStudent[];
 
   @ManyToMany(() => Section, (section) => section.students, {
     onDelete: 'CASCADE',
