@@ -38,7 +38,7 @@ export default function AssignmentQuestion() {
         <Navbar/>
         <div className={AssignmentQuestionStyles.container}>
             <div className={AssignmentQuestionStyles.AssignmentDetailsContainer}>
-                <h1>Assignment Problem</h1>
+                <h1>Coding Question</h1>
                 <div className={AssignmentQuestionStyles.AssignmentDetails}>
                     <div className={AssignmentQuestionStyles.AssignmentDetailsItems}>
                         <label> Title</label>

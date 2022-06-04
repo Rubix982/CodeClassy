@@ -38,10 +38,6 @@ export default function AssignmentCreation() {
                         <label> Name</label>
                         <TextField style={{marginTop: '5px'}} fullWidth id="standard-basic" placeholder="e.g, Linked List"  variant="standard" />
                     </div>
-                    <div className={AssignmentCreationStyles.AssignmentDetailsItems}>
-                        <label> Duration</label>
-                        <TextField style={{marginTop: '5px'}} fullWidth id="standard-basic" placeholder="e.g, 5 (minutes)" variant="standard" />
-                    </div>
                 </div>
                 <FormControl style={{width: '50%'}}>
                     <InputLabel id="demo-simple-select-label">Question</InputLabel>

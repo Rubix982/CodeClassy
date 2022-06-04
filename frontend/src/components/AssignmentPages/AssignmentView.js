@@ -83,10 +83,6 @@ export default function AssignmentView() {
       <div className={AssignmentViewStyles.container}>
         <div className={AssignmentViewStyles.header}>
           <h1> Binary Search Tree </h1>
-          <h5 style={{ display: "flex", marginTop: "8px", color: "grey" }}>
-            <span style={{ color: "#000000" }}> Duration: </span> &nbsp;5
-            minutes
-          </h5>
         </div>
 
         <AssignmentProblem/>

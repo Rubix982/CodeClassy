@@ -36,23 +36,52 @@ export class AssignedService {
     }
   }
 
-  async createAssignedAssignment(__email: string) {
+  async createAssignedAssignmentForIndividual(
+    __assignmentID: string,
+    __email: string,
+  ) {
     try {
-      const convergenceConnectionString =
-        'https://localhost/realtime/convergence/default';
-
-      Convergence.connectAnonymously(convergenceConnectionString, __email).then(
-        (domain) => {
-          console.log(this.presenceService.session());
-          return domain.models().openAutoCreate({
-            collection: 'default',
-          });
-        },
-      );
+      // const convergenceConnectionString =
+      //   'https://localhost/realtime/convergence/default';
+      // Convergence.connectAnonymously(convergenceConnectionString, __email).then(
+      //   (domain) => {
+      //     console.log(this.presenceService.session());
+      //     return domain.models().openAutoCreate({
+      //       collection: 'default',
+      //     });
+      //   },
+      // );
+      return true;
     } catch (error) {}
 
     throw new BadRequestException([
-      `Could not successfully assign the assignments to students`,
+      `Could not successfully assign the assignment to individual student with the email '${__email}'`,
+    ]);
+  }
+
+  async createAssignedAssignmentForGroup(
+    __assignmentID: string,
+    __emails: string[],
+  ) {
+    try {
+      return true;
+    } catch (error) {}
+
+    throw new BadRequestException([
+      `Could not successfully assign the assignment to the students with the emails '${__emails}'`,
+    ]);
+  }
+
+  async createAssignedAssignmentForSection(
+    __assignmentID: string,
+    __sectionID: string,
+  ) {
+    try {
+      return true;
+    } catch (error) {}
+
+    throw new BadRequestException([
+      `Could not successfully assign the assignment to the section with id '${__sectionID}'`,
     ]);
   }
 }
