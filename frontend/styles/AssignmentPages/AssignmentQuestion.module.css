@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5vh 0px;
+    /* background-color: black; */
+}
+
+.AssignmentDetailsContainer{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    /* background-color: coral; */
+}
+
+.AssignmentDetails{
+    display: flex;
+    margin: 5vh 0px;
+    flex-direction: column;
+    width: 95%;
+}
+
+.AssignmentDetailsItems{
+    margin: 2vh 0px;
+}
+
+
+.AssignmentProblems{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+
+.TestCase{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 95%;
+    border: 1px solid grey;
+    margin: 10px 0px;
+    padding: 25px;
+}
+
+.input, .output {
+    display: flex;
+    width: 95%;
+    margin: 5px 3px
+}
+
+.create {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

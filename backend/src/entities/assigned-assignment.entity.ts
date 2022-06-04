@@ -1,19 +1,18 @@
+import { AssignedAssignmentByStudent } from './assigned-assignment-by-student.entity';
 import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Assignment } from './assignment.entity';
-import { AssignmentResult } from './assignment-results.entity';
 
 @Entity()
 export class AssignedAssignment {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('datetime')
   dueDate;
@@ -21,7 +20,22 @@ export class AssignedAssignment {
   @Column()
   sessionID: string;
 
-  @OneToOne(() => Assignment, (assignment) => assignment)
+  @Column('double')
+  score;
+
+  @OneToOne((type) => Assignment, (assignment) => assignment, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   assignment: Assignment;
+
+  @OneToMany(
+    (type) => AssignedAssignmentByStudent,
+    (assignedAssignmentByStudent) =>
+      assignedAssignmentByStudent.assignedAssignment,
+    {
+      cascade: true,
+    },
+  )
+  assignedAssignmentByStudent: AssignedAssignmentByStudent[];
 }

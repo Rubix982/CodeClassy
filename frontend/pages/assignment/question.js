@@ -1,16 +1,16 @@
-import QuizStart from "@components/QuizPages/QuizStart";
+import AssignmentQuestion from "@components/AssignmentPages/AssignmentQuestion";
 import Head from "next/head";
 import EnsureAuthenticated from "@components/Auth/ensure-authenticated";
 
-export default function Attempt() {
+export default function Question() {
   return (
     <>
       <Head>
-        <title>Quiz Start</title>
+        <title>Assignment Question</title>
         <link rel="icon" href="/assets/images/vercel.svg" />
       </Head>
       <EnsureAuthenticated>
-        <QuizStart/>
+        <AssignmentQuestion/>
       </EnsureAuthenticated>
     </>
   );

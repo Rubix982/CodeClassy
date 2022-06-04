@@ -26,4 +26,7 @@ export const actionTypes = {
   updateComment: "updateComment",
   getCategories: "getCategories",
   addCategories: "addCategories",
+  loadAssignments: "loadAssignments",
+  loadAssignedAssignments: "loadAssignedAssignments",
+  loadCodingQuestions: "loadCodingQuestions",
 };

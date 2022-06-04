@@ -3,8 +3,8 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity()
 export class TestCase {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   in: string;
@@ -12,6 +12,12 @@ export class TestCase {
   @Column()
   out: string;
 
-  @ManyToOne(() => CodingQuestion, (codingQuestion) => codingQuestion.testCases)
+  @ManyToOne(
+    (type) => CodingQuestion,
+    (codingQuestion) => codingQuestion.testCases,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   codingQuestion: CodingQuestion;
 }
