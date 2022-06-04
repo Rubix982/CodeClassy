@@ -1,6 +1,6 @@
 import { JWTPayload } from 'src/auth/signin.dto';
 import { AssignedService } from 'src/assigned/assigned.service';
-import { Controller, Get, UseGuards, NotFoundException } from '@nestjs/common';
+import { Controller, Get, UseGuards, Post } from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 
@@ -16,6 +16,17 @@ export class AssignedController {
     return {
       msg: `Successfully fetched assigned assignments by teacher`,
       results,
+    };
+  }
+
+  @Post()
+  async createAssignedAssignment(@RequestDecodedMember() __member: JWTPayload) {
+    const assignedAssignment =
+      await this.AssignedService.createAssignedAssignment(__member.email);
+
+    return {
+      msg: `Successfully assigned assignments to students`,
+      assignedAssignment,
     };
   }
 }
