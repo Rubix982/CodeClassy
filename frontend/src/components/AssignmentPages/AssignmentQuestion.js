@@ -10,6 +10,8 @@ import SendIcon from '@mui/icons-material/Send';
 export default function AssignmentQuestion() {
     const[currentTestCases, setCurrentTestCases] = useState(2);
     const[TestCases, setTestCases] = useState([{inputs: "", outputs: ""}, {inputs: "", outputs: ""}])
+    const[title, setTitle] = useState('');
+    const[description, setDescription] = useState('');
 
     const updateCurrentTestCases = (value) => {
       if(value <= 10 && value >= 2){
@@ -31,7 +33,7 @@ export default function AssignmentQuestion() {
     }
 
     const CreateQuestion = () => {
-        // api call to create question here
+        
     }
   return (
     <div>
