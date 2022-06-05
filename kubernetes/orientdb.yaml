@@ -19,7 +19,7 @@ spec:
         name: orientdb-pod-label
     spec:
       volumes:
-        - name: azure-file-volume
+        - name: codeclassy-volume
           persistentVolumeClaim:
             claimName: codeclassy-pvc
       containers:
@@ -30,10 +30,11 @@ spec:
               name: orient-db
             - containerPort: 2480
               name: default-orient-db
-
-# persist 
-# :/orientdb/databases
-# :/orientdb/backup
+          volumeMounts:
+            - name: codeclassy-volume
+              mountPath: "/orientdb/databases"
+            - name: codeclassy-volume
+              mountPath: "/orientdb/backup"
 
 
 # environment:
