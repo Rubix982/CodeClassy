@@ -7,10 +7,10 @@ export const getCodingQuestions = () => {
     try {
       const api = API.getInstance();
 
-      const response = api.get("coding-question");
+      const response = await api.get("coding-question");
 
       setCodingQuestions(dispatch, response.data);
-      setSuccessStates(dispatch, response.msg);
+      setSuccessStates(dispatch, response.data.msg);
     } catch (error) {
       errorHandler(dispatch, error);
 
@@ -22,16 +22,15 @@ export const getCodingQuestions = () => {
 export const addCodingQuestions = (codingQuestion) => {
   return async (dispatch) => {
     try {
-      console.log(codingQuestion);
       const api = API.getInstance();
 
-      const response = api.post("coding-question", {
+      const response = await api.post("coding-question", {
         title: codingQuestion.title,
         body: codingQuestion.body,
         testCases: codingQuestion.testCases,
       });
 
-      setSuccessStates(dispatch, response.msg);
+      setSuccessStates(dispatch, response.data.msg);
     } catch (error) {
       errorHandler(dispatch, error);
 

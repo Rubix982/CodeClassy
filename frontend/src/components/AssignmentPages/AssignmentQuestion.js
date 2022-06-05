@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 // MUI imports
 import { TextField, Button } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 // MUI Icons Import
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,7 +21,16 @@ import { addCodingQuestions } from "redux/actions/coding-question.action";
 // Style imports
 import AssignmentQuestionStyles from "@styles/AssignmentPages/AssignmentQuestion.module.css";
 
-const AssignmentQuestion = ({ addCodingQuestions }) => {
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const AssignmentQuestion = ({
+  addCodingQuestions,
+  successMessageSnackbar,
+  errorMessageSnackbar,
+  responseMessage,
+}) => {
   const [currentTestCases, setCurrentTestCases] = useState(2);
   const [TestCases, setTestCases] = useState([
     { inputs: "", outputs: "" },
@@ -46,7 +57,6 @@ const AssignmentQuestion = ({ addCodingQuestions }) => {
     } else if (param == "output") {
       newArr[index].outputs = event.target.value;
     }
-    // newArr[index] = event.target.value;
     setTestCases(newArr);
   };
 
@@ -58,138 +68,165 @@ const AssignmentQuestion = ({ addCodingQuestions }) => {
     });
   };
   return (
-    <div>
-      <Navbar />
-      <div className={AssignmentQuestionStyles.container}>
-        <div className={AssignmentQuestionStyles.AssignmentDetailsContainer}>
-          <h1>Coding Question</h1>
-          <div className={AssignmentQuestionStyles.AssignmentDetails}>
-            <div className={AssignmentQuestionStyles.AssignmentDetailsItems}>
-              <label> Title</label>
-              <TextField
-                style={{ marginTop: "5px" }}
-                fullWidth
-                id="standard-basic"
-                placeholder="e.g, Tower of hanoi"
-                variant="standard"
-                onChange={(event) => {
-                  event.preventDefault();
-                  setTitle(event.target.value);
-                }}
-              />
-            </div>
-            <div className={AssignmentQuestionStyles.AssignmentDetailsItems}>
-              <label> Problem Description</label>
-              <TextField
-                multiline
-                style={{ marginTop: "5px" }}
-                fullWidth
-                id="standard-basic"
-                placeholder="Problem description"
-                variant="standard"
-                onChange={(event) => {
-                  event.preventDefault();
-                  setDescription(event.target.value);
-                }}
-              />
-            </div>
+    <>
+      {successMessageSnackbar && (
+        <Snackbar open={true} autoHideDuration={3000}>
+          <Alert severity="success" sx={{ width: "100%" }}>
+            {responseMessage}
+          </Alert>
+        </Snackbar>
+      )}
 
-            {TestCases.slice(0, currentTestCases).map((item, index) => {
-              return (
-                <div className={AssignmentQuestionStyles.TestCase} key={index}>
-                  <h4> Testcase: {index + 1}</h4>
-                  <div className={AssignmentQuestionStyles.input}>
-                    <TextField
-                      multiline
-                      fullWidth
-                      id="standard-basic"
-                      placeholder="Write an input and then press enter to add more inputs in this test case if there are any."
-                      variant="standard"
-                      onChange={updateTestCase(index, "input")}
-                      value={item.input}
-                    />
-                  </div>
-                  <div className={AssignmentQuestionStyles.output}>
-                    <TextField
-                      multiline
-                      fullWidth
-                      id="standard-basic"
-                      placeholder="Write an output and then press enter to add more outputs in this test case if there are any."
-                      variant="standard"
-                      onChange={updateTestCase(index, "output")}
-                      value={item.output}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+      {errorMessageSnackbar && (
+        <Snackbar open={true} autoHideDuration={3000}>
+          <Alert severity="error" sx={{ width: "100%" }}>
+            {responseMessage}
+          </Alert>
+        </Snackbar>
+      )}
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginTop: "50px",
-                marginBottom: "100px",
-              }}
-            >
-              <Button
-                variant="contained"
-                startIcon={<AddIcon />}
-                onClick={(e) => updateCurrentTestCases(currentTestCases + 1)}
+      <div>
+        <Navbar />
+        <div className={AssignmentQuestionStyles.container}>
+          <div className={AssignmentQuestionStyles.AssignmentDetailsContainer}>
+            <h1>Coding Question</h1>
+            <div className={AssignmentQuestionStyles.AssignmentDetails}>
+              <div className={AssignmentQuestionStyles.AssignmentDetailsItems}>
+                <label> Title</label>
+                <TextField
+                  style={{ marginTop: "5px" }}
+                  fullWidth
+                  id="standard-basic"
+                  placeholder="e.g, Tower of hanoi"
+                  variant="standard"
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setTitle(event.target.value);
+                  }}
+                />
+              </div>
+              <div className={AssignmentQuestionStyles.AssignmentDetailsItems}>
+                <label> Problem Description</label>
+                <TextField
+                  multiline
+                  style={{ marginTop: "5px" }}
+                  fullWidth
+                  id="standard-basic"
+                  placeholder="Problem description"
+                  variant="standard"
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setDescription(event.target.value);
+                  }}
+                />
+              </div>
+
+              {TestCases.slice(0, currentTestCases).map((item, index) => {
+                return (
+                  <div
+                    className={AssignmentQuestionStyles.TestCase}
+                    key={index}
+                  >
+                    <h4> Testcase: {index + 1}</h4>
+                    <div className={AssignmentQuestionStyles.input}>
+                      <TextField
+                        multiline
+                        fullWidth
+                        id="standard-basic"
+                        placeholder="Write an input and then press enter to add more inputs in this test case if there are any."
+                        variant="standard"
+                        onChange={updateTestCase(index, "input")}
+                        value={item.input}
+                      />
+                    </div>
+                    <div className={AssignmentQuestionStyles.output}>
+                      <TextField
+                        multiline
+                        fullWidth
+                        id="standard-basic"
+                        placeholder="Write an output and then press enter to add more outputs in this test case if there are any."
+                        variant="standard"
+                        onChange={updateTestCase(index, "output")}
+                        value={item.output}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+
+              <div
                 style={{
-                  margin: "10px 0px",
-                  backgroundColor: "#000000",
-                  height: "45px",
-                  width: "25%",
-                  color: "#ffffff",
-                  borderColor: "#000000",
+                  display: "flex",
+                  flexDirection: "column",
+                  marginTop: "50px",
+                  marginBottom: "100px",
                 }}
               >
-                Add A Testcase
-              </Button>
-
-              <Button
-                variant="contained"
-                startIcon={<DeleteIcon />}
-                onClick={(e) => updateCurrentTestCases(currentTestCases - 1)}
-                style={{
-                  margin: "10px 0px",
-                  backgroundColor: "#000000",
-                  marginTop: "20px",
-                  height: "45px",
-                  width: "25%",
-                  color: "#ffffff",
-                  borderColor: "#000000",
-                }}
-              >
-                Remove A Testcase
-              </Button>
-
-              <div className={AssignmentQuestionStyles.create}>
                 <Button
                   variant="contained"
-                  startIcon={<SendIcon />}
-                  onClick={(e) => CreateQuestion()}
+                  startIcon={<AddIcon />}
+                  onClick={(e) => updateCurrentTestCases(currentTestCases + 1)}
                   style={{
-                    margin: "50px 0px",
-                    marginLeft: "500px",
+                    margin: "10px 0px",
+                    backgroundColor: "#000000",
                     height: "45px",
+                    width: "25%",
                     color: "#ffffff",
                     borderColor: "#000000",
                   }}
                 >
-                  Create
+                  Add A Testcase
                 </Button>
+
+                <Button
+                  variant="contained"
+                  startIcon={<DeleteIcon />}
+                  onClick={(e) => updateCurrentTestCases(currentTestCases - 1)}
+                  style={{
+                    margin: "10px 0px",
+                    backgroundColor: "#000000",
+                    marginTop: "20px",
+                    height: "45px",
+                    width: "25%",
+                    color: "#ffffff",
+                    borderColor: "#000000",
+                  }}
+                >
+                  Remove A Testcase
+                </Button>
+
+                <div className={AssignmentQuestionStyles.create}>
+                  <Button
+                    variant="contained"
+                    startIcon={<SendIcon />}
+                    onClick={(e) => CreateQuestion()}
+                    style={{
+                      margin: "50px 0px",
+                      marginLeft: "500px",
+                      height: "45px",
+                      color: "#ffffff",
+                      borderColor: "#000000",
+                    }}
+                  >
+                    Create
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => {
+  return {
+    responseMessage: state.apiReducer.responseMessage,
+    successMessageSnackbar: state.apiReducer.successMessageSnackbar,
+    errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+  };
+};
 
 export default connect(mapStateToProps, {
   addCodingQuestions,
