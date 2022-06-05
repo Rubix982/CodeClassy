@@ -1,41 +1,37 @@
-import { Test } from '@nestjs/testing';
+import { JSONQueryExtractorService } from './../json-query-extractor/json-query-extractor.service';
 import { CodingQuestionRequestDTO } from 'src/coding-question/coding-question.dto';
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CodingQuestion } from 'src/entities/coding-question.entity';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository, getManager } from 'typeorm';
 import { TeacherService } from 'src/teacher/teacher.service';
 import { TestCase } from 'src/entities/test-case.entity';
 
 @Injectable()
 export class CodingQuestionService {
+  private readonly entityManager: EntityManager;
+
   constructor(
     @InjectRepository(CodingQuestion)
     private readonly codingQuestionRepository: Repository<CodingQuestion>,
     @InjectRepository(TestCase)
     private readonly testCaseRepository: Repository<TestCase>,
+    private readonly jsonQueryExtractorService: JSONQueryExtractorService,
     private readonly teacherService: TeacherService,
-  ) {}
+  ) {
+    this.entityManager = getManager();
+  }
 
   async getCodingQuestions(__email: string) {
-    const result = this.codingQuestionRepository.find({
-      where: {
-        createdBy: __email,
-      },
-      relations: ['test_case'],
-    });
+    const queryString: string = this.jsonQueryExtractorService.getQueryByID(14);
+    const [codingQuestionsData] = await this.entityManager.query(queryString, [
+      __email,
+    ]);
 
-    if (result) {
-      return result;
+    if (codingQuestionsData) {
+      return codingQuestionsData;
     } else {
       return {};
-      // throw new NotFoundException([
-      //   `Could not find coding questions for user with email: ${__email}`,
-      // ]);
     }
   }
 

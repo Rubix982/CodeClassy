@@ -13,7 +13,7 @@ import { CodingQuestion } from 'src/entities/coding-question.entity';
     TypeOrmModule.forFeature([CodingQuestion, TestCase]),
     JSONQueryExtractorModule,
     AuthModule,
-    TeacherModule,
+    TeacherModule
   ],
   controllers: [CodingQuestionController],
   providers: [CodingQuestionService],

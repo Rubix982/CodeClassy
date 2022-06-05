@@ -36,8 +36,8 @@ const AssignmentQuestion = ({
     { inputs: "", outputs: "" },
     { inputs: "", outputs: "" },
   ]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("e.g, Tower Of Hanoi");
+  const [description, setDescription] = useState("Problem description");
 
   const updateCurrentTestCases = (value) => {
     if (value <= 10 && value >= 2) {
@@ -97,7 +97,7 @@ const AssignmentQuestion = ({
                   style={{ marginTop: "5px" }}
                   fullWidth
                   id="standard-basic"
-                  placeholder="e.g, Tower of hanoi"
+                  placeholder="e.g, Tower Of Hanoi"
                   variant="standard"
                   onChange={(event) => {
                     event.preventDefault();
