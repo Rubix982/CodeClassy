@@ -53,7 +53,7 @@ export class CreateTrueFalseQuestionDTO {
 }
 
 class FreeTextAnswer {
-  @IsJSON()
+  @IsString()
   body: string;
 }
 
