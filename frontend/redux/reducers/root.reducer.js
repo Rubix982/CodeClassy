@@ -10,6 +10,7 @@ import announcementReducer from "./announcement.reducer";
 import categoriesReducer from "./categories.reducer";
 import codingQuestionReducer from "./coding-question.reducer";
 import assignedReducer from "./assigned.reducer";
+import questionReducer from "./question.reducer";
 import assignmentReducer from "./assignment.reducer";
 
 const rootReducer = combineReducers({
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   codingQuestionReducer: codingQuestionReducer,
   assignedReducer: assignedReducer,
   assignmentReducer: assignmentReducer,
+  questionReducer: questionReducer,
 });
 
 export default rootReducer;

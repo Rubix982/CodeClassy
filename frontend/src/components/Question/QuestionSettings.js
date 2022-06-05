@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Radio from "@mui/material/Radio";
 import FormControl from "@mui/material/FormControl";
@@ -13,8 +13,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CancelIcon from "@mui/icons-material/Cancel";
 
+import { QuestionContext } from "./Question";
 import { createCategory } from "redux/actions/categories.action";
 import { getCategories } from "redux/actions/categories.action";
+import { createQuestionAction } from "redux/actions/question.action";
 import { connect } from "react-redux";
 
 const style = {
@@ -50,6 +52,8 @@ const QuestionSettings = (props) => {
   const [secondRadio, setSecondRadio] = React.useState("Shuffle matches only");
   const [thirdRadio, setThirdRadio] = React.useState("Off");
 
+  const context = useContext(QuestionContext);
+
   const addCategory = () => {
     if (newCategory == "" || newCategory == null) {
       alert(`A category cannot be empty`);
@@ -59,14 +63,6 @@ const QuestionSettings = (props) => {
       setNewCategory("");
     }
   };
-
-  React.useEffect(() => {
-    if (!props.categories[0]) {
-      props.getCategories();
-      return;
-    }
-    setCategory(props.categories[0].name);
-  }, [props.categories]);
 
   return (
     <div className={settingsStyle.container}>
@@ -172,12 +168,20 @@ const QuestionSettings = (props) => {
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
               label="Category"
             >
               {props.categories.map((item, index) => {
                 return (
-                  <MenuItem key={index} value={item.name}>
+                  <MenuItem
+                    key={index}
+                    value={item.name}
+                    onClick={() => {
+                      context.categoryID.setter(item.ID);
+                    }}
+                  >
                     {" "}
                     {item.name}{" "}
                   </MenuItem>
@@ -192,151 +196,17 @@ const QuestionSettings = (props) => {
         <div className={settingsStyle.subContainer}>
           <h4 style={{ marginBottom: "10px" }}> Total Points </h4>
           <TextField
-            onChange={(event) =>
+            onChange={(event) => {
               event.target.value < 0
                 ? (event.target.value = 0)
-                : event.target.value
-            }
+                : event.target.value;
+              context.points.setter(parseInt(event.target.value));
+            }}
             type="number"
             id="standard-basic"
             label="Standard"
             variant="standard"
           />
-        </div>
-      )}
-
-      {props.randomize && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-          }}
-          className={settingsStyle.subContainer}
-        >
-          <h4 style={{ marginBottom: "10px" }}> Randomize Answers </h4>
-          <div>
-            <Radio
-              checked={firstRadio === "Yes"}
-              onChange={(e) => setFirstRadio(e.target.value)}
-              value={"Yes"}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "Yes" }}
-              style={{ color: "#616161" }}
-            />
-            <label> Yes </label>
-          </div>
-
-          <div>
-            <Radio
-              checked={firstRadio === "No"}
-              onChange={(e) => setFirstRadio(e.target.value)}
-              value={"No"}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "No" }}
-              style={{ color: "#616161" }}
-            />
-            <label> No </label>
-          </div>
-        </div>
-      )}
-
-      {props.shuffle && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-          }}
-          className={settingsStyle.subContainer}
-        >
-          <h4 style={{ marginBottom: "10px" }}> Shuffle Mode </h4>
-          <div>
-            <Radio
-              checked={secondRadio === "Shuffle matches only"}
-              onChange={(e) => setSecondRadio(e.target.value)}
-              value={"Shuffle matches only"}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "Shuffle matches only" }}
-              style={{ color: "#616161" }}
-            />
-            <label> Shuffle matches only </label>
-          </div>
-
-          <div>
-            <Radio
-              checked={secondRadio === "Shuffle clues only"}
-              onChange={(e) => setSecondRadio(e.target.value)}
-              value={"Shuffle clues only"}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "Shuffle clues only" }}
-              style={{ color: "#616161" }}
-            />
-            <label> Shuffle clues only</label>
-          </div>
-
-          <div>
-            <Radio
-              checked={secondRadio === "Shuffle clues and matches"}
-              onChange={(e) => setSecondRadio(e.target.value)}
-              value={"Shuffle clues and matches"}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "Shuffle clues and matches" }}
-              style={{ color: "#616161" }}
-            />
-            <label> Shuffle clues and matches </label>
-          </div>
-        </div>
-      )}
-
-      {props.grading && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-          }}
-          className={settingsStyle.subContainer}
-        >
-          <h4 style={{ marginBottom: "10px" }}> Grading Scale </h4>
-          <div>
-            <Radio
-              checked={thirdRadio === "Off"}
-              onChange={(e) => setThirdRadio(e.target.value)}
-              value={"Off"}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "Off" }}
-              style={{ color: "#616161" }}
-            />
-            <label> Off </label>
-          </div>
-
-          <div>
-            <Radio
-              checked={thirdRadio === "Partial with deduction"}
-              onChange={(e) => setThirdRadio(e.target.value)}
-              value={"Partial with deduction"}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "Partial with deduction" }}
-              style={{ color: "#616161" }}
-            />
-            <label> Partial with deduction </label>
-          </div>
-
-          <div>
-            <Radio
-              checked={thirdRadio === "Partial without deduction"}
-              onChange={(e) => setThirdRadio(e.target.value)}
-              value={"Partial without deduction"}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "Partial without deduction" }}
-              style={{ color: "#616161" }}
-            />
-            <label> Partial without deduction </label>
-          </div>
         </div>
       )}
 
@@ -352,7 +222,24 @@ const QuestionSettings = (props) => {
           }}
           variant="contained"
           startIcon={<AddIcon />}
-          onClick={updateQuestion}
+          onClick={() => {
+            let data = {
+              question: {
+                title: context.title.state,
+                body: context.questionBody.state,
+                categoryID: context.categoryID.state,
+                points: context.points.state,
+              },
+            };
+
+            if (props.type === "true-false") {
+              data = { ...data, correctChoice: context.tfAnswer.state };
+            } else {
+              data = { ...data, answers: context.answers.state };
+            }
+
+            props.createQuestionAction(data, props.type);
+          }}
         >
           Create
         </Button>
@@ -383,6 +270,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { createCategory, getCategories })(
-  QuestionSettings
-);
+export default connect(mapStateToProps, {
+  createCategory,
+  getCategories,
+  createQuestionAction,
+})(QuestionSettings);

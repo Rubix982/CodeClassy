@@ -11,6 +11,9 @@ import {
 } from 'class-validator';
 
 export class Question {
+  @IsString()
+  title: string;
+
   @IsJSON()
   body: string;
 
@@ -53,7 +56,7 @@ export class CreateTrueFalseQuestionDTO {
 }
 
 class FreeTextAnswer {
-  @IsJSON()
+  @IsString()
   body: string;
 }
 

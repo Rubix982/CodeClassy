@@ -7,7 +7,8 @@ export const loginUserAction = (credentials) => {
     try {
       const api = API.getInstance();
       const response = await api.post("auth/signin", credentials);
-      setSuccessStates(dispatch, response.data.payload);
+      setSuccessStates(dispatch, "Welcome!");
+      setUserRole(dispatch, response.data.payload);
     } catch (error) {
       if (error.response) {
         setErrorStates(dispatch, error.response.data.message);
@@ -20,19 +21,24 @@ export const loginUserAction = (credentials) => {
   };
 };
 
-export const setSuccessStates = (dispatch, payload) => {
+const setUserRole = (dispatch, role) => {
+  setTimeout(() => {
+    dispatch({
+      type: actionTypes.userLoggedIn,
+      payload: { userRole: role },
+    });
+  }, 2000);
+};
+
+export const setSuccessStates = (dispatch, message) => {
   dispatch({
     type: actionTypes.apiSuccess,
-    payload: { successMessage: "Welcome!", successMessageSnackbarState: true },
+    payload: { successMessage: message, successMessageSnackbarState: true },
   });
   setTimeout(() => {
     dispatch({
       type: actionTypes.apiSuccess,
       payload: { successMessage: "", successMessageSnackbarState: false },
-    });
-    dispatch({
-      type: actionTypes.userLoggedIn,
-      payload: { userRole: payload.role },
     });
   }, 2000);
 };

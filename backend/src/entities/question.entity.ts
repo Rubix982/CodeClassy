@@ -13,6 +13,9 @@ export class Question {
   @PrimaryGeneratedColumn('uuid')
   ID: string;
 
+  @Column()
+  title: string;
+
   @Column('json')
   body: string;
 

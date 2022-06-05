@@ -34,6 +34,7 @@ export class QuestionService {
     __createdBy: string,
   ): Promise<Question> {
     const question = this.questionRepository.create({
+      title: __question.title,
       body: __question.body,
       categoryID: __question.categoryID,
       points: __question.points,
@@ -43,6 +44,15 @@ export class QuestionService {
     await this.questionRepository.save(question);
 
     return question;
+  }
+
+  async getQuestions(__teacherEmail: String) {
+    const questions = await this.questionRepository.find({
+      where: {
+        createdBy: __teacherEmail,
+      },
+    });
+    return questions;
   }
 
   async createMCQ(__teacherEmail: string, __requestBody: CreateMCQDTO) {
