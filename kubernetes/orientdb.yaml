@@ -19,6 +19,10 @@ spec:
         name: orientdb-pod-label
     spec:
       volumes:
+        - name: codeclassy
+          configMap:
+            name: codeclassy-configmap 
+      volumes:
         - name: codeclassy-volume
           persistentVolumeClaim:
             claimName: codeclassy-pvc
@@ -35,9 +39,24 @@ spec:
               mountPath: "/orientdb/databases"
             - name: codeclassy-volume
               mountPath: "/orientdb/backup"
+          volumeMounts:
+            - name: codeclassy
+              mountPath: "/codeclassy" 
+          env:
+            - name: ORIENTDB_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: codeclassy-configmap 
+                  key: ORIENTDB_ROOT_PASSWORD
 
+            - name: ORIENTDB_OPTS_MEMORY
+              valueFrom:
+                configMapKeyRef:
+                  name: codeclassy-configmap 
+                  key: ORIENTDB_OPTS_MEMORY
 
-# environment:
-#   ORIENTDB_ROOT_PASSWORD: "password"
-#   ORIENTDB_OPTS_MEMORY: "-Xms384m -Xmx384m"
-#   JAVA_OPTS: "-Dstorage.wal.allowDirectIO=false"
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: codeclassy-configmap 
+                  key: JAVA_OPTS

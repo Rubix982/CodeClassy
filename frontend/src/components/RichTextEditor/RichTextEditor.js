@@ -15,8 +15,7 @@ const RichTextEditor = () => {
     setEditorState(editorState);
   }
 
-  // console.log(convertToRaw(editorState.getCurrentContent()).blocks[0].text)
-  // for text from richtext ^^^
+  console.log(convertToRaw(editorState.getCurrentContent()).blocks[0].text)
 
   return(
     <div 

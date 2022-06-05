@@ -2,6 +2,7 @@ import { actionTypes } from "redux/actionTypes/actionTypes";
 
 const initialState = {
   codingQuestions: [],
+  questionsLoaded: false
 };
 
 const codingQuestionReducer = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const codingQuestionReducer = (state = initialState, action) => {
           ...state.codingQuestions,
           action.payload.codingQuestions,
         ],
+        questionsLoaded: true
       };
 
     default:

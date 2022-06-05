@@ -46,8 +46,9 @@ const AssignmentCreation = ({
   successMessageSnackbar,
   errorMessageSnackbar,
   codingQuestions,
+  questionsLoaded
 }) => {
-  const [selectedQuestion, setSelectedQuestion] = React.useState("");
+  const [selectedQuestion, setSelectedQuestion] = React.useState('');
 
   const handleChange = (event) => {
     setSelectedQuestion(event.target.value);
@@ -57,7 +58,6 @@ const AssignmentCreation = ({
     async function loadData() {
       getCodingQuestions();
     }
-
     loadData();
   }, []);
 
@@ -98,19 +98,27 @@ const AssignmentCreation = ({
             </div>
             <FormControl style={{ width: "50%" }}>
               <InputLabel id="demo-simple-select-label">Question</InputLabel>
+              {questionsLoaded &&
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={selectedQuestion}
+                value={selectedQuestion.CodingQuestion_Title}
                 label="Question"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-              </Select>
+                { codingQuestions[0].map((item, index) => {
+                    return (
+                        <MenuItem value={item}>{item.CodingQuestion_Title}</MenuItem>
+                    ) 
+                })}
+                
+              </Select>}
             </FormControl>
           </div>
           <div style={{ marginLeft: "180px" }}>
-            <AssignmentProblem />
+              { questionsLoaded && <AssignmentProblem title={selectedQuestion.CodingQuestion_Title} 
+              description={selectedQuestion.CodingQuestion_Body}
+              testcases={selectedQuestion.testCases}/>}
           </div>
           <Button
             variant="contained"
@@ -134,6 +142,7 @@ const AssignmentCreation = ({
 
 const mapStateToProps = (state) => {
   return {
+    questionsLoaded: state.codingQuestionReducer.questionsLoaded,
     responseMessage: state.apiReducer.responseMessage,
     successMessageSnackbar: state.apiReducer.successMessageSnackbar,
     errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
