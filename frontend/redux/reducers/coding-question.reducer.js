@@ -1,12 +1,15 @@
 import { actionTypes } from "redux/actionTypes/actionTypes";
 
-const initialState = {};
+const initialState = {
+  codingQuestions: [],
+};
 
 const codingQuestionReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.loadCodingQuestions:
       return {
         ...state,
+        codingQuestions: [action.payload.codingQuestions],
       };
 
     default:
