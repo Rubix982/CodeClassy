@@ -1,69 +1,155 @@
+// React imports
 import React from "react";
-import Navbar from "../Navbar/Navbar"
-import TextField from '@mui/material/TextField';
-import AssignmentCreationStyles from "../../../styles/AssignmentPages/AssignmentCreation.module.css"
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import AssignmentProblem from "./AssignmentProblem";
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
+
+// Style imports
+import AssignmentCreationStyles from "@styles/AssignmentPages/AssignmentCreation.module.css";
+
+// MUI imports
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Button,
+  Snackbar,
+  TextField,
+} from "@mui/material";
+
+import MuiAlert from "@mui/material/Alert";
+
+// Component imports
+import Navbar from "@components/Navbar/Navbar";
+import AssignmentProblem from "@components/AssignmentPages/AssignmentProblem";
+
+// MUI icons import
+import SendIcon from "@mui/icons-material/Send";
+
+// Redux imports
+import { connect } from "react-redux";
+import { getCodingQuestions } from "redux/actions/coding-question.action";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 let questions = [
-    {
-        "title": "Merge Sort",
-        "description": "",
-        "testcases": [
-            {}, {}, {}
-        ]
+  {
+    title: "Merge Sort",
+    description: "",
+    testcases: [{}, {}, {}],
+  },
+];
+
+const AssignmentCreation = ({
+  getCodingQuestions,
+  responseMessage,
+  successMessageSnackbar,
+  errorMessageSnackbar,
+  codingQuestions,
+  questionsLoaded
+}) => {
+  const [selectedQuestion, setSelectedQuestion] = React.useState('');
+
+  const handleChange = (event) => {
+    setSelectedQuestion(event.target.value);
+  };
+
+  React.useEffect(() => {
+    async function loadData() {
+      getCodingQuestions();
     }
-]
+    loadData();
+  }, []);
 
-
-export default function AssignmentCreation() {
-    const [selectedQuestion, setSelectedQuestion] = React.useState('');
-
-    const handleChange = (event) => {
-      setSelectedQuestion(event.target.value);
-    };
   return (
-    <div>
-        <Navbar/>
+    <>
+      {successMessageSnackbar && (
+        <Snackbar open={true} autoHideDuration={3000}>
+          <Alert severity="success" sx={{ width: "100%" }}>
+            {responseMessage}
+          </Alert>
+        </Snackbar>
+      )}
+
+      {errorMessageSnackbar && (
+        <Snackbar open={true} autoHideDuration={3000}>
+          <Alert severity="error" sx={{ width: "100%" }}>
+            {responseMessage}
+          </Alert>
+        </Snackbar>
+      )}
+
+      <div>
+        <Navbar />
         <div className={AssignmentCreationStyles.container}>
-            <div className={AssignmentCreationStyles.AssignmentDetailsContainer}>
-                <h1>Create Assignment</h1>
-                <div className={AssignmentCreationStyles.AssignmentDetails}>
-                    <div className={AssignmentCreationStyles.AssignmentDetailsItems}>
-                        <label> Name</label>
-                        <TextField style={{marginTop: '5px'}} fullWidth id="standard-basic" placeholder="e.g, Linked List"  variant="standard" />
-                    </div>
-                </div>
-                <FormControl style={{width: '50%'}}>
-                    <InputLabel id="demo-simple-select-label">Question</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={selectedQuestion}
-                        label="Question"
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={10}>Ten</MenuItem>
-                    </Select>
-                </FormControl>
+          <div className={AssignmentCreationStyles.AssignmentDetailsContainer}>
+            <h1>Create Assignment</h1>
+            <div className={AssignmentCreationStyles.AssignmentDetails}>
+              <div className={AssignmentCreationStyles.AssignmentDetailsItems}>
+                <label> Name</label>
+                <TextField
+                  style={{ marginTop: "5px" }}
+                  fullWidth
+                  id="standard-basic"
+                  placeholder="e.g, Linked List"
+                  variant="standard"
+                />
+              </div>
             </div>
-            <div style={{marginLeft: '180px'}}>
-                <AssignmentProblem/>
-            </div>
-            <Button 
-                variant="contained" 
-                startIcon={<SendIcon />}
-                onClick={(e) => CreateQuestion()}
-                style={{ margin: '50px 0px', marginLeft: '930px', height: '45px', color: '#ffffff' ,borderColor: '#000000'}}
-                > 
-                Create
-            </Button>
+            <FormControl style={{ width: "50%" }}>
+              <InputLabel id="demo-simple-select-label">Question</InputLabel>
+              {questionsLoaded &&
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedQuestion.CodingQuestion_Title}
+                label="Question"
+                onChange={handleChange}
+              >
+                { codingQuestions[0].map((item, index) => {
+                    return (
+                        <MenuItem value={item}>{item.CodingQuestion_Title}</MenuItem>
+                    ) 
+                })}
+                
+              </Select>}
+            </FormControl>
+          </div>
+          <div style={{ marginLeft: "180px" }}>
+              { questionsLoaded && <AssignmentProblem title={selectedQuestion.CodingQuestion_Title} 
+              description={selectedQuestion.CodingQuestion_Body}
+              testcases={selectedQuestion.testCases}/>}
+          </div>
+          <Button
+            variant="contained"
+            startIcon={<SendIcon />}
+            onClick={(e) => CreateQuestion()}
+            style={{
+              margin: "50px 0px",
+              marginLeft: "930px",
+              height: "45px",
+              color: "#ffffff",
+              borderColor: "#000000",
+            }}
+          >
+            Create
+          </Button>
         </div>
-    </div>
+      </div>
+    </>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    questionsLoaded: state.codingQuestionReducer.questionsLoaded,
+    responseMessage: state.apiReducer.responseMessage,
+    successMessageSnackbar: state.apiReducer.successMessageSnackbar,
+    errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+    codingQuestions: state.codingQuestionReducer.codingQuestions,
+  };
+};
+
+export default connect(mapStateToProps, {
+  getCodingQuestions,
+})(AssignmentCreation);

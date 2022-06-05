@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+} from 'typeorm';
 import { CodingQuestion } from './coding-question.entity';
 import { Teacher } from './teacher.entity';
 
@@ -10,14 +16,15 @@ export class Assignment {
   @Column()
   name: string;
 
-  @ManyToOne(
-    (type) => CodingQuestion,
-    (codingQuestion) => codingQuestion.assignments,
-  )
-  codingQuestion: CodingQuestion;
-
-  @ManyToOne(() => Teacher, (teacher) => teacher.assignment, {
+  @ManyToOne(() => CodingQuestion, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'codingQuestionID' })
+  codingQuestion: CodingQuestion;
+
+  @ManyToOne(() => Teacher, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'teacherID' })
   createdBy: Teacher;
 }

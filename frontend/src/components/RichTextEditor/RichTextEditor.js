@@ -35,8 +35,6 @@ const RichTextEditor = (props) => {
     }
   };
 
-  // console.log(editorState.getCurrentContent()).blocks[0].text)
-  // for text from richtext ^^^
 
   return (
     <div

@@ -18,18 +18,39 @@ spec:
       labels:
         name: admin-console-pod-label
     spec:
+      volumes:
+        - name: codeclassy
+          configMap:
+            name: codeclassy-configmap 
       containers:
         - name: admin-console-container
           image: convergencelabs/convergence-admin-console:1.0.0-rc.12
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
           ports:
             - containerPort: 80
               name: http
             - containerPort: 443
               name: https
+          volumeMounts:
+            - name: codeclassy
+              mountPath: "/codeclassy" 
+          env:
+            - name: CONVERGENCE_SERVER_REALTIME_API
+              valueFrom:
+                configMapKeyRef:
+                  name: codeclassy-configmap 
+                  key: CONVERGENCE_SERVER_REALTIME_API 
 
+            - name: CONVERGENCE_SERVER_REST_API
+              valueFrom:
+                configMapKeyRef:
+                  name: codeclassy-configmap 
+                  key: CONVERGENCE_SERVER_REST_API 
 
-# env 
-#     environment:
-#       CONVERGENCE_SERVER_REALTIME_API: "https://localhost/realtime/"
-#       CONVERGENCE_SERVER_REST_API: "https://localhost/rest/"
-#       CONVERGENCE_CONSOLE_BASE_URL: "/console/"
+            - name: CONVERGENCE_CONSOLE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: codeclassy-configmap 
+                  key: CONVERGENCE_CONSOLE_BASE_URL

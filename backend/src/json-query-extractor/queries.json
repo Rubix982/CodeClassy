@@ -63,5 +63,10 @@
     "id": 13,
     "title": "Evaluate a Free Text Question",
     "query": "SELECT CASE WHEN ? IN(SELECT fta.body FROM free_text_answer fta WHERE fta.questionID = q.ID) THEN q.points ELSE 0 END as obtainedPoints, q.points as totalPoints FROM question q WHERE q.ID = ?;"
+  },
+  {
+    "id": 14,
+    "title": "Coding Questions With Their Test Cases",
+    "query": "SELECT JSON_ARRAYAGG(JSON_OBJECT('id', `tc`.id, 'in', `tc`.in, 'out', `tc`.`out`)) AS testCases, `coding_question`.id AS CodingQuestion_Id, `coding_question`.title AS CodingQuestion_Title, `coding_question`.body AS CodingQuestion_Body FROM `coding_question` JOIN `test_case` tc on coding_question.id = tc.codingQuestionId WHERE `coding_question`.`teacherID` = ? GROUP BY CodingQuestion_Id;"
   }
 ]

@@ -28,14 +28,4 @@ export class AssignedAssignment {
   })
   @JoinColumn()
   assignment: Assignment;
-
-  @OneToMany(
-    (type) => AssignedAssignmentByStudent,
-    (assignedAssignmentByStudent) =>
-      assignedAssignmentByStudent.assignedAssignment,
-    {
-      cascade: true,
-    },
-  )
-  assignedAssignmentByStudent: AssignedAssignmentByStudent[];
 }
