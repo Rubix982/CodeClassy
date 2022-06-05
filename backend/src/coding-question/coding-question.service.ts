@@ -24,7 +24,7 @@ export class CodingQuestionService {
 
   async getCodingQuestions(__email: string) {
     const queryString: string = this.jsonQueryExtractorService.getQueryByID(14);
-    const [codingQuestionsData] = await this.entityManager.query(queryString, [
+    const codingQuestionsData = await this.entityManager.query(queryString, [
       __email,
     ]);
 
