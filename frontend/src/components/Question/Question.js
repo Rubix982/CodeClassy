@@ -55,6 +55,7 @@ const Question = (props) => {
   const [currentTabID, setCurrentTabID] = useState(
     typeof props.updateTab === "undefined" ? "Multiple Choice" : props.updateTab
   );
+  const [title, setTitle] = useState("");
   const [questionBody, setQuestionBody] = useState("");
   const [categoryID, setCategoryID] = useState("");
   const [points, setPoints] = useState(0);
@@ -74,6 +75,7 @@ const Question = (props) => {
       <Navbar />
       <QuestionContext.Provider
         value={{
+          title: { state: title, setter: setTitle },
           questionBody: { state: questionBody, setter: setQuestionBody },
           categoryID: { state: categoryID, setter: setCategoryID },
           points: { state: points, setter: setPoints },

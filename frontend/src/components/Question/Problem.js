@@ -1,9 +1,11 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 import TextField from "@mui/material/TextField";
+import { QuestionContext } from "@components/Question/Question";
 
 const Problem = () => {
-  const [value, setValue] = React.useState("");
+  const { title } = useContext(QuestionContext);
+
   return (
     <>
       <h4 style={{ margin: "10px", color: "#444444" }}> Problem </h4>
@@ -14,8 +16,8 @@ const Problem = () => {
         label="Title"
         multiline
         maxRows="infinity"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={title.state}
+        onChange={(e) => title.setter(e.target.value)}
         variant="standard"
       />
       <RichTextEditor contextKey="questionBody" arrayType={false} />

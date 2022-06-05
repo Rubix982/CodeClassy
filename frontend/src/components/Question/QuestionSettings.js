@@ -225,6 +225,7 @@ const QuestionSettings = (props) => {
           onClick={() => {
             let data = {
               question: {
+                title: context.title.state,
                 body: context.questionBody.state,
                 categoryID: context.categoryID.state,
                 points: context.points.state,

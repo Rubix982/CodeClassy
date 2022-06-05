@@ -34,6 +34,7 @@ export class QuestionService {
     __createdBy: string,
   ): Promise<Question> {
     const question = this.questionRepository.create({
+      title: __question.title,
       body: __question.body,
       categoryID: __question.categoryID,
       points: __question.points,

@@ -11,6 +11,9 @@ import {
 } from 'class-validator';
 
 export class Question {
+  @IsString()
+  title: string;
+
   @IsJSON()
   body: string;
 
