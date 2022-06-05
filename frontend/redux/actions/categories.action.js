@@ -31,7 +31,7 @@ export const getCategories = () => {
 
 const setCategories = (dispatch, data) => {
     dispatch({
-      type: actionTypes.addCategories,
+      type: actionTypes.getCategories,
       payload: {
         categories: data, //categories array
       },
@@ -74,7 +74,7 @@ export const createCategory = (data) => {
 
 const addNewCategory = (dispatch, category) => {
   dispatch({
-    type: actionTypes.getCategories,
+    type: actionTypes.addCategories,
     payload: {
         category: category
     },
