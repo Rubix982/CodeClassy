@@ -10,19 +10,16 @@ import AssignmentProblem from "./AssignmentProblem";
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 
-let questions = [
-    {
-        "title": "Merge Sort",
-        "description": "",
-        "testcases": [
-            {}, {}, {}
-        ]
-    }
-]
+
 
 
 export default function AssignmentCreation() {
-    const [selectedQuestion, setSelectedQuestion] = React.useState('');
+    const [selectedQuestion, setSelectedQuestion] = useState('');
+    const [questions, setQuestions] = useState([]);
+
+    useEffect(() => {
+        
+    }, [questions])
 
     const handleChange = (event) => {
       setSelectedQuestion(event.target.value);
