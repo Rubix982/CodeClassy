@@ -1,6 +1,6 @@
 import API from "api";
 import { actionTypes } from "redux/actionTypes/actionTypes";
-import { setErrorStates, setSuccessStates } from "./login.action";
+import { errorHandler } from "./error.action";
 
 export const getCodingQuestions = () => {
   return async (dispatch) => {
@@ -12,7 +12,7 @@ export const getCodingQuestions = () => {
       setCodingQuestions(dispatch, response.data);
       setSuccessStates(dispatch, response.msg);
     } catch (error) {
-      setErrorStates(dispatch, error);
+      errorHandler(dispatch, error);
 
       return false;
     }
@@ -33,7 +33,7 @@ export const addCodingQuestions = (codingQuestion) => {
 
       setSuccessStates(dispatch, response.msg);
     } catch (error) {
-      setErrorStates(dispatch, error);
+      errorHandler(dispatch, error);
 
       return false;
     }
@@ -47,4 +47,24 @@ const setCodingQuestions = (dispatch, data) => {
       codingQuestions: data,
     },
   });
+};
+
+const setSuccessStates = (dispatch, msg) => {
+  dispatch({
+    type: actionTypes.apiSuccess,
+    payload: {
+      successMessage: msg,
+      successMessageSnackbarState: true,
+    },
+  });
+
+  setTimeout(() => {
+    dispatch({
+      type: actionTypes.apiSuccess,
+      payload: {
+        successMessage: "",
+        successMessageSnackbarState: false,
+      },
+    });
+  }, 2000);
 };

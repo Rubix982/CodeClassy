@@ -39,9 +39,14 @@ const AssignmentQuestion = ({ addCodingQuestions }) => {
     }
   };
 
-  const updateTestCase = (index) => (event) => {
+  const updateTestCase = (index, param) => (event) => {
     let newArr = [...TestCases];
-    newArr[index] = event.target.value;
+    if (param == "input") {
+      newArr[index].inputs = event.target.value;
+    } else if (param == "output") {
+      newArr[index].outputs = event.target.value;
+    }
+    // newArr[index] = event.target.value;
     setTestCases(newArr);
   };
 
@@ -100,7 +105,7 @@ const AssignmentQuestion = ({ addCodingQuestions }) => {
                       id="standard-basic"
                       placeholder="Write an input and then press enter to add more inputs in this test case if there are any."
                       variant="standard"
-                      onChange={updateTestCase(index)}
+                      onChange={updateTestCase(index, "input")}
                       value={item.input}
                     />
                   </div>
@@ -111,7 +116,7 @@ const AssignmentQuestion = ({ addCodingQuestions }) => {
                       id="standard-basic"
                       placeholder="Write an output and then press enter to add more outputs in this test case if there are any."
                       variant="standard"
-                      onChange={updateTestCase(index)}
+                      onChange={updateTestCase(index, "output")}
                       value={item.output}
                     />
                   </div>

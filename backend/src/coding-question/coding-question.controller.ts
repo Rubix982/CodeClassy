@@ -34,7 +34,6 @@ export class CodingQuestionController {
     @RequestDecodedMember() __member: JWTPayload,
     @Body() __requestBody: CodingQuestionRequestDTO,
   ) {
-    console.log('Here');
     const codingQuestionResult =
       await this.codingQuestionService.createCodingQuestion(
         __member.email,

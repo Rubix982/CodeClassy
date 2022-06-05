@@ -4,14 +4,14 @@ import { AssignedAssignment } from './assigned-assignment.entity';
 
 @Entity()
 export class AssignedAssignmentByStudent {
-  @ManyToOne((type) => AssignedAssignment, {
+  @ManyToOne(() => AssignedAssignment, {
     primary: true,
     nullable: false,
     onDelete: 'CASCADE',
   })
   assignedAssignment: AssignedAssignment;
 
-  @ManyToOne((type) => Student, {
+  @ManyToOne(() => Student, {
     primary: true,
     nullable: false,
     onDelete: 'CASCADE',

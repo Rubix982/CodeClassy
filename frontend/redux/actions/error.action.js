@@ -25,7 +25,7 @@ const setErrorStates = (dispatch, error) => {
     dispatch({
       type: actionTypes.apiFailed,
       payload: {
-        errorMessage: error,
+        errorMessage: '',
         errorMessageSnackbarState: false,
       },
     });

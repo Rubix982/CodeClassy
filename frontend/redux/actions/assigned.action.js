@@ -1,7 +1,6 @@
 import API from "api";
 import { actionTypes } from "redux/actionTypes/actionTypes";
 import { errorHandler } from "./error.action";
-import { setErrorStates, setSuccessStates } from "./login.action";
 
 export const getAllAssignedAssignments = () => {
   return async (dispatch) => {
@@ -75,4 +74,24 @@ export const assignSectionToAssignment = (assignmentID, sectionID) => {
       return false;
     }
   };
+};
+
+const setSuccessStates = (dispatch, msg) => {
+  dispatch({
+    type: actionTypes.apiSuccess,
+    payload: {
+      successMessage: msg,
+      successMessageSnackbarState: true,
+    },
+  });
+
+  setTimeout(() => {
+    dispatch({
+      type: actionTypes.apiSuccess,
+      payload: {
+        successMessage: "",
+        successMessageSnackbarState: false,
+      },
+    });
+  }, 2000);
 };
