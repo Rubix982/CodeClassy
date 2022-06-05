@@ -18,7 +18,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
     node_count          = var.system_node_count
     vm_size             = var.vm_size 
     type                = "VirtualMachineScaleSets"
-    availability_zones  = [1, 2, 3]
     enable_auto_scaling = false
   }
 
@@ -32,7 +31,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   network_profile {
-    load_balancer_sku = "Standard"
+    load_balancer_sku = "standard"
     network_plugin    = "kubenet" 
   }
 }

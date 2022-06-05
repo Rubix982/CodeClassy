@@ -1,3 +1,4 @@
 .env
 data/
 rce/data/
+terraform/.terr*
