@@ -16,8 +16,8 @@ export class CodingQuestionRequestDTO {
 
 class TestCaseDTO {
   @IsString()
-  in: string;
+  inputs: string;
 
   @IsString()
-  out: string;
+  outputs: string;
 }

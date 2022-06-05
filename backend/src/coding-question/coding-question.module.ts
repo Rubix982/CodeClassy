@@ -1,5 +1,5 @@
+import { TestCase } from 'src/entities/test-case.entity';
 import { JSONQueryExtractorModule } from './../json-query-extractor/json-query-extractor.module';
-import { Teacher } from './../entities/teacher.entity';
 import { TeacherModule } from './../teacher/teacher.module';
 import { CodingQuestionService } from 'src/coding-question/coding-question.service';
 import { CodingQuestionController } from './coding-question.controller';
@@ -10,7 +10,7 @@ import { CodingQuestion } from 'src/entities/coding-question.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([CodingQuestion]),
+    TypeOrmModule.forFeature([CodingQuestion, TestCase]),
     JSONQueryExtractorModule,
     AuthModule,
     TeacherModule,

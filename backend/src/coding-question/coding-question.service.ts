@@ -1,3 +1,4 @@
+import { Test } from '@nestjs/testing';
 import { CodingQuestionRequestDTO } from 'src/coding-question/coding-question.dto';
 import {
   Injectable,
@@ -8,12 +9,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CodingQuestion } from 'src/entities/coding-question.entity';
 import { Repository } from 'typeorm';
 import { TeacherService } from 'src/teacher/teacher.service';
+import { TestCase } from 'src/entities/test-case.entity';
 
 @Injectable()
 export class CodingQuestionService {
   constructor(
     @InjectRepository(CodingQuestion)
     private readonly codingQuestionRepository: Repository<CodingQuestion>,
+    @InjectRepository(TestCase)
+    private readonly testCaseRepository: Repository<TestCase>,
     private readonly teacherService: TeacherService,
   ) {}
 
@@ -22,14 +26,16 @@ export class CodingQuestionService {
       where: {
         createdBy: __email,
       },
+      relations: ['test_case'],
     });
 
     if (result) {
       return result;
     } else {
-      throw new NotFoundException([
-        `Could not find coding questions for user with email: ${__email}`,
-      ]);
+      return {};
+      // throw new NotFoundException([
+      //   `Could not find coding questions for user with email: ${__email}`,
+      // ]);
     }
   }
 
@@ -48,17 +54,29 @@ export class CodingQuestionService {
     try {
       const requestedTeacher = await this.teacherService.findTeacher(__email);
 
-      
-
       const codingQuestion = this.codingQuestionRepository.create({
         title: __requestBody.title,
         body: __requestBody.body,
-        testCases: __requestBody.testCases,
-        assignments: [],
         createdBy: requestedTeacher,
       });
 
-      await this.codingQuestionRepository.save(codingQuestion);
+      const savedCodingQuestion = await this.codingQuestionRepository.save(
+        codingQuestion,
+      );
+
+      const testCases: TestCase[] = [];
+
+      __requestBody.testCases.forEach((testCase) => {
+        testCases.push(
+          this.testCaseRepository.create({
+            in: testCase.inputs,
+            out: testCase.outputs,
+            codingQuestion: savedCodingQuestion,
+          }),
+        );
+      });
+
+      await this.testCaseRepository.save(testCases);
     } catch (error) {
       console.log(error);
       throw new BadRequestException([

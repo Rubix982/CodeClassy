@@ -5,6 +5,7 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { TestCase } from './test-case.entity';
 import { Teacher } from './teacher.entity';
@@ -20,18 +21,9 @@ export class CodingQuestion {
   @Column()
   body: string;
 
-  @OneToMany((type) => TestCase, (testCase) => testCase.codingQuestion, {
-    cascade: true,
-  })
-  testCases: TestCase[];
-
-  @OneToMany((type) => Assignment, (assignment) => assignment.codingQuestion, {
-    cascade: true,
-  })
-  assignments: Assignment[];
-
-  @ManyToOne((type) => Teacher, (Teacher) => Teacher.codingQuestion, {
+  @ManyToOne(() => Teacher, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'teacherID' })
   createdBy: Teacher;
 }
