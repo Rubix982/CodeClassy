@@ -237,7 +237,6 @@ const QuestionSettings = (props) => {
             } else {
               data = { ...data, answers: context.answers.state };
             }
-
             props.createQuestionAction(data, props.type);
           }}
         >

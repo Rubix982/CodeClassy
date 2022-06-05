@@ -3,7 +3,6 @@ import { actionTypes } from "../actionTypes/actionTypes";
 const initialState = {
   categories : []
 }
-
 const categoriesReducer = (state = initialState, action) => {
     switch (action.type) {
 
@@ -14,7 +13,7 @@ const categoriesReducer = (state = initialState, action) => {
 
       case actionTypes.addCategories:
         return { ...state, 
-            categories: action.payload.categories.slice()
+            categories: [...state.categories, action.payload.category]
         }
 
       default:

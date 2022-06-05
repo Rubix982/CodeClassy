@@ -58,13 +58,12 @@ const setSuccessStates = (dispatch, msg) => {
 
 
 
-
 export const createCategory = (data) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
-      await api.post(`teacher/category`, data);
-      addNewCategory(dispatch, data);
+      const response = await api.post(`teacher/category`, data);
+      addNewCategory(dispatch, response.data.category);
       setSuccessStates(dispatch, "New Category Created Successfully!");
     } catch (error) {
       errorHandler(dispatch, error);
@@ -77,7 +76,7 @@ const addNewCategory = (dispatch, category) => {
   dispatch({
     type: actionTypes.getCategories,
     payload: {
-        categories: category
+        category: category
     },
   });
 };
