@@ -47,7 +47,7 @@ export default function QuestionCard({
 
   return (
     <div className={QuestionBankStyling.questionCard}>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center", minWidth: '1400px' }}>
         <div style={{ display: "flex", alignItems: "center", width: "99%" }}>
           <h4>
             {" "}
