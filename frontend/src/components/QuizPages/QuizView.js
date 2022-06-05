@@ -67,7 +67,7 @@ export default function QuizView() {
 
 
           <div className={QuizViewStyles.create}>
-            <Button style={{ width: '100px', marginRight: '470px'}} variant="contained"> 
+            <Button style={{ width: '100px', marginRight: '380px'}} variant="contained"> 
               <SendIcon style={{margin:'2px'}}/>Create
             </Button>
           </div>
