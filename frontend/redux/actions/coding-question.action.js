@@ -9,7 +9,6 @@ export const getCodingQuestions = () => {
 
       const response = await api.get("coding-question");
 
-      console.log(response);
       setCodingQuestions(dispatch, response.data);
       setSuccessStates(dispatch, response.data.msg);
     } catch (error) {
@@ -44,7 +43,7 @@ const setCodingQuestions = (dispatch, data) => {
   dispatch({
     type: actionTypes.loadCodingQuestions,
     payload: {
-      codingQuestions: data,
+      codingQuestions: data.codingQuestionResults,
     },
   });
 };

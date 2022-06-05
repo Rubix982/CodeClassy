@@ -9,7 +9,10 @@ const codingQuestionReducer = (state = initialState, action) => {
     case actionTypes.loadCodingQuestions:
       return {
         ...state,
-        codingQuestions: [action.payload.codingQuestions],
+        codingQuestions: [
+          ...state.codingQuestions,
+          action.payload.codingQuestions,
+        ],
       };
 
     default:
