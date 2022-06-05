@@ -18,6 +18,10 @@ spec:
       labels:
         name: orientdb-pod-label
     spec:
+      volumes:
+        - name: azure-file-volume
+          persistentVolumeClaim:
+            claimName: codeclassy-pvc
       containers:
         - name: orientdb-container
           image: orientdb:3.0.37

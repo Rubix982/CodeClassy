@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react'
-import Navbar from "../Navbar/Navbar"
-import TextField from '@mui/material/TextField';
-import AssignmentCreationStyles from "../../../styles/AssignmentPages/AssignmentCreation.module.css"
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-=======
 // React imports
 import React from "react";
 import Navbar from "../Navbar/Navbar";
@@ -24,15 +14,9 @@ import {
   Select,
   Button,
 } from "@mui/material";
->>>>>>> 2148490503aa59d91c90f2600aeb4c7f0163d25c
 import AssignmentProblem from "./AssignmentProblem";
-
-<<<<<<< HEAD
-
-=======
 // MUI icons import
 import SendIcon from "@mui/icons-material/Send";
->>>>>>> 2148490503aa59d91c90f2600aeb4c7f0163d25c
 
 // Redux imports
 import { connect } from "react-redux";
