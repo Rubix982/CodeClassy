@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
@@ -13,6 +13,15 @@ import { QuestionService } from 'src/question/question.service';
 @Controller('teacher/question')
 export class TeacherQuestionController {
   constructor(private readonly questionService: QuestionService) {}
+
+  @Get()
+  async getQuestions(@RequestDecodedMember() __member: JWTPayload) {
+    const questions = await this.questionService.getQuestions(__member.email);
+    return {
+      msg: 'Successfully fetched all questions',
+      questions,
+    };
+  }
 
   @Post('mcq')
   async createMCQQuestion(

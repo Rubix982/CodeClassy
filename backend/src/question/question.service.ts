@@ -46,6 +46,15 @@ export class QuestionService {
     return question;
   }
 
+  async getQuestions(__teacherEmail: String) {
+    const questions = await this.questionRepository.find({
+      where: {
+        createdBy: __teacherEmail,
+      },
+    });
+    return questions;
+  }
+
   async createMCQ(__teacherEmail: string, __requestBody: CreateMCQDTO) {
     const question = await this.createQuestion(
       __requestBody.question,

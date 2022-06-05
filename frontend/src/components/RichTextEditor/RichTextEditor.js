@@ -14,7 +14,9 @@ const RichTextEditor = (props) => {
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-    const JSONContent = JSON.stringify(editorState.getCurrentContent());
+    const JSONContent = JSON.stringify(
+      convertToRaw(editorState.getCurrentContent())
+    );
     if (props.arrayType) {
       context[props.contextKey].setter(
         context[props.contextKey].state.map((element, index) => {

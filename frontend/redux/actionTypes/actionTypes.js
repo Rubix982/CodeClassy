@@ -29,5 +29,5 @@ export const actionTypes = {
   loadAssignments: "loadAssignments",
   loadAssignedAssignments: "loadAssignedAssignments",
   loadCodingQuestions: "loadCodingQuestions",
-  createMCQ: "createMCQ",
+  getQuestions: "getQuestions",
 };
