@@ -59,6 +59,7 @@ const Question = (props) => {
   const [categoryID, setCategoryID] = useState("");
   const [points, setPoints] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [tfAnswer, setTfAnswer] = useState(false);
 
   React.useEffect(() => {
     props.getCategories();
@@ -77,6 +78,7 @@ const Question = (props) => {
           categoryID: { state: categoryID, setter: setCategoryID },
           points: { state: points, setter: setPoints },
           answers: { state: answers, setter: setAnswers },
+          tfAnswer: { state: tfAnswer, setter: setTfAnswer },
         }}
       >
         {props.successMessageSnackbar && (

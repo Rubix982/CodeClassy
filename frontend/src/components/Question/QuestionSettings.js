@@ -223,14 +223,20 @@ const QuestionSettings = (props) => {
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => {
-            const data = {
+            let data = {
               question: {
                 body: context.questionBody.state,
                 categoryID: context.categoryID.state,
                 points: context.points.state,
               },
-              answers: context.answers.state,
             };
+
+            if (props.type === "true-false") {
+              data = { ...data, correctChoice: context.tfAnswer.state };
+            } else {
+              data = { ...data, answers: context.answers.state };
+            }
+
             props.createQuestionAction(data, props.type);
           }}
         >
