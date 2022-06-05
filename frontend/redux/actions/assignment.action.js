@@ -28,7 +28,7 @@ export const getAssignments = () => {
     try {
       const api = API.getInstance();
 
-      const response = api.get("assignment");
+      const response = await api.get("assignment");
 
       setAssignments(dispatch, response.data);
       setSuccessStates(dispatch, `Assignments successfully fetched`);
@@ -67,7 +67,7 @@ const setAssignments = (dispatch, data) => {
   dispatch({
     type: actionTypes.loadAssignments,
     payload: {
-      loadAssignments: data, // assignments array
+      assignments: data, // assignments array
     },
   });
 };
