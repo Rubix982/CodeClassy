@@ -19,3 +19,19 @@ export const getQuizzesAction = () => {
     }
   };
 };
+
+export const getQuizInformationAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      const response = await api.get(`quiz/${id}`);
+      dispatch({
+        type: actionTypes.getQuizInformation,
+        payload: response.data.quiz,
+      });
+      setSuccessState(dispatch, response.data.msg);
+    } catch (error) {
+      setErrorStates(dispatch, error.message);
+    }
+  };
+};

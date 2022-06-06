@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
@@ -25,6 +25,16 @@ export class QuizController {
     return {
       msg: 'Successfully fetched all quizzes.',
       quizzes,
+    };
+  }
+
+  @UseGuards(TeacherGuard)
+  @Get(':id')
+  async getQuizInformation(@Param('id') __quizID: string) {
+    const quiz = await this.quizService.getQuizInformation(__quizID);
+    return {
+      msg: `Succesfully fetched quiz ${__quizID}`,
+      quiz,
     };
   }
 

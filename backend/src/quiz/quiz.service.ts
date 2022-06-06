@@ -23,6 +23,17 @@ export class QuizService {
     return quizzes;
   }
 
+  async getQuizInformation(__quizID: string) {
+    const queryString = this.jsonQueryExtractorService.getQueryByID(15);
+    const [quiz] = await this.entityManager.query(queryString, [
+      __quizID,
+      __quizID,
+      __quizID,
+      __quizID,
+    ]);
+    return quiz;
+  }
+
   async getQuiz(__quizID: string) {
     const queryString = this.jsonQueryExtractorService.getQueryByID(10);
     const quiz = await this.entityManager.query(queryString, [
