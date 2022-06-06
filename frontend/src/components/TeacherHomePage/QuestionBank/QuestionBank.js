@@ -31,45 +31,41 @@ const QuestionBank = (props) => {
         }}
       >
         <div>
-          {props.addquestion && (
-            <Link href="/question/newquestion">
-              <a style={{ textDecoration: "none" }}>
-                <Button style={{ height: "45px" }} variant="contained">
-                  <Add /> Add a question
-                </Button>
-              </a>
-            </Link>
-          )}
+          <Link href="/question/newquestion">
+            <a style={{ textDecoration: "none" }}>
+              <Button style={{ height: "45px" }} variant="contained">
+                <Add /> Add a question
+              </Button>
+            </a>
+          </Link>
         </div>
 
-        {props.category && (
-          <div className={QuestionBankStyling.categorySearch}>
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select
-                style={{ width: "500px" }}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={category.name}
-                label="Category"
-              >
-                {props.categories.map((item, index) => {
-                  return (
-                    <MenuItem
-                      onClick={() => {
-                        setCategory(item);
-                      }}
-                      key={index}
-                      value={item.name}
-                    >
-                      {item.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </div>
-        )}
+        <div className={QuestionBankStyling.categorySearch}>
+          <FormControl>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <Select
+              style={{ width: "500px" }}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category.name}
+              label="Category"
+            >
+              {props.categories.map((item, index) => {
+                return (
+                  <MenuItem
+                    onClick={() => {
+                      setCategory(item);
+                    }}
+                    key={index}
+                    value={item.name}
+                  >
+                    {item.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </div>
       </div>
 
       <div className={QuestionBankStyling.questions}>
@@ -77,9 +73,6 @@ const QuestionBank = (props) => {
           if (item.categoryID == category.ID || !props.category) {
             return (
               <QuestionCard
-                editable={props.editable}
-                check={props.check}
-                addquestion={props.addquestion}
                 key={index}
                 id={item.ID}
                 type={item.type}

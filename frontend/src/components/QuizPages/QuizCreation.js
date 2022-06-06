@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../Navbar/Navbar"
 import TextField from '@mui/material/TextField';
 import QuizCreationStyles from "../../../styles/QuizPages/QuizCreation.module.css"
-import Link from 'next/link'
 import QuestionBank from "@components/TeacherHomePage/QuestionBank/QuestionBank";
 
 export default function QuizCreation() {
@@ -25,7 +24,6 @@ export default function QuizCreation() {
             </div>
 
             <div className={QuizCreationStyles.quizProblems}>
-                <QuestionBank category={true} editable={true} check={true} addquestion={false}/>
             </div>
         </div>
     </div>
