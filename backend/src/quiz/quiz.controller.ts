@@ -1,5 +1,7 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AppGuard } from 'src/app/app.guard';
+import { JWTPayload } from 'src/auth/signin.dto';
+import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import {
   CreateSectionQuizAssignmentDTO,
   CreateStudentQuizAssignmentDTO,
@@ -11,7 +13,20 @@ import { QuizService } from './quiz.service';
 @UseGuards(AppGuard)
 @Controller('quiz')
 export class QuizController {
-  constructor(private readonly quizAssignmentService: QuizAssignmentService) {}
+  constructor(
+    private readonly quizService: QuizService,
+    private readonly quizAssignmentService: QuizAssignmentService,
+  ) {}
+
+  @UseGuards(TeacherGuard)
+  @Get()
+  async getAllQuizzes(@RequestDecodedMember() __member: JWTPayload) {
+    const quizzes = await this.quizService.getAllQuizzes(__member.email);
+    return {
+      msg: 'Successfully fetched all quizzes.',
+      quizzes,
+    };
+  }
 
   @UseGuards(TeacherGuard)
   @Post('section')
