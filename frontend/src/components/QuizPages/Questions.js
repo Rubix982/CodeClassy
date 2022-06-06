@@ -1,7 +1,5 @@
 import React from "react";
 import QuestionsStyling from "../../../styles/TeacherHomePage/Questions.module.css";
-import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";

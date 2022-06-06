@@ -20,6 +20,7 @@ import {
 // Component imports
 import EmailChip from "@components/EmailChip/EmailChip";
 import AssignmentProblem from "@components/AssignmentPages/AssignmentProblem";
+import Navbar from "@components/Navbar/Navbar";
 
 // MUI Icons import
 import AssessmentIcon from "@mui/icons-material/Assessment";
