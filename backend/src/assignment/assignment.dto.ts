@@ -10,8 +10,4 @@ export class AssignmentRequestDTO {
   @IsString()
   @IsNotEmpty()
   codingQuestionId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  createdById: string;
 }
