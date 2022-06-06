@@ -1,7 +1,11 @@
 import { actionTypes } from "redux/actionTypes/actionTypes";
 
 const initialState = {
-  assignment: [],
+  assignments: [],
+  assignmentsLoaded: false,
+  assignmentForSinglePage: {},
+  assignmentAssignedTo: [],
+  assignmentLoaded: false,
 };
 
 const assignmentReducer = (state = initialState, action) => {
@@ -9,7 +13,19 @@ const assignmentReducer = (state = initialState, action) => {
     case actionTypes.loadAssignments:
       return {
         ...state,
-        assignment: [action.payload.assignments],
+        assignments: [...state.assignments, action.payload.assignments],
+        assignmentLoaded: false,
+      };
+
+    case actionTypes.loadAssignmentForPage:
+      return {
+        ...state,
+        assignmentForSinglePage: action.payload.assignmentForSinglePage,
+        assignmentAssignedTo: [
+          ...state.assignmentAssignedTo,
+          action.payload.assignmentAssignedTo,
+        ],
+        assignmentLoaded: true,
       };
 
     default:

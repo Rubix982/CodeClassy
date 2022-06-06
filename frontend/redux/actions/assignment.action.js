@@ -2,17 +2,18 @@ import API from "api";
 import { actionTypes } from "redux/actionTypes/actionTypes";
 import { errorHandler } from "./error.action";
 
-export const createAssignment = (name) => {
+export const createAssignment = (assignment, assignmentName) => {
   return async (dispatch) => {
     try {
+      console.log(assignment, assignmentName);
       const api = API.getInstance();
 
-      await api.post(`assignment`, { name: name });
+      await api.post(`assignment`, {
+        codingQuestionId: assignment.CodingQuestion_Id,
+        name: assignmentName,
+      });
 
-      setSuccessStates(
-        dispatch,
-        `Assignment with name '${name}' created successfully`
-      );
+      setSuccessStates(dispatch, `Assignment created successfully`);
 
       return true;
     } catch (error) {
@@ -30,8 +31,29 @@ export const getAssignments = () => {
 
       const response = await api.get("assignment");
 
+      console.log(response);
+
       setAssignments(dispatch, response.data);
-      setSuccessStates(dispatch, `Assignments successfully fetched`);
+      setSuccessStates(dispatch, response.data.msg);
+
+      return true;
+    } catch (error) {
+      errorHandler(dispatch, error);
+
+      return false;
+    }
+  };
+};
+
+export const getAssignmentByID = (id) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+
+      const response = await api.get(`assignment/${id}`);
+
+      setAssignment(dispatch, response.data);
+      setSuccessStates(dispatch, response.data.msg);
 
       return true;
     } catch (error) {
@@ -67,7 +89,16 @@ const setAssignments = (dispatch, data) => {
   dispatch({
     type: actionTypes.loadAssignments,
     payload: {
-      assignments: data, // assignments array
+      assignments: data.assignmentResults, // assignments array
+    },
+  });
+};
+
+const setAssignment = (dispatch, data) => {
+  dispatch({
+    type: actionTypes.loadAssignmentForPage,
+    payload: {
+      assignments: data.assignmentResults,
     },
   });
 };
