@@ -12,6 +12,7 @@ import codingQuestionReducer from "./coding-question.reducer";
 import assignedReducer from "./assigned.reducer";
 import questionReducer from "./question.reducer";
 import assignmentReducer from "./assignment.reducer";
+import quizReducer from "./quiz.reducer";
 
 const rootReducer = combineReducers({
   apiReducer: apiReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   assignedReducer: assignedReducer,
   assignmentReducer: assignmentReducer,
   questionReducer: questionReducer,
+  quizReducer: quizReducer,
 });
 
 export default rootReducer;
