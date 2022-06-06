@@ -14,6 +14,10 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+const [value, setValue] = React.useState(new Date());
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 let questions = 
 [
@@ -112,6 +116,7 @@ export default function QuizView() {
               </RadioGroup>
 
               {optionValue == "Individual" &&
+               <>
                 <TextField
                   style={{ margin: '10px', marginLeft: '0px', width: '300px'}}
                   variant="standard"
@@ -122,6 +127,17 @@ export default function QuizView() {
                   onChange={handleIndividualEmail}
                   size="small"
                 />
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="DateTimePicker"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+              </LocalizationProvider>
+              </>
               }
 
               {optionValue == "Section" &&
