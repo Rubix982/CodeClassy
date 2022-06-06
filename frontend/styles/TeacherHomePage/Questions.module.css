@@ -1,0 +1,36 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 70%;
+    height: 1000px;
+}
+
+.categorySearch{
+    margin: 10px 5px
+}
+
+.questions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 50px 0px;
+}
+
+.question {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    margin: 10px 5px;
+    padding: 10px;
+    padding-bottom: 40px;
+    width: 100%;
+    text-align: justify;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+.body{
+    display: flex;
+    width: 100%;
+}

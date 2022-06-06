@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../Navbar/Navbar"
 import TextField from '@mui/material/TextField';
 import QuizCreationStyles from "../../../styles/QuizPages/QuizCreation.module.css"
-import QuestionBank from "@components/TeacherHomePage/QuestionBank/QuestionBank";
+import Questions from "./Questions";
 
 export default function QuizCreation() {
   return (
@@ -24,6 +24,7 @@ export default function QuizCreation() {
             </div>
 
             <div className={QuizCreationStyles.quizProblems}>
+                <Questions/>
             </div>
         </div>
     </div>
