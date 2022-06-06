@@ -1,5 +1,13 @@
+// API import
 import API from "api";
+
+// NextJS imports
+import Router from "next/router";
+
+// ActionTypes import
 import { actionTypes } from "redux/actionTypes/actionTypes";
+
+// ErrorHandler import
 import { errorHandler } from "./error.action";
 
 export const getCodingQuestions = () => {

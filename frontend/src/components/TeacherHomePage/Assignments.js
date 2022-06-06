@@ -23,15 +23,6 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { connect } from "react-redux";
 import { getAssignments } from "redux/actions/assignment.action";
 
-let assignment_Data = [
-  { Name: "First", Subject: "Binary Search Tree" },
-  { Name: "Second", Subject: "Queues" },
-  { Name: "Third", Subject: "Stack" },
-  { Name: "Fourth", Subject: "Red Black Tree" },
-  { Name: "Fifth", Subject: "Hashing" },
-  { Name: "Sixth", Subject: "Sorting" },
-];
-
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
