@@ -2,6 +2,7 @@ import { actionTypes } from "redux/actionTypes/actionTypes";
 
 const initialState = {
   studentSections: [],
+  studentQuizzes: { assignedQuizzes: [], results: [] },
   feedLoading: true,
 };
 
@@ -12,6 +13,12 @@ const studentReducer = (state = initialState, action) => {
         ...state,
         studentSections: action.payload.studentSections,
         feedLoading: false,
+      };
+
+    case actionTypes.getStudentQuizzes:
+      return {
+        ...state,
+        studentQuizzes: action.payload.quizzes,
       };
 
     default:
