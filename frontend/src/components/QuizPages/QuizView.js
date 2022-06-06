@@ -2,9 +2,7 @@ import React from "react";
 import QuizViewStyles from "../../../styles/QuizPages/QuizView.module.css"
 import Navbar from "../Navbar/Navbar"
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import QuestionBank from "@components/TeacherHomePage/QuestionBank/QuestionBank";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -16,6 +14,30 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+
+let questions = 
+[
+  {
+    title: "First Question",
+    description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+  },
+  {
+    title: "Second Question",
+    description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+  },
+  {
+    title: "Third Question",
+    description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+  },
+  {
+    title: "Fourth Question",
+    description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+  },
+  {
+    title: "Fifth Question",
+    description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+  },
+]
 
 
 let sections = ["H", "A", "B", "D"]
@@ -62,7 +84,14 @@ export default function QuizView() {
           </div>
 
           <div className={QuizViewStyles.questions}>
-            <QuestionBank editable={false} category={false} check={false} addquestion={false}/>
+            {questions.map((item, index) => {
+              return(
+                <div className={QuizViewStyles.question}>
+                  <h4 style={{margin: '20px', marginBottom: '0px'}}> {item.title}</h4>
+                  <p style={{margin: '10px', marginLeft: '20px', textAlign: 'justify'}}> {item.description} </p>
+                </div>
+              )
+            })}
           </div>
 
           <div className={QuizViewStyles.assign}>
@@ -163,12 +192,6 @@ export default function QuizView() {
 
           </div>
 
-
-          <div className={QuizViewStyles.create}>
-            <Button style={{ width: '100px', marginRight: '380px'}} variant="contained"> 
-              <SendIcon style={{margin:'2px'}}/>Create
-            </Button>
-          </div>
         </div>
     </div>
   );
