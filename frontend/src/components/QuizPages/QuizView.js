@@ -138,7 +138,7 @@ export default function QuizView() {
                   >
                   {sections.map((item,index) => {
                     return (
-                      <MenuItem value={item}>{item}</MenuItem>
+                      <MenuItem key={index} value={item}>{item}</MenuItem>
                     )
 
                   })}
