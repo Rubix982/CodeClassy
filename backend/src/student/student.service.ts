@@ -3,15 +3,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Member } from 'src/entities/member.entity';
 import { Student } from 'src/entities/student.entity';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
-import { getManager, Repository } from 'typeorm';
+import { EntityManager, getManager, Repository } from 'typeorm';
 
 @Injectable()
 export class StudentService {
+  private readonly entityManager: EntityManager;
+
   constructor(
     @InjectRepository(Student)
     private readonly studentRepository: Repository<Student>,
     private readonly JSONQueryExtractorService: JSONQueryExtractorService,
-  ) {}
+  ) {
+    this.entityManager = getManager();
+  }
 
   async createStudent(__member: Member) {
     const student = new Student();
@@ -33,11 +37,20 @@ export class StudentService {
 
   async getAllSectionsByStudentEmail(__studentEmail: string) {
     const query = this.JSONQueryExtractorService.getQueryByID(2);
-    const entityManager = getManager();
-    const studentSectionsData = await entityManager.query(query, [
+    const studentSectionsData = await this.entityManager.query(query, [
       __studentEmail,
     ]);
 
     return studentSectionsData;
+  }
+
+  async getAllQuizzesByStudentEmail(__studentEmail: string) {
+    const queryString = this.JSONQueryExtractorService.getQueryByID(16);
+    const [quizzes] = await this.entityManager.query(queryString, [
+      __studentEmail,
+      __studentEmail,
+      __studentEmail,
+    ]);
+    return quizzes;
   }
 }
