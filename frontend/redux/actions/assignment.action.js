@@ -2,24 +2,33 @@ import API from "api";
 import { actionTypes } from "redux/actionTypes/actionTypes";
 import { errorHandler } from "./error.action";
 
-export const createAssignment = (assignment, assignmentName) => {
+export const createAssignment = (
+  assignment,
+  assignmentName,
+  assignmentDueDate
+) => {
   return async (dispatch) => {
     try {
-      console.log(assignment, assignmentName);
       const api = API.getInstance();
 
       await api.post(`assignment`, {
         codingQuestionId: assignment.CodingQuestion_Id,
         name: assignmentName,
+        dueDate: assignmentDueDate,
       });
 
       setSuccessStates(dispatch, `Assignment created successfully`);
 
-      return true;
+      Router.push({
+        pathname: "/h",
+      });
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };
@@ -31,16 +40,15 @@ export const getAssignments = () => {
 
       const response = await api.get("assignment");
 
-      console.log(response);
-
       setAssignments(dispatch, response.data);
       setSuccessStates(dispatch, response.data.msg);
-
-      return true;
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };
@@ -59,7 +67,10 @@ export const getAssignmentByID = (id) => {
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };
@@ -76,11 +87,16 @@ export const deleteAssignment = (id) => {
         `Successfully deleted assignment with id '${id}'`
       );
 
-      return true;
+      Router.push({
+        pathname: "/h",
+      });
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };

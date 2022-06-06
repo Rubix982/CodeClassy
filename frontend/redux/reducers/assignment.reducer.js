@@ -14,7 +14,7 @@ const assignmentReducer = (state = initialState, action) => {
       return {
         ...state,
         assignments: [...state.assignments, action.payload.assignments],
-        assignmentLoaded: false,
+        assignmentsLoaded: true,
       };
 
     case actionTypes.loadAssignmentForPage:

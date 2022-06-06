@@ -13,9 +13,12 @@ import {
   Button,
   Snackbar,
   TextField,
+  Stack,
 } from "@mui/material";
-
 import MuiAlert from "@mui/material/Alert";
+
+// MUI X imports
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 // Component imports
 import Navbar from "@components/Navbar/Navbar";
@@ -28,6 +31,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { connect } from "react-redux";
 import { getCodingQuestions } from "redux/actions/coding-question.action";
 import { createAssignment } from "redux/actions/assignment.action";
+import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -44,6 +48,11 @@ const AssignmentCreation = ({
 }) => {
   const [name, setName] = React.useState("");
   const [selectedQuestion, setSelectedQuestion] = React.useState("");
+  const [dueDate, setDueDate] = React.useState(new Date("2022-05-06T23:11:59"));
+
+  const handleDateChange = (newValue) => {
+    setDueDate(newValue);
+  };
 
   const handleChange = (event) => {
     setSelectedQuestion(event.target.value);
@@ -94,6 +103,24 @@ const AssignmentCreation = ({
                   }}
                 />
               </div>
+              <div className={AssignmentCreationStyles.AssignmentDetailsItems}>
+                <label> Due Date </label>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <Stack
+                    spacing={5}
+                    className={
+                      AssignmentCreationStyles.AssignmentDateTimePicker
+                    }
+                  >
+                    <DateTimePicker
+                      label="DueDate Date&Time picker"
+                      value={dueDate}
+                      onChange={handleDateChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </Stack>
+                </LocalizationProvider>
+              </div>
             </div>
             <FormControl style={{ width: "50%" }}>
               <InputLabel id="demo-simple-select-label">Question</InputLabel>
@@ -130,7 +157,7 @@ const AssignmentCreation = ({
             startIcon={<SendIcon />}
             onClick={(event) => {
               event.preventDefault();
-              createAssignment(selectedQuestion, name);
+              createAssignment(selectedQuestion, name, dueDate);
             }}
             style={{
               margin: "50px 0px",

@@ -96,7 +96,7 @@ const Assignments = ({
           </Link>
         </div>
 
-        {/* {assignmentsLoaded && ( */}
+        {assignmentsLoaded && (
           <div className={AssignmentStyles.assignmentzes}>
             {assignments[0].map((item, index) => {
               return (
@@ -135,7 +135,7 @@ const Assignments = ({
               );
             })}
           </div>
-        {/* )} */}
+        )}
       </div>
     </>
   );
