@@ -16,4 +16,11 @@ export class StudentController {
       await this.studentService.getAllSectionsByStudentEmail(__member.email);
     return studentSections;
   }
+
+  @Get('quizzes')
+  public async getStudentQuizzes(@RequestDecodedMember() __member: JWTPayload) {
+    const studentQuizzes =
+      await this.studentService.getAllQuizzesByStudentEmail(__member.email);
+    return studentQuizzes;
+  }
 }

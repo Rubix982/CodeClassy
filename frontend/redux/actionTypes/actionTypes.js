@@ -32,4 +32,5 @@ export const actionTypes = {
   getQuestions: "getQuestions",
   getQuizzes: "getQuizzes",
   getQuizInformation: "getQuizInformation",
+  getStudentQuizzes: "getStudentQuizzes",
 };
