@@ -5,8 +5,49 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import QuestionBank from "@components/TeacherHomePage/QuestionBank/QuestionBank";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+
+
+let sections = ["H", "A", "B", "D"]
 
 export default function QuizView() {
+  const [open, setOpen] = React.useState(false);
+  const [section, setSection] = React.useState(sections[0]);
+  const [optionValue, setOptionValue] = React.useState('Individual');
+  const [individualEmailValue, setIndividualEmailValue] = React.useState('');
+
+  const handleSectionChange = (event) => {
+    setSection(event.target.value);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  
+  const handleChange = (event) => {
+    setOptionValue(event.target.value);
+  };
+
+  const handleIndividualEmail = (event) => {
+    setIndividualEmailValue(event.target.value);
+  };
+
+
   return (
     <div>
         <Navbar/>
@@ -25,9 +66,66 @@ export default function QuizView() {
           </div>
 
           <div className={QuizViewStyles.assign}>
-            <Button style={{ height: '45px'}} variant="contained"> 
+            <Button style={{ height: '45px'}} variant="contained" onClick={handleClickOpen}> 
               <AssignmentTurnedInIcon/>Assign
             </Button>
+            <Dialog open={open} onClose={handleClose}>
+            <DialogTitle style={{width: '500px'}}> Assignment Invite</DialogTitle>
+            <FormControl style={{marginLeft: '25px'}}>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={optionValue}
+                onChange={handleChange}
+              >
+                <FormControlLabel value="Individual" control={<Radio size="small" />} label="Individual" />
+                <FormControlLabel value="Section" control={<Radio size="small" />} label="Section" />
+              </RadioGroup>
+
+              {optionValue == "Individual" &&
+                <TextField
+                  style={{ margin: '10px', marginLeft: '0px', width: '300px'}}
+                  variant="standard"
+                  id="filled-size-normal"
+                  placeholder="Student Email"
+                  maxRows={4}
+                  value={individualEmailValue}
+                  onChange={handleIndividualEmail}
+                  size="small"
+                />
+              }
+
+              {optionValue == "Section" &&
+              <div style={{margin: '15px', marginLeft: '0px', width: '200px'}}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="demo-simple-select-standard-label">Section</InputLabel>
+                <Select
+                  fullWidth
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={section}
+                  onChange={handleSectionChange}
+                  label="Section"
+                  >
+                  {sections.map((item,index) => {
+                    return (
+                      <MenuItem value={item}>{item}</MenuItem>
+                    )
+
+                  })}
+
+                </Select>
+                </FormControl>
+              </div>
+              }
+
+
+            </FormControl>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleClose}>Assign</Button> 
+            </DialogActions>
+          </Dialog>
           </div>
 
           <h2 style={{marginLeft: '13vw', marginTop: '15px'}}> Assigned To:</h2>
