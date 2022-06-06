@@ -1,9 +1,7 @@
-import { AssignedAssignmentByStudent } from './assigned-assignment-by-student.entity';
 import {
   Column,
   Entity,
   JoinColumn,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';

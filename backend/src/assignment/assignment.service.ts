@@ -64,6 +64,9 @@ export class AssignmentService {
 
       const assignment: Assignment = this.assignmentRepository.create({
         name: __requestBody.name,
+        dueDate: __requestBody.dueDate,
+        sessionID: '123', //! TODO: Connect with convergence
+        score: 0,
         codingQuestion: codingQuestion,
         createdBy: teacher,
       });
