@@ -16,6 +16,15 @@ export class Assignment {
   @Column()
   name: string;
 
+  @Column('datetime')
+  dueDate;
+
+  @Column()
+  sessionID: string;
+
+  @Column('double')
+  score;
+
   @ManyToOne(() => CodingQuestion, {
     onDelete: 'CASCADE',
   })

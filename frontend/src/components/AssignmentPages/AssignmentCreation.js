@@ -13,9 +13,12 @@ import {
   Button,
   Snackbar,
   TextField,
+  Stack,
 } from "@mui/material";
-
 import MuiAlert from "@mui/material/Alert";
+
+// MUI X imports
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 // Component imports
 import Navbar from "@components/Navbar/Navbar";
@@ -27,28 +30,29 @@ import SendIcon from "@mui/icons-material/Send";
 // Redux imports
 import { connect } from "react-redux";
 import { getCodingQuestions } from "redux/actions/coding-question.action";
+import { createAssignment } from "redux/actions/assignment.action";
+import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-let questions = [
-  {
-    title: "Merge Sort",
-    description: "",
-    testcases: [{}, {}, {}],
-  },
-];
-
 const AssignmentCreation = ({
   getCodingQuestions,
+  createAssignment,
   responseMessage,
   successMessageSnackbar,
   errorMessageSnackbar,
   codingQuestions,
-  questionsLoaded
+  questionsLoaded,
 }) => {
-  const [selectedQuestion, setSelectedQuestion] = React.useState('');
+  const [name, setName] = React.useState("");
+  const [selectedQuestion, setSelectedQuestion] = React.useState("");
+  const [dueDate, setDueDate] = React.useState(new Date("2022-05-06T23:11:59"));
+
+  const handleDateChange = (newValue) => {
+    setDueDate(newValue);
+  };
 
   const handleChange = (event) => {
     setSelectedQuestion(event.target.value);
@@ -93,37 +97,68 @@ const AssignmentCreation = ({
                   id="standard-basic"
                   placeholder="e.g, Linked List"
                   variant="standard"
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setName(event.target.value);
+                  }}
                 />
+              </div>
+              <div className={AssignmentCreationStyles.AssignmentDetailsItems}>
+                <label> Due Date </label>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <Stack
+                    spacing={5}
+                    className={
+                      AssignmentCreationStyles.AssignmentDateTimePicker
+                    }
+                  >
+                    <DateTimePicker
+                      label="DueDate Date&Time picker"
+                      value={dueDate}
+                      onChange={handleDateChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </Stack>
+                </LocalizationProvider>
               </div>
             </div>
             <FormControl style={{ width: "50%" }}>
               <InputLabel id="demo-simple-select-label">Question</InputLabel>
-              {questionsLoaded &&
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectedQuestion.CodingQuestion_Title}
-                label="Question"
-                onChange={handleChange}
-              >
-                { codingQuestions[0].map((item, index) => {
+              {questionsLoaded && (
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={selectedQuestion.CodingQuestion_Title}
+                  label="Question"
+                  onChange={handleChange}
+                >
+                  {codingQuestions[0].map((item, index) => {
                     return (
-                        <MenuItem value={item}>{item.CodingQuestion_Title}</MenuItem>
-                    ) 
-                })}
-                
-              </Select>}
+                      <MenuItem value={item}>
+                        {item.CodingQuestion_Title}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              )}
             </FormControl>
           </div>
           <div style={{ marginLeft: "180px" }}>
-              { questionsLoaded && <AssignmentProblem title={selectedQuestion.CodingQuestion_Title} 
-              description={selectedQuestion.CodingQuestion_Body}
-              testcases={selectedQuestion.testCases}/>}
+            {questionsLoaded && (
+              <AssignmentProblem
+                title={selectedQuestion.CodingQuestion_Title}
+                description={selectedQuestion.CodingQuestion_Body}
+                testcases={selectedQuestion.testCases}
+              />
+            )}
           </div>
           <Button
             variant="contained"
             startIcon={<SendIcon />}
-            onClick={(e) => CreateQuestion()}
+            onClick={(event) => {
+              event.preventDefault();
+              createAssignment(selectedQuestion, name, dueDate);
+            }}
             style={{
               margin: "50px 0px",
               marginLeft: "930px",
@@ -152,4 +187,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   getCodingQuestions,
+  createAssignment,
 })(AssignmentCreation);
