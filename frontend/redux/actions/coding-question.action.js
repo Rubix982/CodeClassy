@@ -1,5 +1,13 @@
+// API import
 import API from "api";
+
+// NextJS imports
+import Router from "next/router";
+
+// ActionTypes import
 import { actionTypes } from "redux/actionTypes/actionTypes";
+
+// ErrorHandler import
 import { errorHandler } from "./error.action";
 
 export const getCodingQuestions = () => {
@@ -14,7 +22,10 @@ export const getCodingQuestions = () => {
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };
@@ -31,10 +42,17 @@ export const addCodingQuestions = (codingQuestion) => {
       });
 
       setSuccessStates(dispatch, response.data.msg);
+
+      Router.push({
+        pathname: "/h",
+      });
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };

@@ -3,8 +3,14 @@ import Navbar from "../Navbar/Navbar"
 import TextField from '@mui/material/TextField';
 import QuizCreationStyles from "../../../styles/QuizPages/QuizCreation.module.css"
 import Questions from "./Questions";
+import Button from '@mui/material/Button';
+import SendIcon from "@mui/icons-material/Send";
 
 export default function QuizCreation() {
+
+    const createQuiz = () => {
+
+    }
   return (
     <div>
         <Navbar/>
@@ -25,6 +31,17 @@ export default function QuizCreation() {
 
             <div className={QuizCreationStyles.quizProblems}>
                 <Questions/>
+            </div>
+
+            <div className={QuizCreationStyles.create}>
+                <Button
+                style={{ height: "45px" }}
+                variant="contained"
+                onClick={createQuiz}
+                >
+                <SendIcon />
+                Create
+                </Button>
             </div>
         </div>
     </div>

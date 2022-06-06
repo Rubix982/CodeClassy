@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsISO8601,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class AssignmentRequestDTO {
   @IsString()
@@ -11,7 +17,6 @@ export class AssignmentRequestDTO {
   @IsNotEmpty()
   codingQuestionId: string;
 
-  @IsString()
-  @IsNotEmpty()
-  createdById: string;
+  @IsISO8601()
+  dueDate: string;
 }

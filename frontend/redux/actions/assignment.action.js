@@ -1,24 +1,42 @@
+// API import
 import API from "api";
+
+// NextJS imports
+import Router from "next/router";
+
+// ActionTypes import
 import { actionTypes } from "redux/actionTypes/actionTypes";
+
+// ErrorHandler import
 import { errorHandler } from "./error.action";
 
-export const createAssignment = (name) => {
+export const createAssignment = (
+  assignment,
+  assignmentName,
+  assignmentDueDate
+) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
 
-      await api.post(`assignment`, { name: name });
+      await api.post(`assignment`, {
+        codingQuestionId: assignment.CodingQuestion_Id,
+        name: assignmentName,
+        dueDate: assignmentDueDate,
+      });
 
-      setSuccessStates(
-        dispatch,
-        `Assignment with name '${name}' created successfully`
-      );
+      setSuccessStates(dispatch, `Assignment created successfully`);
 
-      return true;
+      Router.push({
+        pathname: "/h",
+      });
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };
@@ -31,13 +49,36 @@ export const getAssignments = () => {
       const response = await api.get("assignment");
 
       setAssignments(dispatch, response.data);
-      setSuccessStates(dispatch, `Assignments successfully fetched`);
+      setSuccessStates(dispatch, response.data.msg);
+    } catch (error) {
+      errorHandler(dispatch, error);
+
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
+    }
+  };
+};
+
+export const getAssignmentByID = (id) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+
+      const response = await api.get(`assignment/${id}`);
+
+      setAssignment(dispatch, response.data);
+      setSuccessStates(dispatch, response.data.msg);
 
       return true;
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };
@@ -54,11 +95,16 @@ export const deleteAssignment = (id) => {
         `Successfully deleted assignment with id '${id}'`
       );
 
-      return true;
+      Router.push({
+        pathname: "/h",
+      });
     } catch (error) {
       errorHandler(dispatch, error);
 
-      return false;
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Categories not found" },
+      });
     }
   };
 };
@@ -67,7 +113,16 @@ const setAssignments = (dispatch, data) => {
   dispatch({
     type: actionTypes.loadAssignments,
     payload: {
-      assignments: data, // assignments array
+      assignments: data.assignmentResults, // assignments array
+    },
+  });
+};
+
+const setAssignment = (dispatch, data) => {
+  dispatch({
+    type: actionTypes.loadAssignmentForPage,
+    payload: {
+      assignments: data.assignmentResults,
     },
   });
 };

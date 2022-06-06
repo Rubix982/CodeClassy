@@ -1,26 +1,26 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import QuizViewStyles from "../../../styles/QuizPages/QuizView.module.css";
-import Navbar from "../Navbar/Navbar";
-import Button from "@mui/material/Button";
-import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
+import React from "react";
+import QuizViewStyles from "../../../styles/QuizPages/QuizView.module.css"
+import Navbar from "../Navbar/Navbar"
+import Button from '@mui/material/Button';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import draftjsToHtml from "draftjs-to-html";
 import { getQuizInformationAction } from "redux/actions/quiz.action";
 import { getTeacherFeed } from "redux/actions/teacher.action";
 import { connect } from "react-redux";
-
-let sections = ["H", "A", "B", "D"];
 
 function QuizView(props) {
   const { id } = useRouter().query;
@@ -28,6 +28,7 @@ function QuizView(props) {
   const [section, setSection] = React.useState(sections[0]);
   const [optionValue, setOptionValue] = React.useState("Individual");
   const [individualEmailValue, setIndividualEmailValue] = React.useState("");
+  const [value, setValue] = React.useState(new Date());
 
   useEffect(() => {
     if (!id) {
@@ -123,7 +124,8 @@ function QuizView(props) {
                 />
               </RadioGroup>
 
-              {optionValue == "Individual" && (
+              {optionValue == "Individual" &&
+               <>
                 <TextField
                   style={{ margin: "10px", marginLeft: "0px", width: "300px" }}
                   variant="standard"
@@ -134,7 +136,20 @@ function QuizView(props) {
                   onChange={handleIndividualEmail}
                   size="small"
                 />
-              )}
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="DateTimePicker"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+                </LocalizationProvider>
+              </>
+              }
+  
+
 
               {optionValue == "Section" && (
                 <div

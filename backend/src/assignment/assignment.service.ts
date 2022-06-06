@@ -1,3 +1,4 @@
+import { Teacher } from 'src/entities/teacher.entity';
 import { CodingQuestionService } from 'src/coding-question/coding-question.service';
 import { TeacherService } from './../teacher/teacher.service';
 import { CodingQuestion } from 'src/entities/coding-question.entity';
@@ -21,9 +22,11 @@ export class AssignmentService {
   ) {}
 
   async getAllAssignmentsByTeacher(__email: string) {
-    const result = this.assignmentRepository.find({
+    const teacher: Teacher = await this.teacherService.findTeacher(__email);
+
+    const result = await this.assignmentRepository.find({
       where: {
-        createdBy: __email,
+        createdBy: teacher,
       },
     });
 
@@ -36,27 +39,44 @@ export class AssignmentService {
     }
   }
 
+  async getAssignmentByID(__assignmentID: string) {
+    const result = this.assignmentRepository.findOne({
+      where: { id: __assignmentID },
+    });
+
+    if (result) {
+      return result;
+    } else {
+      throw new NotFoundException([
+        `Could not find assignment with id ${__assignmentID}`,
+      ]);
+    }
+  }
+
   async createAssignment(__email: string, __requestBody: AssignmentRequestDTO) {
     try {
-      const teacher = await this.teacherService.findTeacher(__email);
+      const teacher: Teacher = await this.teacherService.findTeacher(__email);
 
-      const codingQuestion =
+      const codingQuestion: CodingQuestion =
         await this.codingQuestionService.findCodingQuestion(
           __requestBody.codingQuestionId,
         );
 
-      const assignment = this.assignmentRepository.create({
+      const assignment: Assignment = this.assignmentRepository.create({
         name: __requestBody.name,
+        dueDate: __requestBody.dueDate,
+        sessionID: '123', //! TODO: Connect with convergence
+        score: 0,
         codingQuestion: codingQuestion,
         createdBy: teacher,
       });
 
       await this.assignmentRepository.save(assignment);
-    } catch (error) {}
-
-    throw new BadRequestException([
-      `Could not successfully create the assignment with name, ${__requestBody.name}`,
-    ]);
+    } catch (error) {
+      throw new BadRequestException([
+        `Could not successfully create the assignment with name, ${__requestBody.name}`,
+      ]);
+    }
   }
 
   async deleteAssignment(__assignmentId: string) {

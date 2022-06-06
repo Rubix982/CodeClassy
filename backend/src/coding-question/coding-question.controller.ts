@@ -24,7 +24,7 @@ export class CodingQuestionController {
       await this.codingQuestionService.getCodingQuestions(__member.email);
 
     return {
-      msg: 'Successfully fetched assignments created by Teacher',
+      msg: 'Successfully fetched coding questions',
       codingQuestionResults,
     };
   }
@@ -49,5 +49,9 @@ export class CodingQuestionController {
   @Delete(':id')
   async deleteCodingQuestion(@Param('id') __codingQuestionID: string) {
     await this.codingQuestionService.deleteCodingQuestion(__codingQuestionID);
+
+    return {
+      msg: `Successfully deleted coding question`,
+    };
   }
 }
