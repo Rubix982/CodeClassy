@@ -33,4 +33,6 @@ export const actionTypes = {
   getQuizzes: "getQuizzes",
   getQuizInformation: "getQuizInformation",
   getStudentQuizzes: "getStudentQuizzes",
+  getQuizForAttemption: "getQuizForAttemption",
+  submitQuizForGrading: "submitQuizForGrading",
 };

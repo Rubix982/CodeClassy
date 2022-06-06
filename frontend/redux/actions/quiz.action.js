@@ -35,3 +35,32 @@ export const getQuizInformationAction = (id) => {
     }
   };
 };
+
+export const getQuizForAttemptionAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      const response = await api.get(`quiz-assignment/${id}`);
+      dispatch({
+        type: actionTypes.getQuizForAttemption,
+        payload: {
+          quiz: response.data,
+        },
+      });
+    } catch (error) {
+      setErrorStates(dispatch, error.message);
+    }
+  };
+};
+
+export const submitQuizForGradingAction = (id, data) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      const response = await api.post(`quiz-assignment/${id}`, data);
+      console.log(response.data);
+    } catch (error) {
+      setErrorStates(dispatch, error.message);
+    }
+  };
+};
