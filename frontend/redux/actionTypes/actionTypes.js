@@ -30,4 +30,5 @@ export const actionTypes = {
   loadAssignedAssignments: "loadAssignedAssignments",
   loadCodingQuestions: "loadCodingQuestions",
   getQuestions: "getQuestions",
+  getQuizzes: "getQuizzes"
 };
