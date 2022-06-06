@@ -20,13 +20,23 @@ export class AssignmentController {
   constructor(private readonly assignmentService: AssignmentService) {}
 
   @Get()
-  async getAssignments(@RequestDecodedMember() __member: JWTPayload) {
-    const assignmentResults = this.assignmentService.getAllAssignmentsByTeacher(
-      __member.email,
-    );
+  async getAssignmentByTeacher(@RequestDecodedMember() __member: JWTPayload) {
+    const assignmentResults =
+      await this.assignmentService.getAllAssignmentsByTeacher(__member.email);
 
     return {
-      msg: 'Successfully fetched assignments created by teacher',
+      msg: 'Successfully fetched assignments',
+      assignmentResults,
+    };
+  }
+
+  @Get(':id')
+  async getAssignmentByID(@Param(':id') __assignmentID: string) {
+    const assignmentResults =
+      this.assignmentService.getAssignmentByID(__assignmentID);
+
+    return {
+      msg: 'Successfully fetched assignments',
       assignmentResults,
     };
   }

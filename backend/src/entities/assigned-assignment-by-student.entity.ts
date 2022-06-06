@@ -1,15 +1,15 @@
+import { Assignment } from 'src/entities/assignment.entity';
 import { Student } from 'src/entities/student.entity';
 import { Entity, ManyToOne } from 'typeorm';
-import { AssignedAssignment } from './assigned-assignment.entity';
 
 @Entity()
 export class AssignedAssignmentByStudent {
-  @ManyToOne(() => AssignedAssignment, {
+  @ManyToOne(() => Assignment, {
     primary: true,
     nullable: false,
     onDelete: 'CASCADE',
   })
-  assignedAssignment: AssignedAssignment;
+  assignment: Assignment;
 
   @ManyToOne(() => Student, {
     primary: true,
