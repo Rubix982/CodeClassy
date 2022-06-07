@@ -14,13 +14,19 @@ import { RequestDecodedMember } from 'src/decorators/member.decorator';
 export class AssignedController {
   constructor(private readonly AssignedService: AssignedService) {}
 
-  @Get()
-  async getAssignedAssignments(@RequestDecodedMember() __member: JWTPayload) {
-    const results = this.AssignedService.fetchAssigned(__member.email);
+  @Get(':id')
+  async getAssignedAssignments(
+    @RequestDecodedMember() __member: JWTPayload,
+    @Param('id') __assignmentID: string,
+  ) {
+    const data = await this.AssignedService.fetchAssigned(
+      __member.email,
+      __assignmentID,
+    );
 
     return {
       msg: `Successfully fetched assigned assignments by teacher`,
-      results,
+      data,
     };
   }
 
@@ -29,15 +35,13 @@ export class AssignedController {
     @Param('assignmentID') __assignmentID: string,
     @Body() __requestBody: CreateAssignedAssignmentForIndividualDTO,
   ) {
-    const assignedAssignment =
-      await this.AssignedService.createAssignedAssignmentForIndividual(
-        __assignmentID,
-        __requestBody.email,
-      );
+    await this.AssignedService.createAssignedAssignmentForIndividual(
+      __assignmentID,
+      __requestBody.email,
+    );
 
     return {
       msg: `Successfully assigned assignment to student with email `,
-      assignedAssignment,
     };
   }
 
@@ -46,15 +50,14 @@ export class AssignedController {
     @Param('assignmentID') __assignmentID: string,
     @Body() __requestBody: CreateAssignedAssignmentForGroupDTO,
   ) {
-    const assignedAssignment =
-      await this.AssignedService.createAssignedAssignmentForGroup(
-        __assignmentID,
-        __requestBody.emails,
-      );
+    console.log(__requestBody);
+    await this.AssignedService.createAssignedAssignmentForGroup(
+      __assignmentID,
+      __requestBody.emails,
+    );
 
     return {
       msg: `Successfully assigned assignment to students with emails, ${__requestBody.emails}`,
-      assignedAssignment,
     };
   }
 
@@ -63,15 +66,13 @@ export class AssignedController {
     @Param('assignmentID') __assignmentID: string,
     @Body() __requestBody: CreateAssignedAssignmentForSectionDTO,
   ) {
-    const assignedAssignment =
-      await this.AssignedService.createAssignedAssignmentForSection(
-        __assignmentID,
-        __requestBody.id,
-      );
+    await this.AssignedService.createAssignedAssignmentForSection(
+      __assignmentID,
+      __requestBody.id,
+    );
 
     return {
       msg: `Successfully assigned assignment to section with id ${__requestBody.id}`,
-      assignedAssignment,
     };
   }
 }

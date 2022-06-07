@@ -5,12 +5,12 @@ class GetSectionDTOAnnouncement {
 }
 
 export class GetSectionDTO {
-  private readonly ID: string;
-  private readonly sectionName: string;
-  private readonly classroomName: string;
-  private readonly teacherFullName: string;
-  private readonly students: { email: string; fullName: string }[] = [];
-  private readonly announcements: GetSectionDTOAnnouncement[] = [];
+  readonly ID: string;
+  readonly sectionName: string;
+  readonly classroomName: string;
+  readonly teacherFullName: string;
+  readonly students: { email: string; fullName: string }[] = [];
+  readonly announcements: GetSectionDTOAnnouncement[] = [];
 
   constructor(__sectionData) {
     this.ID = __sectionData.sectionID;

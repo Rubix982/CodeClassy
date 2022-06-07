@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import AssignmentViewStyles from "../../../styles/AssignmentPages/AssignmentView.module.css";
 
 /* 
@@ -9,64 +9,58 @@ import AssignmentViewStyles from "../../../styles/AssignmentPages/AssignmentView
     string[] allLines = textbox.Text.Split('\n');
 */
 
-
-export default function AssignmentProblem({title, description, testcases}) {
-  
-
+export default function AssignmentProblem({ title, description, testcases }) {
   return (
     <div>
-      {testcases &&
-      <div style={{minWidth: "1500px"}} className={AssignmentViewStyles.container}>
-        <div className={AssignmentViewStyles.question}>
-          <h4>
-            {" "}
-            Problem:{" "}
-            <span style={{ color: "grey" }}>
+      {testcases && (
+        <div
+          style={{ minWidth: "1500px" }}
+          className={AssignmentViewStyles.container}
+        >
+          <div className={AssignmentViewStyles.question}>
+            <h4>
               {" "}
-              {title}.{" "}
-            </span>
-          </h4>
-          <p style={{ margin: "10px 0px" }}>
-            {description}
-          </p>
-          <h4 style={{ marginTop: "20px" }}> Test cases:</h4>
-          {testcases.map((item, index) => {
-            return (
-              <div key={item}>
-                <h4 style={{ margin: "10px", marginTop: "20px" }}>
-                  {" "}
-                  Case: {index + 1}{" "}
-                </h4>
-                <h5 style={{ color: "grey", margin: "15px" }}>
-                  {" "}
-                  Inputs:
-                  <div key={index}>
-                    <h5 style={{ color: "green", margin: "10px" }}>
-                      {" "}
-                      {item.in.split("\n").map((i,key) => {
-                       return <div key={key}>{i}</div>;
-                      })}{" "}
-                    </h5>
-                  </div>
-                </h5>
-                <h5 style={{ color: "grey", margin: "15px" }}>
-                  {" "}
-                  Output:
-                  <div key={index}>
-                    <h5 style={{ color: "red", margin: "10px" }}>
-                      {" "}
-                      {item.out.split("\n").map((i,key) => {
-                        return <div key={key}>{i}</div>;
-                      })}{" "}
-                    </h5>
-                  </div>
-                </h5>
-              </div>
-            );
-          })}
+              Problem: <span style={{ color: "grey" }}> {title}. </span>
+            </h4>
+            <p style={{ margin: "10px 0px" }}>{description}</p>
+            <h4 style={{ marginTop: "20px" }}> Test cases:</h4>
+            {testcases.map((item, index) => {
+              return (
+                <div key={index}>
+                  <h4 style={{ margin: "10px", marginTop: "20px" }}>
+                    {" "}
+                    Case: {index + 1}{" "}
+                  </h4>
+                  <h5 style={{ color: "grey", margin: "15px" }}>
+                    {" "}
+                    Inputs:
+                    <div key={index}>
+                      <h5 style={{ color: "green", margin: "10px" }}>
+                        {" "}
+                        {item.in.split("\n").map((i, key) => {
+                          return <div key={key}>{i}</div>;
+                        })}{" "}
+                      </h5>
+                    </div>
+                  </h5>
+                  <h5 style={{ color: "grey", margin: "15px" }}>
+                    {" "}
+                    Output:
+                    <div key={index}>
+                      <h5 style={{ color: "red", margin: "10px" }}>
+                        {" "}
+                        {item.out.split("\n").map((i, key) => {
+                          return <div key={key}>{i}</div>;
+                        })}{" "}
+                      </h5>
+                    </div>
+                  </h5>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      }
+      )}
     </div>
   );
 }

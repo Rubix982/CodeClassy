@@ -7,7 +7,7 @@ export const getTeacherFeed = () => {
     try {
       const api = API.getInstance();
       const response = await api.get("teacher/feed");
-      console.log(response.data.classrooms);
+
       dispatch({
         type: actionTypes.teacherFeedLoaded,
         payload: {
