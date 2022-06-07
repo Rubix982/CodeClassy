@@ -1,4 +1,5 @@
 import API from "api";
+import Router from "next/router";
 import { actionTypes } from "redux/actionTypes/actionTypes";
 import { setSuccessState, setErrorStates } from "./login.action";
 
@@ -58,7 +59,18 @@ export const submitQuizForGradingAction = (id, data) => {
     try {
       const api = API.getInstance();
       const response = await api.post(`quiz-assignment/${id}`, data);
-      console.log(response.data);
+    } catch (error) {
+      setErrorStates(dispatch, error.message);
+    }
+  };
+};
+
+export const createQuiz = (data) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      await api.post("teacher/quiz", data);
+      Router.push("/h");
     } catch (error) {
       setErrorStates(dispatch, error.message);
     }
