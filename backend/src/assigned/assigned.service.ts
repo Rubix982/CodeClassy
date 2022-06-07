@@ -1,38 +1,43 @@
-import { AssignedAssignment } from 'src/entities/assigned-assignment.entity';
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { GetSectionDTO } from './../section/get-section.dto';
+import { SectionService } from './../section/section.service';
+import { StudentService } from 'src/student/student.service';
+import { AssignmentService } from 'src/assignment/assignment.service';
+import { AssignedAssignmentByStudent } from './../entities/assigned-assignment-by-student.entity';
+import { JSONQueryExtractorService } from './../json-query-extractor/json-query-extractor.service';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Convergence } from '@convergence/convergence';
-// import { PresenceService } from '@convergence/convergence/typings/presence/PresenceService';
+import { Repository, getManager, EntityManager } from 'typeorm';
+import { Student } from 'src/entities/student.entity';
+import { Assignment } from 'src/entities/assignment.entity';
 
 @Injectable()
 export class AssignedService {
+  private readonly entityManager: EntityManager;
+
   constructor(
-    @InjectRepository(AssignedAssignment)
-    private readonly assignedAssignmentRepository: Repository<AssignedAssignment>,
-    // private readonly presenceService: PresenceService,
+    @InjectRepository(AssignedAssignmentByStudent)
+    private readonly assignedAssignmentByStudentRepository: Repository<AssignedAssignmentByStudent>,
+    private readonly assignmentService: AssignmentService,
+    private readonly studentService: StudentService,
+    private readonly sectionService: SectionService,
+    private readonly jsonQueryExtractorService: JSONQueryExtractorService,
   ) {
-    // this.presenceService = new PresenceService();
+    this.entityManager = getManager();
   }
 
-  async fetchAssigned(__email: string) {
-    const results = this.assignedAssignmentRepository.find({
-      relations: ['assignment'],
-      where: {
-        createdBy: __email,
-      },
-    });
+  async fetchAssigned(__email: string, __assignedID: string) {
+    const queryString: string = this.jsonQueryExtractorService.getQueryByID(17);
+    const results = await this.entityManager.query(queryString, [
+      __assignedID,
+      __assignedID,
+      __assignedID,
+      __email,
+    ]);
 
     if (results) {
       return results;
     } else {
-      throw new NotFoundException([
-        `Failure to find assigned assignments by teacher with email ${__email}`,
-      ]);
+      return {};
     }
   }
 
@@ -41,22 +46,24 @@ export class AssignedService {
     __email: string,
   ) {
     try {
-      // const convergenceConnectionString =
-      //   'https://localhost/realtime/convergence/default';
-      // Convergence.connectAnonymously(convergenceConnectionString, __email).then(
-      //   (domain) => {
-      //     console.log(this.presenceService.session());
-      //     return domain.models().openAutoCreate({
-      //       collection: 'default',
-      //     });
-      //   },
-      // );
-      return true;
-    } catch (error) {}
+      const student: Student = await this.studentService.getStudent(__email);
+      const assignment: Assignment =
+        await this.assignmentService.getAssignmentByID(__assignmentID);
 
-    throw new BadRequestException([
-      `Could not successfully assign the assignment to individual student with the email '${__email}'`,
-    ]);
+      const assignedAssignmentByStudent: AssignedAssignmentByStudent =
+        this.assignedAssignmentByStudentRepository.create({
+          assignment: assignment,
+          student: student,
+        });
+
+      await this.assignedAssignmentByStudentRepository.save(
+        assignedAssignmentByStudent,
+      );
+    } catch (error) {
+      throw new BadRequestException([
+        `Could not successfully assign the assignment to individual student with the email '${__email}'`,
+      ]);
+    }
   }
 
   async createAssignedAssignmentForGroup(
@@ -64,12 +71,32 @@ export class AssignedService {
     __emails: string[],
   ) {
     try {
-      return true;
-    } catch (error) {}
+      const students: Student[] = [];
+      const assignedAssignmentByStudents: AssignedAssignmentByStudent[] = [];
+      const assignment: Assignment =
+        await this.assignmentService.getAssignmentByID(__assignmentID);
 
-    throw new BadRequestException([
-      `Could not successfully assign the assignment to the students with the emails '${__emails}'`,
-    ]);
+      for (var i = 0; i < __emails.length; i++) {
+        students.push(await this.studentService.getStudent(__emails[i]));
+      }
+
+      students.forEach((student) => {
+        assignedAssignmentByStudents.push(
+          this.assignedAssignmentByStudentRepository.create({
+            assignment: assignment,
+            student: student,
+          }),
+        );
+      });
+
+      await this.assignedAssignmentByStudentRepository.save(
+        assignedAssignmentByStudents,
+      );
+    } catch (error) {
+      throw new BadRequestException([
+        `Could not successfully assign the assignment to the students with the emails '${__emails}'`,
+      ]);
+    }
   }
 
   async createAssignedAssignmentForSection(
@@ -77,11 +104,19 @@ export class AssignedService {
     __sectionID: string,
   ) {
     try {
-      return true;
-    } catch (error) {}
+      const sectionData: GetSectionDTO =
+        await this.sectionService.getSectionData(__sectionID);
+      const emails: string[] = [];
 
-    throw new BadRequestException([
-      `Could not successfully assign the assignment to the section with id '${__sectionID}'`,
-    ]);
+      sectionData.students.forEach((student) => {
+        emails.push(student.email);
+      });
+
+      this.createAssignedAssignmentForGroup(__assignmentID, emails);
+    } catch (error) {
+      throw new BadRequestException([
+        `Could not successfully assign the assignment to the section with id '${__sectionID}'`,
+      ]);
+    }
   }
 }

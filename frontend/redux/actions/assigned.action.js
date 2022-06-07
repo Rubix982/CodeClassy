@@ -1,20 +1,19 @@
 import API from "api";
 import { actionTypes } from "redux/actionTypes/actionTypes";
 import { errorHandler } from "./error.action";
+import { setErrorStates } from "./login.action";
 
-export const getAllAssignedAssignments = () => {
+export const getAllAssignedAssignments = (assignmentID) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
 
-      const response = api.get("assigned");
+      const response = await api.get(`assigned/${assignmentID}`);
 
       setAssigned(dispatch, response.data);
-      setSuccessStates(dispatch, "Assigned assignments successfully fetched!");
+      setSuccessStates(dispatch, response.msg);
     } catch (error) {
       errorHandler(dispatch, error);
-
-      return false;
     }
   };
 };
@@ -28,12 +27,36 @@ const setAssigned = (dispatch, data) => {
   });
 };
 
+export const postAssignedAssignmentsToStudents = (
+  assignmentID,
+  students,
+  sectionID
+) => {
+  return async (dispatch) => {
+    try {
+      if (students.length == 1 && sectionID === "") {
+        assignIndividualToAssignment(assignmentID, students);
+      } else if (students.length > 1 && sectionID === "") {
+        assignGroupToAssignment(assignmentID, students);
+      } else if (students.length === 0 && sectionID !== "") {
+        assignSectionToAssignment(assignmentID, sectionID);
+      }
+
+      setSuccessStates(dispatch, response.msg);
+    } catch (error) {
+      setErrorStates(dispatch, error);
+    }
+  };
+};
+
 export const assignIndividualToAssignment = (assignmentID, email) => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
 
-      const response = api.post(`${assignmentID}/individual`, { email: email });
+      const response = await api.post(`${assignmentID}/individual`, {
+        email: email,
+      });
 
       setSuccessStates(dispatch, response.msg);
     } catch (error) {
@@ -49,7 +72,9 @@ export const assignGroupToAssignment = (assignmentID, emails) => {
     try {
       const api = API.getInstance();
 
-      const response = api.post(`${assignmentID}/group`, { emails: emails });
+      const response = await api.post(`${assignmentID}/group`, {
+        emails: emails,
+      });
 
       setSuccessStates(dispatch, response.msg);
     } catch (error) {
@@ -65,7 +90,9 @@ export const assignSectionToAssignment = (assignmentID, sectionID) => {
     try {
       const api = API.getInstance();
 
-      const response = api.post(`${assignmentID}/section/${sectionID}`);
+      const response = await api.post(`${assignmentID}/section/`, {
+        id: sectionID,
+      });
 
       setSuccessStates(dispatch, response.msg);
     } catch (error) {
