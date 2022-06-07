@@ -28,6 +28,8 @@ import {
 } from "redux/actions/quiz.action";
 import { connect } from "react-redux";
 
+
+
 function QuizView(props) {
   const { id } = useRouter().query;
   const [open, setOpen] = React.useState(false);

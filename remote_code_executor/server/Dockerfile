@@ -1,23 +1,8 @@
-FROM alpine/git AS codepuller
-ARG githubsecret 
-ARG username
-ARG repository
-WORKDIR /
-RUN git clone https://username:${githubsecret}@github.com/${username}/${repository}.git
-# cross check the username and repository name from the GitHub clone link.
+FROM node:16-alpine3.11
+WORKDIR '/app'
 
-# ENTRYPOINT ["/bin/sh", "-c", "sleep 1200"] 
-# To test this code pulling, uncomment entry point statement and create a container
-
-
-
-FROM node:16-alpine3.11 AS builder
-ARG repository
-COPY --from=codepuller /${repository} /${repository}
-WORKDIR /${repository}/remote_code_executor/server
+COPY package.json .
 RUN npm install
+COPY . .
+
 CMD ["npm","start"]
-
-
-
-
