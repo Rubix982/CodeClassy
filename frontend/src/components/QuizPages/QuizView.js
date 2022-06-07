@@ -1,26 +1,31 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import QuizViewStyles from "../../../styles/QuizPages/QuizView.module.css"
-import Navbar from "../Navbar/Navbar"
-import Button from '@mui/material/Button';
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import QuizViewStyles from "../../../styles/QuizPages/QuizView.module.css";
+import Navbar from "../Navbar/Navbar";
+import Button from "@mui/material/Button";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import draftjsToHtml from "draftjs-to-html";
+import Moment from "moment";
 import { getQuizInformationAction } from "redux/actions/quiz.action";
 import { getTeacherFeed } from "redux/actions/teacher.action";
+import {
+  assignQuizToSection,
+  assignQuizToStudent,
+} from "redux/actions/quiz.action";
 import { connect } from "react-redux";
 
 
@@ -28,7 +33,8 @@ import { connect } from "react-redux";
 function QuizView(props) {
   const { id } = useRouter().query;
   const [open, setOpen] = React.useState(false);
-  const [section, setSection] = React.useState("");
+  const [section, setSection] = React.useState();
+  const [sectionID, setSectionID] = useState("");
   const [optionValue, setOptionValue] = React.useState("Individual");
   const [individualEmailValue, setIndividualEmailValue] = React.useState("");
   const [value, setValue] = React.useState(new Date());
@@ -127,32 +133,24 @@ function QuizView(props) {
                 />
               </RadioGroup>
 
-              {optionValue == "Individual" &&
-               <>
-                <TextField
-                  style={{ margin: "10px", marginLeft: "0px", width: "300px" }}
-                  variant="standard"
-                  id="filled-size-normal"
-                  placeholder="Student Email"
-                  maxRows={4}
-                  value={individualEmailValue}
-                  onChange={handleIndividualEmail}
-                  size="small"
-                />
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                  renderInput={(props) => <TextField {...props} />}
-                  label="DateTimePicker"
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                />
-                </LocalizationProvider>
-              </>
-              }
-  
-
+              {optionValue == "Individual" && (
+                <>
+                  <TextField
+                    style={{
+                      margin: "10px",
+                      marginLeft: "0px",
+                      width: "300px",
+                    }}
+                    variant="standard"
+                    id="filled-size-normal"
+                    placeholder="Student Email"
+                    maxRows={4}
+                    value={individualEmailValue}
+                    onChange={handleIndividualEmail}
+                    size="small"
+                  />
+                </>
+              )}
 
               {optionValue == "Section" && (
                 <div
@@ -172,7 +170,13 @@ function QuizView(props) {
                     >
                       {props.sections.map((item, index) => {
                         return (
-                          <MenuItem key={index} value={item}>
+                          <MenuItem
+                            onClick={() => {
+                              setSectionID(item.sectionID);
+                            }}
+                            key={index}
+                            value={item}
+                          >
                             {item.sectionName}
                           </MenuItem>
                         );
@@ -182,9 +186,49 @@ function QuizView(props) {
                 </div>
               )}
             </FormControl>
+            <div
+              style={{
+                display: "flex",
+                margin: "15px",
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <MobileDatePicker
+                  label="Date mobile"
+                  inputFormat="MM/dd/yyyy"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  minDate={value}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </div>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleClose}>Assign</Button>
+              <Button
+                onClick={() => {
+                  const data = {
+                    quizID: id,
+                    dueDate: Moment(value).format("YYYY-MM-DD"),
+                  };
+
+                  if (optionValue === "Section") {
+                    props.assignQuizToSection({
+                      ...data,
+                      sectionID: sectionID,
+                    });
+                  } else {
+                    props.assignQuizToStudent({
+                      ...data,
+                      studentEmail: individualEmailValue,
+                    });
+                  }
+                }}
+              >
+                Assign
+              </Button>
             </DialogActions>
           </Dialog>
         </div>
@@ -240,4 +284,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   getTeacherFeed,
   getQuizInformationAction,
+  assignQuizToSection,
+  assignQuizToStudent,
 })(QuizView);

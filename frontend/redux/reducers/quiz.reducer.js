@@ -10,6 +10,15 @@ const initialState = {
     assignedTo: null,
     results: null,
   },
+  quizForAttemption: {
+    ID: "",
+    name: "",
+    duration: 0,
+    MCQs: null,
+    TFQs: null,
+    FTQs: null,
+  },
+  quizLoading: true,
 };
 
 const quizReducer = (state = initialState, action) => {
@@ -24,6 +33,14 @@ const quizReducer = (state = initialState, action) => {
       return {
         ...state,
         quizInformation: action.payload,
+        quizLoading: false,
+      };
+
+    case actionTypes.getQuizForAttemption:
+      return {
+        ...state,
+        quizForAttemption: action.payload.quiz,
+        quizLoading: false,
       };
 
     default:

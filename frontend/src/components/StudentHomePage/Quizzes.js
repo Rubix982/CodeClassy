@@ -17,70 +17,72 @@ function Quizzes(props) {
     <div className={QuizStyles.container}>
       <div className={QuizStyles.Quizzes}>
         <h1>Assigned:</h1>
-        {props.studentQuizzes.assignedQuizzes.map((item, index) => {
-          return (
-            <div key={index} className={QuizStyles.quizItem}>
-              <div style={{ margin: "7px" }}>
-                <Image
-                  height={30}
-                  width={30}
-                  src={QuizImage}
-                  alt="Quiz-image"
-                />
-              </div>
+        {props.studentQuizzes.assignedQuizzes &&
+          props.studentQuizzes.assignedQuizzes.map((item, index) => {
+            return (
+              <div key={index} className={QuizStyles.quizItem}>
+                <div style={{ margin: "7px" }}>
+                  <Image
+                    height={30}
+                    width={30}
+                    src={QuizImage}
+                    alt="Quiz-image"
+                  />
+                </div>
 
-              <div
-                style={{ marginLeft: "20px" }}
-                className={QuizStyles.quizName}
-              >
-                {item.name}
-              </div>
+                <div
+                  style={{ marginLeft: "20px" }}
+                  className={QuizStyles.quizName}
+                >
+                  {item.name}
+                </div>
 
-              <div className={QuizStyles.quizView}>
-                <Link href="/quiz/start">
-                  <a style={{ textDecoration: "none" }}>
-                    <Button
-                      style={{ height: "40px", backgroundColor: "orange" }}
-                      variant="contained"
-                    >
-                      <div style={{ height: "100%", paddingRight: "5px" }}>
-                        <KeyboardArrowRightIcon />
-                      </div>{" "}
-                      Start
-                    </Button>
-                  </a>
-                </Link>
+                <div className={QuizStyles.quizView}>
+                  <Link href={`/quiz/${item.ID}/s`}>
+                    <a style={{ textDecoration: "none" }}>
+                      <Button
+                        style={{ height: "40px", backgroundColor: "orange" }}
+                        variant="contained"
+                      >
+                        <div style={{ height: "100%", paddingRight: "5px" }}>
+                          <KeyboardArrowRightIcon />
+                        </div>{" "}
+                        Start
+                      </Button>
+                    </a>
+                  </Link>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
       <div className={QuizStyles.Quizzes}>
         <h1>Results:</h1>
-        {props.studentQuizzes.results.map((item, index) => {
-          return (
-            <div key={index} className={QuizStyles.quizItem}>
-              <div style={{ margin: "7px" }}>
-                <Image
-                  height={30}
-                  width={30}
-                  src={QuizImage}
-                  alt="Quiz-image"
-                />
-              </div>
+        {props.studentQuizzes.results &&
+          props.studentQuizzes.results.map((item, index) => {
+            return (
+              <div key={index} className={QuizStyles.quizItem}>
+                <div style={{ margin: "7px" }}>
+                  <Image
+                    height={30}
+                    width={30}
+                    src={QuizImage}
+                    alt="Quiz-image"
+                  />
+                </div>
 
-              <div
-                style={{ marginLeft: "20px" }}
-                className={QuizStyles.quizName}
-              >
-                {item.name}
+                <div
+                  style={{ marginLeft: "20px" }}
+                  className={QuizStyles.quizName}
+                >
+                  {item.name}
+                </div>
+                <div className={QuizStyles.quizView}>
+                  Points: {item.obtainedPoints}/{item.totalPoints}
+                </div>
               </div>
-              <div className={QuizStyles.quizView}>
-                Points: {item.obtainedPoints}/{item.totalPoints}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );

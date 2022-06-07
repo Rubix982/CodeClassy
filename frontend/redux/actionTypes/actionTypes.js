@@ -33,5 +33,10 @@ export const actionTypes = {
   getQuizzes: "getQuizzes",
   getQuizInformation: "getQuizInformation",
   getStudentQuizzes: "getStudentQuizzes",
+  getQuizForAttemption: "getQuizForAttemption",
+  submitQuizForGrading: "submitQuizForGrading",
   loadAssignmentForPage: "loadAssignmentForPage",
+  createQuiz: "createQuiz",
+  assignQuizToSection: "assignQuizToSection",
+  assignQuizToStudent: "assignQuizToStudent",
 };
