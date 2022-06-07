@@ -76,3 +76,28 @@ export const createQuiz = (data) => {
     }
   };
 };
+
+export const assignQuizToSection = (data) => {
+  console.log(data);
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      const response = await api.post("quiz/section", data);
+      setSuccessState(dispatch, response.data.msg);
+    } catch (error) {
+      setErrorStates(dispatch, error.message);
+    }
+  };
+};
+
+export const assignQuizToStudent = (data) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      const response = await api.post("quiz/student", data);
+      setSuccessState(dispatch, response.data.msg);
+    } catch (error) {
+      setErrorStates(dispatch, error.message);
+    }
+  };
+};

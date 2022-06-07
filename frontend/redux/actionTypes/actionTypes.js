@@ -37,4 +37,6 @@ export const actionTypes = {
   submitQuizForGrading: "submitQuizForGrading",
   loadAssignmentForPage: "loadAssignmentForPage",
   createQuiz: "createQuiz",
+  assignQuizToSection: "assignQuizToSection",
+  assignQuizToStudent: "assignQuizToStudent",
 };
