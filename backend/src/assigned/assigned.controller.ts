@@ -50,6 +50,7 @@ export class AssignedController {
     @Param('assignmentID') __assignmentID: string,
     @Body() __requestBody: CreateAssignedAssignmentForGroupDTO,
   ) {
+    console.log(__requestBody);
     await this.AssignedService.createAssignedAssignmentForGroup(
       __assignmentID,
       __requestBody.emails,

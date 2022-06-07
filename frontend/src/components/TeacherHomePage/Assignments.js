@@ -43,8 +43,6 @@ const Assignments = ({
     loadData();
   }, []);
 
-  console.log(assignments[0]);
-
   return (
     <>
       {successMessageSnackbar && (

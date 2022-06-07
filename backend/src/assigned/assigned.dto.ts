@@ -26,7 +26,6 @@ export class CreateAssignedAssignmentForIndividualDTO {
 
 export class CreateAssignedAssignmentForGroupDTO {
   @IsArray()
-  @ValidateNested()
   emails: string[];
 }
 
