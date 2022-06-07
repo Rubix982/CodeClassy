@@ -213,7 +213,7 @@
                   data.data.stderr;
               } else {
                 document.getElementById("output-window").innerText =
-                  JSON.stringify(data.data.output, null, 2);
+                  JSON.stringify(data.data.output.split("\n"), null, 2);
               }
             });
         }, 2000);
