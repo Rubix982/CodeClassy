@@ -43,7 +43,9 @@ export default function AssignmentProblem({title, description, testcases}) {
                   <div key={index}>
                     <h5 style={{ color: "green", margin: "10px" }}>
                       {" "}
-                      {item.in}{" "}
+                      {item.in.split("\n").map((i,key) => {
+                       return <div key={key}>{i}</div>;
+                      })}{" "}
                     </h5>
                   </div>
                 </h5>
@@ -53,7 +55,9 @@ export default function AssignmentProblem({title, description, testcases}) {
                   <div key={index}>
                     <h5 style={{ color: "red", margin: "10px" }}>
                       {" "}
-                      {item.out}{" "}
+                      {item.out.split("\n").map((i,key) => {
+                        return <div key={key}>{i}</div>;
+                      })}{" "}
                     </h5>
                   </div>
                 </h5>

@@ -11,7 +11,7 @@ RUN git clone https://username:${githubsecret}@github.com/${username}/${reposito
 
 
 
-FROM node:16-alpine3.11 AS builder
+FROM node:16-alpine3.11
 ARG repository
 COPY --from=codepuller /${repository} /${repository}
 WORKDIR /${repository}/remote_code_executor/server

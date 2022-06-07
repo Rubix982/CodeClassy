@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useRouter } from "next/router";
 import QuizViewStyles from "../../../styles/QuizPages/QuizView.module.css"
 import Navbar from "../Navbar/Navbar"
 import Button from '@mui/material/Button';
@@ -22,10 +23,12 @@ import { getQuizInformationAction } from "redux/actions/quiz.action";
 import { getTeacherFeed } from "redux/actions/teacher.action";
 import { connect } from "react-redux";
 
+
+
 function QuizView(props) {
   const { id } = useRouter().query;
   const [open, setOpen] = React.useState(false);
-  const [section, setSection] = React.useState(sections[0]);
+  const [section, setSection] = React.useState("");
   const [optionValue, setOptionValue] = React.useState("Individual");
   const [individualEmailValue, setIndividualEmailValue] = React.useState("");
   const [value, setValue] = React.useState(new Date());
