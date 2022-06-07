@@ -313,7 +313,7 @@ const AssignmentView = ({
               <div className={AssignmentViewStyles.assigned}>
                 <div className={AssignmentViewStyles.assignedItem}>
                   <div className={AssignmentViewStyles.results}>
-                    <h4> Points: 90/100</h4>
+                    {/* <h4> Points: </h4> */}
                   </div>
                 </div>
               </div>

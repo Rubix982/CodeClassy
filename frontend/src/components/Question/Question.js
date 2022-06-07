@@ -33,13 +33,13 @@ let tabsData = [
     image: "freetext",
     name: "Free Text",
     component: FreeText,
-  },
-  {
-    index: 3,
-    image: "essay",
-    name: "Essay",
-    component: Essay,
-  },
+  }
+  // {
+  //   index: 3,
+  //   image: "essay",
+  //   name: "Essay",
+  //   component: Essay,
+  // },
   // {
   //   index: 4,
   //   image: "matching",
