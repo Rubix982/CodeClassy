@@ -1,69 +1,157 @@
+// React imports
 import React from "react";
-import Image from "next/image";
-import AssignmentImage from "../../../public/assets/images/assignment.png";
-import AssignmentStyles from "../../../styles/TeacherHomePage/assignments.module.css";
-import Button from "@mui/material/Button";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 // NextJS imports
-import Router from 'next/router';
+import Image from "next/image";
+import AssignmentImage from "../../../public/assets/images/assignment.png";
 
-let assignment_Data = [
-  { Name: "First", Subject: "Binary Search Tree" },
-  { Name: "Second", Subject: "Queues" },
-  { Name: "Third", Subject: "Stack" },
-  { Name: "Fourth", Subject: "Red Black Tree" },
-  { Name: "Fifth", Subject: "Hashing" },
-  { Name: "Sixth", Subject: "Sorting" },
-];
+// Styling imports
+import AssignmentStyles from "@styles/TeacherHomePage/assignments.module.css";
 
-export default function Assignments() {
+// MUI import
+import {
+  Button,
+  Snackbar,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+} from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 
-  const [id, setID] = React.useState('');
+// MUI Icons import
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+// NextJS imports
+import Router from "next/router";
+
+// Redux imports
+import { connect } from "react-redux";
+import { getAssignmentsByStudent } from "redux/actions/assignment.action";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const Assignments = ({
+  assignments,
+  assignmentsLoaded,
+  getAssignmentsByStudent,
+  responseMessage,
+  successMessageSnackbar,
+  errorMessageSnackbar,
+}) => {
   React.useEffect(() => {
-    // Write logic here to fetch information about the assignment
+    async function loadData() {
+      getAssignmentsByStudent();
+    }
+
+    loadData();
   }, []);
 
   return (
-    <div className={AssignmentStyles.container}>
-      <div className={AssignmentStyles.assignmentzes}>
-        {assignment_Data.map((item, index) => {
-          return (
-            <div key={index} className={AssignmentStyles.assignmentItem}>
-              <div style={{ margin: "7px" }}>
-                <Image
-                  height={30}
-                  width={30}
-                  src={AssignmentImage}
-                  alt="Quiz-image"
-                />
-              </div>
-              <div
-                style={{ marginLeft: "20px" }}
-                className={AssignmentStyles.assignmentName}
-              >
-                {item.Subject}
-              </div>
+    <>
+      {successMessageSnackbar && (
+        <Snackbar open={true} autoHideDuration={3000}>
+          <Alert severity="success" sx={{ width: "100%" }}>
+            {responseMessage}
+          </Alert>
+        </Snackbar>
+      )}
 
-              <div className={AssignmentStyles.assignmentView}>
-                <a style={{ textDecoration: "none" }}>
-                  <Button
-                    onClick={() => Router.push("http://localhost:4000")}
-                    style={{ height: "40px", backgroundColor: "orange" }}
-                    variant="contained"
+      {errorMessageSnackbar && (
+        <Snackbar open={true} autoHideDuration={3000}>
+          <Alert severity="error" sx={{ width: "100%" }}>
+            {responseMessage}
+          </Alert>
+        </Snackbar>
+      )}
+
+      {assignmentsLoaded && (
+        <div className={AssignmentStyles.container}>
+          <div className={AssignmentStyles.assignments}>
+            {assignments[0].map((assignment) => {
+              return (
+                <Accordion
+                  styles={{ borderRadius: "15px" }}
+                  className={AssignmentStyles.accordionStyling}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
                   >
-                    <div style={{ height: "100%", paddingRight: "5px" }}>
-                      <KeyboardArrowRightIcon />
-                    </div>{" "}
-                    Start Coding
-                  </Button>
-                </a>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+                    <div
+                      key={assignment.id}
+                      className={AssignmentStyles.assignmentItem}
+                    >
+                      <div style={{ margin: "7px" }}>
+                        <Image
+                          height={30}
+                          width={30}
+                          src={AssignmentImage}
+                          alt="Quiz-image"
+                        />
+                      </div>
+                      <div
+                        style={{ marginLeft: "20px" }}
+                        className={AssignmentStyles.assignmentName}
+                      >
+                        {assignment.name}
+                      </div>
+
+                      <div className={AssignmentStyles.assignmentView}>
+                        <a style={{ textDecoration: "none" }}>
+                          <Button
+                            onClick={() =>
+                              Router.push(
+                                `http://localhost:4000/${assignment.id}/?id=${assignment.sessionID}`
+                              )
+                            }
+                            style={{
+                              height: "40px",
+                              backgroundColor: "orange",
+                            }}
+                            variant="contained"
+                          >
+                            <div
+                              style={{ height: "100%", paddingRight: "5px" }}
+                            >
+                              <KeyboardArrowRightIcon />
+                            </div>{" "}
+                            Start Coding
+                          </Button>
+                        </a>
+                      </div>
+                    </div>
+                  </AccordionSummary>
+                  <AccordionDetails
+                    className={AssignmentStyles.accordionDetailsStyling}
+                  >
+                    <Typography>DueDate: {assignment.dueDate}</Typography>
+                    <Typography>Score: {assignment.score}</Typography>
+                  </AccordionDetails>
+                </Accordion>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    assignments: state.assignmentReducer.assignments,
+    assignmentsLoaded: state.assignmentReducer.assignmentsLoaded,
+    responseMessage: state.apiReducer.responseMessage,
+    successMessageSnackbar: state.apiReducer.successMessageSnackbar,
+    errorMessageSnackbar: state.apiReducer.errorMessageSnackbar,
+  };
+};
+
+export default connect(mapStateToProps, { getAssignmentsByStudent })(
+  Assignments
+);

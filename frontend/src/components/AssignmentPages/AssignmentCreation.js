@@ -134,7 +134,7 @@ const AssignmentCreation = ({
                 >
                   {codingQuestions[0].map((item, index) => {
                     return (
-                      <MenuItem value={item}>
+                      <MenuItem value={item} key={index}>
                         {item.CodingQuestion_Title}
                       </MenuItem>
                     );
