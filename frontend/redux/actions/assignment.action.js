@@ -69,8 +69,6 @@ export const getAssignmentsByStudent = () => {
 
       const response = await api.get("assignment/student");
 
-      console.log(response);
-
       setAssignments(dispatch, response.data);
       successHandler(dispatch, response.data.msg);
     } catch (error) {

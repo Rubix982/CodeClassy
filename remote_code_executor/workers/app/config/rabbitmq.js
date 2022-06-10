@@ -15,7 +15,6 @@ connection.on('disconnect', function (err) {
 const onMessage = (data) => {
 
     let message = JSON.parse(data.content.toString());
-    //console.log(message);
     createFiles(message, channelWrapper, data);
 }
 

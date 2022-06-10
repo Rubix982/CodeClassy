@@ -21,12 +21,7 @@ const ConditionalLink = ({ children, to, condition }) =>
     <>{children}</>
   );
 
-export default function QuestionCard({
-  title,
-  content,
-  type,
-  id,
-}) {
+export default function QuestionCard({ title, content, type, id }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -38,8 +33,7 @@ export default function QuestionCard({
 
   const isDelete = (option) => {
     if (option == "Delete") {
-      // delete request for question here
-      console.log("Delete Called");
+      //! TODO: delete request for question here
     }
   };
 
@@ -107,8 +101,7 @@ export default function QuestionCard({
               </MenuItem>
             ))}
           </Menu>
-          </div>
-
+        </div>
       </div>
       <div dangerouslySetInnerHTML={{ __html: draftToHtml(content) }} />
     </div>
