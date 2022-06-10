@@ -4,7 +4,7 @@ const initialState = {
   assignedAssignmentName: "",
   codingQuestionData: {},
   sectionList: [{}],
-  studentEmailJSONAggregate: [],
+  studentEmails: [],
   assignedAssignmentLoaded: false,
 };
 
@@ -16,10 +16,7 @@ const assignedReducer = (state = initialState, action) => {
         assignedAssignmentName: action.payload.assigned.name,
         codingQuestionData: action.payload.assigned.codingQuestionData,
         sectionList: action.payload.assigned.sectionList,
-        studentEmailJSONAggregate:
-          action.payload.assigned.studentEmailJSONAggregate === null
-            ? []
-            : action.payload.assigned.studentEmailJSONAggregate,
+        studentEmails: action.payload.assigned.studentEmails,
         assignedAssignmentLoaded: true,
       };
 

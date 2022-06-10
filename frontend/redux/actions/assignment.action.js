@@ -30,7 +30,6 @@ export const createAssignment = (
 
       successHandler(dispatch, response.data.msg);
 
-      
       Router.push({
         pathname: "/h",
       });
@@ -68,7 +67,9 @@ export const getAssignmentsByStudent = () => {
     try {
       const api = API.getInstance();
 
-      const response = await api.get("assignment/teacher");
+      const response = await api.get("assignment/student");
+
+      console.log(response);
 
       setAssignments(dispatch, response.data);
       successHandler(dispatch, response.data.msg);
