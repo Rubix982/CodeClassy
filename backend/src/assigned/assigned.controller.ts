@@ -15,7 +15,7 @@ export class AssignedController {
   constructor(private readonly AssignedService: AssignedService) {}
 
   @Get(':id')
-  async getAssignedAssignments(
+  async getAssignedAssignmentDetails(
     @RequestDecodedMember() __member: JWTPayload,
     @Param('id') __assignmentID: string,
   ) {

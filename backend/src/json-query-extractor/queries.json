@@ -82,6 +82,11 @@
   {
     "id": 17,
     "title": "Assign assignment to students page",
-    "query": "SELECT a.id, a.name, JSON_OBJECT('id', cq.id, 'title', cq.title, 'body', cq.body, 'testcases', JSON_ARRAYAGG(JSON_OBJECT('in', `tc`.in, 'out', `tc`.`out`))) AS codingQuestionData,JSON_ARRAYAGG(JSON_OBJECT('id', `s`.id, 'name', `s`.name)) AS sectionList, (SELECT JSON_ARRAYAGG(JSON_OBJECT( 'studentEmail', `assigned_assignment_by_student`.`studentEmail`)) AS studentEmails FROM assigned_assignment_by_student JOIN assignment a ON a.id = `assigned_assignment_by_student`.`assignmentId` WHERE a.id = ?) AS studentEmailJSONAggregate FROM `coding_question` cq JOIN section s on cq.teacherID = s.teacherEmail JOIN assignment a on cq.id = a.codingQuestionId JOIN `test_case` tc on cq.id = tc.codingQuestionId INNER JOIN (SELECT JSON_ARRAYAGG(JSON_OBJECT('studentEmail', `assigned_assignment_by_student`.`studentEmail`)) AS studentEmails FROM assigned_assignment_by_student JOIN assignment a ON a.id = `assigned_assignment_by_student`.`assignmentId` WHERE a.id = ?) AS studentEmailJSONAggregate WHERE a.id = ? AND s.teacherEmail = ? GROUP BY a.id;"
+    "query": "SELECT a.id, a.name, a.score, a.dueDate, (SELECT JSON_OBJECT('title', cq.title, 'body', cq.body, 'test_cases', JSON_ARRAYAGG(JSON_OBJECT('in', tc.in, 'out', tc.out)) ) AS codingQuestionData FROM coding_question cq JOIN test_case tc on cq.id = tc.codingQuestionId JOIN assignment a2 on cq.id = a2.codingQuestionId WHERE a2.id = ? AND a2.teacherID = ?) AS codingQuestionData, (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', sc.id, 'name', sc.name)) AS sectionList FROM section sc JOIN assignment a on sc.teacherEmail = a.teacherID WHERE a.teacherID = ? AND a.id = ?) AS sectionList, (SELECT JSON_OBJECT('studentEmails', JSON_ARRAYAGG(aabs.studentEmail)) AS studentList FROM assigned_assignment_by_student aabs JOIN assignment a on aabs.assignmentID = a.id WHERE a.id = ?) AS studentEmails FROM assignment a LEFT JOIN section sc on sc.teacherEmail = a.teacherID JOIN coding_question cq on cq.id = a.codingQuestionId JOIN test_case tc on cq.id = tc.codingQuestionId WHERE a.teacherID = ? and a.id = ?;"
+  },
+  {
+    "id": 18,
+    "title": "Show students their assigned assignments details",
+    "query": "SELECT a.id, a.name, a.dueDate, a.sessionID, a.score FROM assignment a WHERE a.id IN (SELECT aabs.assignmentID FROM assigned_assignment_by_student aabs WHERE aabs.studentEmail = ?);"
   }
 ]

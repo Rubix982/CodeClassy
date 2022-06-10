@@ -1,3 +1,4 @@
+import { JSONQueryExtractorService } from './../json-query-extractor/json-query-extractor.service';
 import { Teacher } from 'src/entities/teacher.entity';
 import { CodingQuestionService } from 'src/coding-question/coding-question.service';
 import { TeacherService } from './../teacher/teacher.service';
@@ -10,16 +11,21 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Assignment } from 'src/entities/assignment.entity';
-import { Repository } from 'typeorm';
+import { Repository, EntityManager, getManager } from 'typeorm';
 
 @Injectable()
 export class AssignmentService {
+  private readonly entityManager: EntityManager;
+
   constructor(
     @InjectRepository(Assignment)
     private readonly assignmentRepository: Repository<Assignment>,
     private readonly codingQuestionService: CodingQuestionService,
     private readonly teacherService: TeacherService,
-  ) {}
+    private readonly jsonQueryExtractorService: JSONQueryExtractorService,
+  ) {
+    this.entityManager = getManager();
+  }
 
   async getAllAssignmentsByTeacher(__email: string) {
     const teacher: Teacher = await this.teacherService.findTeacher(__email);
@@ -35,6 +41,25 @@ export class AssignmentService {
     } else {
       throw new NotFoundException([
         `Could not find assignment for user with email: ${__email}`,
+      ]);
+    }
+  }
+
+  async getAllAssignmentsByStudent(__email: string) {
+    try {
+      const queryString: string =
+        this.jsonQueryExtractorService.getQueryByID(18);
+
+      const results = await this.entityManager.query(queryString, [__email]);
+
+      if (results) {
+        return results;
+      } else {
+        return {};
+      }
+    } catch (error) {
+      throw new NotFoundException([
+        `Could not find assignments for student with email: ${__email}`,
       ]);
     }
   }
@@ -72,6 +97,8 @@ export class AssignmentService {
       });
 
       await this.assignmentRepository.save(assignment);
+
+      return assignment;
     } catch (error) {
       throw new BadRequestException([
         `Could not successfully create the assignment with name, ${__requestBody.name}`,

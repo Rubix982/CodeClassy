@@ -29,9 +29,12 @@ export class AssignedService {
     const queryString: string = this.jsonQueryExtractorService.getQueryByID(17);
     const results = await this.entityManager.query(queryString, [
       __assignedID,
+      __email,
+      __email,
       __assignedID,
       __assignedID,
       __email,
+      __assignedID,
     ]);
 
     if (results) {
