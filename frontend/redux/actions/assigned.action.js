@@ -50,7 +50,6 @@ export const postAssignedAssignmentsToStudents = (
       }
       setSuccessStates(dispatch, response.msg);
     } catch (error) {
-      console.log(error);
       errorHandler(dispatch, error);
     }
   };

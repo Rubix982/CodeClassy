@@ -10,6 +10,9 @@ import { actionTypes } from "redux/actionTypes/actionTypes";
 // ErrorHandler import
 import { errorHandler } from "./error.action";
 
+// SuccessHandler import
+import { successHandler } from "./success.action";
+
 export const createAssignment = (
   assignment,
   assignmentName,
@@ -19,14 +22,15 @@ export const createAssignment = (
     try {
       const api = API.getInstance();
 
-      await api.post(`assignment`, {
+      const response = await api.post(`assignment`, {
         codingQuestionId: assignment.CodingQuestion_Id,
         name: assignmentName,
         dueDate: assignmentDueDate,
       });
 
-      setSuccessStates(dispatch, `Assignment created successfully`);
+      successHandler(dispatch, response.data.msg);
 
+      
       Router.push({
         pathname: "/h",
       });
@@ -41,21 +45,39 @@ export const createAssignment = (
   };
 };
 
-export const getAssignments = () => {
+export const getAssignmentsByTeacher = () => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
-
-      const response = await api.get("assignment");
-
+      const response = await api.get("assignment/teacher");
       setAssignments(dispatch, response.data);
-      setSuccessStates(dispatch, response.data.msg);
+      successHandler(dispatch, response.data.msg);
     } catch (error) {
       errorHandler(dispatch, error);
 
       Router.push({
         pathname: "/error",
-        query: { errorMessage: "Categories not found" },
+        query: { errorMessage: "Assignments could not be fetched!" },
+      });
+    }
+  };
+};
+
+export const getAssignmentsByStudent = () => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+
+      const response = await api.get("assignment/teacher");
+
+      setAssignments(dispatch, response.data);
+      successHandler(dispatch, response.data.msg);
+    } catch (error) {
+      errorHandler(dispatch, error);
+
+      Router.push({
+        pathname: "/error",
+        query: { errorMessage: "Assignments could not be fetched!" },
       });
     }
   };
@@ -69,7 +91,7 @@ export const getAssignmentByID = (id) => {
       const response = await api.get(`assignment/${id}`);
 
       setAssignment(dispatch, response.data);
-      setSuccessStates(dispatch, response.data.msg);
+      successHandler(dispatch, response.data.msg);
 
       return true;
     } catch (error) {
@@ -77,7 +99,7 @@ export const getAssignmentByID = (id) => {
 
       Router.push({
         pathname: "/error",
-        query: { errorMessage: "Categories not found" },
+        query: { errorMessage: "Assignment could not be fetched!" },
       });
     }
   };
@@ -88,12 +110,9 @@ export const deleteAssignment = (id) => {
     try {
       const api = API.getInstance();
 
-      await api.delete(`assignment/${id}`);
+      const response = await api.delete(`assignment/${id}`);
 
-      setSuccessStates(
-        dispatch,
-        `Successfully deleted assignment with id '${id}'`
-      );
+      successHandler(dispatch, response.data.msg);
 
       Router.push({
         pathname: "/h",
@@ -103,7 +122,7 @@ export const deleteAssignment = (id) => {
 
       Router.push({
         pathname: "/error",
-        query: { errorMessage: "Categories not found" },
+        query: { errorMessage: "Assignment could not be deleted!" },
       });
     }
   };
@@ -127,22 +146,11 @@ const setAssignment = (dispatch, data) => {
   });
 };
 
-const setSuccessStates = (dispatch, msg) => {
+const addNewlyCreatedAssignment = (dispatch, data) => {
   dispatch({
-    type: actionTypes.apiSuccess,
+    type: actionTypes.addAssignmentToList,
     payload: {
-      successMessage: msg,
-      successMessageSnackbarState: true,
+      assignments: data,
     },
   });
-
-  setTimeout(() => {
-    dispatch({
-      type: actionTypes.apiSuccess,
-      payload: {
-        successMessage: "",
-        successMessageSnackbarState: false,
-      },
-    });
-  }, 2000);
 };
