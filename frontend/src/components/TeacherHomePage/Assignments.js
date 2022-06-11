@@ -86,7 +86,7 @@ const Assignments = ({
         </div>
 
         {assignmentsLoaded && (
-          <div className={AssignmentStyles.assignmentzes}>
+          <div className={AssignmentStyles.assignments}>
             {assignments[0].map((item, index) => {
               return (
                 <div key={index} className={AssignmentStyles.assignmentItem}>

@@ -20,6 +20,21 @@ const assignedReducer = (state = initialState, action) => {
         assignedAssignmentLoaded: true,
       };
 
+    case actionTypes.addNewEmail:
+      return {
+        ...state,
+        studentEmails: [...state.studentEmails, ...action.payload.newEmails],
+      };
+
+    case actionTypes.removeStudent:
+      state.studentEmails.splice(
+        state.studentEmails.indexOf(action.payload.email),
+        1
+      );
+      return {
+        ...state,
+      };
+
     default:
       return { ...state };
   }

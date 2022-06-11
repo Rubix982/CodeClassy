@@ -39,4 +39,6 @@ export const actionTypes = {
   createQuiz: "createQuiz",
   assignQuizToSection: "assignQuizToSection",
   assignQuizToStudent: "assignQuizToStudent",
+  addNewEmail: "addNewEmail",
+  removeStudent: "removeStudent",
 };

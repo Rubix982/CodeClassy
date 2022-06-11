@@ -26,10 +26,13 @@ export default function AssignmentProblem({
             </div>
             <div className={AssignmentViewStyles.problemDetailsStyling}>
               <h3>
-                Due Date: <span style={{ color: "grey" }}> {dueDate} </span>
+                Due Date: <span style={{ color: "grey" }}> {dueDate}</span>
               </h3>
               <h3>
-                Score: <span style={{ color: "grey" }}> {score} </span>
+                Score:{" "}
+                <span style={{ color: "grey" }}>
+                  {score}/{testCases.length}
+                </span>
               </h3>
             </div>
             <p style={{ margin: "10px 0px" }}>{description}</p>
