@@ -18,13 +18,7 @@ export class CreateAssignedAssignmentRequestDTO {
   score;
 }
 
-export class CreateAssignedAssignmentForIndividualDTO {
-  @IsString()
-  @IsEmail()
-  email: string;
-}
-
-export class CreateAssignedAssignmentForGroupDTO {
+export class CreateAssignedAssignmentDTO {
   @IsArray()
   emails: string[];
 }

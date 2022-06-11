@@ -25,7 +25,13 @@ export class AssignedService {
     this.entityManager = getManager();
   }
 
-  async fetchAssigned(__email: string, __assignedID: string) {
+  async fetchAssigned({
+    __email,
+    __assignedID,
+  }: {
+    __email: string;
+    __assignedID: string;
+  }): Promise<any> {
     const queryString: string = this.jsonQueryExtractorService.getQueryByID(17);
     const results = await this.entityManager.query(queryString, [
       __assignedID,
@@ -44,35 +50,13 @@ export class AssignedService {
     }
   }
 
-  async createAssignedAssignmentForIndividual(
-    __assignmentID: string,
-    __email: string,
-  ) {
-    try {
-      const student: Student = await this.studentService.getStudent(__email);
-      const assignment: Assignment =
-        await this.assignmentService.getAssignmentByID(__assignmentID);
-
-      const assignedAssignmentByStudent: AssignedAssignmentByStudent =
-        this.assignedAssignmentByStudentRepository.create({
-          assignment: assignment,
-          student: student,
-        });
-
-      await this.assignedAssignmentByStudentRepository.save(
-        assignedAssignmentByStudent,
-      );
-    } catch (error) {
-      throw new BadRequestException([
-        `Could not successfully assign the assignment to individual student with the email '${__email}'`,
-      ]);
-    }
-  }
-
-  async createAssignedAssignmentForGroup(
-    __assignmentID: string,
-    __emails: string[],
-  ) {
+  async createAssignedAssignment({
+    __assignmentID,
+    __emails,
+  }: {
+    __assignmentID: string;
+    __emails: string[];
+  }): Promise<AssignedAssignmentByStudent[]> {
     try {
       const students: Student[] = [];
       const assignedAssignmentByStudents: AssignedAssignmentByStudent[] = [];
@@ -95,17 +79,25 @@ export class AssignedService {
       await this.assignedAssignmentByStudentRepository.save(
         assignedAssignmentByStudents,
       );
+
+      return assignedAssignmentByStudents;
     } catch (error) {
+      const greaterThanOne: boolean = __emails.length > 1;
       throw new BadRequestException([
-        `Could not successfully assign the assignment to the students with the emails '${__emails}'`,
+        `Could not successfully assign the assignment to the student${
+          greaterThanOne ? 's' : ''
+        } with the email${greaterThanOne ? 's' : ''}: '${__emails}'`,
       ]);
     }
   }
 
-  async createAssignedAssignmentForSection(
-    __assignmentID: string,
-    __sectionID: string,
-  ) {
+  async createAssignedAssignmentForSection({
+    __assignmentID,
+    __sectionID,
+  }: {
+    __assignmentID: string;
+    __sectionID: string;
+  }): Promise<AssignedAssignmentByStudent[]> {
     try {
       const sectionData: GetSectionDTO =
         await this.sectionService.getSectionData(__sectionID);
@@ -115,11 +107,40 @@ export class AssignedService {
         emails.push(student.email);
       });
 
-      this.createAssignedAssignmentForGroup(__assignmentID, emails);
+      return this.createAssignedAssignment({
+        __assignmentID,
+        __emails: emails,
+      });
     } catch (error) {
       throw new BadRequestException([
         `Could not successfully assign the assignment to the section with id '${__sectionID}'`,
       ]);
+    }
+  }
+
+  async removeStudent({
+    __assignmentID,
+    __email,
+  }: {
+    __assignmentID: string;
+    __email: string;
+  }): Promise<{ results: any; assignment: Assignment }> {
+    try {
+      const assignment: Assignment =
+        await this.assignmentService.getAssignmentByID(__assignmentID);
+
+      const queryString: string =
+        this.jsonQueryExtractorService.getQueryByID(19);
+      const results = await this.entityManager.query(queryString, [
+        __assignmentID,
+        __email,
+      ]);
+
+      if (results) {
+        return { results, assignment };
+      }
+    } catch (error) {
+      throw new BadRequestException([`Could not remove student ${__email}!`]);
     }
   }
 }
