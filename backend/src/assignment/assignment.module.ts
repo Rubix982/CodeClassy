@@ -1,3 +1,4 @@
+import { JSONQueryExtractorModule } from 'src/json-query-extractor/json-query-extractor.module';
 import { CodingQuestionModule } from './../coding-question/coding-question.module';
 import { TeacherModule } from './../teacher/teacher.module';
 import { AssignmentService } from 'src/assignment/assignment.service';
@@ -13,6 +14,7 @@ import { Assignment } from 'src/entities/assignment.entity';
     CodingQuestionModule,
     AuthModule,
     TeacherModule,
+    JSONQueryExtractorModule,
   ],
   controllers: [AssignmentController],
   providers: [AssignmentService],

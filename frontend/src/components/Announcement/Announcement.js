@@ -250,10 +250,8 @@ const Post = ({
 
   const checkOption = (option) => {
     if (option == "Delete") {
-      console.log("Delete Called");
     }
     if (option == "Edit") {
-      console.log("Edit Called");
     }
   };
   const { id } = useRouter().query;
@@ -281,8 +279,6 @@ const Post = ({
   const handleMouseDownComment = (event) => {
     event.preventDefault();
   };
-
-  console.log(comments);
 
   return (
     <>

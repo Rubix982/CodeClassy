@@ -1,6 +1,7 @@
 import API from "api";
 import { actionTypes } from "redux/actionTypes/actionTypes";
 import { errorHandler } from "./error.action";
+import { successHandler } from "./success.action";
 
 export const getAllAssignedAssignments = (assignmentID) => {
   return async (dispatch) => {
@@ -10,7 +11,7 @@ export const getAllAssignedAssignments = (assignmentID) => {
       const response = await api.get(`assigned/${assignmentID}`);
 
       setAssigned(dispatch, response.data.data[0]);
-      setSuccessStates(dispatch, response.data.msg);
+      successHandler(dispatch, response.data.msg);
     } catch (error) {
       errorHandler(dispatch, error);
     }
@@ -35,43 +36,56 @@ export const postAssignedAssignmentsToStudents = (
     try {
       const api = API.getInstance();
       let response;
-      if (students.length == 1 && sectionID === "") {
-        response = await api.post(`assigned/${assignmentID}/individual`, {
-          email: students[0],
-        });
-      } else if (students.length > 1 && sectionID === "") {
-        response = await api.post(`assigned/${assignmentID}/group`, {
+      if (students.length >= 1 && sectionID == "") {
+        response = await api.post(`assigned/${assignmentID}`, {
           emails: students,
         });
-      } else if (students.length === 0 && sectionID !== "") {
+      } else if (students.length == 0 && sectionID != "") {
         response = await api.post(`assigned/${assignmentID}/section/`, {
           id: sectionID,
         });
       }
-      setSuccessStates(dispatch, response.msg);
+      const studentEmails = [];
+
+      response.data.results.map((item) => {
+        studentEmails.push(item.student.email);
+      });
+
+      addNewlyAssignedEmail(dispatch, studentEmails);
+      successHandler(dispatch, response.data.msg);
     } catch (error) {
-      console.log(error);
       errorHandler(dispatch, error);
     }
   };
 };
 
-const setSuccessStates = (dispatch, msg) => {
+const addNewlyAssignedEmail = (dispatch, data) => {
   dispatch({
-    type: actionTypes.apiSuccess,
+    type: actionTypes.addNewEmail,
     payload: {
-      successMessage: msg,
-      successMessageSnackbarState: true,
+      newEmails: data,
     },
   });
+};
 
-  setTimeout(() => {
-    dispatch({
-      type: actionTypes.apiSuccess,
-      payload: {
-        successMessage: "",
-        successMessageSnackbarState: false,
-      },
-    });
-  }, 2000);
+export const removeStudentFromAssignment = (assignmentID, email) => {
+  return async (dispatch) => {
+    try {
+      const api = API.getInstance();
+      const response = await api.delete(`assigned/${assignmentID}/${email}`);
+      removeStudentFromAssigned(dispatch, email);
+      successHandler(dispatch, response.data.msg);
+    } catch (error) {
+      errorHandler(dispatch, error);
+    }
+  };
+};
+
+const removeStudentFromAssigned = (dispatch, email) => {
+  dispatch({
+    type: actionTypes.removeStudent,
+    payload: {
+      email: email,
+    },
+  });
 };

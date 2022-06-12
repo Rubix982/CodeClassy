@@ -21,7 +21,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 // Redux imports
 import { connect } from "react-redux";
-import { getAssignments } from "redux/actions/assignment.action";
+import { getAssignmentsByTeacher } from "redux/actions/assignment.action";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -30,14 +30,14 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const Assignments = ({
   assignments,
   assignmentsLoaded,
-  getAssignments,
+  getAssignmentsByTeacher,
   responseMessage,
   successMessageSnackbar,
   errorMessageSnackbar,
 }) => {
   React.useEffect(() => {
     async function loadData() {
-      getAssignments();
+      getAssignmentsByTeacher();
     }
 
     loadData();
@@ -86,7 +86,7 @@ const Assignments = ({
         </div>
 
         {assignmentsLoaded && (
-          <div className={AssignmentStyles.assignmentzes}>
+          <div className={AssignmentStyles.assignments}>
             {assignments[0].map((item, index) => {
               return (
                 <div key={index} className={AssignmentStyles.assignmentItem}>
@@ -140,4 +140,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getAssignments })(Assignments);
+export default connect(mapStateToProps, { getAssignmentsByTeacher })(
+  Assignments
+);

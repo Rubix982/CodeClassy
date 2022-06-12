@@ -1,9 +1,6 @@
 // React imports
 import React from "react";
 
-// NextJS imports
-import { useRouter } from "next/router";
-
 // MUI imports
 import {
   Button,
@@ -19,6 +16,8 @@ import {
   MenuItem,
   InputLabel,
   Snackbar,
+  Chip,
+  Avatar,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 
@@ -28,7 +27,6 @@ import AssignmentProblem from "@components/AssignmentPages/AssignmentProblem";
 import Navbar from "@components/Navbar/Navbar";
 
 // MUI Icons import
-import AssessmentIcon from "@mui/icons-material/Assessment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
 // Styling imports
@@ -39,35 +37,8 @@ import { connect } from "react-redux";
 import {
   postAssignedAssignmentsToStudents,
   getAllAssignedAssignments,
+  removeStudentFromAssignment,
 } from "redux/actions/assigned.action";
-
-/* 
-    Note: Take input of test cases input and output in a text box when 
-    creating a assignment question and then split each line of textbox
-    as an item of array using the following syntax,
-
-    string[] allLines = textbox.Text.Split('\n');
-*/
-
-let assignedTo = ["tashikmoin@gmail.com", "Saif@gmail.com", "Hassan@gmail.com"];
-let cases = [
-  {
-    inputs: ["Apple", "Banana", 4],
-    outputs: ["Fruits"],
-  },
-
-  {
-    inputs: [1, 2, 3],
-    outputs: [4, 5, 6],
-  },
-
-  {
-    inputs: ["Onion", "Tomatoes", 8, "Garlic"],
-    outputs: ["Vegetables"],
-  },
-];
-
-let sections = ["H", "A", "B", "D"];
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -77,31 +48,37 @@ const AssignmentView = ({
   assignedAssignmentName,
   codingQuestionData,
   sectionList,
-  studentEmailJSONAggregate,
+  studentEmails,
   assignedAssignmentLoaded,
   getAllAssignedAssignments,
   postAssignedAssignmentsToStudents,
+  removeStudentFromAssignment,
   responseMessage,
   successMessageSnackbar,
   errorMessageSnackbar,
 }) => {
   const [emails, setEmails] = React.useState([]);
   const [open, setOpen] = React.useState(false);
-  const [section, setSection] = React.useState(sections[0]);
+  const [currentSectionName, setCurrentSectionName] = React.useState("");
+  const [currentSectionID, setCurrentSectionID] = React.useState("");
   const [optionValue, setOptionValue] = React.useState("Individual");
   const [individualEmailValue, setIndividualEmailValue] = React.useState("");
-  const router = useRouter();
 
   React.useEffect(() => {
     async function loadData() {
-      getAllAssignedAssignments(router.asPath.split("/")[2]);
+      getAllAssignedAssignments(window.location.href.split("/")[4]);
     }
 
     loadData();
+
+    if (sectionList.length >= 1) {
+      setCurrentSectionID(sectionList[0].id);
+      setCurrentSectionName(sectionList[0].name);
+    }
   }, [assignedAssignmentLoaded]);
 
   const handleSectionChange = (event) => {
-    setSection(event.target.value);
+    setCurrentSectionName(event.target.value);
   };
 
   const handleClickOpen = () => {
@@ -113,20 +90,21 @@ const AssignmentView = ({
   };
 
   const handleAssignToStudents = () => {
-    console.log("In handleAssignToStudents");
-    const assignmentID = router.asPath.split("/")[2];
+    const assignmentID = window.location.href.split("/")[4];
 
     if (optionValue === "Individual") {
-      console.log(`In optionValue ${optionValue}, handleAssignToStudents`);
       postAssignedAssignmentsToStudents(
         assignmentID,
         [individualEmailValue],
         ""
       );
+      setIndividualEmailValue("");
     } else if (optionValue === "Group") {
       postAssignedAssignmentsToStudents(assignmentID, emails, "");
+      setEmails([]);
     } else {
-      postAssignedAssignmentsToStudents(assignmentID, [], "123");
+      postAssignedAssignmentsToStudents(assignmentID, [], currentSectionID);
+      setCurrentSectionID("");
     }
 
     setOpen(false);
@@ -168,12 +146,14 @@ const AssignmentView = ({
             <AssignmentProblem
               title={codingQuestionData.title}
               description={codingQuestionData.body}
-              testcases={codingQuestionData.testcases}
+              testCases={codingQuestionData.test_cases}
+              dueDate={"2022-05-06T18:11:59.000Z"}
+              score={"0"}
             />
 
             <div className={AssignmentViewStyles.assign}>
               <Button
-                style={{ height: "45px" }}
+                style={{ height: "55px", width: "120px" }}
                 variant="contained"
                 onClick={handleClickOpen}
               >
@@ -242,24 +222,28 @@ const AssignmentView = ({
                         variant="standard"
                         sx={{ m: 1, minWidth: 120 }}
                       >
-                        <InputLabel id="demo-simple-select-standard-label">
-                          Section
-                        </InputLabel>
+                        <InputLabel id="section-select">Section</InputLabel>
                         <Select
                           fullWidth
-                          labelId="demo-simple-select-standard-label"
-                          id="demo-simple-select-standard"
-                          value={section}
+                          labelId="section-select"
+                          id="section-select"
+                          value={currentSectionName}
                           onChange={handleSectionChange}
                           label="Section"
                         >
                           {sectionList.map((section, index) => {
                             return (
-                              <div key={index}>
-                                <MenuItem value={section.id}>
-                                  {section.name}
-                                </MenuItem>
-                              </div>
+                              <MenuItem
+                                key={index}
+                                value={section.name}
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  setCurrentSectionName(section.name);
+                                  setCurrentSectionID(section.id);
+                                }}
+                              >
+                                {section.name}
+                              </MenuItem>
                             );
                           })}
                         </Select>
@@ -274,48 +258,30 @@ const AssignmentView = ({
               </Dialog>
             </div>
 
-            <h2 style={{ marginLeft: "13vw", marginTop: "15px" }}>
-              {" "}
-              Assigned To:
-            </h2>
-
             <div className={AssignmentViewStyles.assignContainer}>
-              {studentEmailJSONAggregate.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <div className={AssignmentViewStyles.assigned}>
-                      <div className={AssignmentViewStyles.assignedItem}>
-                        <div className={AssignmentViewStyles.email}>
-                          <h4 style={{ color: "grey" }}>
-                            {" "}
-                            {item.studentEmail}
-                          </h4>
-                        </div>
-                        <div className={AssignmentViewStyles.results}>
-                          <Button
-                            style={{ width: "100px", margin: "2px" }}
-                            variant="text"
-                          >
-                            <AssessmentIcon style={{ margin: "2px" }} />
-                            Result
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <h2 style={{ marginLeft: "13vw", marginTop: "15px" }}> Results:</h2>
-
-            <div className={AssignmentViewStyles.assignContainer}>
-              <div className={AssignmentViewStyles.assigned}>
-                <div className={AssignmentViewStyles.assignedItem}>
-                  <div className={AssignmentViewStyles.results}>
-                    {/* <h4> Points: </h4> */}
-                  </div>
-                </div>
+              <h2 style={{ marginBottom: "10px" }}>Assigned To:</h2>
+              <div>
+                {studentEmails.map((email) => {
+                  return (
+                    <Chip
+                      sx={{
+                        margin: "10px",
+                      }}
+                      key={email}
+                      color="primary"
+                      clickable={true}
+                      onDelete={(event) => {
+                        event.preventDefault();
+                        removeStudentFromAssignment(
+                          window.location.href.split("/")[4],
+                          email
+                        );
+                      }}
+                      label={email}
+                      avatar={<Avatar>A</Avatar>}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -330,7 +296,7 @@ const mapStateToProps = (state) => {
     assignedAssignmentName: state.assignedReducer.assignedAssignmentName,
     codingQuestionData: state.assignedReducer.codingQuestionData,
     sectionList: state.assignedReducer.sectionList,
-    studentEmailJSONAggregate: state.assignedReducer.studentEmailJSONAggregate,
+    studentEmails: state.assignedReducer.studentEmails,
     assignedAssignmentLoaded: state.assignedReducer.assignedAssignmentLoaded,
     responseMessage: state.apiReducer.responseMessage,
     successMessageSnackbar: state.apiReducer.successMessageSnackbar,
@@ -340,4 +306,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   postAssignedAssignmentsToStudents,
   getAllAssignedAssignments,
+  removeStudentFromAssignment,
 })(AssignmentView);

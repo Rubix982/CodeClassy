@@ -74,7 +74,6 @@ export class CodingQuestionService {
 
       await this.testCaseRepository.save(testCases);
     } catch (error) {
-      console.log(error);
       throw new BadRequestException([
         `Could not find teacher with provided email, ${__email}`,
       ]);

@@ -1,3 +1,4 @@
+import { StudentGuard } from './../student/student.guard';
 import { AssignmentRequestDTO } from './assignment.dto';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { TeacherGuard } from 'src/teacher/teacher.guard';
@@ -14,15 +15,28 @@ import {
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { AppGuard } from 'src/app/app.guard';
 
-@UseGuards(AppGuard, TeacherGuard)
+@UseGuards(AppGuard)
 @Controller('assignment')
 export class AssignmentController {
   constructor(private readonly assignmentService: AssignmentService) {}
 
-  @Get()
+  @UseGuards(TeacherGuard)
+  @Get('teacher')
   async getAssignmentByTeacher(@RequestDecodedMember() __member: JWTPayload) {
     const assignmentResults =
       await this.assignmentService.getAllAssignmentsByTeacher(__member.email);
+
+    return {
+      msg: 'Successfully fetched assignments',
+      assignmentResults,
+    };
+  }
+
+  @UseGuards(StudentGuard)
+  @Get('student')
+  async getAssignmentByStudent(@RequestDecodedMember() __member: JWTPayload) {
+    const assignmentResults =
+      await this.assignmentService.getAllAssignmentsByStudent(__member.email);
 
     return {
       msg: 'Successfully fetched assignments',

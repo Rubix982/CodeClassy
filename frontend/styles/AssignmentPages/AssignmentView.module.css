@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 
-.header{
+.header {
     display: flex;
     flex-direction: column;
     margin: 5vh 5vw;
@@ -15,34 +15,33 @@
     flex-direction: column;
     text-align: justify;
     justify-content: flex-start;
-    width: 70%;
     border: 1px solid #e0e0e0;
     margin: 50px 75px;
     padding: 25px;
 }
 
-.assignContainer{
+.assignContainer {
     display: flex;
     flex-direction: column;
-    margin-bottom: 100px;
+    margin: 0px 250px;
+    padding-bottom: 50px;
 }
-
 
 .assign {
     display: flex;
-    width: 72%;
-    margin-left: 5vw;
     justify-content: flex-end;
+    margin: 0px 120px;
+    padding: 25px;
 }
 
 .assigned {
     display: flex;
     justify-content: center;
-    margin-left: 13vw;
-    width: 64%;
+    margin: 0px 120px;
+    padding: 5px;
 }
 
-.assignedItem{
+.assignedItem {
     display: flex;
     padding: 10px;
     align-items: center;
@@ -53,13 +52,21 @@
     margin-top: 15px;
 }
 
-.email, .results{
+.email, .results {
     width: 50%;
 }
 
-.results{
+.results {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
     flex-direction: column;
+}
+
+.problemTextStyling {
+    margin-bottom: 10px;
+}
+
+.problemDetailsStyling {
+    margin-bottom: 5px;
 }

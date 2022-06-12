@@ -29,9 +29,7 @@ export default function PostComment({ name }) {
   };
 
   const handlePostComment = () => {
-    // Make post request here to deal with
-    // the setting the new content
-    console.log(values.comment);
+    //!TODO: Make post request here to deal with the setting the new content
   };
 
   const handleMouseDownComment = (event) => {

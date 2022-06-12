@@ -207,7 +207,6 @@
           })
             .then((response) => response.json())
             .then((data) => {
-              console.log(data.data);
               if (data.data.output === "") {
                 document.getElementById("output-window").innerText =
                   data.data.stderr;
