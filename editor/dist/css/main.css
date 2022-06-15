@@ -1,0 +1,113 @@
+body {
+    margin: 0px;
+    background-color: #ffffff;
+}
+
+.main__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main__header {
+    display: flex;
+    flex-direction: column;
+    margin: 5vh 80px;
+    margin-right: 0px;
+    margin-bottom: 0;
+    width: 87.5%;
+}
+
+.main__question {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    justify-content: flex-start;
+    border: 1px solid #000000;
+    margin: 50px 0px;
+    width: 86%;
+    padding: 20px;
+    margin-left: 85px;
+}
+
+.main__assignContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+}
+
+
+.main__assign {
+    display: flex;
+    width: 72%;
+    margin-left: 5vw;
+    justify-content: flex-end;
+}
+
+.main__assigned {
+    display: flex;
+    justify-content: center;
+    margin-left: 13vw;
+    width: 64%;
+}
+
+.main__assignedItem {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    height: 70px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.main__email, .main__results {
+    width: 50%;
+}
+
+.main__results {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+
+.main__editorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    background-color: #ffffff;
+}
+
+.main__editorControls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+}
+
+.main__editor {
+    width: 90%;
+    margin: 20px auto;
+    background-color: #ffffff;
+}
+
+.main__console-output {
+    background: black;
+    width: 96%;
+    min-height: 400px;
+    justify-content: left;
+    align-items: left;
+    text-align:left;
+    justify-items: center;
+    color: red;
+    padding: 30px;
+    margin-left: 0px;
+}
+
+.main__button-padding { 
+    padding: 30px;
+}

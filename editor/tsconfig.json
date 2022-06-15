@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "target": "es2016",
+    "outDir": "./dist",
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "module": "commonjs",
