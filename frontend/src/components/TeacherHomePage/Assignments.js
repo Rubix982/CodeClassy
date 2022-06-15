@@ -87,7 +87,7 @@ const Assignments = ({
 
         {assignmentsLoaded && (
           <div className={AssignmentStyles.assignments}>
-            {assignments[0].map((item, index) => {
+            {assignments.map((item, index) => {
               return (
                 <div key={index} className={AssignmentStyles.assignmentItem}>
                   <div style={{ margin: "7px" }}>

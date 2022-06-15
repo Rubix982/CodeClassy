@@ -106,7 +106,7 @@ const Assignments = ({
                           <Button
                             onClick={() =>
                               Router.push(
-                                `http://localhost:4000/${assignment.id}/?id=${assignment.sessionID}`
+                                `http://localhost:4000/${assignment.id}/?id=${assignment.modelID}`
                               )
                             }
                             style={{
