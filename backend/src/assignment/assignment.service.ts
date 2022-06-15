@@ -34,6 +34,9 @@ export class AssignmentService {
       where: {
         createdBy: teacher,
       },
+      order: {
+        createdOn: 'ASC',
+      },
     });
 
     if (result) {
@@ -90,7 +93,8 @@ export class AssignmentService {
       const assignment: Assignment = this.assignmentRepository.create({
         name: __requestBody.name,
         dueDate: __requestBody.dueDate,
-        sessionID: '123', //! TODO: Connect with convergence
+        createdOn: new Date(),
+        modelID: await this.createUUID(),
         score: 0,
         codingQuestion: codingQuestion,
         createdBy: teacher,
@@ -118,5 +122,18 @@ export class AssignmentService {
     throw new BadRequestException([
       `Could not successfully delete the assignment with id, ${__assignmentId}`,
     ]);
+  }
+
+  async createUUID(): Promise<string> {
+    let dt = new Date().getTime();
+    const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        const r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
+      },
+    );
+    return uuid;
   }
 }

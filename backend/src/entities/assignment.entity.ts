@@ -19,8 +19,11 @@ export class Assignment {
   @Column('datetime')
   dueDate;
 
+  @Column('datetime')
+  createdOn;
+
   @Column()
-  sessionID: string;
+  modelID: string;
 
   @Column('double')
   score;

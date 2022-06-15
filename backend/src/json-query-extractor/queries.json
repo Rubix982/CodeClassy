@@ -87,7 +87,7 @@
   {
     "id": 18,
     "title": "Show students their assigned assignments details",
-    "query": "SELECT a.id, a.name, a.dueDate, a.sessionID, a.score FROM assignment a WHERE a.id IN (SELECT aabs.assignmentID FROM assigned_assignment_by_student aabs WHERE aabs.studentEmail = ?);"
+    "query": "SELECT a.id, a.name, a.dueDate, a.modelID, a.score FROM assignment a WHERE a.id IN (SELECT aabs.assignmentID FROM assigned_assignment_by_student aabs WHERE aabs.studentEmail = ?);"
   },
   {
     "id": 19,
