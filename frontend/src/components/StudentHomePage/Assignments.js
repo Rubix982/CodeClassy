@@ -71,7 +71,7 @@ const Assignments = ({
       {assignmentsLoaded && (
         <div className={AssignmentStyles.container}>
           <div className={AssignmentStyles.assignments}>
-            {assignments[0].map((assignment) => {
+            {assignments.map((assignment) => {
               return (
                 <Accordion
                   styles={{ borderRadius: "15px" }}
@@ -106,7 +106,7 @@ const Assignments = ({
                           <Button
                             onClick={() =>
                               Router.push(
-                                `http://localhost:4000/${assignment.id}/?id=${assignment.modelID}`
+                                `http://localhost:4000/${assignment.id}/${assignment.modelID}`
                               )
                             }
                             style={{

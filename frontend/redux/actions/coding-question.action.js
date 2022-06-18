@@ -10,22 +10,22 @@ import { actionTypes } from "redux/actionTypes/actionTypes";
 // ErrorHandler import
 import { errorHandler } from "./error.action";
 
+// SuccessHandler import
+import { successHandler } from "./success.action";
+
 export const getCodingQuestions = () => {
   return async (dispatch) => {
     try {
       const api = API.getInstance();
-
       const response = await api.get("coding-question");
-
       setCodingQuestions(dispatch, response.data);
-      setSuccessStates(dispatch, response.data.msg);
+      successHandler(dispatch, response.data.msg);
     } catch (error) {
-      errorHandler(dispatch, error);
-
       Router.push({
-        pathname: "/error",
-        query: { errorMessage: "Categories not found" },
+        pathname: "/h",
+        query: { errorMessage: "Coding questions could not be fetched!" },
       });
+      errorHandler(dispatch, error);
     }
   };
 };
@@ -40,19 +40,16 @@ export const addCodingQuestions = (codingQuestion) => {
         body: codingQuestion.body,
         testCases: codingQuestion.testCases,
       });
-
-      setSuccessStates(dispatch, response.data.msg);
-
+      successHandler(dispatch, response.data.msg);
       Router.push({
         pathname: "/h",
       });
     } catch (error) {
-      errorHandler(dispatch, error);
-
       Router.push({
-        pathname: "/error",
-        query: { errorMessage: "Categories not found" },
+        pathname: "/h",
+        query: { errorMessage: "Coding Question could not be created!" },
       });
+      errorHandler(dispatch, error);
     }
   };
 };
@@ -64,24 +61,4 @@ const setCodingQuestions = (dispatch, data) => {
       codingQuestions: data.codingQuestionResults,
     },
   });
-};
-
-const setSuccessStates = (dispatch, msg) => {
-  dispatch({
-    type: actionTypes.apiSuccess,
-    payload: {
-      successMessage: msg,
-      successMessageSnackbarState: true,
-    },
-  });
-
-  setTimeout(() => {
-    dispatch({
-      type: actionTypes.apiSuccess,
-      payload: {
-        successMessage: "",
-        successMessageSnackbarState: false,
-      },
-    });
-  }, 2000);
 };
