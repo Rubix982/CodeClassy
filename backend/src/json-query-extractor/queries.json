@@ -93,5 +93,15 @@
     "id": 19,
     "title": "Remove student from assignment",
     "query": "DELETE FROM assigned_assignment_by_student aabs WHERE aabs.assignmentID = ? AND studentEmail = ?;"
+  },
+  {
+    "id": 20,
+    "title": "Check if student is assigned the current assignment being trying to be accessed",
+    "query": "SELECT IF(a.id != '', 1, 0) AS isStudentAssignedAssignment FROM assigned_assignment_by_student aabs LEFT JOIN assignment a on aabs.assignmentId = a.id WHERE a.id = ? AND a.modelID = ? AND aabs.studentEmail = ?;"
+  },
+  {
+    "id": 21,
+    "title": "Get data for editor",
+    "query": "SELECT a.name AS assignmentName, a.dueDate AS assignmentDueDate, a.createdOn AS assignmentCreatedOn, cq.title AS codingQuestionTitle, cq.body AS codingQuestionBody FROM codeclassy.assignment a JOIN codeclassy.coding_question cq on cq.teacherID = a.teacherID WHERE a.id = ?;"
   }
 ]
