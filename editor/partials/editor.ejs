@@ -1,49 +1,33 @@
 <div class="main__editorContainer">
-    <div class="main__editorControls">
-      <div style="margin-left: 100px">
-        <img
-          height="70"
-          width="70"
-          src="/src/img/code.png"
-          alt="Code-image"
-        />
-      </div>
-
-      <button
-        style="
-          width: 120px;
-          margin: 10px;
-          margin-left: 30px;
-          background-color: green;
-          color: #000000;
-          height: 50px;
-        "
-      >
-        Run
-      </button>
-
-      <button
-        onclick="save()"
-        style="
-          width: 120px;
-          margin: 10px;
-          background-color: red;
-          color: #000000;
-          height: 50px;
-        "
-      >
-        Submit
-      </button>
+  <div class="main__editorControls">
+    <div style="margin-left: 100px">
+      <img height="70" width="70" src="/src/img/code.png" alt="Code-image" />
     </div>
 
-    <div class="main__editor">
-      <div class="editors">
-        <div class="editor-column">
-          <div class="editor" id="source-editor"></div>
-        </div>
+    <button
+      class="hover:bg-red-700 py-4 px-12 rounded-full m-3 ml-6"
+      style="background-color: green; color: #000000"
+    >
+      Run
+    </button>
+
+    <button
+      class="hover:bg-red-700 py-4 px-12 rounded-full m-3"
+      onclick="save()"
+      style="background-color: red; color: #000000"
+    >
+      Submit
+    </button>
+  </div>
+
+  <div class="main__editor">
+    <div class="editors">
+      <div class="editor-column">
+        <div class="editor" id="source-editor"></div>
       </div>
-    </div>
-    <div class="main__console-output">
-      <div id="output-window"></div>
     </div>
   </div>
+  <div class="main__console-output">
+    <div id="output-window"></div>
+  </div>
+</div>

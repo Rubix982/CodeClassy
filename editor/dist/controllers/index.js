@@ -34,17 +34,14 @@ const editorPage = (_req, _res) => __awaiter(void 0, void 0, void 0, function* (
 exports.editorPage = editorPage;
 const errorPage = (_req, _res, _next) => {
     _res.status(404);
-    // respond with html page
     if (_req.accepts("html")) {
         _res.render(path_1.default.join(__dirname, "../../pages/error"), { url: _req.url });
         return;
     }
-    // respond with json
     if (_req.accepts("json")) {
         _res.json({ error: "Not found" });
         return;
     }
-    // default to plain-text. send()
     _res.type("txt").send("Not found");
 };
 exports.errorPage = errorPage;

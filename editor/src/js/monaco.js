@@ -2,10 +2,8 @@ define("monaco-example", [
   "vs/editor/editor.main",
   "Convergence",
   "MonacoConvergenceAdapter",
-  "Config",
-  "Contents",
-], function (_, Convergence, MonacoConvergenceAdapter) {
-  const username = "User-" + Math.round(Math.random() * 10000);
+], async (_, Convergence, MonacoConvergenceAdapter) => {
+  const params = document.body.querySelector("#monaco_script");
   const language = {
     c: cLanguageDefaultContents,
     cpp: cppLanguageDefaultContents,
@@ -14,18 +12,18 @@ define("monaco-example", [
   };
   const defaultLanguage = "c";
 
-  Convergence.connectAnonymously(CONVERGENCE_URL, username)
+  Convergence.connectAnonymously(CONVERGENCE_URL, params.classList.value)
     .then(async (domain) => {
       return await domain.models().openAutoCreate({
         collection: "default",
-        id: URL(location.href).pathname.split("/")[2],
+        id: new URL(location.href).pathname.split("/")[2],
         data: {
           text: language[defaultLanguage],
         },
         ephemeral: false,
       });
     })
-    .then((model) => {
+    .then(async (model) => {
       const editor = monaco.editor.create(
         document.getElementById("source-editor"),
         {
@@ -40,10 +38,8 @@ define("monaco-example", [
         model.elementAt("text")
       );
       adapter.bind();
-      () => {
-        const content = document.getElementById("source-editor");
-        content.style.visibility = "visible";
-      };
+      const content = document.getElementById("source-editor");
+      content.style.visibility = "visible";
     })
     .catch((error) => {
       console.error(`Could not open model ${error}`);

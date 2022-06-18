@@ -14,27 +14,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 class API {
-    constructor() {
-        this.options = { withCredentials: true };
+    constructor({ _req }) {
+        this.options = {
+            headers: {
+                accessToken: _req.cookies.accessToken,
+            },
+        };
         this.baseURL = "http://localhost:5000";
     }
-    static getInstance() {
+    static getInstance({ _req }) {
         if (!this.instance) {
-            this.instance = new API();
+            this.instance = new API({ _req: _req });
         }
         return this.instance;
     }
     getFullRequestUrl(__requestUrl) {
         return `${this.baseURL}/${__requestUrl}`;
     }
-    get(__requestUrl, _req) {
+    get(__requestUrl) {
         return __awaiter(this, void 0, void 0, function* () {
             const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
-            const response = yield axios_1.default.get(fullRequestUrl, {
-                headers: {
-                    accessToken: _req.cookies.accessToken,
-                },
-            });
+            const response = yield axios_1.default.get(fullRequestUrl, this.options);
             return response;
         });
     }

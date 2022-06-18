@@ -6,14 +6,18 @@ export default class API {
   options: any;
   baseURL: string;
 
-  constructor() {
-    this.options = { withCredentials: true };
+  constructor({ _req }: { _req: Request }) {
+    this.options = {
+      headers: {
+        accessToken: _req.cookies.accessToken,
+      },
+    };
     this.baseURL = "http://localhost:5000";
   }
 
-  static getInstance() {
+  static getInstance({ _req }: { _req: Request }) {
     if (!this.instance) {
-      this.instance = new API();
+      this.instance = new API({ _req: _req });
     }
     return this.instance;
   }
@@ -22,13 +26,9 @@ export default class API {
     return `${this.baseURL}/${__requestUrl}`;
   }
 
-  async get(__requestUrl: string, _req: Request): Promise<any> {
+  async get(__requestUrl: string): Promise<any> {
     const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
-    const response = await axios.get(fullRequestUrl, {
-      headers: {
-        accessToken: _req.cookies.accessToken,
-      },
-    });
+    const response = await axios.get(fullRequestUrl, this.options);
     return response;
   }
 

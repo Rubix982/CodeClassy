@@ -4,5 +4,15 @@
     <span style="color: grey"> <%= data.codingQuestionTitle %> </span>
   </h4>
   <p style="margin: 10px 0px"><%= data.codingQuestionBody %></p>
-  <div id="test-cases"></div>
+  <div id="test-cases">
+    <% for (var i = 0; i < data.testCases.length; i++) { %>
+    <h4 style="margin: 10px">Case: <%= i+1 %></h4>
+
+    <h5 style="color: grey; margin: 15px">Input:&nbsp;</h5>
+    <h6 style="color: green; margin: 10px"><%= data.testCases[i].in%></h6>
+
+    <h5 style="color: grey; margin: 15px">Output:&nbsp;</h5>
+    <h6 style="color: red; margin: 10px"><%= data.testCases[i].out%></h6>
+    <% } %>
+  </div>
 </div>

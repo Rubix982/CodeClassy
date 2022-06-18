@@ -18,14 +18,17 @@ const API_1 = __importDefault(require("../src/ts/API"));
 const EditorResponseDataDTO_1 = __importDefault(require("../src/ts/EditorResponseDataDTO"));
 const getCodingPageData = ({ request, response, }) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const api = new API_1.default();
-        const results = yield api.get(`attempt/${request.params.assignmentID}/${request.params.modelID}`, request);
+        const api = API_1.default.getInstance({ _req: request });
+        const results = yield api.get(`attempt/${request.params.assignmentID}/${request.params.modelID}`);
         return new EditorResponseDataDTO_1.default({
             assignmentName: results.data.results[0].assignmentName,
             assignmentDueDate: results.data.results[0].assignmentDueDate,
             assignmentCreatedOn: results.data.results[0].assignmentCreatedOn,
+            isAssignmentSubmitted: results.data.results[0].isAssignmentSubmitted,
             codingQuestionTitle: results.data.results[0].codingQuestionTitle,
             codingQuestionBody: results.data.results[0].codingQuestionBody,
+            fullName: results.data.fullName,
+            testCases: results.data.results[0].testCases,
         });
     }
     catch (error) {
