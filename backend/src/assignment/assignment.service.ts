@@ -96,6 +96,7 @@ export class AssignmentService {
         createdOn: new Date(),
         modelID: await this.createUUID(),
         score: 0,
+        isSubmitted: false,
         codingQuestion: codingQuestion,
         createdBy: teacher,
       });

@@ -28,6 +28,9 @@ export class Assignment {
   @Column('double')
   score;
 
+  @Column()
+  isSubmitted: boolean;
+
   @ManyToOne(() => CodingQuestion, {
     onDelete: 'CASCADE',
   })

@@ -27,6 +27,7 @@ export class CodingAssignmentAttemptController {
     return {
       msg: `Successfully fetch assignment!`,
       results,
+      fullName: member.fullName,
     };
   }
 }

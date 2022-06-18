@@ -102,6 +102,6 @@
   {
     "id": 21,
     "title": "Get data for editor",
-    "query": "SELECT a.name AS assignmentName, a.dueDate AS assignmentDueDate, a.createdOn AS assignmentCreatedOn, cq.title AS codingQuestionTitle, cq.body AS codingQuestionBody FROM codeclassy.assignment a JOIN codeclassy.coding_question cq on cq.teacherID = a.teacherID WHERE a.id = ?;"
+    "query": "SELECT a.name AS assignmentName, a.dueDate AS assignmentDueDate, a.createdOn AS assignmentCreatedOn, a.isSubmitted as isAssignmentSubmitted, cq.title AS codingQuestionTitle, cq.body AS codingQuestionBody, (SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT('in', t.in, 'out', t.out)), JSON_ARRAY()) FROM (SELECT tc.in, tc.out FROM test_case tc JOIN coding_question c on c.id = tc.codingQuestionId JOIN assignment a2 on c.id = a2.codingQuestionID WHERE a2.id = ? LIMIT 2) as t) AS testCases FROM codeclassy.assignment a JOIN codeclassy.coding_question cq on cq.teacherID = a.teacherID WHERE a.id = ?;"
   }
 ]

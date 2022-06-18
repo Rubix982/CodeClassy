@@ -42,7 +42,7 @@ export class CodingAssignmentAttemptService {
         this.jsonQueryExtratorService.getQueryByID(21);
       const editorDataResults = await this.entityManager.query(
         editorDataQueryString,
-        [assignmentID],
+        [assignmentID, assignmentID],
       );
 
       return editorDataResults;
