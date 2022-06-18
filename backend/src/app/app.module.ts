@@ -19,6 +19,7 @@ import { AnnouncementCommentModule } from 'src/announcement-comment/announcement
 import { AssignedModule } from 'src/assigned/assigned.module';
 import { AssignmentModule } from 'src/assignment/assignment.module';
 import { CodingQuestionModule } from 'src/coding-question/coding-question.module';
+import { CodingAssignmentAttemptModule } from 'src/coding-assignment-attempt/coding-assignment-attempt.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { CodingQuestionModule } from 'src/coding-question/coding-question.module
     AssignedModule,
     AssignmentModule,
     CodingQuestionModule,
+    CodingAssignmentAttemptModule,
   ],
   controllers: [AppController],
   providers: [AppService],

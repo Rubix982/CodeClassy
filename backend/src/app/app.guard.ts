@@ -9,8 +9,17 @@ export class AppGuard implements CanActivate {
   constructor(private readonly authService: AuthService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    let accessToken = undefined;
     const request = context.switchToHttp().getRequest();
-    const { accessToken } = request.cookies;
+
+    if (request.cookies.accessToken) {
+      accessToken = request.cookies.accessToken;
+    } else if (
+      request.rawHeaders[request.rawHeaders.indexOf('accessToken')] != -1
+    ) {
+      accessToken =
+        request.rawHeaders[request.rawHeaders.indexOf('accessToken') + 1];
+    }
 
     try {
       const decodedMember: JWTPayload =
