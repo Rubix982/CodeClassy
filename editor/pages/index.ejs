@@ -7,95 +7,9 @@
     <main>
       <div>
         <div class="main__container">
-          <div class="main__header">
-            <h1
-              style="
-                border: none;
-                background-color: transparent;
-                margin: 0px;
-                padding: 0px;
-              "
-            >
-              Binary Search Tree
-            </h1>
-            <h5 style="display: flex; margin-top: 8px; color: grey">
-              <span style="color: #000000">Duration: </span> &nbsp;5 minutes
-            </h5>
-          </div>
-
-          <div class="main__question">
-            <h4>
-              Problem:
-              <span style="color: grey">
-                Construct Full Binary Tree using its Preorder traversal and
-                Preorder traversal of its mirror tree
-              </span>
-            </h4>
-            <h3><%= assignmentID %></h3>
-            <h3><%= modelID %></h3>
-            <p style="margin: 10px 0px">
-              Given two arrays that represent Preorder traversals of a full
-              binary tree and its mirror tree, we need to write a program to
-              construct the binary tree using these two Preorder traversals. A
-              Full Binary Tree is a binary tree where every node has either 0 or
-              2 children. Note: It is not possible to construct a general binary
-              tree using these two traversal. But we can create a full binary
-              tree using the above traversals without any ambiguity. For more
-              details refer to this article.
-            </p>
-            <h4 style="margin-top: 20px">Test Cases:</h4>
-            <div id="test-cases"></div>
-          </div>
-
-          <div class="main__editorContainer">
-            <div class="main__editorControls">
-              <div style="margin-left: 100px">
-                <img
-                  height="70"
-                  width="70"
-                  src="/src/img/code.png"
-                  alt="Code-image"
-                />
-              </div>
-
-              <button
-                style="
-                  width: 120px;
-                  margin: 10px;
-                  margin-left: 30px;
-                  background-color: green;
-                  color: #000000;
-                  height: 50px;
-                "
-              >
-                Run
-              </button>
-
-              <button
-                onclick="save()"
-                style="
-                  width: 120px;
-                  margin: 10px;
-                  background-color: red;
-                  color: #000000;
-                  height: 50px;
-                "
-              >
-                Submit
-              </button>
-            </div>
-
-            <div class="main__editor">
-              <div class="editors">
-                <div class="editor-column">
-                  <div class="editor" id="source-editor"></div>
-                </div>
-              </div>
-            </div>
-            <div class="main__console-output">
-              <div id="output-window"></div>
-            </div>
-          </div>
+          <%- include('../partials/assignment'); %> <%-
+          include('../partials/coding-question'); %> <%-
+          include('../partials/editor'); %>
         </div>
       </div>
     </main>

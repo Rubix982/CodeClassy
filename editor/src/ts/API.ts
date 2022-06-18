@@ -1,20 +1,13 @@
 import axios from "axios";
-
-class APIOptions {
-  withCredentials: boolean;
-
-  constructor(withCredentials: boolean) {
-    this.withCredentials = withCredentials;
-  }
-}
+import { Request } from "express";
 
 export default class API {
   static instance: API;
-  options: APIOptions;
+  options: any;
   baseURL: string;
 
   constructor() {
-    this.options = new APIOptions(true);
+    this.options = { withCredentials: true };
     this.baseURL = "http://localhost:5000";
   }
 
@@ -29,9 +22,13 @@ export default class API {
     return `${this.baseURL}/${__requestUrl}`;
   }
 
-  async get(__requestUrl: string): Promise<any> {
+  async get(__requestUrl: string, _req: Request): Promise<any> {
     const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
-    const response = await axios.get(fullRequestUrl, this.options);
+    const response = await axios.get(fullRequestUrl, {
+      headers: {
+        accessToken: _req.cookies.accessToken,
+      },
+    });
     return response;
   }
 

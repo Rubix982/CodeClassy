@@ -14,18 +14,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.errorPage = exports.editorPage = void 0;
 const path_1 = __importDefault(require("path"));
-const API_1 = __importDefault(require("../src/ts/API"));
+const index_1 = require("./../api/index");
 const editorPage = (_req, _res) => __awaiter(void 0, void 0, void 0, function* () {
-    const api = new API_1.default();
-    console.log(api);
-    // const results = await api.get(
-    //   `attempt/${_req.params.assignmentID}/${_req.params.modelID}`
-    // );
-    // console.log(results);
-    _res.render(path_1.default.join(__dirname, "../../pages/index"), {
-        assignmentID: _req.params.assignmentID,
-        modelID: _req.params.modelID,
+    const data = yield (0, index_1.getCodingPageData)({
+        request: _req,
+        response: _res,
     });
+    if (new Date() > new Date(data.assignmentDueDate)) {
+        _res.render(path_1.default.join(__dirname, "../../pages/late"));
+    }
+    else {
+        _res.render(path_1.default.join(__dirname, "../../pages/index"), {
+            assignmentID: _req.params.assignmentID,
+            modelID: _req.params.modelID,
+            data: data,
+        });
+    }
 });
 exports.editorPage = editorPage;
 const errorPage = (_req, _res, _next) => {

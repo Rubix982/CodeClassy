@@ -3,7 +3,7 @@ define("monaco-example", [
   "Convergence",
   "MonacoConvergenceAdapter",
   "Config",
-  "Contents"
+  "Contents",
 ], function (_, Convergence, MonacoConvergenceAdapter) {
   const username = "User-" + Math.round(Math.random() * 10000);
   const language = {

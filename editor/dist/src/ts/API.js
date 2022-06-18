@@ -13,14 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
-class APIOptions {
-    constructor(withCredentials) {
-        this.withCredentials = withCredentials;
-    }
-}
 class API {
     constructor() {
-        this.options = new APIOptions(true);
+        this.options = { withCredentials: true };
         this.baseURL = "http://localhost:5000";
     }
     static getInstance() {
@@ -32,10 +27,14 @@ class API {
     getFullRequestUrl(__requestUrl) {
         return `${this.baseURL}/${__requestUrl}`;
     }
-    get(__requestUrl) {
+    get(__requestUrl, _req) {
         return __awaiter(this, void 0, void 0, function* () {
             const fullRequestUrl = this.getFullRequestUrl(__requestUrl);
-            const response = yield axios_1.default.get(fullRequestUrl, this.options);
+            const response = yield axios_1.default.get(fullRequestUrl, {
+                headers: {
+                    accessToken: _req.cookies.accessToken,
+                },
+            });
             return response;
         });
     }

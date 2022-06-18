@@ -1,19 +1,23 @@
 import path from "path";
 import { Request, Response, NextFunction } from "express";
-import API from "../src/ts/API";
+import EditorResponseDataDTO from "../src/ts/EditorResponseDataDTO";
+import { getCodingPageData } from "./../api/index";
 
 export const editorPage = async (_req: Request, _res: Response) => {
-  const api = new API();
-  console.log(api);
-  // const results = await api.get(
-  //   `attempt/${_req.params.assignmentID}/${_req.params.modelID}`
-  // );
-  // console.log(results);
-
-  _res.render(path.join(__dirname, "../../pages/index"), {
-    assignmentID: _req.params.assignmentID,
-    modelID: _req.params.modelID,
+  const data: EditorResponseDataDTO = await getCodingPageData({
+    request: _req,
+    response: _res,
   });
+
+  if (new Date() > new Date(data.assignmentDueDate)) {
+    _res.render(path.join(__dirname, "../../pages/late"));
+  } else {
+    _res.render(path.join(__dirname, "../../pages/index"), {
+      assignmentID: _req.params.assignmentID,
+      modelID: _req.params.modelID,
+      data: data,
+    });
+  }
 };
 
 export const errorPage = (

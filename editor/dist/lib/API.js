@@ -17,23 +17,19 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var APIOptions = /*#__PURE__*/_createClass(function APIOptions(withCredentials) {
-  _classCallCheck(this, APIOptions);
-
-  this.withCredentials = withCredentials;
-});
 
 var API = /*#__PURE__*/function () {
   function API() {
     _classCallCheck(this, API);
 
-    this.options = new APIOptions(true);
+    this.options = {
+      withCredentials: true
+    };
     this.baseURL = "http://localhost:5000";
   }
 
@@ -45,7 +41,7 @@ var API = /*#__PURE__*/function () {
   }, {
     key: "get",
     value: function () {
-      var _get = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(__requestUrl) {
+      var _get = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(__requestUrl, _req) {
         var fullRequestUrl, response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -53,7 +49,11 @@ var API = /*#__PURE__*/function () {
               case 0:
                 fullRequestUrl = this.getFullRequestUrl(__requestUrl);
                 _context.next = 3;
-                return _axios.default.get(fullRequestUrl, this.options);
+                return _axios.default.get(fullRequestUrl, {
+                  headers: {
+                    accessToken: _req.cookies.accessToken
+                  }
+                });
 
               case 3:
                 response = _context.sent;
@@ -67,7 +67,7 @@ var API = /*#__PURE__*/function () {
         }, _callee, this);
       }));
 
-      function get(_x) {
+      function get(_x, _x2) {
         return _get.apply(this, arguments);
       }
 
@@ -98,7 +98,7 @@ var API = /*#__PURE__*/function () {
         }, _callee2, this);
       }));
 
-      function post(_x2, _x3) {
+      function post(_x3, _x4) {
         return _post.apply(this, arguments);
       }
 
@@ -129,7 +129,7 @@ var API = /*#__PURE__*/function () {
         }, _callee3, this);
       }));
 
-      function _delete(_x4) {
+      function _delete(_x5) {
         return _delete2.apply(this, arguments);
       }
 
@@ -160,7 +160,7 @@ var API = /*#__PURE__*/function () {
         }, _callee4, this);
       }));
 
-      function put(_x5, _x6) {
+      function put(_x6, _x7) {
         return _put.apply(this, arguments);
       }
 
