@@ -3,7 +3,7 @@ version: "3"
 volumes:
   database:
 services:
-  ##### APPLICATION STACK SERVICES    
+  ##### APPLICATION STACK SERVICES
 
   ##
 
@@ -59,17 +59,8 @@ services:
     volumes:
       - "database:/var/lib/mysql"
     cap_add:
-      - SYS_NICE  # CAP_SYS_NICE      
+      - SYS_NICE # CAP_SYS_NICE
     network_mode: "host"
-
-  
-  
-  
-  
-  
-  
-  
-  
 
   ###################################
 
@@ -102,7 +93,7 @@ services:
       args:
         githubsecret: ${githubsecret}
         username: ${username}
-        repository: ${repository}      
+        repository: ${repository}
     user: root
     restart: always
     ports:
@@ -127,15 +118,6 @@ services:
     mem_limit: 150M # Hard limit
   # ------------------ port issue
 
-  
-  
-  
-  
-  
-  
-  
-  
-
   ###################################
 
   ##### MONACO EDITOR + CONVERGENCE SERVICES
@@ -153,8 +135,11 @@ services:
     volumes:
       - "./editor:/application/editor"
     restart: always
+    env_file:
+      - ./editor/.env
     ports:
       - "4000:4000"
+    network_mode: "host"
 
   #
 
