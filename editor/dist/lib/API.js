@@ -24,11 +24,15 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
 var API = /*#__PURE__*/function () {
-  function API() {
+  function API(_ref) {
+    var _req = _ref._req;
+
     _classCallCheck(this, API);
 
     this.options = {
-      withCredentials: true
+      headers: {
+        accessToken: _req.cookies.accessToken
+      }
     };
     this.baseURL = "http://localhost:5000";
   }
@@ -41,7 +45,7 @@ var API = /*#__PURE__*/function () {
   }, {
     key: "get",
     value: function () {
-      var _get = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(__requestUrl, _req) {
+      var _get = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(__requestUrl) {
         var fullRequestUrl, response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -49,11 +53,7 @@ var API = /*#__PURE__*/function () {
               case 0:
                 fullRequestUrl = this.getFullRequestUrl(__requestUrl);
                 _context.next = 3;
-                return _axios.default.get(fullRequestUrl, {
-                  headers: {
-                    accessToken: _req.cookies.accessToken
-                  }
-                });
+                return _axios.default.get(fullRequestUrl, this.options);
 
               case 3:
                 response = _context.sent;
@@ -67,7 +67,7 @@ var API = /*#__PURE__*/function () {
         }, _callee, this);
       }));
 
-      function get(_x, _x2) {
+      function get(_x) {
         return _get.apply(this, arguments);
       }
 
@@ -98,7 +98,7 @@ var API = /*#__PURE__*/function () {
         }, _callee2, this);
       }));
 
-      function post(_x3, _x4) {
+      function post(_x2, _x3) {
         return _post.apply(this, arguments);
       }
 
@@ -129,7 +129,7 @@ var API = /*#__PURE__*/function () {
         }, _callee3, this);
       }));
 
-      function _delete(_x5) {
+      function _delete(_x4) {
         return _delete2.apply(this, arguments);
       }
 
@@ -160,7 +160,7 @@ var API = /*#__PURE__*/function () {
         }, _callee4, this);
       }));
 
-      function put(_x6, _x7) {
+      function put(_x5, _x6) {
         return _put.apply(this, arguments);
       }
 
@@ -168,9 +168,13 @@ var API = /*#__PURE__*/function () {
     }()
   }], [{
     key: "getInstance",
-    value: function getInstance() {
+    value: function getInstance(_ref2) {
+      var _req = _ref2._req;
+
       if (!this.instance) {
-        this.instance = new API();
+        this.instance = new API({
+          _req: _req
+        });
       }
 
       return this.instance;

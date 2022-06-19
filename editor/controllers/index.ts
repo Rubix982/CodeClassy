@@ -2,6 +2,8 @@ import path from "path";
 import { Request, Response, NextFunction } from "express";
 import EditorResponseDataDTO from "../src/ts/EditorResponseDataDTO";
 import { getCodingPageData } from "./../api/index";
+import { makeAssignmentSubmission } from "./../api/index";
+import ejs from "ejs";
 
 export const editorPage = async (_req: Request, _res: Response) => {
   const data: EditorResponseDataDTO = await getCodingPageData({
@@ -12,11 +14,20 @@ export const editorPage = async (_req: Request, _res: Response) => {
   if (new Date() > new Date(data.assignmentDueDate)) {
     _res.render(path.join(__dirname, "../../pages/late"));
   } else {
-    _res.render(path.join(__dirname, "../../pages/index"), {
-      assignmentID: _req.params.assignmentID,
-      modelID: _req.params.modelID,
-      data: data,
-    });
+    _res.send(
+      await ejs.renderFile(
+        path.join(__dirname, "../../pages/index.ejs"),
+        {
+          assignmentID: _req.params.assignmentID,
+          modelID: _req.params.modelID,
+          data: data,
+          makeAssignmentSubmission,
+          _res,
+          _req,
+        },
+        { async: true }
+      )
+    );
   }
 };
 

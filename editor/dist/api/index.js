@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCodingPageData = void 0;
+exports.makeAssignmentSubmission = exports.getCodingPageData = void 0;
 const errorHandler_1 = require("./errorHandler");
 const API_1 = __importDefault(require("../src/ts/API"));
 const EditorResponseDataDTO_1 = __importDefault(require("../src/ts/EditorResponseDataDTO"));
+const AssignmentSubmissionResponseDTO_1 = __importDefault(require("../src/ts/AssignmentSubmissionResponseDTO"));
 const getCodingPageData = ({ request, response, }) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const api = API_1.default.getInstance({ _req: request });
@@ -37,4 +38,18 @@ const getCodingPageData = ({ request, response, }) => __awaiter(void 0, void 0, 
     }
 });
 exports.getCodingPageData = getCodingPageData;
+const makeAssignmentSubmission = ({ request, response, code, }) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const api = API_1.default.getInstance({ _req: request });
+        const results = yield api.post(`attempt/${request.params.assignmentID}`, {
+            code,
+        });
+        return new AssignmentSubmissionResponseDTO_1.default({ msg: results.data.msg });
+    }
+    catch (error) {
+        (0, errorHandler_1.errorHandler)({ error: error, response: response });
+        return undefined;
+    }
+});
+exports.makeAssignmentSubmission = makeAssignmentSubmission;
 //# sourceMappingURL=index.js.map

@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.errorPage = exports.editorPage = void 0;
 const path_1 = __importDefault(require("path"));
 const index_1 = require("./../api/index");
+const index_2 = require("./../api/index");
+const ejs_1 = __importDefault(require("ejs"));
 const editorPage = (_req, _res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield (0, index_1.getCodingPageData)({
         request: _req,
@@ -24,11 +26,14 @@ const editorPage = (_req, _res) => __awaiter(void 0, void 0, void 0, function* (
         _res.render(path_1.default.join(__dirname, "../../pages/late"));
     }
     else {
-        _res.render(path_1.default.join(__dirname, "../../pages/index"), {
+        _res.send(yield ejs_1.default.renderFile(path_1.default.join(__dirname, "../../pages/index.ejs"), {
             assignmentID: _req.params.assignmentID,
             modelID: _req.params.modelID,
             data: data,
-        });
+            makeAssignmentSubmission: index_2.makeAssignmentSubmission,
+            _res,
+            _req,
+        }, { async: true }));
     }
 });
 exports.editorPage = editorPage;

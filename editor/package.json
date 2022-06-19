@@ -1,29 +1,23 @@
 {
-  "name": "@convergencelabs/monaco-collab-ext",
-  "version": "0.3.2",
-  "title": "Monaco Editor Collaborative Extensions",
-  "description": "Collaborative Extensions for the Monaco Editor",
+  "name": "editor-service",
+  "version": "0.0.1",
+  "title": "The editor service for the CodeClassy project",
+  "description": "Collaborative, Monaco Editor, Remote Code Execution",
   "keywords": [
     "collaboration",
     "monaco",
     "editor"
   ],
-  "homepage": "http://convergencelabs.com",
-  "author": {
-    "name": "Convergence Labs",
-    "email": "info@convergencelabs.com",
-    "url": "http://convergencelabs.com"
-  },
-  "contributors": [],
+  "contributors": [
+    "k180307@nu.edu.pk",
+    "k180208@nu.edu.pk",
+    "k180142@nu.edu.pk"
+  ],
   "repository": {
-    "type": "git",
-    "url": "https://github.com/convergencelabs/monaco-collab-ext.git"
-  },
-  "bugs": {
-    "url": "https://github.com/convergencelabs/monaco-collab-ext/issues"
+    "type": "git"
   },
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "app.ts",
   "typings": "typings/index.d.ts",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
@@ -37,8 +31,10 @@
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "gulp-cli": "^2.3.0",
     "lru-cache": "^7.10.1",
     "monaco-editor": ">=0.33.0",
+    "npx": "^10.2.2",
     "rxjs": "^7.5.5",
     "socket.io": "^4.5.1"
   },
@@ -80,7 +76,7 @@
     "webpack-stream": "7.0.0"
   },
   "scripts": {
-    "build": "gulp dist && npx tsc",
+    "build": "gulp dist && npx tsc && npx tailwindcss -i ./src/css/tailwind.css -o ./dist/css/tailwind.css",
     "start": "node dist/app.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\"",
     "clean": "gulp clean"

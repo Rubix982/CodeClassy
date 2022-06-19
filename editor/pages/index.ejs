@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('../partials/head'); %>
+    <%- await include('../partials/head'); %>
   </head>
   <body>
     <main>
       <div>
         <div class="main__container">
-          <%- include('../partials/assignment'); %> <%-
-          include('../partials/coding-question'); %> <%-
-          include('../partials/editor'); %>
+          <div><%- await include('../partials/assignment'); %></div>
+          <div><%- await include('../partials/coding-question'); %></div>
+          <div><%- await include('../partials/editor'); %></div>
         </div>
       </div>
     </main>
-    <%- include('../partials/footer'); %> <%- include('../partials/scripts'); %>
+    <div><%- await include('../partials/footer'); %></div>
+    <%- await include('../partials/scripts'); %>
   </body>
 </html>

@@ -1,4 +1,7 @@
+<!-- Monaco VS Loader import -->
 <script src="/node_modules/monaco-editor/min/vs/loader.js"></script>
+
+<!-- Require configuration -->
 <script>
   require.config({
     paths: {
@@ -17,6 +20,7 @@
   });
 </script>
 
+<!-- Convergence imports -->
 <script
   src="/node_modules/@convergence/convergence/convergence.amd.min.js"
   type="text/javascript"
@@ -27,6 +31,8 @@
   type="text/javascript"
   charset="utf-8"
 ></script>
+
+<!-- Monaco Editor imports -->
 <script
   src="/node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"
   type="text/javascript"
@@ -37,11 +43,15 @@
   type="text/javascript"
   charset="utf-8"
 ></script>
+
+<!-- Axios import -->
 <script
   src="/node_modules/axios/dist/axios.min.js"
   type="text/javascript"
   charset="utf-8"
 ></script>
+
+<!-- Build imports -->
 <script
   src="/dist/umd/monaco-collab-ext.min.js"
   type="text/javascript"
@@ -57,6 +67,8 @@
   type="text/javascript"
   charset="utf-8"
 ></script>
+
+<!-- Source file imports -->
 <script
   src="/src/js/monaco-adapter.js"
   type="text/javascript"
@@ -69,47 +81,16 @@
   charset="utf-8"
   class="<%= data.fullName %>"
 ></script>
+
+<!-- <%= await include('../partials/makeSubmissionAttempt'); %> -->
+
+<script>
+  const save = async () => {
+    const editorData = monaco.editor.getModels()[0].getValue();
+    <%- await makeSubmissionAttempt(_req, _res, ""); %>;
+  };
+</script>
 <script type="module">
   // import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
   // io();
-</script>
-<script>
-  async function save() {
-    const JSONContent = {
-      src: monaco.editor.getModels()[0].getValue(),
-      stdin: STDIN,
-      lang: "c",
-      timeout: 60,
-    };
-
-    const res = await fetch("http://localhost:7000/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(JSONContent),
-    }).then((response) => response.json());
-
-    setTimeout(async () => {
-      await fetch(res.data, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.data.output === "") {
-            document.getElementById("output-window").innerText =
-              data.data.stderr;
-          } else {
-            document.getElementById("output-window").innerText = JSON.stringify(
-              data.data.output.split("\n"),
-              null,
-              2
-            );
-          }
-        });
-    }, 2000);
-  }
 </script>

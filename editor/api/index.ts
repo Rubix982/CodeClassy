@@ -2,6 +2,7 @@ import { errorHandler } from "./errorHandler";
 import API from "../src/ts/API";
 import { Request, Response } from "express";
 import EditorResponseDataDTO from "../src/ts/EditorResponseDataDTO";
+import AssignmentSubmissionResponseDTO from "../src/ts/AssignmentSubmissionResponseDTO";
 
 export const getCodingPageData = async ({
   request,
@@ -26,6 +27,28 @@ export const getCodingPageData = async ({
       fullName: results.data.fullName,
       testCases: results.data.results[0].testCases,
     });
+  } catch (error) {
+    errorHandler({ error: error, response: response });
+    return undefined;
+  }
+};
+
+export const makeAssignmentSubmission = async ({
+  request,
+  response,
+  code,
+}: {
+  request: Request;
+  response: Response;
+  code: string;
+}): Promise<any> => {
+  try {
+    const api = API.getInstance({ _req: request });
+    const results = await api.post(`attempt/${request.params.assignmentID}`, {
+      code,
+    });
+
+    return new AssignmentSubmissionResponseDTO({ msg: results.data.msg });
   } catch (error) {
     errorHandler({ error: error, response: response });
     return undefined;
