@@ -94,6 +94,7 @@ services:
         githubsecret: ${githubsecret}
         username: ${username}
         repository: ${repository}
+    image: rce-server
     user: root
     restart: always
     ports:
@@ -111,6 +112,7 @@ services:
         githubsecret: ${githubsecret}
         username: ${username}
         repository: ${repository}
+    image: worker
     user: root
     restart: always
     pids_limit: 60 # Max number of processes running in thw container.
