@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { CodingAssignmentAttemptRequestDTO } from './coding-assignment-attempt.dto';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
 import { EntityManager, getManager } from 'typeorm';
@@ -6,6 +7,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+require('dotenv').config();
 
 @Injectable()
 export class CodingAssignmentAttemptService {
@@ -60,10 +62,51 @@ export class CodingAssignmentAttemptService {
     __requestBody: CodingAssignmentAttemptRequestDTO;
   }): Promise<any> {
     try {
-      console.log(assignmentID);
-      console.log(__requestBody);
+      const responses: any[] = [];
+      const results: any[] = [];
 
-      return 10;
+      const queryString: string =
+        this.jsonQueryExtratorService.getQueryByID(21);
+      const testCases: any[] = await this.entityManager.query(queryString, [
+        assignmentID,
+        assignmentID,
+      ]);
+
+      testCases.forEach(async (testCase) => {
+        const JSONContent = {
+          src: __requestBody.code,
+          stdin: testCase.in,
+          lang: 'c',
+          timeout: 60,
+        };
+
+        responses.push(
+          await axios.post(process.env.RCE_SERVER, JSONContent, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }),
+        );
+      });
+
+      setTimeout(async () => {
+        responses.forEach(async (response: any) => {
+          const result: any = await axios.get(response.data, {
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          if (result.data.output === '') {
+            results.push(result.data.stderr);
+          } else {
+            results.push(
+              JSON.stringify(result.data.output.split('\n'), null, 2),
+            );
+          }
+        });
+      }, testCases.length * 60 * 1000);
+      // The timeout for each processing is set to 60 on the RCE server
+
+      return results;
     } catch (error) {
       throw new BadRequestException([`${error}`]);
     }
