@@ -10,7 +10,6 @@ define("monaco-example", [
     java: javaLanguageDefaultContents,
     python: pythonLanguageDefaultContents,
   };
-  const defaultLanguage = "c";
 
   Convergence.connectAnonymously(CONVERGENCE_URL, params.classList.value)
     .then(async (domain) => {
@@ -18,7 +17,7 @@ define("monaco-example", [
         collection: "default",
         id: new URL(location.href).pathname.split("/")[2],
         data: {
-          text: language[defaultLanguage],
+          text: language[document.getElementById('theme').value],
         },
         ephemeral: false,
       });
@@ -28,8 +27,8 @@ define("monaco-example", [
         document.getElementById("source-editor"),
         {
           value: model.root().value().text,
-          theme: "vs-dark",
-          language: "cpp",
+          theme: document.getElementById('theme').value,
+          language: document.getElementById('language').value,
         }
       );
 

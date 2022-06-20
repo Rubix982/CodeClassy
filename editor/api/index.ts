@@ -37,15 +37,18 @@ export const makeAssignmentSubmission = async ({
   request,
   response,
   code,
+  language = "c",
 }: {
   request: Request;
   response: Response;
   code: string;
+  language: string;
 }): Promise<any> => {
   try {
     const api = API.getInstance({ _req: request });
     const results = await api.post(`attempt/${request.params.assignmentID}`, {
       code,
+      language,
     });
 
     return new AssignmentSubmissionResponseDTO({ msg: results.data.msg });

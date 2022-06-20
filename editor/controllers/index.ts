@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from "express";
 import ejs from "ejs";
 import EditorResponseDataDTO from "../src/ts/EditorResponseDataDTO";
 import { getCodingPageData } from "./../api/index";
-// import { makeAssignmentSubmission } from "./../api/index";
 import { simpleStringify } from "../utils";
 
 export const editorPage = async (_req: Request, _res: Response) => {

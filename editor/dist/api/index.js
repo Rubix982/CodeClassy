@@ -38,11 +38,12 @@ const getCodingPageData = ({ request, response, }) => __awaiter(void 0, void 0, 
     }
 });
 exports.getCodingPageData = getCodingPageData;
-const makeAssignmentSubmission = ({ request, response, code, }) => __awaiter(void 0, void 0, void 0, function* () {
+const makeAssignmentSubmission = ({ request, response, code, language = "c", }) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const api = API_1.default.getInstance({ _req: request });
         const results = yield api.post(`attempt/${request.params.assignmentID}`, {
             code,
+            language,
         });
         return new AssignmentSubmissionResponseDTO_1.default({ msg: results.data.msg });
     }
