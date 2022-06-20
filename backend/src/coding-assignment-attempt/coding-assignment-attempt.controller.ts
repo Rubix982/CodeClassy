@@ -1,7 +1,8 @@
+import { CodingAssignmentAttemptRequestDTO } from './coding-assignment-attempt.dto';
 import { JWTPayload } from 'src/auth/signin.dto';
 import { StudentGuard } from 'src/student/student.guard';
 import { AppGuard } from 'src/app/app.guard';
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { RequestDecodedMember } from 'src/decorators/member.decorator';
 import { CodingAssignmentAttemptService } from './coding-assignment-attempt.service';
 
@@ -28,6 +29,22 @@ export class CodingAssignmentAttemptController {
       msg: `Successfully fetch assignment!`,
       results,
       fullName: member.fullName,
+    };
+  }
+
+  @Post(':assignmentID')
+  async makeAssignmentSubmission(
+    @Param('assignmentID') assignmentID: string,
+    @Body() __requestBody: CodingAssignmentAttemptRequestDTO,
+  ) {
+    const results = await this.codingAssignmentAttemptService.makeSubmission({
+      assignmentID,
+      __requestBody,
+    });
+
+    return {
+      msg: `Assignment submitted successfully`,
+      results,
     };
   }
 }

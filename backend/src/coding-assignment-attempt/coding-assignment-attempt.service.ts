@@ -1,3 +1,4 @@
+import { CodingAssignmentAttemptRequestDTO } from './coding-assignment-attempt.dto';
 import { JSONQueryExtractorService } from 'src/json-query-extractor/json-query-extractor.service';
 import { EntityManager, getManager } from 'typeorm';
 import {
@@ -46,6 +47,23 @@ export class CodingAssignmentAttemptService {
       );
 
       return editorDataResults;
+    } catch (error) {
+      throw new BadRequestException([`${error}`]);
+    }
+  }
+
+  async makeSubmission({
+    assignmentID,
+    __requestBody,
+  }: {
+    assignmentID: string;
+    __requestBody: CodingAssignmentAttemptRequestDTO;
+  }): Promise<any> {
+    try {
+      console.log(assignmentID);
+      console.log(__requestBody);
+
+      return 10;
     } catch (error) {
       throw new BadRequestException([`${error}`]);
     }
