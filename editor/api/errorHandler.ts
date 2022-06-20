@@ -32,6 +32,5 @@ export const errorHandler = ({
 
     // console.log("Error", error.message);
   }
-
   // console.log(error.config);
 };

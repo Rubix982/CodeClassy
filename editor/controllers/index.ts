@@ -1,9 +1,10 @@
 import path from "path";
 import { Request, Response, NextFunction } from "express";
+import ejs from "ejs";
 import EditorResponseDataDTO from "../src/ts/EditorResponseDataDTO";
 import { getCodingPageData } from "./../api/index";
-import { makeAssignmentSubmission } from "./../api/index";
-import ejs from "ejs";
+// import { makeAssignmentSubmission } from "./../api/index";
+import { simpleStringify } from "../utils";
 
 export const editorPage = async (_req: Request, _res: Response) => {
   const data: EditorResponseDataDTO = await getCodingPageData({
@@ -21,9 +22,8 @@ export const editorPage = async (_req: Request, _res: Response) => {
           assignmentID: _req.params.assignmentID,
           modelID: _req.params.modelID,
           data: data,
-          makeAssignmentSubmission,
-          _res,
-          _req,
+          _res: simpleStringify(_res),
+          _req: simpleStringify(_req),
         },
         { async: true }
       )

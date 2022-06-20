@@ -1,3 +1,7 @@
+<script>
+  const exports = {};
+</script>
+
 <!-- Monaco VS Loader import -->
 <script src="/node_modules/monaco-editor/min/vs/loader.js"></script>
 
@@ -16,6 +20,7 @@
       Contents: "/dist/src/ts/contents.js",
       Config: "/dist/src/ts/config.js",
       API: "/dist/lib/API.js",
+      errorHandler: "/dist/api/errorHandler.js",
     },
   });
 </script>
@@ -68,6 +73,28 @@
   charset="utf-8"
 ></script>
 
+<!-- API imports -->
+<!-- <script
+  src="/dist/src/ts/EditorResponseDataDTO.js"
+  type="text/javascript"
+  charset="utf-8"
+></script>
+<script
+  src="/dist/src/ts/AssignmentSubmissionResponseDTO.js"
+  type="text/javascript"  
+  charset="utf-8"
+></script> -->
+<!-- <script
+  src="/dist/api/errorHandler.js"
+  type="text/javascript"
+  charset="utf-8"
+></script> -->
+<script
+  src="/dist/api/index.js"
+  type="text/javascript"
+  charset="utf-8"
+></script>
+
 <!-- Source file imports -->
 <script
   src="/src/js/monaco-adapter.js"
@@ -82,12 +109,9 @@
   class="<%= data.fullName %>"
 ></script>
 
-<!-- <%= await include('../partials/makeSubmissionAttempt'); %> -->
-
 <script>
-  const save = async () => {
-    const editorData = monaco.editor.getModels()[0].getValue();
-    <%- await makeSubmissionAttempt(_req, _res, ""); %>;
+  async function makeSubmission() {
+    await makeAssignmentSubmission({ request: <%- _req %>, response: <%- _res %>, code: monaco.editor.getModels()[0].getValue()});
   };
 </script>
 <script type="module">

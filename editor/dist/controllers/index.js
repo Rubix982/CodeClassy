@@ -14,9 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.errorPage = exports.editorPage = void 0;
 const path_1 = __importDefault(require("path"));
-const index_1 = require("./../api/index");
-const index_2 = require("./../api/index");
 const ejs_1 = __importDefault(require("ejs"));
+const index_1 = require("./../api/index");
+// import { makeAssignmentSubmission } from "./../api/index";
+const utils_1 = require("../utils");
 const editorPage = (_req, _res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield (0, index_1.getCodingPageData)({
         request: _req,
@@ -30,9 +31,8 @@ const editorPage = (_req, _res) => __awaiter(void 0, void 0, void 0, function* (
             assignmentID: _req.params.assignmentID,
             modelID: _req.params.modelID,
             data: data,
-            makeAssignmentSubmission: index_2.makeAssignmentSubmission,
-            _res,
-            _req,
+            _res: (0, utils_1.simpleStringify)(_res),
+            _req: (0, utils_1.simpleStringify)(_req),
         }, { async: true }));
     }
 });
