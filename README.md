@@ -7,6 +7,13 @@
 ![Ingress Envoy](asset/img/5.png)
 -->
 
+## Presentation Slides
+
+![image](https://github.com/Rubix982/CodeClassy/assets/41635766/f849f61d-7904-4a5f-aec3-d55dab4cd496)
+![image](https://github.com/Rubix982/CodeClassy/assets/41635766/c5b97fac-4766-4b44-9b91-8dee2974bd5f)
+![image](https://github.com/Rubix982/CodeClassy/assets/41635766/2d50aea3-0e58-4c16-af30-e47f8436afd0)
+![image](https://github.com/Rubix982/CodeClassy/assets/41635766/5225a559-cf4d-47e5-8ee3-09d89474d46b)
+
 ## System Architecture Diagram
 
 ![FYP - System Architecture Diagram](https://user-images.githubusercontent.com/41635766/204081779-909b4cff-362d-43c6-b2f6-877861189cf2.png)
